@@ -1,0 +1,684 @@
+{
+  "testing function": {
+    "prefix": "-testing function",
+    "body": [
+      "func Test${1:Method}(t *testing.T) {",
+      "\tt.Log(\"Testing ${2:explain your testing}\")",
+      "",
+      "\t// example of function to test",
+      "\t// convertedBalance := RoundAmountMultiplication(validConvertedBalance, \"different currency\")",
+      "\t// t.Logf(\"Multiplication: %.2f\", convertedBalance)",
+      "",
+      "\t// change this if or create new way to check correct value",
+      "\tif convertedBalance != validConvertedBalance {",
+      "\t\tt.Errorf(\"Invalid value. It should be: %.2f\", convertedBalance)",
+      "\t}",
+      "}"
+    ],
+    "description": "testing function"
+  },
+  "staging logging provider": {
+    "prefix": "-staging logging provider",
+    "body": [
+      "// call this in request, response or in main.go if needed. using ENV it will log only in staging. use this in every provider",
+      "//",
+      "// description example: \"request body: \"",
+      "//",
+      "// bytes is the array of byte got from json.Marshal",
+      "//",
+      "// use format and v if the log cannot be Marshaled or already in string",
+      "func StagingLog(description string, bytes []byte, format string, v ...interface{}) {",
+      "\tif os.Getenv(\"ENV\") == \"staging\" {",
+      "\t\tif bytes != nil {",
+      "\t\t\tlog.Println(description + string(bytes))",
+      "\t\t\treturn",
+      "\t\t}",
+      "",
+      "\t\tnewFormat := description + format + \"\n\"",
+      "\t\tlog.Printf(newFormat, v...)",
+      "\t}",
+      "}"
+    ],
+    "description": "staging logging provider"
+  },
+  "struct snippet": {
+    "prefix": "-struct snippet",
+    "body": [
+      "type ${1:Struct} struct {",
+      "  ${2:StructKey} string",
+      "}"
+    ],
+    "description": "struct snippet"
+  },
+  "v1 gin response": {
+    "prefix": "-v1 gin response",
+    "body": [
+      "v1.NewGinResponse(ctx, http.StatusOK, \"Success\", data)",
+      "v1.NewGinResponse(ctx, http.StatusCreated, \"Success create\", nil)"
+    ],
+    "description": "v1 gin response"
+  },
+  "v1 gin old error resposne": {
+    "prefix": "-v1 old gin error resposne",
+    "body": [
+      "v1.NewGinError(ctx, http.StatusInternalServerError, 1, err.Error())"
+    ],
+    "description": "v1 gin error resposne"
+  },
+  "v1 gin error context": {
+    "prefix": "-v1 gin error context",
+    "body": [
+      "ctx.Error(err).SetType(http.StatusInternalServerError).SetMeta(50002)",
+      "ctx.Error(err).SetType(http.StatusBadRequest).SetMeta(40003)"
+    ],
+    "description": "v1 gin error resposne"
+  },
+  "gin success response custom": {
+    "prefix": "-gin success response custom",
+    "body": [
+      "v1.NewGinResponse(ctx, http.StatusCreated, \"\", data)"
+    ],
+    "description": "gin success response custom"
+  },
+  "gin error json custom": {
+    "prefix": "-gin error json custom",
+    "body": [
+      "v1.NewGinError(ctx, http.StatusBadRequest, 1, err.Error())",
+      "return"
+    ],
+    "description": "gin error json custom"
+  },
+  "method core": {
+    "prefix": "-method core",
+    "body": [
+      "func (c Core) ${1:method}($2) $3 {",
+      "  $4",
+      "}"
+    ],
+    "description": "method core"
+  },
+  "method store": {
+    "prefix": "-method store",
+    "body": [
+      "func (s Store) ${1:method}($2) $3 {",
+      "  $4",
+      "}"
+    ],
+    "description": "method store"
+  },
+  "gin handler func": {
+    "prefix": "-gin handler func",
+    "body": [
+      "func (h Handlers) ${1:method}() gin.HandlerFunc {",
+      "  return func(ctx *gin.Context) {$2}",
+      "}"
+    ],
+    "description": "gin handler func"
+  },
+  "fmt print line": {
+    "prefix": "-fmt print line",
+    "body": "fmt.Println($1)",
+    "description": "fmt print line"
+  },
+  "gorm update using map to avoid ignored nil values like 'false'": {
+    "prefix": "-gorm update using map to avoid ignored nil values like 'false'",
+    "body": [
+      "func UpdateTag(ctx context.Context, tag model.Tag) error {",
+      "db := database.GetDB()",
+      "mappedTag := map[string]interface{}{ //* use map when updating (when using Updates func) if there are nil values like false, as false in struct will be ingored",
+      "  \"Name\":      tag.Name,",
+      "  \"Status\":    tag.Status,",
+      "  \"UpdatedBy\": tag.UpdatedBy,",
+      "  \"UpdatedAt\": tag.UpdatedAt,",
+      "}",
+      "",
+      "span, _ := zipkinClient.Tracer.StartSpanFromContext(ctx, \"database_operation\")",
+      "res := db.Table(\"\"Tags\"\").",
+      "  Where(\"\"Id\" = ?\", tag.Id).",
+      "  Updates(mappedTag)",
+      "",
+      "if res.Error != nil {",
+      "  return res.Error",
+      "}",
+      "",
+      "span.Finish()",
+      "",
+      "return nil",
+      "}"
+    ],
+    "description": "gorm update using map to avoid ignored nil values like 'false'"
+  },
+  "unix mili example + validation": {
+    "prefix": "-unix mili example + validation",
+    "body": [
+      "below2k := 1 << 30   // Tue Jan 13 1970 10:15:41",
+      "below2100 := 1 << 42 // Wed May 15 2109 07:35:11",
+      "",
+      "pastDate := time.UnixMilli(int64(below2k))",
+      "futureDate := time.UnixMilli(int64(below2100))",
+      "fmt.Println(pastDate)",
+      "fmt.Println(futureDate)"
+    ],
+    "description": "unix mili example + validation"
+  },
+  "unix second to time.time parsing": {
+    "prefix": "-unix second to time.time parsing",
+    "body": [
+      "time := time.Unix(1621910334, 0)"
+    ],
+    "description": "unix second to time.time parsing"
+  },
+  "get jpeg image dimension / pixel": {
+    "prefix": "-get jpeg image dimension / pixel",
+    "body": [
+      "import (",
+      "\"image\"",
+      "_ \"image/jpeg\"",
+      "file, err := imageFile.Open()",
+      "if err != nil {",
+      "  return  err",
+      "}",
+      "defer file.Close()",
+      "image, str, err := image.DecodeConfig(file)",
+      "if err != nil {",
+      "  return  err",
+      "}"
+    ],
+    "description": "get jpeg image dimension / pixel"
+  },
+  "grpc client implementation example using method": {
+    "prefix": "-grpc client implementation example using method",
+    "body": [
+      "type Client struct {",
+      "\tPlayerClient domain.PlayerServiceClient",
+      "}",
+      "",
+      "// Transfer Account GRPC implementation, returning Transfer Account Response",
+      "func (c Client) TranferAccount(ctx context.Context, request *domain.TransferAccountRequest) (*domain.TransferAccountResponse, error) {",
+      "\tresp, err := c.PlayerClient.TransferAccount(ctx, &domain.TransferAccountRequest{",
+      "\t\tTransferToken: request.TransferToken,",
+      "\t\tId:            request.Id,",
+      "\t\tCharacterId:   request.CharacterId,",
+      "\t\tPassword:      request.Password,",
+      "\t})",
+      "\tif err != nil {",
+      "\t\tlog.Printf(\"GRPC transfer account error: %v\", err)",
+      "\t\treturn nil, err",
+      "",
+      "\t} else if resp.ErrorCode != 0 {",
+      "\t\treturn nil, errors.New(resp.ErrorMessage)",
+      "\t}",
+      "",
+      "\treturn resp, nil",
+      "}",
+      ""
+    ],
+    "description": "grpc client implementation example using method"
+  },
+  "http post golang": {
+    "prefix": "-http post golang",
+    "body": [
+      "postBody, _ := json.Marshal(ReqBodyOldLogin{",
+      "\tPlayer:   username,",
+      "\tPassword: password,",
+      "})",
+      "reqBody := bytes.NewBuffer(postBody)",
+      "",
+      "resp, err := http.Post(os.Getenv(\"OLD_LOGIN_URL\")+username, \"application/json\", reqBody)",
+      "if err != nil {",
+      "\treturn err",
+      "}",
+      "defer resp.Body.Close() // must close to prevent memory leaks",
+      "",
+      "body, err := ioutil.ReadAll(resp.Body)",
+      "if err != nil {",
+      "\treturn err",
+      "}",
+      "",
+      "strBody := string(body)",
+      "byteBody := []byte(strBody)",
+      "",
+      "var playerMap map[string]interface{}",
+      "",
+      "err = json.Unmarshal(byteBody, &playerMap)",
+      "if err != nil {",
+      "\treturn err",
+      "}"
+    ],
+    "description": "http post golang"
+  },
+  "json unmarshal": {
+    "prefix": "-json unmarshal",
+    "body": [
+      "strBody := string(body)",
+      "byteBody := []byte(strBody)",
+      "",
+      "var playerMap map[string]interface{}",
+      "",
+      "err = json.Unmarshal(byteBody, &playerMap)",
+      "if err != nil {",
+      "  return err",
+      "}"
+    ],
+    "description": "json unmarshal"
+  },
+  "upload file example": {
+    "prefix": "-upload file example",
+    "body": [
+      "type Form struct {",
+      "File *multipart.FileHeader `form:\"file\" binding:\"required\"`",
+      "}",
+      "// Using `ShouldBind`",
+      "// --------------------",
+      "var form Form",
+      "_ := c.ShouldBind(&form)",
+      "",
+      "// Get raw file bytes - no reader method",
+      "// openedFile, _ := form.File.Open()",
+      "// file, _ := ioutil.ReadAll(openedFile)",
+      "",
+      "// Upload to disk",
+      "// `form.File` has io.reader method",
+      "// c.SaveUploadedFile(form.File, path)",
+      "// --------------------",
+      "",
+      "// Using `FormFile`",
+      "// --------------------",
+      "// formFile, _ := c.FormFile(\"file\")",
+      "",
+      "// Get raw file bytes - no reader method",
+      "// openedFile, _ := formFile.Open()",
+      "// file, _ := ioutil.ReadAll(openedFile)",
+      "",
+      "// Upload to disk",
+      "// `formFile` has io.reader method",
+      "// c.SaveUploadedFile(formFile, path)",
+      "// --------------------"
+    ],
+    "description": "upload file example"
+  },
+  "form data gin": {
+    "prefix": "-form data gin",
+    "body": [
+      "// Content-type: multipart/form-data; boundary=<calculated when request is sent> / form-data (postman)",
+      "// equivalent to the snippet => -bind query form gin",
+      "fileName := ctx.PostForm(\"fileName\")"
+    ],
+    "description": "form data gin"
+  },
+  "gin save image to local folder": {
+    "prefix": "-upload save image to local folder gin",
+    "body": [
+      "path := \"/Users/Jourdy/Documents/images/\" + \"uploaded\" + file.Filename",
+      "if err := ctx.SaveUploadedFile(file, path); err != nil {",
+      "\tctx.String(http.StatusBadRequest, fmt.Sprintf(\"err: %s\", err.Error()))",
+      "\treturn",
+      "}"
+    ],
+    "description": "gin save image to local folder"
+  },
+  "snippet ctx context.Context": {
+    "prefix": "-ctx",
+    "body": [
+      "ctx context.Context"
+    ],
+    "description": "snippet ctx context.Context"
+  },
+  "parse string to int": {
+    "prefix": "-parse string to int",
+    "body": [
+      "limit, err := strconv.Atoi(query.Limit)",
+      "if err != nil {",
+      "\treturn err",
+      "}"
+    ],
+    "description": "parse string to int"
+  },
+  "gorm transaction": {
+    "prefix": "-gorm transaction example",
+    "body": [
+      "var err error",
+      "db := database.GetDb()",
+      "tx := db.Begin()",
+      "",
+      "defer func() {",
+      "\tif r := recover(); r != nil {",
+      "\t\ttx.Rollback()",
+      "\t}",
+      "}()",
+      "",
+      "if err = tx.Error; err != nil {",
+      "\treturn err",
+      "}",
+      "",
+      "if result := tx.Create(&paymentGroup); result.Error != nil {",
+      "\ttx.Rollback()",
+      "\treturn errors.New(result.Error.Error())",
+      "}",
+      "",
+      "if len(paymentAccGroup) != 0 {",
+      "\tif result := tx.Create(&paymentAccGroup); result.Error != nil {",
+      "\t\ttx.Rollback()",
+      "\t\treturn errors.New(result.Error.Error())",
+      "\t}",
+      "}",
+      "",
+      "return tx.Commit().Error"
+    ],
+    "description": "gorm transaction"
+  },
+  "parse / convert string to time": {
+    "prefix": "-parse string to time.Time go",
+    "body": [
+      "// using custom layout with \"+\" instead of RFC3339 to ease the burden of FE by giving the correct error response. (time.RFC3339 or 2006-01-02T15:04:05Z07:00 the \"Z\" will not work)",
+      "custLayout := \"2006-01-02T15:04:05+07:00\"",
+      "releaseDate, err := time.Parse(custLayout, req.ReleaseDate)",
+      "if err != nil {",
+      "\tctx.JSON(http.StatusBadRequest, map[string]interface{}{",
+      "\t\t\"errorCode\": 1,",
+      "\t\t\"message\":   err.Error(),",
+      "\t})",
+      "\treturn",
+      "}"
+    ],
+    "description": "value from gin middleware"
+  },
+  "get value from middleware": {
+    "prefix": "-middleware gin value",
+    "body": [
+      "username := ctx.Request.Context().Value(middleware.ContextUsername).(string)"
+    ],
+    "description": "value from gin middleware"
+  },
+  "gin middleware": {
+    "prefix": "-middleware gin example",
+    "body": [
+      "package middleware",
+      "",
+      "import (",
+      "\t\"context\"",
+      "\t\"fmt\"",
+      "\t\"net/http\"",
+      "\t\"log\"",
+      "\t\"os\"",
+      "",
+      "\tjwtService \"gitlab.com/gigaming/igaming/serverless/games-service/pkg/jwt\"",
+      "",
+      "\t\"github.com/dgrijalva/jwt-go/v4\"",
+      "\t\"github.com/gin-gonic/gin\"",
+      ")",
+      "",
+      "type UsernameContextKey string",
+      "type GroupContextKey string",
+      "",
+      "var ContextUsername UsernameContextKey",
+      "var ContextGroup GroupContextKey",
+      "",
+      "func JwtAuthMiddleware(rolesGuard map[string]map[string]string) gin.HandlerFunc {",
+      "\treturn func(ctx *gin.Context) {",
+      "\t\tconst BEARER_SCHEMA = \"Bearer \"",
+      "\t\tauthHeader := ctx.GetHeader(\"Authorization\")",
+      "\t\tif authHeader == \"\" {",
+      "\t\t\tctx.AbortWithStatus(http.StatusUnauthorized)",
+      "\t\t}",
+      "",
+      "\t\ttokenString := authHeader[len(BEARER_SCHEMA):]",
+      "",
+      "\t\ttoken, err := jwtService.JWTAuthService().ValidateToken(tokenString)",
+      "\t\tif token.Valid {",
+      "\t\t\tclaims := token.Claims.(jwt.MapClaims)",
+      "\t\t\tctx.Request = ctx.Request.WithContext(context.WithValue(ctx.Request.Context(), ContextUsername, claims[\"username\"]))",
+      "\t\t\tctx.Request = ctx.Request.WithContext(context.WithValue(ctx.Request.Context(), ContextGroup, claims[\"group\"]))",
+      "",
+      "\t\t\t// validate roles",
+      "\t\t\tvalidateUserPrivilege(ctx, rolesGuard, claims, tokenString)",
+      "\t\t} else {",
+      "\t\t\tfmt.Println(err)",
+      "\t\t\tctx.AbortWithStatus(http.StatusUnauthorized)",
+      "\t\t}",
+      "\t}",
+      "}",
+      "",
+      "// in different package (jwt)",
+      "",
+      "//jwt service",
+      "type JWTService interface {",
+      "\tValidateToken(token string) (*jwt.Token, error)",
+      "}",
+      "type AuthCustomClaims struct {",
+      "\tUsername string `json:\"username\"`",
+      "\tEmail    string `json:\"email\"`",
+      "\tjwt.StandardClaims",
+      "}",
+      "",
+      "type jwtServices struct {",
+      "\tsecretKey string",
+      "}",
+      "",
+      "//auth-jwt",
+      "func JWTAuthService() JWTService {",
+      "\treturn &jwtServices{",
+      "\t\tsecretKey: getSecretKey(),",
+      "\t}",
+      "}",
+      "",
+      "func getSecretKey() string {",
+      "\tsecret, found := os.LookupEnv(\"JWT_SIGNATURE_KEY\")",
+      "\tif !found {",
+      "\t\tlog.Fatalf(\"env 'JWT_SIGNATURE_KEY' is required\")",
+      "\t}",
+      "\treturn secret",
+      "}",
+      "",
+      "func (service *jwtServices) ValidateToken(encodedToken string) (*jwt.Token, error) {",
+      "\treturn jwt.Parse(encodedToken, func(token *jwt.Token) (interface{}, error) {",
+      "\t\tif _, isvalid := token.Method.(*jwt.SigningMethodHMAC); !isvalid {",
+      "\t\t\treturn nil, fmt.Errorf(\"Invalid token :%v\", token.Header[\"alg\"])",
+      "\t\t}",
+      "",
+      "\t\treturn []byte(service.secretKey), nil",
+      "\t})",
+      "}",
+      ""
+    ],
+    "description": "value from gin middleware"
+  },
+  "json binding gin": {
+    "prefix": "-bind json gin",
+    "body": [
+      "type JsonReq struct {",
+      "\tReq1 string `json:\"req1\"`",
+      "}",
+      "",
+      "var req JsonReq",
+      "if err := ctx.ShouldBindJSON(&req); err != nil {",
+      "\tctx.JSON(http.StatusInternalServerError, map[string]interface{}{",
+      "\t\t\"errorCode\": 1,",
+      "\t\t\"message\":   err.Error(),",
+      "\t})",
+      "\treturn",
+      "}"
+    ],
+    "description": "json binding gin"
+  },
+  "sorting golang": {
+    "prefix": "-sort go",
+    "body": [
+      "//* import sort",
+      "// Sorting Author by their names",
+      "// Using SliceStable() function",
+      "sort.SliceStable(Author, func(p, q int) bool { ",
+      "\treturn Author[p].a_name < Author[q].a_name ",
+      "})",
+      "\t",
+      "fmt.Println(\"Sort Author according to their names:\")",
+      "fmt.Println(Author),"
+    ],
+    "description": "go sort"
+  },
+  "go routine wait group": {
+    "prefix": "-wait group go routine",
+    "body": [
+      "wg := &sync.WaitGroup{}",
+      "wg.Add(${1:2}) //? can be dynamic value using len() if used for slices",
+      "",
+      "go func() {",
+      "\t// logic here / get db etc",
+      "\twg.Done()",
+      "}()",
+      "",
+      "go func() {",
+      "\t// logic here / get db etc",
+      "\twg.Done()",
+      "}()",
+      "",
+      "wg.Wait()",
+      "//? error or assigned var must be below wg.wait, else app crash as nil value. example err is still nil as the go routine is not waiting to assgigne the nil value"
+    ],
+    "description": "Log output to console"
+  },
+  "gorm get first item and scan": {
+    "prefix": "-gorm get one",
+    "body": [
+      "result := db.First(&paymentGroup, \"\"Id\" = ?\", \"d3ffe289-8efc-46ca-9bce-bea1cd754098\")",
+      "if result.Error != nil {",
+      "\treturn paymentGroup, accounts, result.Error",
+      "}"
+    ],
+    "description": "gorm get first item and scan"
+  },
+  "bind query form": {
+    "prefix": "-bind query form gin",
+    "body": [
+      "type QueryForm struct {",
+      "  Status         string `form:\"status\"`",
+      "}",
+      "",
+      "var query QueryForm",
+      "if err := ctx.ShouldBind(&query); err != nil {",
+      "//  ctx.JSON(http.StatusBadRequest, map[string]interface{}{",
+      "//    \"errorCode\": 1,",
+      "//    \"message\":   err.Error(),",
+      "//  })",
+      "ctx.Error(err).SetType(http.StatusBadRequest).SetMeta(40003)",
+      "  return",
+      "}"
+    ],
+    "description": "gin bind query form form-data / multipart"
+  },
+  "validator go": {
+    "prefix": "-validator go",
+    "body": [
+      "// import \"github.com/go-playground/validator/v10\"",
+      "type person struct {",
+      "  Name string `validate:\"required,min=4,max=15\"`",
+      "}",
+      "",
+      "p := person{",
+      "  Name: \"\",",
+      "}",
+      "",
+      "err := validator.New().Struct(p)",
+      "validationErrors := err.(validator.ValidationErrors)"
+    ],
+    "description": "gin bind query form"
+  },
+  "gorm get all": {
+    "prefix": "-gorm get all",
+    "body": [
+      "db := database.GetDb()",
+      "",
+      "paymentGroups := []model.PaymentGroup{}",
+      "result := db.Find(&paymentGroups).Scan(&paymentGroups)",
+      "if result.Error != nil {",
+      "  return nil, result.Error",
+      "}"
+    ],
+    "description": "gorm get all"
+  },
+  "gorm model example": {
+    "prefix": "-gorm model example",
+    "body": [
+      "package model",
+      "",
+      "import (",
+      "\"time\"",
+      "",
+      "\"github.com/google/uuid\"",
+      "\"gorm.io/gorm\"",
+      ")",
+      "",
+      "type PaymentMethod struct {",
+      "Id                uuid.UUID         `json:\"id\" gorm:\"primaryKey;<-:create;column:Id\"`",
+      "PaymentMethodName string            `json:\"paymentMethodName\" gorm:\"not null;size:24;uniqueIndex;column:PaymentMethodName\"`",
+      "CreatedBy         string            `json:\"createdBy\" gorm:\"not null;size:20;-:create;column:CreatedBy\"`",
+      "CreatedAt         time.Time         `json:\"createdAt\" gorm:\"not null;<-:create;column:CreatedAt\"`",
+      "UpdatedBy         string            `json:\"updatedBy\" gorm:\"not null;size:20;<-:update;column:UpdatedBy\"`",
+      "UpdatedAt         time.Time         `json:\"updatedAt\" gorm:\"not null;<-:update;column:UpdatedAt\"`",
+      "PaymentProviders  []PaymentProvider `json:\"paymentProviders\" gorm:\"foreignKey:PaymentMethodName;references:PaymentMethodName\"`",
+      "}",
+      "",
+      "func (PaymentMethod) TableName() string {",
+      "return \"PaymentMethods\"",
+      "}",
+      "",
+      "func (data *PaymentMethod) BeforeCreate(tx *gorm.DB) (err error) {",
+      "data.Id = uuid.New()",
+      "",
+      "// if !u.() {",
+      "//err = errors.New(\"can't save invalid data\")",
+      "// }",
+      "return nil",
+      "}",
+      "//? kalow bisa model nya default dgn snake case spy preload joindkk gampang"
+    ],
+    "description": "gorm model example"
+  },
+  "gorm init db": {
+    "prefix": "-gorm db init",
+    "body": [
+      "package database",
+      "",
+      "import (",
+      "\t\"gorm.io/driver/postgres\"",
+      "\t\"gorm.io/gorm\"",
+      "\t\"gorm.io/gorm/schema\"",
+      ")",
+      "",
+      "var (",
+      "\tDb  *gorm.DB",
+      "\terr error",
+      ")",
+      "",
+      "func Init() {",
+      "\tuser := getEnv(\"USER_ID\", \"postgres\")",
+      "\tpassword := getEnv(\"PASSWORD\", \"123\")",
+      "\thost := getEnv(\"HOST\", \"localhost\")",
+      "\tport := getEnv(\"DB_PORT\", \"5432\")",
+      "\tdatabase := getEnv(\"DATABASE\", \"local-payment-golang\")",
+      "",
+      "\tconnectionString := fmt.Sprintf(\"user=%s password=%s host=%s port=%s dbname=%s sslmode=disable\",",
+      "\tuser,",
+      "\tpassword,",
+      "\thost,",
+      "\tport,",
+      "\tdatabase,",
+      ")",
+      "",
+      "db, err = gorm.Open(postgres.Open(connectionString), &gorm.Config{",
+      "NamingStrategy: schema.NamingStrategy{",
+      "NoLowerCase: true, //* disable snake case naming",
+      "},",
+      "})",
+      "if err != nil {",
+      "log.Fatalln(\"failed to connect database\")",
+      "}",
+      "log.Println(\"Database connected\")",
+      "",
+      "// db.AutoMigrate(&model.PaymentMethod{})",
+      "// db.Migrator().CreateConstraint(&model.PaymentMethod{}, \"fk_payment_method_payment_provider\")",
+      "}"
+    ],
+    "description": "gorm db init"
+  }
+}
