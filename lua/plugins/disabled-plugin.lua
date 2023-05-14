@@ -6,12 +6,6 @@ return {
     enabled = false,
   },
 
-  -- {
-  --   -- uses other indent
-  --   "echasnovski/mini.indentscope",
-  --   enabled = false,
-  -- },
-
   {
     "folke/trouble.nvim",
     enabled = false,
@@ -20,8 +14,8 @@ return {
     -- end,
   },
 
-  {
-    "lewis6991/gitsigns.nvim",
-    enabled = false,
-  },
+  -- {
+  --   "lewis6991/gitsigns.nvim",
+  --   enabled = false,
+  -- },
 }
