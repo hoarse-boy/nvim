@@ -82,6 +82,9 @@ map("n", "<leader>dt", "<cmd>lua require'dap'.toggle_breakpoint()<cr>", { desc =
 map("n", "<leader>dx", "<cmd>lua require'dap'.terminate()<cr>", { desc = "Terminate" })
 map("n", "<leader>du", "<cmd>lua require'dap'.step_out()<cr>", { desc = "Step Out" })
 
+-- git which-key
+map("n", "<leader>gb", "<cmd>Gitsigns toggle_current_line_blame<cr>", { desc = "Toggle Git Blame (virtual text)" })
+
 -- map("n", "<leader>dS", "<cmd>lua require'dap.ui.widgets'.scopes()<cr>", { desc = "Scopes" })
 -- open float_element of scopes
 map(
