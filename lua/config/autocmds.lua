@@ -28,3 +28,7 @@ autocmd("BufWritePre", {
   end,
   group = format_sync_grp,
 })
+
+-- remove highlight to make it transparent
+vim.cmd("highlight TelescopeBorder guibg=none")
+vim.cmd("highlight TelescopeTitle guibg=none")
