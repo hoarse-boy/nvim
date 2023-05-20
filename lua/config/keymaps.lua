@@ -45,18 +45,9 @@ map("v", "c", '"_c', opt)
 map("n", "C", '"_C', opt)
 map("v", "C", '"_C', opt)
 
--- define which-key below
-local status_ok, wk = pcall(require, "which-key")
-if not status_ok then
-  print("which-key is nil")
-  return
-end
-
 -- lsp. the other keymaps are define in plugin lspconfig
-wk.register({ ["<leader>l"] = { name = "+lsp" } })
 
 -- dap
-wk.register({ ["<leader>d"] = { name = "+debug" } })
 map("n", "<leader>ds", "<cmd>lua require'dap'.continue()<cr>", { desc = "Start Debugger" })
 map("n", "<leader>dR", "<cmd>lua require'dap'.run_to_cursor()<cr>", { desc = "Run to Cursor" })
 map("n", "<leader>dE", "<cmd>lua require'dapui'.eval(vim.fn.input '[Expression] > ')<cr>", { desc = "Evaluate Input" })
@@ -104,7 +95,6 @@ map(
 map("n", "<leader>sx", require("telescope.builtin").resume, { noremap = true, silent = true, desc = "Resume" })
 
 -- go-nvim
-wk.register({ ["<leader>lg"] = { name = "+go-nvim" } })
 map("n", "<leader>lgs", "<cmd>GoFillStruct<cr>", { desc = "Go Fill Struct" })
 map("n", "<leader>lgf", "<cmd>GoFillSwitch<cr>", { desc = "Go Fill Switch" })
 map("n", "<leader>lgt", "<cmd>GoAddTag<cr>", { desc = "Go Add Tags" })
@@ -120,11 +110,10 @@ map("n", "<leader>lgm", "<cmd>GoFixPlurals<cr>", { desc = "Go Fix Redundant Func
 map("n", "<leader>L", "<cmd>:Lazy<cr>", { desc = "Lazy" })
 
 -- harpoon
-wk.register({ ["<leader>h"] = { name = "+harpoon" } })
 map("n", "<leader>hm", "<cmd>lua require('harpoon.mark').add_file()<cr>", { desc = "Mark for Harpoon" })
 map("n", "<leader>ht", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", { desc = "Toggle Quick Menu" })
 map("n", "<leader>hn", "<cmd>lua require('harpoon.ui').nav_next()<cr>", { desc = "Go to next" })
-map("n", "<leader>hp", "<cmd>lua require('harpoon.ui').nav_prev<cr>", { desc = "Go to previous" }) -- FIX: not working?
+map("n", "<leader>hp", "<cmd>lua require('harpoon.ui').nav_prev()<cr>", { desc = "Go to previous" }) -- FIX: not working?
 
 -- other keymaps
 map("n", "<leader>H", "<cmd>nohlsearch<CR>", { desc = "No Highlight" })

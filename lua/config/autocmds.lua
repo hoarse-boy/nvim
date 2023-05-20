@@ -5,9 +5,9 @@
 -- NOTE: configure the speed of yank
 local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
-local yank_group = augroup("HighlightYank", {})
 
 -- make yank animation to be blazingly fast
+local yank_group = augroup("HighlightYank", {})
 autocmd("TextYankPost", {
   group = yank_group,
   pattern = "*",
@@ -28,6 +28,17 @@ autocmd("BufWritePre", {
   end,
   group = format_sync_grp,
 })
+
+-- FIX:
+-- -- unfold folded code when opening any files
+-- local auto_fold = augroup("OpenFold", {})
+-- autocmd("BufReadPost,FileReadPost", {
+--   group = auto_fold,
+--   pattern = "*",
+--   callback = function()
+--     api.nvim_command("normal zR")
+--   end,
+-- })
 
 -- remove highlight to make it transparent
 vim.cmd("highlight TelescopeBorder guibg=none")

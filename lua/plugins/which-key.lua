@@ -35,7 +35,7 @@ return {
     local keymaps = {
       mode = { "n", "v" },
       ["g"] = { name = "+goto" },
-      ["gz"] = { name = "+surround" },
+      ["gs"] = { name = "+surround" },
       ["]"] = { name = "+next" },
       ["["] = { name = "+prev" },
       ["<leader><tab>"] = { name = "+tabs" },
@@ -49,11 +49,18 @@ return {
       ["<leader>u"] = { name = "+ui" },
       ["<leader>w"] = { name = "+windows" },
       -- ["<leader>x"] = { name = "+diagnostics/quickfix" },
+
+      -- NOTE: below is my own register whichky
+      ["<leader>l"] = { name = "+lsp" },
+      ["<leader>d"] = { name = "+debug" },
+      ["<leader>h"] = { name = "+harpoon" },
     }
+
     local Util = require("lazyvim.util")
     if Util.has("noice.nvim") then
       keymaps["<leader>sn"] = { name = "+noice" }
     end
+
     wk.register(keymaps)
   end,
 }

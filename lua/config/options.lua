@@ -5,6 +5,8 @@
 local opt = vim.opt
 local api = vim.api
 
+vim.opt.fillchars = { eob = " " } -- NOTE: removes trailing '~' in nvim
+
 -- opt.winbar = "%=%m %f"
 opt.cursorline = true
 -- opt.cursorcolumn = true
@@ -31,12 +33,14 @@ api.nvim_set_hl(0, "LeapMatch", {
   bold = true,
   nocombine = true,
 })
+
 -- Of course, specify some nicer shades instead of the default "red" and "blue".
 api.nvim_set_hl(0, "LeapLabelPrimary", {
   fg = "red",
   bold = true,
   nocombine = true,
 })
+
 api.nvim_set_hl(0, "LeapLabelSecondary", {
   fg = "blue",
   bold = true,
@@ -45,3 +49,7 @@ api.nvim_set_hl(0, "LeapLabelSecondary", {
 
 -- Try it without this setting first, you might find you don't even miss it.
 -- require('leap').opts.highlight_unlabeled_phase_one_targets = true
+
+-- NOTE: fold
+-- opt.foldmethod = "expr"
+-- opt.foldexpr = "nvim_treesitter#foldexpr()"
