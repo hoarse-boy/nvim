@@ -45,55 +45,15 @@ map("v", "c", '"_c', opt)
 map("n", "C", '"_C', opt)
 map("v", "C", '"_C', opt)
 
--- lsp. the other keymaps are define in plugin lspconfig
-
--- dap
-map("n", "<leader>ds", "<cmd>lua require'dap'.continue()<cr>", { desc = "Start Debugger" })
-map("n", "<leader>dR", "<cmd>lua require'dap'.run_to_cursor()<cr>", { desc = "Run to Cursor" })
-map("n", "<leader>dE", "<cmd>lua require'dapui'.eval(vim.fn.input '[Expression] > ')<cr>", { desc = "Evaluate Input" })
-map(
-  "n",
-  "<leader>dC",
-  "<cmd>lua require'dap'.set_breakpoint(vim.fn.input '[Condition] > ')<cr>",
-  { desc = "Conditional Breakpoint" }
-)
-map("n", "<leader>dU", "<cmd>lua require'dapui'.toggle()<cr>", { desc = "Toggle UI" })
-map("n", "<leader>db", "<cmd>lua require'dap'.step_back()<cr>", { desc = "Step Back" })
-map("n", "<leader>dc", "<cmd>lua require'dap'.continue()<cr>", { desc = "Continue" })
-map("n", "<leader>dd", "<cmd>lua require'dap'.disconnect()<cr>", { desc = "Disconnect" })
-map("n", "<leader>de", "<cmd>lua require'dapui'.eval()<cr>", { desc = "Evaluate" })
-map("n", "<leader>dg", "<cmd>lua require'dap'.session()<cr>", { desc = "Get Session" })
--- map("n", "<leader>dh", "<cmd>lua require'dap.ui.widgets'.hover()<cr>", { desc = "Hover Variables" }) -- cannot exit using "q". find out more
-map("n", "<leader>di", "<cmd>lua require'dap'.step_into()<cr>", { desc = "Step Into" })
-map("n", "<leader>do", "<cmd>lua require'dap'.step_over()<cr>", { desc = "Step Over" })
-map("n", "<leader>dp", "<cmd>lua require'dap'.pause.toggle()<cr>", { desc = "Pause" })
-map("n", "<leader>dq", "<cmd>lua require'dap'.close()<cr>", { desc = "Quit" })
-map("n", "<leader>dr", "<cmd>lua require'dap'.repl.toggle()<cr>", { desc = "Toggle Repl" })
-map("n", "<leader>dt", "<cmd>lua require'dap'.toggle_breakpoint()<cr>", { desc = "Toggle" })
-map("n", "<leader>dx", "<cmd>lua require'dap'.terminate()<cr>", { desc = "Terminate" })
-map("n", "<leader>du", "<cmd>lua require'dap'.step_out()<cr>", { desc = "Step Out" })
-
 -- git which-key
 map("n", "<leader>gb", "<cmd>Gitsigns toggle_current_line_blame<cr>", { desc = "Toggle Git Blame (virtual text)" })
 
--- map("n", "<leader>dS", "<cmd>lua require'dap.ui.widgets'.scopes()<cr>", { desc = "Scopes" })
--- open float_element of scopes
-map(
-  "n",
-  "<leader>dS",
-  '<cmd>lua require("dapui").float_element("scopes", { width = 90, height = 100, enter = true, position = "center" })<cr>',
-  { desc = "Toggle Floating Scopes" }
-)
--- open other float_element
-map(
-  "n",
-  "<leader>dO",
-  '<cmd>lua require("dapui").float_element(nil, { width = 90, height = 100, enter = true, position = "center" })<cr>',
-  { desc = "Toggle Other Floating Element" }
-)
-
 map("n", "<leader>sx", require("telescope.builtin").resume, { noremap = true, silent = true, desc = "Resume" })
 
+-- FIX: move this to go.lua in extras/lang to make it check if the file is golang to shows this key. else remove it
+-- use leader lc ? for all lauguage?
+-- for example if  the buffer is *.go make it appear as lc of all golang keys
+-- and if the file is *.rs make it appear of rust keys only?
 -- go-nvim
 map("n", "<leader>lgs", "<cmd>GoFillStruct<cr>", { desc = "Go Fill Struct" })
 map("n", "<leader>lgf", "<cmd>GoFillSwitch<cr>", { desc = "Go Fill Switch" })
