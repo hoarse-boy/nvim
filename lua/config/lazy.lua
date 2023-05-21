@@ -13,9 +13,11 @@ require("lazy").setup({
     -- import any extras modules here
     { import = "lazyvim.plugins.extras.lang.typescript" },
     { import = "plugins.extras.dap.dap-core" }, -- NOTE: my dap config
+    { import = "plugins.extras.lang.go" }, -- FIX:
     -- { import = "lazyvim.plugins.extras.dap.nlua" },
     { import = "lazyvim.plugins.extras.lang.json" },
     { import = "lazyvim.plugins.extras.ui.mini-animate" },
+
     -- import/override with your plugins
     { import = "plugins" },
   },
