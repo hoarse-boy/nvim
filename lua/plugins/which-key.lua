@@ -51,9 +51,9 @@ return {
       -- ["<leader>x"] = { name = "+diagnostics/quickfix" },
 
       -- NOTE: below is my own register whichky
-      ["<leader>l"] = { name = "+lsp" },
-      ["<leader>d"] = { name = "+debug" },
-      ["<leader>h"] = { name = "+harpoon" },
+      -- ["<leader>l"] = { name = "+lsp" },
+      -- ["<leader>d"] = { name = "+debug" },
+      -- ["<leader>h"] = { name = "+harpoon" },
     }
 
     local Util = require("lazyvim.util")

@@ -19,16 +19,6 @@ autocmd("TextYankPost", {
   end,
 })
 
--- Run gofmt + goimport on save - go.nvim
-local format_sync_grp = augroup("GoImport", {})
-autocmd("BufWritePre", {
-  pattern = "*.go",
-  callback = function()
-    require("go.format").goimport()
-  end,
-  group = format_sync_grp,
-})
-
 -- FIX:
 -- -- unfold folded code when opening any files
 -- local auto_fold = augroup("OpenFold", {})
