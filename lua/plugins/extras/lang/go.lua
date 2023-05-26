@@ -1,6 +1,15 @@
 -- NOTE: this go plugin is much better than vim-go by fatih as it uses the modern lua and by default integrated with nvim-lspconfig
 -- no hassle with duplicate gopls server in memory
 -- https://github.com/ray-x/go.nvim?ref=morioh.com&utm_source=morioh.com
+
+-- TODO: add mason to ensure install gopls. and other plugin
+-- {
+--   "nvim-treesitter/nvim-treesitter",
+--   opts = function(_, opts)
+--     vim.list_extend(opts.ensure_installed, { "rust", "toml" })
+--   end,
+-- },
+
 return {
   "ray-x/go.nvim",
   dependencies = { -- optional packages
@@ -12,6 +21,7 @@ return {
   config = function()
     require("go").setup()
 
+    -- autocmd
     local autocmd = vim.api.nvim_create_autocmd
     local augroup = vim.api.nvim_create_augroup
 
@@ -25,7 +35,7 @@ return {
       group = format_sync_grp,
     })
 
-    -- use this to make keymap shows for gopls buffer only
+    -- use this to make which key shows for gopls buffer only
     require("lazyvim.util").on_attach(function(client, buffer)
       if client.name == "gopls" then
         local wk = require("which-key")
@@ -34,7 +44,7 @@ return {
           -- prefix: use "<leader>f" for example for mapping everything related to finding files
           -- the prefix is prepended to every mapping part of `mappings`
           prefix = "<leader>",
-          -- prefix = "<leader>c",
+          -- NOTE: use buffer from lazyvim.util to only shows keymaps on the targetted buffer
           buffer = buffer, -- Global mappings. Specify a buffer number for buffer local mappings
           silent = true, -- use `silent` when creating keymaps
           noremap = true, -- use `noremap` when creating keymaps
@@ -45,18 +55,29 @@ return {
         local mappings = {
           l = {
             name = "+lsp (go.nvim)",
-            z = { "<cmd>Telescope find_files<cr>", "Find File" }, -- create a binding with label
+            -- TODO: add more parent key like. sf to fill struct?
+            s = { "<cmd>GoFillStruct<cr>", "Go Fill Struct" },
+            f = { "<cmd>GoFillSwitch<cr>", "Go Fill Switch" },
+            t = { "<cmd>GoAddTag<cr>", "Go Add Tags" },
+            R = { "<cmd>GoRmTag<cr>", "Go Remove Tags" },
+            r = { "<cmd>GoRename<cr>", "Go Rename" },
+
+            T = { "<cmd>GoTestFun<cr>", "Go Test a Function" },
+            A = { "<cmd>GoTestPkg<cr>", "Go Test Package" },
+            e = { "<cmd>GoIfErr<cr>", "Go Auto Generate 'if err'" },
+            c = { "<cmd>GoCmt<cr>", "Go Generate Func Comments" },
+            m = { "<cmd>Gomvp<cr>", "Go Rename Module name" },
+            -- map("n", "<leader>lgm", "<cmd>GoFixPlurals<cr>", { desc = "Go Fix Redundant Func Params" }) -- not working?
+          },
+
+          -- overwrite original key from lsp-config
+          c = {
+            d = { "<cmd>Telescope diagnostics bufnr=0 theme=get_ivy<cr>", "Buffer Diagnostics" },
+            D = { "<cmd>Telescope diagnostics<cr>", "Workspace Diagnostics" },
           },
         }
 
         wk.register(mappings, opts)
-
-        -- FIX: create which key
-        -- fix
-              -- stylua: ignore
-              vim.keymap.set("n", "<leader>cz", "<cmd>TypescriptOrganizeImports<CR>", { buffer = buffer, desc = "Organize Imports" })
-              -- stylua: ignore
-              vim.keymap.set("n", "<leader>cR", "<cmd>TypescriptRenameFile<CR>", { desc = "Rename File", buffer = buffer })
       end
     end)
 

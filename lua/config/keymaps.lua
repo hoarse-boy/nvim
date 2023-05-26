@@ -53,13 +53,6 @@ map("n", "<leader>sx", require("telescope.builtin").resume, { noremap = true, si
 -- lazy
 map("n", "<leader>L", "<cmd>:Lazy<cr>", { desc = "Lazy" }) -- use L instead of l
 
--- FIX: move to harpoon plugin
--- harpoon
-map("n", "<leader>hm", "<cmd>lua require('harpoon.mark').add_file()<cr>", { desc = "Mark for Harpoon" })
-map("n", "<leader>ht", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", { desc = "Toggle Quick Menu" })
-map("n", "<leader>hn", "<cmd>lua require('harpoon.ui').nav_next()<cr>", { desc = "Go to next" })
-map("n", "<leader>hp", "<cmd>lua require('harpoon.ui').nav_prev()<cr>", { desc = "Go to previous" }) -- FIX: not working?
-
 -- other keymaps
 map("n", "<leader>st", "<cmd>TodoTelescope<CR>", { desc = "Todo Telescope" })
 

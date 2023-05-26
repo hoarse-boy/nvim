@@ -11,9 +11,11 @@ require("lazy").setup({
     -- add LazyVim and import its plugins
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
     -- import any extras modules here
-    -- { import = "lazyvim.plugins.extras.lang.typescript" },
-    { import = "plugins.extras.lang.rust" }, -- NOTE: my rust config
-    { import = "plugins.extras.lang" }, -- NOTE: my rust config FIX: DELETE DTHIS
+    { import = "lazyvim.plugins.extras.lang.typescript" },
+
+    -- NOTE: import all of my languages config
+    { import = "plugins.extras.lang.go" }, -- NOTE: import all of my languages config
+
     { import = "plugins.extras.dap.dap-core" }, -- NOTE: my dap config
     -- { import = "lazyvim.plugins.extras.dap.nlua" },
     { import = "lazyvim.plugins.extras.lang.json" },
