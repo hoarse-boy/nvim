@@ -47,6 +47,20 @@ api.nvim_set_hl(0, "LeapLabelSecondary", {
   nocombine = true,
 })
 
+-- FIX: delete this after find a way to remove ugly highlight border in float
+-- vim.api.nvim_set_hl(0, "FloatBorder", { bg = NONE, fg = NONE })
+-- vim.api.nvim_set_hl(0, "NormalFloat", { bg = NONE })
+-- vim.api.nvim_set_hl(0, "TelescopeBorder", { bg = nil })
+-- vim.cmd("hi FloatBorder ctermbg=BLACK ctermfg=BLACK")
+-- vim.cmd("hi NormalFloat ctermbg=BLACK ctermfg=BLACK")
+-- TelescopeBorderxxx
+-- vim.api.nvim_set_hl(0, "TelescopePromptBorder", { guifg = BLACK, guibg = BLACK })
+-- TelescopeBorderxxx guifg=#54546d guibg=#1f1f28
+
+-- NOTE: make whichkey transparent
+-- TODO: find a way to trigger this cmd if a transparent theme
+vim.cmd("hi WhichKeyFloat ctermbg=BLACK ctermfg=BLACK")
+
 -- Try it without this setting first, you might find you don't even miss it.
 -- require('leap').opts.highlight_unlabeled_phase_one_targets = true
 

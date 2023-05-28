@@ -14,9 +14,11 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.lang.typescript" },
 
     -- NOTE: import all of my languages config
-    { import = "plugins.extras.lang.go" }, -- NOTE: import all of my languages config
+    { import = "plugins.extras.lang.go" },
+    { import = "plugins.extras.lang.rust" },
 
-    { import = "plugins.extras.dap.dap-core" }, -- NOTE: my dap config
+    -- { import = "lazyvim.plugins.extras.dap.core" }, -- disabled vanila dap config from lazy.nvim
+    { import = "plugins.extras.dap.dap-core" }, -- NOTE: import my dap config
     -- { import = "lazyvim.plugins.extras.dap.nlua" },
     { import = "lazyvim.plugins.extras.lang.json" },
     { import = "lazyvim.plugins.extras.ui.mini-animate" },

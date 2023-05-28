@@ -11,90 +11,106 @@
 -- },
 
 return {
-  "ray-x/go.nvim",
-  dependencies = { -- optional packages
-    "ray-x/guihua.lua",
-    "neovim/nvim-lspconfig",
-    "nvim-treesitter/nvim-treesitter",
+  {
+    "ray-x/go.nvim",
+    dependencies = { -- optional packages
+      "ray-x/guihua.lua",
+      "neovim/nvim-lspconfig",
+      "nvim-treesitter/nvim-treesitter",
+    },
+
+    config = function()
+      require("go").setup()
+
+      -- autocmd
+      local autocmd = vim.api.nvim_create_autocmd
+      local augroup = vim.api.nvim_create_augroup
+
+      -- Run gofmt + goimport on save - go.nvim
+      local format_sync_grp = augroup("GoImport", {})
+      autocmd("BufWritePre", {
+        pattern = "*.go",
+        callback = function()
+          require("go.format").goimport()
+        end,
+        group = format_sync_grp,
+      })
+
+      -- use this to make which key shows for gopls buffer only
+      require("lazyvim.util").on_attach(function(client, buffer)
+        if client.name == "gopls" then
+          local wk = require("which-key")
+          local opts = {
+            mode = "n", -- NORMAL mode
+            -- prefix: use "<leader>f" for example for mapping everything related to finding files
+            -- the prefix is prepended to every mapping part of `mappings`
+            prefix = "<leader>",
+            -- NOTE: use buffer from lazyvim.util to only shows keymaps on the targetted buffer
+            buffer = buffer, -- Global mappings. Specify a buffer number for buffer local mappings
+            silent = true, -- use `silent` when creating keymaps
+            noremap = true, -- use `noremap` when creating keymaps
+            nowait = false, -- use `nowait` when creating keymaps
+            expr = false, -- use `expr` when creating keymaps
+          }
+
+          local mappings = {
+            l = {
+              name = "+lsp (go.nvim)",
+              -- TODO: add more parent key like. sf to fill struct?
+              s = { "<cmd>GoFillStruct<cr>", "Go Fill Struct" },
+              f = { "<cmd>GoFillSwitch<cr>", "Go Fill Switch" },
+              t = { "<cmd>GoAddTag<cr>", "Go Add Tags" },
+              R = { "<cmd>GoRmTag<cr>", "Go Remove Tags" },
+              r = { "<cmd>GoRename<cr>", "Go Rename" },
+
+              T = { "<cmd>GoTestFun<cr>", "Go Test a Function" },
+              A = { "<cmd>GoTestPkg<cr>", "Go Test Package" },
+              e = { "<cmd>GoIfErr<cr>", "Go Auto Generate 'if err'" },
+              c = { "<cmd>GoCmt<cr>", "Go Generate Func Comments" },
+              m = { "<cmd>Gomvp<cr>", "Go Rename Module name" },
+              -- map("n", "<leader>lgm", "<cmd>GoFixPlurals<cr>", { desc = "Go Fix Redundant Func Params" }) -- not working?
+            },
+          }
+
+          wk.register(mappings, opts)
+        end
+      end)
+
+      -- require("go").setup({
+      --   goimport = "gopls", -- if set to 'gopls' will use golsp format
+      --   gofmt = "gopls", -- if set to gopls will use golsp format
+      --   max_line_len = 120,
+      --   tag_transform = false,
+      --   test_dir = "",
+      --   comment_placeholder = "   ",
+      --   lsp_cfg = false, -- false: use your own lspconfig
+      --   lsp_gofumpt = true, -- true: set default gofmt in gopls format to gofumpt
+      --   lsp_on_attach = true, -- use on_attach from go.nvim
+      --   dap_debug = true,
+      -- })
+    end,
+    event = { "CmdlineEnter" },
+    ft = { "go", "gomod" },
+    -- build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
   },
 
-  config = function()
-    require("go").setup()
-
-    -- autocmd
-    local autocmd = vim.api.nvim_create_autocmd
-    local augroup = vim.api.nvim_create_augroup
-
-    -- Run gofmt + goimport on save - go.nvim
-    local format_sync_grp = augroup("GoImport", {})
-    autocmd("BufWritePre", {
-      pattern = "*.go",
-      callback = function()
-        require("go.format").goimport()
-      end,
-      group = format_sync_grp,
-    })
-
-    -- use this to make which key shows for gopls buffer only
-    require("lazyvim.util").on_attach(function(client, buffer)
-      if client.name == "gopls" then
-        local wk = require("which-key")
-        local opts = {
-          mode = "n", -- NORMAL mode
-          -- prefix: use "<leader>f" for example for mapping everything related to finding files
-          -- the prefix is prepended to every mapping part of `mappings`
-          prefix = "<leader>",
-          -- NOTE: use buffer from lazyvim.util to only shows keymaps on the targetted buffer
-          buffer = buffer, -- Global mappings. Specify a buffer number for buffer local mappings
-          silent = true, -- use `silent` when creating keymaps
-          noremap = true, -- use `noremap` when creating keymaps
-          nowait = false, -- use `nowait` when creating keymaps
-          expr = false, -- use `expr` when creating keymaps
-        }
-
-        local mappings = {
-          l = {
-            name = "+lsp (go.nvim)",
-            -- TODO: add more parent key like. sf to fill struct?
-            s = { "<cmd>GoFillStruct<cr>", "Go Fill Struct" },
-            f = { "<cmd>GoFillSwitch<cr>", "Go Fill Switch" },
-            t = { "<cmd>GoAddTag<cr>", "Go Add Tags" },
-            R = { "<cmd>GoRmTag<cr>", "Go Remove Tags" },
-            r = { "<cmd>GoRename<cr>", "Go Rename" },
-
-            T = { "<cmd>GoTestFun<cr>", "Go Test a Function" },
-            A = { "<cmd>GoTestPkg<cr>", "Go Test Package" },
-            e = { "<cmd>GoIfErr<cr>", "Go Auto Generate 'if err'" },
-            c = { "<cmd>GoCmt<cr>", "Go Generate Func Comments" },
-            m = { "<cmd>Gomvp<cr>", "Go Rename Module name" },
-            -- map("n", "<leader>lgm", "<cmd>GoFixPlurals<cr>", { desc = "Go Fix Redundant Func Params" }) -- not working?
-          },
-
-          -- overwrite original key from lsp-config
-          c = {
-            d = { "<cmd>Telescope diagnostics bufnr=0 theme=get_ivy<cr>", "Buffer Diagnostics" },
-            D = { "<cmd>Telescope diagnostics<cr>", "Workspace Diagnostics" },
-          },
-        }
-
-        wk.register(mappings, opts)
+  -- correctly setup mason lsp / dap extensions
+  {
+    "williamboman/mason.nvim",
+    opts = function(_, opts)
+      if type(opts.ensure_installed) == "table" then
+        vim.list_extend(opts.ensure_installed, { "gopls" })
       end
-    end)
+    end,
+  },
 
-    -- require("go").setup({
-    --   goimport = "gopls", -- if set to 'gopls' will use golsp format
-    --   gofmt = "gopls", -- if set to gopls will use golsp format
-    --   max_line_len = 120,
-    --   tag_transform = false,
-    --   test_dir = "",
-    --   comment_placeholder = "   ",
-    --   lsp_cfg = false, -- false: use your own lspconfig
-    --   lsp_gofumpt = true, -- true: set default gofmt in gopls format to gofumpt
-    --   lsp_on_attach = true, -- use on_attach from go.nvim
-    --   dap_debug = true,
-    -- })
-  end,
-  event = { "CmdlineEnter" },
-  ft = { "go", "gomod" },
-  -- build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
+  -- install all go's parser to treesitter
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = function(_, opts)
+      if type(opts.ensure_installed) == "table" then
+        vim.list_extend(opts.ensure_installed, { "go", "gomod", "gosum", "gowork" })
+      end
+    end,
+  },
 }
