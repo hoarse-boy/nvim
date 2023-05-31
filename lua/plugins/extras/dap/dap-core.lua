@@ -124,7 +124,9 @@ return {
     config = function()
       vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "Visual" })
 
-      require("dap.ext.vscode").load_launchjs(nil, {}) -- PERF: enabling nvim to load .vscode/launch.json file for debuging
+      -- PERF: enabling nvim to load .vscode/launch.json file for debuging
+      -- added rt_lldb for debuging rust using plugin rust-tools
+      require("dap.ext.vscode").load_launchjs(nil, { rt_lldb = { "rust" } })
 
       local Config = require("lazyvim.config") -- get the cool icons from default lazyvim repo
       for name, sign in pairs(Config.icons.dap) do
@@ -134,32 +136,6 @@ return {
           { text = sign[1], texthl = sign[2] or "DiagnosticInfo", linehl = sign[3], numhl = sign[3] }
         )
       end
-
-      -- -- TODO: configure dap for rust to use launcj.json too?
-      -- -- added codelldb for rust, c, c++ and others
-      -- local dap = require("dap")
-
-      -- dap.adapters.codelldb = {
-      --   type = "server",
-      --   port = "${port}",
-      --   executable = {
-      --     command = "/usr/bin/codelldb",
-      --     args = { "--port", "${port}" },
-      --   },
-      -- }
-
-      -- dap.configurations.rust = {
-      --   {
-      --     name = "Launch file",
-      --     type = "codelldb",
-      --     request = "launch",
-      --     program = function()
-      --       return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
-      --     end,
-      --     cwd = "${workspaceFolder}",
-      --     stopOnEntry = false,
-      --   },
-      -- }
 
       -- NOTE:  example to duplicate the config to other language
       -- dap.configurations.cpp = dap.configurations.rust
