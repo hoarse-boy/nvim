@@ -7,11 +7,13 @@ return {
       -- fancy UI for the debugger
       {
         "rcarriga/nvim-dap-ui",
+
       -- stylua: ignore
       keys = {
         { "<leader>du", function() require("dapui").toggle({ }) end, desc = "Dap UI" },
         { "<leader>de", function() require("dapui").eval() end, desc = "Eval", mode = {"n", "v"} },
       },
+
         opts = {},
         config = function(_, opts)
           local dap = require("dap")
@@ -20,7 +22,6 @@ return {
           dap.listeners.after.event_initialized["dapui_config"] = function()
             dapui.open({})
             -- dap.repl.toggle() -- NOTE: now this is buggy, the symbol not working unless open the main UI and open this ui again to work
-            -- do not use full UI as it is buggy as hell.
             -- use dap.repl.toggle() to toggle on and of when starting and exiting dap
           end
           dap.listeners.before.event_terminated["dapui_config"] = function()
@@ -56,12 +57,14 @@ return {
 
       -- NOTE: add other plugin for other dap here
       -- add nvim-dap-go
+
       {
         "leoluz/nvim-dap-go",
         config = function()
           require("dap-go").setup()
         end,
       },
+
       -- NOTE: end of add other
 
       -- uses dev branch of dap buddy? change to use mason?
@@ -73,18 +76,6 @@ return {
         "theHamsta/nvim-dap-virtual-text",
         opts = {},
       },
-
-      -- FIX: not working?
-      -- which key integration
-      -- {
-      --   "folke/which-key.nvim",
-      --   opts = {
-      --     defaults = {
-      --       ["<leader>d"] = { name = "+debug" },
-      --       ["<leader>da"] = { name = "+adapters" },
-      --     },
-      --   },
-      -- },
 
       -- telescope-dap
       {
@@ -133,7 +124,9 @@ return {
     config = function()
       vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "Visual" })
 
-      require("dap.ext.vscode").load_launchjs(nil, {}) -- PERF: enabling nvim to load .vscode/launch.json file for debuging
+      -- PERF: enabling nvim to load .vscode/launch.json file for debuging
+      -- added rt_lldb for debuging rust using plugin rust-tools
+      require("dap.ext.vscode").load_launchjs(nil, { rt_lldb = { "rust" } })
 
       local Config = require("lazyvim.config") -- get the cool icons from default lazyvim repo
       for name, sign in pairs(Config.icons.dap) do
@@ -143,6 +136,9 @@ return {
           { text = sign[1], texthl = sign[2] or "DiagnosticInfo", linehl = sign[3], numhl = sign[3] }
         )
       end
+
+      -- NOTE:  example to duplicate the config to other language
+      -- dap.configurations.cpp = dap.configurations.rust
     end,
 
     event = "VeryLazy", -- will lazyload dap with no notify error

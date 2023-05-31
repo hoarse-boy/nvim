@@ -29,6 +29,7 @@ return {
       winblend = 0,
     },
   },
+
   config = function(_, opts)
     local wk = require("which-key")
     wk.setup(opts)
@@ -40,7 +41,7 @@ return {
       ["["] = { name = "+prev" },
       ["<leader><tab>"] = { name = "+tabs" },
       ["<leader>b"] = { name = "+buffer" },
-      -- ["<leader>c"] = { name = "+code" },
+      ["<leader>c"] = { name = "+code" },
       ["<leader>f"] = { name = "+file/find" },
       ["<leader>g"] = { name = "+git" },
       ["<leader>gh"] = { name = "+hunks" },
@@ -48,10 +49,9 @@ return {
       ["<leader>s"] = { name = "+search" },
       ["<leader>u"] = { name = "+ui" },
       ["<leader>w"] = { name = "+windows" },
-      -- ["<leader>x"] = { name = "+diagnostics/quickfix" },
+      -- ["<leader>x"] = { name = "+diagnostics/quickfix" }, -- disabled
 
       -- NOTE: below is my own register whichky
-      ["<leader>l"] = { name = "+lsp" },
       ["<leader>d"] = { name = "+debug" },
       ["<leader>h"] = { name = "+harpoon" },
     }
