@@ -2,21 +2,36 @@
 -- no hassle with duplicate gopls server in memory
 -- https://github.com/ray-x/go.nvim?ref=morioh.com&utm_source=morioh.com
 
--- TODO: add mason to ensure install gopls. and other plugin
--- {
---   "nvim-treesitter/nvim-treesitter",
---   opts = function(_, opts)
---     vim.list_extend(opts.ensure_installed, { "rust", "toml" })
---   end,
--- },
-
 return {
   {
     "ray-x/go.nvim",
     dependencies = { -- optional packages
       "ray-x/guihua.lua",
       "neovim/nvim-lspconfig",
-      "nvim-treesitter/nvim-treesitter",
+
+      -- update TS opts
+      {
+        "nvim-treesitter/nvim-treesitter",
+        opts = {
+          highlight = {
+            disable = { "go" }, -- NOTE: disable go TS to use vim-go-syntx highlight instead but still uses the ts plugins like  ts-rainbow and context
+          },
+        },
+      },
+
+      {
+        -- NOTE: uses highlighter from this plugin instead of treesitter which doesnt convey alot of go common syntax highlighter like printf %v, & and * pointer in type and other
+        --
+        "charlespascoe/vim-go-syntax",
+        config = function()
+          vim.g.go_highlight_comma = 1 -- FIX: not working?
+          vim.g.go_highlight_fields = 1
+          vim.g.go_highlight_struct_fields = 1
+          vim.g.go_highlight_variable_assignments = 1
+
+          -- vim.g.go_highlight_dot = 0 -- this works
+        end,
+      },
     },
 
     config = function()
@@ -109,7 +124,8 @@ return {
     "nvim-treesitter/nvim-treesitter",
     opts = function(_, opts)
       if type(opts.ensure_installed) == "table" then
-        vim.list_extend(opts.ensure_installed, { "go", "gomod", "gosum", "gowork" })
+        vim.list_extend(opts.ensure_installed, { "gomod", "gosum", "gowork" })
+        -- vim.list_extend(opts.ensure_installed, { "go", "gomod", "gosum", "gowork" })
       end
     end,
   },

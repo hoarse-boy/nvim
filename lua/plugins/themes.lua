@@ -1,5 +1,7 @@
 return {
   { require("plugins.themes.kanagawa") },
+  -- { require("plugins.themes.starry") },
+  -- { require("plugins.themes.aurora") },
   -- { require("plugins.themes.catppuccin") },
   -- { require("plugins.themes.tokyo-night") },
   -- { require("plugins.themes.nightfox") },
@@ -11,6 +13,9 @@ return {
     "LazyVim/LazyVim",
     opts = {
       colorscheme = "kanagawa", -- default theme
+      -- colorscheme = "mariana", -- default theme
+      --Earlysummer
+      -- colorscheme = "aurora", -- default theme
       -- colorscheme = "kanagawa-lotus", -- default theme
 
       -- colorscheme = "vscode",
