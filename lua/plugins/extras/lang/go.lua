@@ -9,16 +9,6 @@ return {
       "ray-x/guihua.lua",
       "neovim/nvim-lspconfig",
 
-      -- update TS opts
-      {
-        "nvim-treesitter/nvim-treesitter",
-        opts = {
-          highlight = {
-            disable = { "go" }, -- NOTE: disable go TS to use vim-go-syntx highlight instead but still uses the ts plugins like  ts-rainbow and context
-          },
-        },
-      },
-
       {
         -- NOTE: uses highlighter from this plugin instead of treesitter which doesnt convey alot of go common syntax highlighter like printf %v, & and * pointer in type and other
         --
@@ -119,13 +109,19 @@ return {
     end,
   },
 
-  -- install all go's parser to treesitter
+  -- install all go's parser to treesitter and disable 'go' parser
   {
     "nvim-treesitter/nvim-treesitter",
     opts = function(_, opts)
       if type(opts.ensure_installed) == "table" then
-        vim.list_extend(opts.ensure_installed, { "gomod", "gosum", "gowork" })
-        -- vim.list_extend(opts.ensure_installed, { "go", "gomod", "gosum", "gowork" })
+        vim.list_extend(opts.ensure_installed, { "go", "gomod", "gosum", "gowork" }) -- NOTE: still install 'go' but make it disabled in nvim-treesitter to not use the parser but use vim-go-syntax instead
+      end
+
+      if type(opts.highlight.disable) == "table" then
+        vim.list_extend(opts.highlight.disable, { "go" }) -- NOTE: disable go TS to use vim-go-syntx highlight instead but still uses the ts plugins like  ts-rainbow and context
+      else
+        -- NOTE: in case the table is yet to be created in lazyvim plugin config so this else will create a new table
+        opts.highlight.disable = { "go" }
       end
     end,
   },
