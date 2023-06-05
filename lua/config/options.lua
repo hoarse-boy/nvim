@@ -47,13 +47,5 @@ api.nvim_set_hl(0, "LeapLabelSecondary", {
   nocombine = true,
 })
 
--- NOTE: make whichkey transparent
--- TODO: find a way to trigger this cmd if a transparent theme
-vim.cmd("hi WhichKeyFloat ctermbg=BLACK ctermfg=BLACK")
-
 -- Try it without this setting first, you might find you don't even miss it.
 -- require('leap').opts.highlight_unlabeled_phase_one_targets = true
-
--- NOTE: fold
--- opt.foldmethod = "expr"
--- opt.foldexpr = "nvim_treesitter#foldexpr()"

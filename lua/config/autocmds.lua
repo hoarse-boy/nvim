@@ -19,17 +19,6 @@ autocmd("TextYankPost", {
   end,
 })
 
--- FIX:
--- -- unfold folded code when opening any files
--- local auto_fold = augroup("OpenFold", {})
--- autocmd("BufReadPost,FileReadPost", {
---   group = auto_fold,
---   pattern = "*",
---   callback = function()
---     api.nvim_command("normal zR")
---   end,
--- })
-
 -- remove highlight to make it transparent
 vim.cmd("highlight TelescopeBorder guibg=none")
 vim.cmd("highlight TelescopeTitle guibg=none")
