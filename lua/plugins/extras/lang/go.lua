@@ -14,7 +14,7 @@ return {
         --
         "charlespascoe/vim-go-syntax",
         config = function()
-          vim.g.go_highlight_comma = 1 -- FIX: not working?
+          vim.g.go_highlight_comma = 1 -- it uses the highlight color of func?
           vim.g.go_highlight_fields = 1
           vim.g.go_highlight_struct_fields = 1
           vim.g.go_highlight_variable_assignments = 1
