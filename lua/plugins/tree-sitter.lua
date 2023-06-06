@@ -2,8 +2,21 @@ return {
   -- { "p00f/nvim-ts-rainbow" }, -- the original rainbow still works fine
   -- { "HiPhish/nvim-ts-rainbow2" },
 
-  -- NOTE: doesnt use ts context. use context.vim instead
-  { "nvim-treesitter/nvim-treesitter-context" }, -- no lazy load as it will not works
+  -- no lazy load as it will not works
+  {
+    "nvim-treesitter/nvim-treesitter-context",
+    -- NOTE: adding keys makes it lazy load?
+    -- keys = {
+    --   {
+    --     "<leader>cc",
+    --     function()
+    --       require("treesitter-context").go_to_context()
+    --     end,
+    --     desc = "Go to Context",
+    --   },
+    -- },
+  },
+
   {
     "nvim-treesitter/nvim-treesitter",
     dependencies = {
