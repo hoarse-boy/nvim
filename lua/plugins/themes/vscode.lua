@@ -1,7 +1,8 @@
 return {
   "mofiqul/vscode.nvim",
-  lazy = false, -- make sure we load this during startup if it is your main colorscheme
-  priority = 1000, -- make sure to load this before all the other start plugins
+  -- lazy = false, -- make sure we load this during startup if it is your main colorscheme
+  -- priority = 1000, -- make sure to load this before all the other start plugins
+  event = "VeryLazy",
   config = function()
     -- for the time being the transparant func is put inside this setup
     -- or use capcuciin theme?

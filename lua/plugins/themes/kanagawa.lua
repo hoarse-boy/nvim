@@ -2,10 +2,15 @@ local myColor = {
   -- fujiWhite = "#40E0D0", -- variable
   springGreen = "#01AE78", -- string
   fujiGray = "#4d4b49", -- comments
-  oniViolet = "#BF026D", -- func, defer etc
-  sakuraPink = "#901fed", -- number
+  oniViolet = "#BF026D", -- func, defer etc. also affects var, let, local, anonym func in lua and js
+  sakuraPink = "#f77e34", -- number
+  -- sakuraPink = "#a249eb", -- number
   -- springBlue = "#b9fad7", -- nil, require, builtin func, and indent line
   peachRed = "#aa58ed", -- return and exception handling
+  crystalBlue = "#4777d6", -- Functions and Titles
+  waveAqua2 = "#7f9e4d", -- types
+  surimiOrange = "#a249eb", -- Constants, imports, booleans. also nil in golang
+  -- surimiOrange = "#FFA066", -- Constants, imports, booleans. also nil in golang
 }
 
 return {
