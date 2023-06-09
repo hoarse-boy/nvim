@@ -8,6 +8,7 @@ local myColor = {
   -- springBlue = "#b9fad7", -- nil, require, builtin func, and indent line
   peachRed = "#aa58ed", -- return and exception handling
   crystalBlue = "#4777d6", -- Functions and Titles
+  -- crystalBlue = "#6590e6", -- Functions and Titles
   waveAqua2 = "#7f9e4d", -- types
   surimiOrange = "#a249eb", -- Constants, imports, booleans. also nil in golang
   -- surimiOrange = "#FFA066", -- Constants, imports, booleans. also nil in golang
