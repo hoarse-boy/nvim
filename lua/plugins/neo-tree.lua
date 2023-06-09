@@ -25,7 +25,7 @@ return {
           popup = {
             -- make a float right window
             -- position = { col = "100%", row = "2" },
-            position = { col = "-100%", row = "2" }, -- left side floating window
+            position = { col = "-100%", row = "3" }, -- left side floating window
             size = function(state)
               local root_name = vim.fn.fnamemodify(state.path, ":~")
               local root_len = string.len(root_name) + 4
