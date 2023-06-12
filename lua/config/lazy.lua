@@ -17,8 +17,9 @@ require("lazy").setup({
     { import = "plugins.extras.lang.go" },
     { import = "plugins.extras.lang.rust" },
 
-    -- { import = "lazyvim.plugins.extras.dap.core" }, -- disabled vanila dap config from lazy.nvim
     { import = "plugins.extras.dap.dap-core" }, -- NOTE: import my dap config
+
+    -- { import = "lazyvim.plugins.extras.dap.core" }, -- disabled vanila dap config from lazy.nvim
     -- { import = "lazyvim.plugins.extras.dap.nlua" },
     { import = "lazyvim.plugins.extras.lang.json" },
     { import = "lazyvim.plugins.extras.ui.mini-animate" },

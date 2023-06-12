@@ -1,3 +1,32 @@
+local lua = {}
+
+function lua.setup()
+  local dap = require("dap")
+  dap.configurations.lua = {
+    {
+      type = "nlua",
+      request = "attach",
+      name = "Attach to running Neovim instance",
+      host = function()
+        local value = vim.fn.input("Host [127.0.0.1]: ")
+        if value ~= "" then
+          return value
+        end
+        return "127.0.0.1"
+      end,
+      port = function()
+        local val = tonumber(vim.fn.input("Port: ", "54321"))
+        assert(val, "Please provide a port number")
+        return val
+      end,
+    },
+  }
+
+  dap.adapters.nlua = function(callback, config)
+    callback({ type = "server", host = config.host, port = config.port })
+  end
+end
+
 return {
   {
     "mfussenegger/nvim-dap",
@@ -11,7 +40,7 @@ return {
       -- stylua: ignore
       keys = {
         { "<leader>du", function() require("dapui").toggle({ }) end, desc = "Dap UI" },
-        { "<leader>de", function() require("dapui").eval() end, desc = "Eval", mode = {"n", "v"} },
+        -- { "<leader>de", function() require("dapui").eval() end, desc = "Eval", mode = {"n", "v"} },
       },
 
         opts = {},
@@ -78,10 +107,10 @@ return {
       },
 
       -- telescope-dap
-      {
-        "nvim-telescope/telescope-dap.nvim",
-        opts = {},
-      },
+      -- {
+      --   "nvim-telescope/telescope-dap.nvim",
+      --   opts = {},
+      -- },
 
       -- update neodev to have library for nvim-dap-ui
       {
@@ -127,6 +156,7 @@ return {
       -- PERF: enabling nvim to load .vscode/launch.json file for debuging
       -- added rt_lldb for debuging rust using plugin rust-tools
       require("dap.ext.vscode").load_launchjs(nil, { rt_lldb = { "rust" } })
+      lua.setup()
 
       local Config = require("lazyvim.config") -- get the cool icons from default lazyvim repo
       for name, sign in pairs(Config.icons.dap) do
@@ -136,13 +166,10 @@ return {
           { text = sign[1], texthl = sign[2] or "DiagnosticInfo", linehl = sign[3], numhl = sign[3] }
         )
       end
-
-      -- NOTE:  example to duplicate the config to other language
-      -- dap.configurations.cpp = dap.configurations.rust
     end,
 
     event = "VeryLazy", -- will lazyload dap with no notify error
-    -- using cmd below has some drawbacks. there will a error notify about the plugins
+    -- using cmd below has some drawbacks. there will a error notify about the plSlugins
     -- however, the plugin can still be used normally
     -- cmd = "require'dap'.continue()", -- make it start when clicking the command for starting a dap
   },
