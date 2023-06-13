@@ -16,6 +16,7 @@ require("lazy").setup({
     -- NOTE: import all of my languages config
     { import = "plugins.extras.lang.go" },
     { import = "plugins.extras.lang.rust" },
+    { import = "plugins.extras.lang.helm" },
 
     { import = "plugins.extras.dap.dap-core" }, -- NOTE: import my dap config
 
