@@ -107,8 +107,18 @@ return {
     "williamboman/mason.nvim",
     opts = function(_, opts)
       if type(opts.ensure_installed) == "table" then
-        vim.list_extend(opts.ensure_installed, { "gopls" })
+        -- NOTE: when golangci_lint_ls installed the lag issue was solved?
+        vim.list_extend(opts.ensure_installed, { "gopls", "golangci_lint_ls", "golangci-lint" })
       end
+    end,
+  },
+
+  -- extend golangci_lint_ls for null-ls to use
+  {
+    "jose-elias-alvarez/null-ls.nvim",
+    opts = function(_, opts)
+      local nls = require("null-ls")
+      table.insert(opts.sources, nls.builtins.diagnostics.golangci_lint)
     end,
   },
 
@@ -117,11 +127,13 @@ return {
     "nvim-treesitter/nvim-treesitter",
     opts = function(_, opts)
       if type(opts.ensure_installed) == "table" then
-        vim.list_extend(opts.ensure_installed, { "go", "gomod", "gosum", "gowork" }) -- NOTE: still install 'go' but make it disabled in nvim-treesitter to not use the parser but use vim-go-syntax instead
+        -- NOTE: still install 'go' but make it disabled in nvim-treesitter to not use the parser but use vim-go-syntax instead
+        vim.list_extend(opts.ensure_installed, { "go", "gomod", "gosum", "gowork" })
       end
 
       if type(opts.highlight.disable) == "table" then
-        vim.list_extend(opts.highlight.disable, { "go" }) -- NOTE: disable go TS to use vim-go-syntx highlight instead but still uses the ts plugins like  ts-rainbow and context
+        -- NOTE: disable go TS to use vim-go-syntx highlight instead but still uses the ts plugins like ts-rainbow and context
+        vim.list_extend(opts.highlight.disable, { "go" })
       else
         -- NOTE: in case the table is yet to be created in lazyvim plugin config so this else will create a new table
         opts.highlight.disable = { "go" }
