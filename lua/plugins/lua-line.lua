@@ -74,6 +74,7 @@ return {
               info = icons.diagnostics.Info,
               hint = icons.diagnostics.Hint,
             },
+            separator = { left = "" },
           },
           { "filetype", icon_only = true, separator = { left = "" }, padding = { left = 1, right = 0 } },
           { "filename", path = 1, symbols = { modified = "  ", readonly = "", unnamed = "" } },
