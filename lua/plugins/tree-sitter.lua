@@ -1,27 +1,9 @@
 return {
-  -- { "p00f/nvim-ts-rainbow" }, -- the original rainbow still works fine
-  -- { "HiPhish/nvim-ts-rainbow2" },
-
-  -- -- no lazy load as it will not works
-  -- {
-  --   "nvim-treesitter/nvim-treesitter-context",
-  --
-  --   -- NOTE: adding keys makes it lazy load?
-  --   -- keys = {
-  --   --   {
-  --   --     "<leader>cc",
-  --   --     function()
-  --   --       require("treesitter-context").go_to_context()
-  --   --     end,
-  --   --     desc = "Go to Context",
-  --   --   },
-  --   -- },
-  -- },
-
   {
     "nvim-treesitter/nvim-treesitter",
     dependencies = {
       { "p00f/nvim-ts-rainbow" }, -- the original rainbow still works fine
+
       {
         "nvim-treesitter/nvim-treesitter-context",
         config = function()
@@ -55,8 +37,6 @@ return {
     opts = {
       highlight = {
         enable = true,
-        -- NOTE: 'disable' will be moved to each language config in /extra/go for example
-        -- disable = { "go" }, -- NOTE: disable go TS to use vim-go-syntx highlight instead but still uses the ts plugins like  ts-rainbow and context
       },
       rainbow = {
         enable = true,
