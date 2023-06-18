@@ -114,13 +114,13 @@ return {
   },
 
   -- extend golangci_lint_ls for null-ls to use
-  {
-    "jose-elias-alvarez/null-ls.nvim",
-    opts = function(_, opts)
-      local nls = require("null-ls")
-      table.insert(opts.sources, nls.builtins.diagnostics.golangci_lint)
-    end,
-  },
+  -- {
+  --   "jose-elias-alvarez/null-ls.nvim",
+  --   opts = function(_, opts)
+  --     local nls = require("null-ls")
+  --     table.insert(opts.sources, nls.builtins.diagnostics.golangci_lint)
+  --   end,
+  -- }, -- TODO: create my own golangci-lint to enable paralle run
 
   -- install all go's parser to treesitter and disable 'go' parser
   {
