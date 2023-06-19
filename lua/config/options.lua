@@ -7,12 +7,35 @@ local api = vim.api
 
 vim.opt.fillchars = { eob = " " } -- NOTE: removes trailing '~' in nvim
 
+if vim.g.neovide then
+  opt.guifont = "JetBrainsMono Nerd Font:h17.5" -- the font used in graphical neovim applications
+
+  -- Helper function for transparency formatting
+  local alpha = function()
+    return string.format("%x", math.floor(255 * vim.g.transparency or 0.8))
+  end
+  -- g:neovide_transparency should be 0 if you want to unify transparency of content and title bar.
+  vim.g.neovide_transparency = 0.0
+  vim.g.transparency = 0.89
+  vim.g.neovide_background_color = "#000000" .. alpha()
+
+  vim.g.neovide_input_macos_alt_is_meta = false
+  vim.g.neovide_cursor_vfx_mode = "railgun"
+
+  vim.g.neovide_input_use_logo = 1 -- enable use of the logo (cmd) key
+  vim.keymap.set("n", "<D-s>", ":w<CR>") -- Save
+  vim.keymap.set("v", "<D-c>", '"+y') -- Copy
+  vim.keymap.set("n", "<D-v>", '"+P') -- Paste normal mode
+  vim.keymap.set("v", "<D-v>", '"+P') -- Paste visual mode
+  vim.keymap.set("c", "<D-v>", "<C-R>+") -- Paste command mode
+  vim.keymap.set("i", "<D-v>", '<ESC>l"+Pli') -- Paste insert mode
+end
+
 -- opt.winbar = "%=%m %f"
 opt.cursorline = true
 -- opt.cursorcolumn = true
 opt.scrolloff = 10 -- minimal number of screen lines to keep above and below the cursor.
 opt.sidescrolloff = 10 -- minimal number of screen lines to keep left and right of the cursor.
-opt.guifont = "monospace:h17" -- the font used in graphical neovim applications
 opt.writebackup = false -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
 opt.swapfile = false -- creates a swapfile (i hate this thing, MUST BE FALSE!!!)
 opt.hlsearch = true -- highlight all matches on previous search pattern
