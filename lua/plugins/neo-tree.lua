@@ -40,8 +40,10 @@ return {
         bind_to_cwd = false,
         follow_current_file = true,
       },
+
       window = {
         position = "float",
+        -- position = "left",
         mappings = {
           ["<space>"] = "none",
 

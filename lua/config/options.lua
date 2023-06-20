@@ -20,7 +20,8 @@ if vim.g.neovide then
   vim.g.neovide_background_color = "#000000" .. alpha()
 
   vim.g.neovide_input_macos_alt_is_meta = false
-  vim.g.neovide_cursor_vfx_mode = "railgun"
+  -- vim.g.neovide_cursor_vfx_mode = "railgun"
+  vim.g.neovide_cursor_vfx_mode = "sonicboom"
 
   vim.g.neovide_input_use_logo = 1 -- enable use of the logo (cmd) key
   vim.keymap.set("n", "<D-s>", ":w<CR>") -- Save
@@ -29,6 +30,11 @@ if vim.g.neovide then
   vim.keymap.set("v", "<D-v>", '"+P') -- Paste visual mode
   vim.keymap.set("c", "<D-v>", "<C-R>+") -- Paste command mode
   vim.keymap.set("i", "<D-v>", '<ESC>l"+Pli') -- Paste insert mode
+
+  vim.g.neovide_hide_mouse_when_typing = true
+  -- TODO: add more keymap like option up and down
+
+  -- vim.g.neovide_padding_left = 1
 end
 
 -- opt.winbar = "%=%m %f"
