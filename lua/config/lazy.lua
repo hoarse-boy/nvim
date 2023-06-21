@@ -59,8 +59,9 @@ require("lazy").setup({
 
 -- NOTE: to remove pesky highlight when using transparent background
 -- need to be called last. i think my plugin folder will the one who overwrite if this is called before the plugins
-vim.cmd("highlight FloatBorder guibg=none")
-vim.cmd("highlight NormalFloat guibg=none")
-vim.cmd("highlight TelescopeBorder guibg=none")
-vim.cmd("highlight TelescopeTitle guibg=none")
-vim.cmd("highlight TelescopeNormal guibg=none")
+-- is moved to kanaga overrides
+-- vim.cmd("highlight FloatBorder guibg=none")
+-- vim.cmd("highlight NormalFloat guibg=none")
+-- vim.cmd("highlight TelescopeBorder guibg=none")
+-- vim.cmd("highlight TelescopeTitle guibg=none")
+-- vim.cmd("highlight TelescopeNormal guibg=none")

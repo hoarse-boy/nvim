@@ -56,14 +56,33 @@ return {
       --   }
       -- end,
 
-      -- NOTE: make the autocmp have matching color with the theme
       overrides = function(colors)
         local theme = colors.theme
         return {
-          Pmenu = { fg = theme.ui.shade0, bg = theme.ui.bg_p1 },
-          PmenuSel = { fg = "NONE", bg = theme.ui.bg_p2 },
-          PmenuSbar = { bg = theme.ui.bg_m1 },
-          PmenuThumb = { bg = theme.ui.bg_p2 },
+          Pmenu = { blend = vim.o.pumblend }, -- TODO: what does it do?
+          -- Pmenu = { fg = theme.ui.shade0, bg = theme.ui.bg_p1 },
+          -- PmenuSel = { fg = "NONE", bg = theme.ui.bg_p2 },
+          -- PmenuSbar = { bg = theme.ui.bg_m1 },
+          -- PmenuThumb = { bg = theme.ui.bg_p2 },
+          -- TelescopePromptNormal = { bg = theme.ui.bg_p1, blend = vim.o.pumblend },
+          -- TelescopeResultsNormal = { fg = theme.ui.fg_dim, bg = theme.ui.pmenu.bg, blend = vim.o.pumblend },
+          -- TelescopePreviewNormal = { bg = theme.ui.bg_dim, blend = vim.o.pumblend },
+          -- TelescopeTitle = { fg = theme.ui.special, bold = true },
+          -- TelescopePromptNormal = { bg = "none" },
+          -- TelescopePromptBorder = { fg = theme.ui.bg_p1, bg = "none" }, -- NOTE: fg changes the border line. in this case bg_p1 will make it less prominent
+          -- TelescopeResultsNormal = { fg = theme.ui.bg_p1, bg = "none" },
+          -- TelescopeResultsBorder = { fg = theme.ui.bg_p1, bg = "none" },
+          -- TelescopePreviewNormal = { bg = "none" },
+          -- TelescopePreviewBorder = { bg = "none", fg = theme.ui.bg_p1 },
+
+          -- NOTE: the same as vim.cmd("highlight TelescopeBorder guibg=none") in layz.lua
+          -- make the ugly border highlight diseapper
+          -- TODO: add an if, if kanagawa transparent is true add above
+          TelescopeBorder = { bg = "none" },
+          FloatBorder = { bg = "none" },
+          NormalFloat = { bg = "none" },
+          TelescopeTitle = { bg = "none" },
+          TelescopeNormal = { bg = "none" },
         }
       end,
 

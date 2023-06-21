@@ -7,10 +7,11 @@ local api = vim.api
 
 vim.opt.fillchars = { eob = " " } -- NOTE: removes trailing '~' in nvim
 
+-- NOTE: neovide config
 if vim.g.neovide then
-  opt.guifont = "JetBrainsMono Nerd Font:h17.5" -- the font used in graphical neovim applications
+  opt.guifont = "jetbrainsmono nerd font:h17.5" -- the font used in graphical neovim applications
 
-  -- Helper function for transparency formatting
+  -- helper function for transparency formatting
   local alpha = function()
     return string.format("%x", math.floor(255 * vim.g.transparency or 0.8))
   end
@@ -19,22 +20,25 @@ if vim.g.neovide then
   vim.g.transparency = 0.89
   vim.g.neovide_background_color = "#000000" .. alpha()
 
-  vim.g.neovide_input_macos_alt_is_meta = false
+  vim.g.neovide_input_macos_alt_is_meta = true
   -- vim.g.neovide_cursor_vfx_mode = "railgun"
   vim.g.neovide_cursor_vfx_mode = "sonicboom"
+  vim.g.neovide_hide_mouse_when_typing = true
+  vim.g.neovide_cursor_vfx_particle_density = 10.0
 
   vim.g.neovide_input_use_logo = 1 -- enable use of the logo (cmd) key
-  vim.keymap.set("n", "<D-s>", ":w<CR>") -- Save
-  vim.keymap.set("v", "<D-c>", '"+y') -- Copy
-  vim.keymap.set("n", "<D-v>", '"+P') -- Paste normal mode
-  vim.keymap.set("v", "<D-v>", '"+P') -- Paste visual mode
-  vim.keymap.set("c", "<D-v>", "<C-R>+") -- Paste command mode
-  vim.keymap.set("i", "<D-v>", '<ESC>l"+Pli') -- Paste insert mode
+  vim.keymap.set("n", "<d-s>", ":w<cr>") -- save
+  vim.keymap.set("v", "<d-c>", '"+y') -- copy
+  vim.keymap.set("n", "<d-v>", '"+p') -- paste normal mode
+  vim.keymap.set("v", "<d-v>", '"+p') -- paste visual mode
+  vim.keymap.set("c", "<d-v>", "<c-r>+") -- paste command mode
+  vim.keymap.set("i", "<d-v>", '<esc>l"+pli') -- paste insert mode
 
-  vim.g.neovide_hide_mouse_when_typing = true
-  -- TODO: add more keymap like option up and down
-
-  -- vim.g.neovide_padding_left = 1
+  -- fix: delete later not working?
+  -- vim.g.neovide_padding_top = 2
+  -- vim.g.neovide_padding_bottom = 1
+  -- vim.g.neovide_padding_right = 1
+  -- vim.g.neovide_padding_left = 2
 end
 
 -- opt.winbar = "%=%m %f"
