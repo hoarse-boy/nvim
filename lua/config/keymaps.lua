@@ -48,6 +48,8 @@ map("v", "C", '"_C', opt)
 -- git which-key
 map("n", "<leader>gb", "<cmd>Gitsigns toggle_current_line_blame<cr>", { desc = "Toggle Git Blame (virtual text)" })
 
+map("n", "<a-y>", "<cmd>t.<cr>", { desc = "Duplicate line" })
+
 map("n", "<leader>sx", require("telescope.builtin").resume, { noremap = true, silent = true, desc = "Resume" })
 
 -- lazy
