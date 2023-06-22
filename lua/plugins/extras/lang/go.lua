@@ -30,7 +30,7 @@ return {
     config = function()
       require("go").setup()
 
-      -- autocmd
+      -- NOTE: autocmd
       local autocmd = vim.api.nvim_create_autocmd
       local augroup = vim.api.nvim_create_augroup
 
@@ -43,6 +43,7 @@ return {
         end,
         group = format_sync_grp,
       })
+      -- NOTE: end of autocmd
 
       -- use this to make which key shows for gopls buffer only
       require("lazyvim.util").on_attach(function(client, buffer)
@@ -67,14 +68,29 @@ return {
               -- TODO: add more parent key like. sf to fill struct?
               s = { "<cmd>GoFillStruct<cr>", "Go Fill Struct" },
               f = { "<cmd>GoFillSwitch<cr>", "Go Fill Switch" },
-              t = { "<cmd>GoAddTag<cr>", "Go Add Tags" },
-              R = { "<cmd>GoRmTag<cr>", "Go Remove Tags" },
+
+              T = {
+                name = "+go tags",
+                a = { "<cmd>GoAddTag<cr>", "Go Add Tags" }, -- TODO: find a way to use diff args https://github.com/fatih/gomodifytags#transformations
+                r = { "<cmd>GoRmTag<cr>", "Go Remove Tags" },
+              },
+
               r = { "<cmd>GoRename<cr>", "Go Rename" },
 
-              T = { "<cmd>GoTestFun<cr>", "Go Test a Function" },
-              A = { "<cmd>GoTestPkg<cr>", "Go Test Package" },
+              t = {
+                -- TODO: update some test to have argument. use func in keymaps?
+                name = "+go test",
+                a = { "<cmd>GoAddTest<cr>", "Go Add Test for Current Func" },
+                A = { "<cmd>GoAddAllTest<cr>", "Go Add Test for all Func" },
+                e = { "<cmd>GoAddExpTest<cr>", "Go Add Exported Func" },
+                f = { "<cmd>GoTestFunc<cr>", "Go Test a Func" },
+                F = { "<cmd>GoTestFile<cr>", "Go Test all Func in the File" },
+                P = { "<cmd>GoTestPkg<cr>", "Go Test Package" },
+              },
+
               e = { "<cmd>GoIfErr<cr>", "Go Auto Generate 'if err'" },
-              c = { "<cmd>GoCmt<cr>", "Go Generate Func Comments" },
+              c = { "<cmd>GoCheat<cr>", "Go Cheatsheet" },
+              -- c = { "<cmd>GoCmt<cr>", "Go Generate Func Comments" },
               m = { "<cmd>Gomvp<cr>", "Go Rename Module name" },
               -- map("n", "<leader>lgm", "<cmd>GoFixPlurals<cr>", { desc = "Go Fix Redundant Func Params" }) -- not working?
             },
@@ -113,6 +129,8 @@ return {
     end,
   },
 
+  -- FIX: DELETE LATER golangci_lint_ls auto run itself thats why when using null ls it will collapse if the arg to paralel run is not enabled?
+  -- trey to disable mason above and use below?
   -- extend golangci_lint_ls for null-ls to use
   -- {
   --   "jose-elias-alvarez/null-ls.nvim",
