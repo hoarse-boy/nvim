@@ -10,8 +10,8 @@ return {
       "neovim/nvim-lspconfig",
 
       {
-        -- NOTE: uses highlighter from this plugin instead of treesitter which doesnt convey alot of go common syntax highlighter like printf %v, & and * pointer in type and other
-        --
+        -- NOTE: uses highlighter from this plugin instead of treesitter
+        -- which doesnt convey alot of go common syntax highlighter like printf %v, & and * pointer in type and other.
         "charlespascoe/vim-go-syntax",
         config = function()
           vim.g.go_highlight_comma = 1 -- it uses the highlight color of func?
@@ -122,19 +122,6 @@ return {
           wk.register(mappings, opts)
         end
       end)
-
-      -- require("go").setup({
-      --   goimport = "gopls", -- if set to '' will use golsp format
-      --   gofmt = "gopls", -- if set to gopls will use golsp format
-      --   max_line_len = 120,
-      --   tag_transform = false,
-      --   test_dir = "",
-      --   comment_placeholder = "   ",
-      --   lsp_cfg = false, -- false: use your own lspconfig
-      --   lsp_gofumpt = true, -- true: set default gofmt in gopls format to gofumpt
-      --   lsp_on_attach = true, -- use on_attach from go.nvim
-      --   dap_debug = true,
-      -- })
     end,
     event = { "CmdlineEnter" },
     ft = { "go", "gomod" },
@@ -146,7 +133,7 @@ return {
     "williamboman/mason.nvim",
     opts = function(_, opts)
       if type(opts.ensure_installed) == "table" then
-        -- NOTE: it is better to install it via binary from official web https://golangci-lint.run/usage/install/
+        -- NOTE: it is better to install golangci_lint via binary from official web https://golangci-lint.run/usage/install/
         -- after installed running golint in the terminal and using ray-x/go.nvim work flawlessly.
 
         -- NOTE: need to installed golangci_lint_ls and golangci_lint to avoid lag when running golangci
