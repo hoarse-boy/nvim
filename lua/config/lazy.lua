@@ -18,10 +18,9 @@ require("lazy").setup({
     { import = "plugins.extras.lang.rust" },
     { import = "plugins.extras.lang.helm" },
 
-    { import = "plugins.extras.dap.dap-core" }, -- NOTE: import my dap config
-
     -- { import = "lazyvim.plugins.extras.dap.core" }, -- disabled vanila dap config from lazy.nvim
     -- { import = "lazyvim.plugins.extras.dap.nlua" },
+    { import = "plugins.extras.dap.dap-core" }, -- NOTE: import my dap config
     { import = "lazyvim.plugins.extras.lang.json" },
     -- { import = "lazyvim.plugins.extras.ui.mini-animate" }, -- NOTE: use cinnamon.nvim. better in all regards. can animate any motion even gg and { and }
     { import = "lazyvim.plugins.extras.util.mini-hipatterns" },

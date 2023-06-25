@@ -58,7 +58,8 @@ opt.hlsearch = true -- highlight all matches on previous search pattern
 -- used to in Lightspeed.
 
 -- make leap to have lightspeed highlight.
--- NOTE: this is enabled automatically in catpuccin theme but not in kanaqawa
+-- NOTE: this is enabled automatically in catpuccin theme but not in kanagawa
+-- TODO: move to kanagawa?
 api.nvim_set_hl(0, "LeapBackdrop", { link = "Comment" }) -- or some grey
 api.nvim_set_hl(0, "LeapMatch", {
   -- For light themes, set to 'black' or similar.
