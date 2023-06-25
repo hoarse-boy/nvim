@@ -29,6 +29,7 @@ return {
 
     config = function()
       require("go").setup()
+      local notify = require("notify")
 
       -- NOTE: autocmd
       local autocmd = vim.api.nvim_create_autocmd
@@ -40,6 +41,7 @@ return {
         pattern = "*.go",
         callback = function()
           require("go.format").goimport()
+          notify("Go file(s) saved.\nHave you run GoLint or GoTest?", "info", { title = "go.nvim" })
         end,
         group = format_sync_grp,
       })
@@ -65,13 +67,19 @@ return {
           local mappings = {
             l = {
               name = "+lsp (go.nvim)",
-              -- TODO: add more parent key like. sf to fill struct?
               s = { "<cmd>GoFillStruct<cr>", "Go Fill Struct" },
               f = { "<cmd>GoFillSwitch<cr>", "Go Fill Switch" },
 
               T = {
                 name = "+go tags",
-                a = { "<cmd>GoAddTag<cr>", "Go Add Tags" }, -- TODO: find a way to use diff args https://github.com/fatih/gomodifytags#transformations
+                a = {
+                  "<cmd>GoModifyTag -add-tags json -transform camelcase -add-options json=<cr>",
+                  "Go Add Tags No 'omitempty'",
+                },
+                A = {
+                  "<cmd>GoModifyTag -add-tags json -transform camelcase<cr>",
+                  "Go Add Tags",
+                },
                 r = { "<cmd>GoRmTag<cr>", "Go Remove Tags" },
               },
 
@@ -83,12 +91,27 @@ return {
                 a = { "<cmd>GoAddTest<cr>", "Go Add Test for Current Func" },
                 A = { "<cmd>GoAddAllTest<cr>", "Go Add Test for all Func" },
                 e = { "<cmd>GoAddExpTest<cr>", "Go Add Exported Func" },
+                t = { "<cmd>GoTest<cr>", "Go Test All" },
                 f = { "<cmd>GoTestFunc<cr>", "Go Test a Func" },
-                F = { "<cmd>GoTestFile<cr>", "Go Test all Func in the File" },
+                F = { "<cmd>GoTestFile<cr>", "Go Test All Func in the File" },
                 P = { "<cmd>GoTestPkg<cr>", "Go Test Package" },
+                c = { "<cmd>GoCoverage<cr>", "Go Test -coverprofile" },
               },
 
+              d = {
+                function()
+                  local docName = vim.fn.input("Specify Go Doc: ")
+                  if docName == "" then
+                    notify("Cannot find empty doc", "warn", { title = "go.nvim" })
+                  else
+                    local godoc = string.format(":GoDoc %s", docName)
+                    vim.cmd(godoc)
+                  end
+                end,
+                "Go Doc",
+              },
               e = { "<cmd>GoIfErr<cr>", "Go Auto Generate 'if err'" },
+              l = { "<cmd>GoLint<cr>", "Go Run 'golangci_lint'" },
               c = { "<cmd>GoCheat<cr>", "Go Cheatsheet" },
               -- c = { "<cmd>GoCmt<cr>", "Go Generate Func Comments" },
               m = { "<cmd>Gomvp<cr>", "Go Rename Module name" },
@@ -101,7 +124,7 @@ return {
       end)
 
       -- require("go").setup({
-      --   goimport = "gopls", -- if set to 'gopls' will use golsp format
+      --   goimport = "gopls", -- if set to '' will use golsp format
       --   gofmt = "gopls", -- if set to gopls will use golsp format
       --   max_line_len = 120,
       --   tag_transform = false,
@@ -123,22 +146,25 @@ return {
     "williamboman/mason.nvim",
     opts = function(_, opts)
       if type(opts.ensure_installed) == "table" then
-        -- NOTE: when golangci_lint_ls installed the lag issue was solved?
-        vim.list_extend(opts.ensure_installed, { "gopls", "golangci_lint_ls", "golangci-lint" })
+        -- NOTE: it is better to install it via binary from official web https://golangci-lint.run/usage/install/
+        -- after installed running golint in the terminal and using ray-x/go.nvim work flawlessly.
+
+        -- NOTE: need to installed golangci_lint_ls and golangci_lint to avoid lag when running golangci
+        vim.list_extend(opts.ensure_installed, { "gopls" })
       end
     end,
   },
 
-  -- FIX: DELETE LATER golangci_lint_ls auto run itself thats why when using null ls it will collapse if the arg to paralel run is not enabled?
-  -- trey to disable mason above and use below?
-  -- extend golangci_lint_ls for null-ls to use
-  -- {
-  --   "jose-elias-alvarez/null-ls.nvim",
-  --   opts = function(_, opts)
-  --     local nls = require("null-ls")
-  --     table.insert(opts.sources, nls.builtins.diagnostics.golangci_lint)
-  --   end,
-  -- }, -- TODO: create my own golangci-lint to enable paralle run
+  -- NOTE: installing golangci from official web and disable other golangci install in mason will make this work
+  -- however, it doesnt work in igaming repo at all.
+  -- TODO: create custom golangci_lint for null-ls? to run like ray-x/go.nvim GoLint command?
+  {
+    "jose-elias-alvarez/null-ls.nvim",
+    opts = function(_, opts)
+      local nls = require("null-ls")
+      table.insert(opts.sources, nls.builtins.diagnostics.golangci_lint)
+    end,
+  },
 
   -- install all go's parser to treesitter and disable 'go' parser
   {
