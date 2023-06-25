@@ -27,6 +27,7 @@ function lua.setup()
   end
 end
 
+-- NOTE: DEPRECATED. see dap.lua
 return {
   {
     "mfussenegger/nvim-dap",
