@@ -57,29 +57,30 @@ opt.hlsearch = true -- highlight all matches on previous search pattern
 -- The below settings make Leap's highlighting closer to what you've been
 -- used to in Lightspeed.
 
+-- NOTE: doesn't use leap flit anymore. change to flash
 -- make leap to have lightspeed highlight.
 -- NOTE: this is enabled automatically in catpuccin theme but not in kanagawa
 -- TODO: move to kanagawa?
-api.nvim_set_hl(0, "LeapBackdrop", { link = "Comment" }) -- or some grey
-api.nvim_set_hl(0, "LeapMatch", {
-  -- For light themes, set to 'black' or similar.
-  fg = "white",
-  bold = true,
-  nocombine = true,
-})
+-- api.nvim_set_hl(0, "LeapBackdrop", { link = "Comment" }) -- or some grey
+-- api.nvim_set_hl(0, "LeapMatch", {
+--   -- For light themes, set to 'black' or similar.
+--   fg = "white",
+--   bold = true,
+--   nocombine = true,
+-- })
 
--- Of course, specify some nicer shades instead of the default "red" and "blue".
-api.nvim_set_hl(0, "LeapLabelPrimary", {
-  fg = "red",
-  bold = true,
-  nocombine = true,
-})
+-- -- Of course, specify some nicer shades instead of the default "red" and "blue".
+-- api.nvim_set_hl(0, "LeapLabelPrimary", {
+--   fg = "red",
+--   bold = true,
+--   nocombine = true,
+-- })
 
-api.nvim_set_hl(0, "LeapLabelSecondary", {
-  fg = "blue",
-  bold = true,
-  nocombine = true,
-})
+-- api.nvim_set_hl(0, "LeapLabelSecondary", {
+--   fg = "blue",
+--   bold = true,
+--   nocombine = true,
+-- })
 
 -- Try it without this setting first, you might find you don't even miss it.
 -- require('leap').opts.highlight_unlabeled_phase_one_targets = true
