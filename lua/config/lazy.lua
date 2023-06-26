@@ -11,8 +11,8 @@ require("lazy").setup({
     -- add LazyVim and import its plugins
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
     -- import any extras modules here
+    -- { import = "lazyvim.plugins.extras.lang.go" }, -- NOTE: change the syntax. makes the var func params to be highlighted differently thanks to semantic highlight enabled. but the * will have the same color as some type liek gin.Context
     { import = "lazyvim.plugins.extras.lang.typescript" },
-    { import = "lazyvim.plugins.extras.lang.go" },
 
     -- NOTE: import all of my languages config
     { import = "plugins.extras.lang.go" },
@@ -26,6 +26,7 @@ require("lazy").setup({
     -- { import = "lazyvim.plugins.extras.ui.mini-animate" }, -- NOTE: use cinnamon.nvim. better in all regards. can animate any motion even gg and { and }
     { import = "lazyvim.plugins.extras.util.mini-hipatterns" },
     { import = "lazyvim.plugins.extras.editor.flash" },
+    -- { import = "lazyvim.plugins.extras.vscode" },
     -- { import = "lazyvim.plugins.extras.ui.edgy" },
     -- import/override with your plugins
     { import = "plugins" },

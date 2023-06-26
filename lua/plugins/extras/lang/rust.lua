@@ -59,7 +59,7 @@ return {
               vim.keymap.set("n", "K", "<cmd>RustHoverActions<cr>", { buffer = buffer, desc = "Hover Actions (Rust)" })
 
               local wk = require("which-key")
-              local opts = {
+              local whichKeyOpts = {
                 mode = "n", -- NORMAL mode
                 prefix = "<leader>",
                 buffer = buffer, -- Global mappings. Specify a buffer number for buffer local mappings
@@ -81,7 +81,7 @@ return {
                 },
               }
 
-              wk.register(mappings, opts)
+              wk.register(mappings, whichKeyOpts)
             end
           end)
 

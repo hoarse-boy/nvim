@@ -1,5 +1,6 @@
 local myColor = {
   -- fujiWhite = "#40E0D0", -- variable
+  -- fujiWhite = "#000000", -- variable
   springGreen = "#01AE78", -- string
   fujiGray = "#4d4b49", -- comments
   oniViolet = "#BF026D", -- func, defer etc. also affects var, let, local, anonym func in lua and js
@@ -12,7 +13,10 @@ local myColor = {
   -- waveAqua2 = "#7f9e4d", -- types
   waveAqua2 = "#0fd1ce", -- types
   surimiOrange = "#a249eb", -- Constants, imports, booleans. also nil in golang
-  -- surimiOrange = "#FFA066", -- Constants, imports, booleans. also nil in golang
+  -- springViolet1 = "#000000",
+  -- springViolet2 = "#BF026D",
+  -- katanaGray = "#000000",
+  -- sumiInk4 = "#000000", -- comma / Darker foreground (line numbers, fold column, non-text characters), float borders
 }
 
 return {

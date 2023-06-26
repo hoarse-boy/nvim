@@ -20,6 +20,7 @@ return {
           vim.g.go_highlight_variable_assignments = 1
           vim.g.go_highlight_semicolon = 1
           vim.g.go_highlight_struct_type_fields = 1
+          vim.g.go_highlight_function_parameters = 0 -- Parameter names, e.g. bar in func foo(bar int)
 
           vim.g.go_highlight_variable_declarations = 0 -- disable highlight in var name of 'kaobm', ex. kaobm := os.Getenv("REDIS_HOST")
           -- vim.g.go_highlight_dot = 0 -- this works
