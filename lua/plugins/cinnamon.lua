@@ -2,30 +2,58 @@ return {
   "declancm/cinnamon.nvim",
   event = "VeryLazy",
   config = function()
-    require("cinnamon").setup({
-      -- KEYMAPS:
-      default_keymaps = true, -- Create default keymaps.
-      -- FIX: extra_keymaps true makes golang buggy. but rust is fine. the cause of keymap for gg and gG
-      extra_keymaps = false, -- Create extra keymaps.
-      extended_keymaps = false, -- Create extended keymaps.
-      override_keymaps = false, -- The plugin keymaps will override any existing keymaps.
+    -- will have different setting for neovide. as the delay is noticable bigger in it
+    if vim.g.neovide then
+      require("cinnamon").setup({
+        -- KEYMAPS:
+        default_keymaps = true, -- Create default keymaps.
+        -- NOTE: extra_keymaps true makes golang buggy. but rust is fine. the cause of keymap for gg and gG
+        extra_keymaps = false, -- Create extra keymaps.
+        extended_keymaps = false, -- Create extended keymaps.
+        override_keymaps = false, -- The plugin keymaps will override any existing keymaps.
 
-      -- OPTIONS:
-      -- NOTE: use this for a better { and } motion
-      always_scroll = true, -- Scroll the cursor even when the window hasn't scrolled.
-      centered = true, -- Keep cursor centered in window when using window scrolling.
-      disabled = false, -- Disables the plugin.
-      default_delay = 7, -- The default delay (in ms) between each line when scrolling.
-      -- NOTE: sometimes causing cursor to diseaper completely?
-      hide_cursor = false, -- Hide the cursor while scrolling. Requires enabling termguicolors!
-      horizontal_scroll = false, -- Enable smooth horizontal scrolling when view shifts left or right.
-      -- NOTE: use the max lenght and limit to make search with n to not have massive delay in animation
-      max_length = 100, -- Maximum length (in ms) of a command. The line delay will be
-      -- re-calculated. Setting to -1 will disable this option.
-      scroll_limit = 100, -- Max number of lines moved before scrolling is skipped. Setting
-      -- to -1 will disable this option.
-    })
+        -- OPTIONS:
+        -- NOTE: use this for a better { and } motion
+        always_scroll = true, -- Scroll the cursor even when the window hasn't scrolled.
+        centered = true, -- Keep cursor centered in window when using window scrolling.
+        disabled = false, -- Disables the plugin.
+        default_delay = 5, -- The default delay (in ms) between each line when scrolling.
+        -- NOTE: sometimes causing cursor to diseaper completely?
+        hide_cursor = false, -- Hide the cursor while scrolling. Requires enabling termguicolors!
+        horizontal_scroll = false, -- Enable smooth horizontal scrolling when view shifts left or right.
+        -- NOTE: use the max lenght and limit to make search with n to not have massive delay in animation
+        -- max_length = 50,
+        max_length = -1, -- Maximum length (in ms) of a command. The line delay will be
+        -- re-calculated. Setting to -1 will disable this option.
+        scroll_limit = 50, -- Max number of lines moved before scrolling is skipped. Setting
+        -- to -1 will disable this option.
+      })
+    else
+      require("cinnamon").setup({
+        -- KEYMAPS:
+        default_keymaps = true, -- Create default keymaps.
+        -- NOTE: extra_keymaps true makes golang buggy. but rust is fine. the cause of keymap for gg and gG
+        extra_keymaps = false, -- Create extra keymaps.
+        extended_keymaps = false, -- Create extended keymaps.
+        override_keymaps = false, -- The plugin keymaps will override any existing keymaps.
 
+        -- OPTIONS:
+        -- NOTE: use this for a better { and } motion
+        always_scroll = true, -- Scroll the cursor even when the window hasn't scrolled.
+        centered = true, -- Keep cursor centered in window when using window scrolling.
+        disabled = false, -- Disables the plugin.
+        default_delay = 7, -- The default delay (in ms) between each line when scrolling.
+        -- NOTE: sometimes causing cursor to diseaper completely?
+        hide_cursor = false, -- Hide the cursor while scrolling. Requires enabling termguicolors!
+        horizontal_scroll = false, -- Enable smooth horizontal scrolling when view shifts left or right.
+        -- NOTE: use the max lenght and limit to make search with n to not have massive delay in animation
+        -- max_length = -1, -- Maximum length (in ms) of a command. The line delay will be
+        max_length = 100, -- Maximum length (in ms) of a command. The line delay will be
+        -- re-calculated. Setting to -1 will disable this option.
+        scroll_limit = 50, -- Max number of lines moved before scrolling is skipped. Setting
+        -- to -1 will disable this option.
+      })
+    end
     -- Paragraph movements:
     vim.keymap.set({ "n", "x", "v" }, "{", "<Cmd>lua Scroll('{')<CR>")
     vim.keymap.set({ "n", "x", "v" }, "}", "<Cmd>lua Scroll('}')<CR>")

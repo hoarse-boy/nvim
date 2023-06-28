@@ -13,13 +13,13 @@ return {
     "LazyVim/LazyVim",
     opts = {
       colorscheme = "kanagawa", -- default theme
-      -- colorscheme = "mariana", -- default theme
-      --Earlysummer
-      -- colorscheme = "aurora", -- default theme
-      -- colorscheme = "kanagawa-lotus", -- default theme
-
-      -- colorscheme = "vscode",
       -- colorscheme = "catppuccin",
+      -- colorscheme = "vscode",
+      -- colorscheme = "mariana",
+      --Earlysummer
+      -- colorscheme = "aurora",
+      -- colorscheme = "kanagawa-lotus",
+
       -- colorscheme = "tokyonight",
       -- colorscheme = "nightfox",
     },
