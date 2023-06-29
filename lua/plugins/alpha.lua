@@ -1,5 +1,9 @@
 return {
   "goolord/alpha-nvim",
+
+  keys = {
+    { "<leader>a", "<cmd>Alpha<cr>", desc = "Home (alpha.nvim)" },
+  },
   opts = function(_, opt)
     local logo = [[
 ░░░░░██╗██╗░░██╗░█████╗░██╗░██████╗  ███╗░░██╗███████╗░█████╗░██╗░░░██╗██╗███╗░░░███╗
