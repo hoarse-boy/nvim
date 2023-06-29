@@ -1,6 +1,14 @@
 return {
   {
     "nvim-telescope/telescope.nvim",
+    dependencies = {
+      "nvim-telescope/telescope-fzf-native.nvim",
+      build = "make",
+      config = function()
+        require("telescope").load_extension("fzf") -- use fzf
+      end,
+    },
+
     opts = {
       defaults = {
         file_ignore_patterns = { "node_modules", "vendor" }, -- NOTE: ignore folder / files for live grep
