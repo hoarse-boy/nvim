@@ -30,6 +30,7 @@ return {
     },
   },
 
+  -- NOTE: use config to overwrite default lazyvim
   config = function(_, opts)
     local wk = require("which-key")
     wk.setup(opts)

@@ -13,6 +13,9 @@ require("lazy").setup({
     -- import any extras modules here
     { import = "lazyvim.plugins.extras.lang.go" }, -- NOTE: change the syntax. makes the var func params to be highlighted differently thanks to semantic highlight enabled. but the * will have the same color as some type liek gin.Context
     { import = "lazyvim.plugins.extras.lang.typescript" },
+    -- { import = "lazyvim.plugins.extras.coding.yanky" }, -- FIX: got an error
+    { import = "lazyvim.plugins.extras.util.project" },
+    { import = "lazyvim.plugins.extras.test.core" },
 
     -- NOTE: import all of my languages config
     { import = "plugins.extras.lang.go" },

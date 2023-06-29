@@ -29,6 +29,7 @@ local myColor = {
   -- oniViolet = "#ff6961", -- func, defer etc. also affects var, let, local, anonym func in lua and js
   oniViolet = "#983B6E", -- func, defer etc. also affects var, let, local, anonym func in lua and js
   -- oniViolet = "#B14564", -- func, defer etc. also affects var, let, local, anonym func in lua and js
+  peachRed = "#983B6E", -- return and exception handling. return in go will will be the same as function color
   sakuraPink = "#c76320", -- number
   -- sakuraPink = "#fa7d28", -- number
   -- sakuraPink = "#f58231", -- number
@@ -37,7 +38,6 @@ local myColor = {
   lightBlue = "#ffffff", -- not used?
   -- springBlue = "#aa58ed", -- nil, require, builtin func, and indent line / Specials and builtin functions
   waveRed = "#AE7C12", -- golang tag string in struct / Standout specials 1 (builtin variables)
-  -- peachRed = "#ffffff", -- return and exception handling
   crystalBlue = "#0B6DA2", -- Functions and Titles
   waveAqua2 = "#6a995e", -- types
   -- waveAqua2 = "#58804f", -- types
@@ -72,7 +72,7 @@ return {
       commentStyle = { italic = true },
       functionStyle = {},
       keywordStyle = { italic = true },
-      statementStyle = { bold = true },
+      statementStyle = { bold = true, italic = true },
       typeStyle = { italic = true },
       variablebuiltinStyle = {},
       specialReturn = true, -- special highlight for the return keyword
