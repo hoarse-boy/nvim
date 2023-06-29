@@ -1,37 +1,18 @@
--- return {
---   {
---     -- default which-key has no border and that's ugly when using transaparant background
---     "folke/which-key.nvim",
---     -- NOTE: use opts if in lazy.nvim if dont want to remove default settings from lazyvim
---     -- else use config = func to overwrite everything.
---     opts = {
---       window = {
---         border = "single", -- none, single, double, shadow
---         position = "bottom", -- bottom, top
---         margin = { 1, 0, 1, 0 }, -- extra window margin [top, right, bottom, left]
---         padding = { 1, 1, 1, 1 }, -- extra window padding [top, right, bottom, left]
---         winblend = 0,
---       },
---     },
---   },
--- }
-
 return {
   "folke/which-key.nvim",
   event = "VeryLazy",
-  opts = {
-    plugins = { spelling = true },
-    window = {
+
+  -- NOTE: use opts to not overwrite default lazyvim
+  opts = function(_, opts)
+    opts.plugins = { spelling = true }
+    opts.window = {
       border = "single", -- none, single, double, shadow
       position = "bottom", -- bottom, top
       margin = { 1, 0, 1, 0 }, -- extra window margin [top, right, bottom, left]
       padding = { 1, 1, 1, 1 }, -- extra window padding [top, right, bottom, left]
       winblend = 0,
-    },
-  },
+    }
 
-  -- NOTE: use config to overwrite default lazyvim
-  config = function(_, opts)
     local wk = require("which-key")
     wk.setup(opts)
     local keymaps = {
@@ -50,9 +31,9 @@ return {
       ["<leader>s"] = { name = "+search" },
       ["<leader>u"] = { name = "+ui" },
       ["<leader>w"] = { name = "+windows" },
-      -- ["<leader>x"] = { name = "+diagnostics/quickfix" }, -- disabled
+      ["<leader>x"] = nil, -- disabled trouble.nvim  keymaps
 
-      -- NOTE: below is my own register whichky
+      -- add own keymaps. the rest should be in respective
       ["<leader>d"] = { name = "+debug" },
       ["<leader>h"] = { name = "+harpoon" },
     }
