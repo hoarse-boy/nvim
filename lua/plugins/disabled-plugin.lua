@@ -7,11 +7,19 @@ return {
   },
 
   {
+    "echasnovski/mini.surround",
+    enabled = false,
+  },
+
+  {
     "folke/trouble.nvim",
     enabled = false,
-    -- keys = function()
-    --   return {}
-    -- end,
+    keys = {
+      -- disable the keymap to grep files
+      { "<leader>x", false }, -- FIX: not working?
+      { "<leader>xl", false },
+      { "<leader>xq", false },
+    },
   },
 
   -- {

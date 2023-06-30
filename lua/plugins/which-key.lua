@@ -1,6 +1,8 @@
 return {
   "folke/which-key.nvim",
-  event = "VeryLazy",
+  keys = {
+    { "<leader>x", false }, -- FIX: not working
+  },
 
   -- NOTE: use opts to not overwrite default lazyvim
   opts = function(_, opts)
@@ -13,37 +15,21 @@ return {
       winblend = 0,
     }
 
+    -- NOTE: use below to create custom keymaps
     local wk = require("which-key")
     wk.setup(opts)
     local keymaps = {
       mode = { "n", "v" },
-      ["g"] = { name = "+goto" },
-      ["gs"] = { name = "+surround" },
-      ["]"] = { name = "+next" },
-      ["["] = { name = "+prev" },
-      ["<leader><tab>"] = { name = "+tabs" },
-      ["<leader>b"] = { name = "+buffer" },
-      ["<leader>c"] = { name = "+code" },
-      ["<leader>f"] = { name = "+file/find" },
-      ["<leader>g"] = { name = "+git" },
-      ["<leader>gh"] = { name = "+hunks" },
-      ["<leader>q"] = { name = "+quit/session" },
-      ["<leader>s"] = { name = "+search" },
-      ["<leader>u"] = { name = "+ui" },
-      ["<leader>w"] = { name = "+windows" },
-      ["<leader>x"] = nil, -- disabled trouble.nvim  keymaps
-
-      -- add own keymaps. the rest should be in respective
-      ["<leader>d"] = { name = "+debug" },
-      ["<leader>h"] = { name = "+harpoon" },
+      -- examples
+      -- ["g"] = { name = "+goto" },
+      -- ["gs"] = { name = "+surround" },
+      -- ["]"] = { name = "+next" },
+      -- ["["] = { name = "+prev" },
+      -- ["<leader><tab>"] = { name = "+tabs" },
+      -- ["<leader>w"] = { name = "+windows" },
+      -- ["<leader>x"] = { name = "kabom" }, -- disabled trouble.nvim  keymaps
     }
-
-    local Util = require("lazyvim.util")
-    if Util.has("noice.nvim") then
-      keymaps["<leader>sn"] = { name = "+noice" }
-    end
-
-    wk.register(keymaps)
+    wk.register(keymaps, opts)
 
     -- NOTE: make whichkey transparent
     -- TODO: find a way to trigger this cmd if a transparent theme

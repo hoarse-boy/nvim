@@ -48,18 +48,14 @@ map("v", "C", '"_C', opt)
 -- git which-key
 map("n", "<leader>gb", "<cmd>Gitsigns toggle_current_line_blame<cr>", { desc = "Toggle Git Blame (virtual text)" })
 
-map("n", "<a-y>", "<cmd>t.<cr>", { desc = "Duplicate line" })
-
 map("n", "<leader>sx", require("telescope.builtin").resume, { noremap = true, silent = true, desc = "Resume" })
 
 -- lazy
 map("n", "<leader>L", "<cmd>:Lazy<cr>", { desc = "Lazy" }) -- use L instead of l
 
 -- other keymaps
+map("n", "<a-y>", "<cmd>t.<cr>", { desc = "Duplicate line" })
 map("n", "<leader>st", "<cmd>TodoTelescope<CR>", { desc = "Todo Telescope" })
-
--- NOTE: dont use this keymap as the plugin can now use keymap
--- map("n", "<leader>cc", "<cmd>lua require('treesitter-context').go_to_context()<cr>", { desc = "Go to Context" }) -- cannot create this keymap in the plugin folder as it will disable the ts-context plugin by lazyload it
 
 -- comments (why uses <Plug> = to avoid go to normal mode)
 map("v", "<leader>/", "<Plug>(comment_toggle_linewise_visual)", { desc = "Comment toggle linewise (visual)" })
