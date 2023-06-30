@@ -1,5 +1,4 @@
 return {
-
   "theprimeagen/harpoon",
   event = "VeryLazy",
   keys = {
@@ -9,4 +8,15 @@ return {
     { "<leader>hn", "<cmd>lua require('harpoon.ui').nav_next()<cr>", desc = "Go to next" },
     { "<leader>hp", "<cmd>lua require('harpoon.ui').nav_prev()<cr>", desc = "Go to previous" },
   },
+  config = function(_, opts)
+    local wk = require("which-key")
+    wk.setup(opts)
+    local keymaps = {
+      mode = { "n" },
+      ["<leader>h"] = { name = "+harpoon" },
+    }
+    wk.register(keymaps, opts)
+
+    require("harpoon").setup()
+  end,
 }
