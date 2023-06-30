@@ -2,6 +2,14 @@
 # snippet v "kabommmmmm"
 # 	${1} := ${2}
 #
+snippet deferFunc "defer func to handle func with return"
+	defer func() {
+		if err := ${1}; err != nil {
+			${2}
+			return
+		}
+	}()
+	
 snippet del "comment FIX: TO DELETE"
 	// FIX: DELETE LATER
 
