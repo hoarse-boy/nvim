@@ -3,7 +3,7 @@
 -- Add any additional options here
 
 local opt = vim.opt
-local api = vim.api
+-- local api = vim.api
 
 vim.opt.fillchars = { eob = " " } -- NOTE: removes trailing '~' in nvim
 
@@ -17,7 +17,7 @@ if vim.g.neovide then
   end
   -- g:neovide_transparency should be 0 if you want to unify transparency of content and title bar.
   vim.g.neovide_transparency = 0.0
-  vim.g.transparency = 0.9
+  vim.g.transparency = 0.88
   vim.g.neovide_background_color = "#000000" .. alpha()
 
   vim.g.neovide_input_macos_alt_is_meta = true
@@ -34,7 +34,8 @@ if vim.g.neovide then
   vim.keymap.set("c", "<d-v>", "<c-r>+") -- paste command mode
   vim.keymap.set("i", "<d-v>", '<esc>l"+pli') -- paste insert mode
 
-  -- fix: delete later not working?
+  -- FIX:  not working?
+  -- vim.g.neovide_padding_top = "1cell"
   -- vim.g.neovide_padding_top = 2
   -- vim.g.neovide_padding_bottom = 1
   -- vim.g.neovide_padding_right = 1
@@ -42,17 +43,13 @@ if vim.g.neovide then
 end
 
 -- opt.winbar = "%=%m %f"
-opt.cursorline = true
 -- opt.cursorcolumn = true
 opt.scrolloff = 10 -- minimal number of screen lines to keep above and below the cursor.
 opt.sidescrolloff = 10 -- minimal number of screen lines to keep left and right of the cursor.
 opt.writebackup = false -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
 opt.swapfile = false -- creates a swapfile (i hate this thing, MUST BE FALSE!!!)
 opt.hlsearch = true -- highlight all matches on previous search pattern
--- opt.showmode = false -- we don't need to see things like -- INSERT -- anymore
-
--- opt.list = true
--- opt.listchars:append("space:⋅")
+opt.relativenumber = false
 
 -- The below settings make Leap's highlighting closer to what you've been
 -- used to in Lightspeed.

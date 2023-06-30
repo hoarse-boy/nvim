@@ -1,3 +1,23 @@
+local brighterColor = {
+  fujiWhite = "#ccc6ab", -- variable
+  springGreen = "#ba866c", -- string
+  fujiGray = "#4d4b49", -- comments
+  oniViolet = "#ad2650", -- func, defer etc. also affects var, let, local, anonym func in lua and js
+  peachRed = "#ad2650", -- return and exception handling in other language. return in go will will be the same as function / "oniViolet" color
+  sakuraPink = "#c44d8e", -- number
+  springBlue = "#7f51e0", -- nil, require, builtin func, and indent line / Specials and builtin functions
+  waveRed = "#ab9e9a", -- golang tag string in struct / Standout specials 1 (builtin variables). rust macro
+  crystalBlue = "#0e89cc", -- Functions and Titles
+  carpYellow = "#10b7c7", -- Identifiers. will be a go package name when enabled with semantic highlight
+  waveAqua2 = "#438c5e", -- types
+  surimiOrange = "#84c496", -- Constants, imports, booleans. also nil in golang / when semantic hi is enabled golang's nil is changed to "springBlue"
+  boatYellow2 = "#d1d1d1", -- Operators => . != ==
+  sumiInk0 = "none", -- Dark background (statuslines and floating windows)
+  sumiInk4 = "none", -- treesitter context highlight / Darker foreground (line numbers, fold column, non-text characters), float borders
+  springViolet1 = "#ffffff", -- Light foreground / special color for treesitter-context. it is the same color as the params but it is not changed at all
+  -- TODO: find out how to change params color when semantic highlight is enabled
+}
+
 local myColor = {
   fujiWhite = "#a19c87", -- variable
   -- fujiWhite = "#b8b39a", -- variable
@@ -25,13 +45,12 @@ local myColor = {
   -- waveAqua1 = "#ffffff", -- Diagnostic Info
   -- dragonBlue = "#ffffff", -- Diagnostic Hint
   -- dragonBlue = "#ffffff", -- Diagnostic Hint
-
   fujiGray = "#4d4b49", -- comments
   -- oniViolet = "#ff483f", -- func, defer etc. also affects var, let, local, anonym func in lua and js
   -- oniViolet = "#ff6961", -- func, defer etc. also affects var, let, local, anonym func in lua and js
   oniViolet = "#851e3e", -- func, defer etc. also affects var, let, local, anonym func in lua and js
   -- oniViolet = "#983B6E", -- func, defer etc. also affects var, let, local, anonym func in lua and js
-  peachRed = "#851e3e", -- return and exception handling. return in go will will be the same as function / "oniViolet" color
+  peachRed = "#851e3e", -- return and exception handling in other language. return in go will will be the same as function / "oniViolet" color
   -- sakuraPink = "#b0457f", -- number
   sakuraPink = "#983B6E", -- number
   -- sakuraPink = "#c76320", -- number
@@ -39,9 +58,10 @@ local myColor = {
   springBlue = "#6A44BB", -- nil, require, builtin func, and indent line / Specials and builtin functions
   lightBlue = "#ffffff", -- not used?
   -- springBlue = "#aa58ed", -- nil, require, builtin func, and indent line / Specials and builtin functions
-  waveRed = "#A69B97", -- golang tag string in struct / Standout specials 1 (builtin variables)
+  waveRed = "#7a716e", -- golang tag string in struct / Standout specials 1 (builtin variables)
+  -- waveRed = "#918884", -- golang tag string in struct / Standout specials 1 (builtin variables)
   crystalBlue = "#0B6DA2", -- Functions and Titles
-  waveAqua2 = "#1b6335", -- types
+  waveAqua2 = "#2f6141", -- types
   -- waveAqua2 = "#113e21", -- types
   -- waveAqua2 = "#6a995e", -- types
   surimiOrange = "#679975", -- Constants, imports, booleans. also nil in golang / when semantic hi is enabled golang's nil is changed to "springBlue"
@@ -51,7 +71,7 @@ local myColor = {
   boatYellow2 = "#aaaaaa", -- Operators => . != ==
   -- boatYellow2 = "#bbbbbb",
   -- katanaGray = "#ffffff", -- deprecated
-  -- springViolet1 = "#000000",
+  -- springViolet1 = "#000000", -- Light foreground
   -- springViolet2 = "#BF026D", -- comma, indent line, ;
   -- sumiInk4 = "#000000", -- comma / Darker foreground (line numbers, fold column, non-text characters), float borders
 }
@@ -61,7 +81,6 @@ return {
   lazy = false, -- make sure we load this during startup if it is your main colorscheme
   priority = 1000, -- make sure to load this before all the other start plugins
   config = function()
-    -- Default options:
     require("kanagawa").setup({
       undercurl = true, -- enable undercurls
       commentStyle = { italic = true },
@@ -70,60 +89,36 @@ return {
       statementStyle = { bold = true, italic = true },
       typeStyle = { italic = true },
       variablebuiltinStyle = {},
+      -- specialReturn = false, -- special highlight for the return keyword
       specialReturn = true, -- special highlight for the return keyword
+      -- specialException = false, -- special highlight for exception handling keywords
       specialException = true, -- special highlight for exception handling keywords
       transparent = true, -- do not set background color
       -- transparent = false, -- do not set background color
       dimInactive = false, -- dim inactive window `:h hl-NormalNC`
-      -- dimInactive = true, -- dim inactive window `:h hl-NormalNC`
       globalStatus = false, -- adjust window separators highlight for laststatus=3
       terminalColors = true, -- define vim.g.terminal_color_{0,17}
       colors = {
         theme = { all = { ui = { bg_gutter = "none" } } },
-        palette = myColor,
+        palette = brighterColor,
+        -- palette = myColor,
       },
-
-      -- NOTE: make the telescope not transparent
-      -- overrides = function(colors)
-      --   local theme = colors.theme
-      --   return {
-      --     TelescopeTitle = { fg = theme.ui.special, bold = true },
-      --     TelescopePromptNormal = { bg = theme.ui.bg_p1 },
-      --     TelescopePromptBorder = { fg = theme.ui.bg_p1, bg = theme.ui.bg_p1 },
-      --     TelescopeResultsNormal = { fg = theme.ui.fg_dim, bg = theme.ui.bg_m1 },
-      --     TelescopeResultsBorder = { fg = theme.ui.bg_m1, bg = theme.ui.bg_m1 },
-      --     TelescopePreviewNormal = { bg = theme.ui.bg_dim },
-      --     TelescopePreviewBorder = { bg = theme.ui.bg_dim, fg = theme.ui.bg_dim },
-      --   }
-      -- end,
 
       overrides = function(colors)
         local theme = colors.theme
         return {
           Pmenu = { blend = vim.o.pumblend }, -- TODO: what does it do?
-          -- Pmenu = { fg = theme.ui.shade0, bg = theme.ui.bg_p1 },
-          -- PmenuSel = { fg = "NONE", bg = theme.ui.bg_p2 },
-          -- PmenuSbar = { bg = theme.ui.bg_m1 },
-          -- PmenuThumb = { bg = theme.ui.bg_p2 },
-          -- TelescopePromptNormal = { bg = theme.ui.bg_p1, blend = vim.o.pumblend },
-          -- TelescopeResultsNormal = { fg = theme.ui.fg_dim, bg = theme.ui.pmenu.bg, blend = vim.o.pumblend },
-          -- TelescopePreviewNormal = { bg = theme.ui.bg_dim, blend = vim.o.pumblend },
-          -- TelescopeTitle = { fg = theme.ui.special, bold = true },
-          -- TelescopePromptNormal = { bg = "none" },
-          -- TelescopePromptBorder = { fg = theme.ui.bg_p1, bg = "none" }, -- NOTE: fg changes the border line. in this case bg_p1 will make it less prominent
-          -- TelescopeResultsNormal = { fg = theme.ui.bg_p1, bg = "none" },
-          -- TelescopeResultsBorder = { fg = theme.ui.bg_p1, bg = "none" },
-          -- TelescopePreviewNormal = { bg = "none" },
-          -- TelescopePreviewBorder = { bg = "none", fg = theme.ui.bg_p1 },
 
-          -- NOTE: the same as vim.cmd("highlight TelescopeBorder guibg=none") in layz.lua
+          -- NOTE: the same as vim.cmd("highlight TelescopeBorder guibg=none") in lazy.lua
           -- make the ugly border highlight diseapper
-          -- TODO: add an if, if kanagawa transparent is true add above
+          -- TODO: add an if, kanagawa transparent is true add above
           TelescopeBorder = { bg = "none" },
           FloatBorder = { bg = "none" },
           NormalFloat = { bg = "none" },
           TelescopeTitle = { bg = "none" },
           TelescopeNormal = { bg = "none" },
+          CursorLine = { bg = "#1e1e21" }, -- NOTE: make the cursorline transparent or just disable it in option.lua opt.cursorline = false
+          -- CursorLine = { bg = "none" }, -- NOTE: make the cursorline transparent or just disable it in option.lua opt.cursorline = false
         }
       end,
 
