@@ -4,7 +4,7 @@ local brighterColor = {
   fujiGray = "#4d4b49", -- comments
   oniViolet = "#ad2650", -- func, defer etc. also affects var, let, local, anonym func in lua and js
   peachRed = "#ad2650", -- return and exception handling in other language. return in go will will be the same as function / "oniViolet" color
-  sakuraPink = "#c44d8e", -- number
+  sakuraPink = "#de57a0", -- number
   springBlue = "#7f51e0", -- nil, require, builtin func, and indent line / Specials and builtin functions
   waveRed = "#ab9e9a", -- golang tag string in struct / Standout specials 1 (builtin variables). rust macro
   crystalBlue = "#0e89cc", -- Functions and Titles
@@ -12,9 +12,9 @@ local brighterColor = {
   waveAqua2 = "#438c5e", -- types
   surimiOrange = "#84c496", -- Constants, imports, booleans. also nil in golang / when semantic hi is enabled golang's nil is changed to "springBlue"
   boatYellow2 = "#d1d1d1", -- Operators => . != ==
+  springViolet1 = "#d1d1d1", -- Light foreground / special color for treesitter-context. it is the same color as the params but it is not changed at all except when the params is in at treesitter-context sticky header. it will change color to this
   sumiInk0 = "none", -- Dark background (statuslines and floating windows)
   sumiInk4 = "none", -- treesitter context highlight / Darker foreground (line numbers, fold column, non-text characters), float borders
-  springViolet1 = "#ffffff", -- Light foreground / special color for treesitter-context. it is the same color as the params but it is not changed at all
   -- TODO: find out how to change params color when semantic highlight is enabled
 }
 
