@@ -9,11 +9,14 @@ return {
       end,
     },
 
-    opts = {
-      defaults = {
-        file_ignore_patterns = { "node_modules", "vendor" }, -- NOTE: ignore folder / files for live grep
-      },
-    },
+    opts = function(_, opts)
+      if type(opts.ensure_installed) == "table" then
+        vim.list_extend(opts.defaults.file_ignore_patterns, { "node_modules", "vendor" }) -- NOTE: ignore folder / files for live grep
+      else
+        opts.defaults.file_ignore_patterns = { "node_modules", "vendor" }
+      end
+    end,
+
     keys = {
       -- disable the keymap to grep files. use "sg" instead
       { "<leader>/", false },
