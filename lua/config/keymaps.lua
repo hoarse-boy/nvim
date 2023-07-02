@@ -42,7 +42,8 @@ map("n", "<S-CR>", "o<Esc>^D", opt) -- add empty space below. will also perform 
 
 -- 'H' and 'L' will be behave like the annoying '$' and '^'
 map({ "v", "n" }, "<S-h>", "^", opt)
-map({ "v", "n" }, "<S-l>", "$h", opt)
+map("n", "<S-l>", "$", opt)
+map("v", "<S-l>", "$h", opt) -- visual mode $ will add extra space or \n. to avoid that it will be remap as $h
 
 map("n", "U", "<C-r>") -- dont have to use ctrl r to undo again
 
