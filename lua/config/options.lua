@@ -5,6 +5,10 @@
 local opt = vim.opt
 -- local api = vim.api
 
+-- NOTE: disabled kinda visual buggy because of netrw when first opening nvim
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 vim.opt.fillchars = { eob = " " } -- NOTE: removes trailing '~' in nvim
 
 -- NOTE: neovide config
@@ -42,9 +46,8 @@ if vim.g.neovide then
   -- vim.g.neovide_padding_left = 2
 end
 
--- opt.winbar = "%=%m %f"
--- opt.cursorcolumn = true
-opt.scrolloff = 10 -- minimal number of screen lines to keep above and below the cursor.
+opt.scrolloff = 999 -- minimal number of screen lines to keep above and below the cursor.
+-- opt.scrolloff = 10 -- minimal number of screen lines to keep above and below the cursor.
 opt.sidescrolloff = 10 -- minimal number of screen lines to keep left and right of the cursor.
 opt.writebackup = false -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
 opt.swapfile = false -- creates a swapfile (i hate this thing, MUST BE FALSE!!!)
