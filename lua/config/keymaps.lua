@@ -20,8 +20,7 @@ local opt = { noremap = true, silent = true }
 
 -- NOTE: it should be "_d so uses '' to make the string, else the keymap will not be working
 -- "_* will not save to clipboard.
-map("n", "d", '"_d', opt)
-map("v", "d", '"_d', opt) -- lazyvim dont have x in visual mode, but now it has.
+map({ "v", "n" }, "d", '"_d', opt)
 map("n", "dd", '"_dd', opt)
 
 map("v", "p", '"_dP', opt) -- replace currently selected text with default register. without yanking it
@@ -29,12 +28,10 @@ map("v", "p", '"_dP', opt) -- replace currently selected text with default regis
 map("n", "D", '"_D', opt)
 map("n", "x", '"_x', opt)
 
-map("n", "c", '"_c', opt)
-map("v", "c", '"_c', opt)
-map("n", "C", '"_C', opt)
-map("v", "C", '"_C', opt)
+map({ "v", "n" }, "c", '"_c', opt)
+map({ "v", "n" }, "C", '"_C', opt)
 
-map("i", "jk", "<esc>l", opt) -- added l when escaped to normal mode as to not make the cursor move back 1 colum. note: it will add a single column if the cursor is in the first column
+map("i", "jk", "<esc>l", opt) -- added l when escaped to normal mode as to not make the cursor move back 1 column. note: it will add a single column if the cursor is in the first column
 
 map("n", "<a-y>", "<cmd>t.<cr>", { desc = "Duplicate line" })
 map("v", "y", "ygv<esc>", opt) -- makes the yank not to move back to the first selected line
@@ -44,8 +41,8 @@ map("n", "<S-BS>", "O<Esc>^D", opt) -- add empty space above. will also perform 
 map("n", "<S-CR>", "o<Esc>^D", opt) -- add empty space below. will also perform deletion if the current line is a comment, to make sure it really add empty space
 
 -- 'H' and 'L' will be behave like the annoying '$' and '^'
-map("n", "<S-h>", "^", opt)
-map("n", "<S-l>", "$", opt)
+map({ "v", "n" }, "<S-h>", "^", opt)
+map({ "v", "n" }, "<S-l>", "$h", opt)
 
 map("n", "U", "<C-r>") -- dont have to use ctrl r to undo again
 
