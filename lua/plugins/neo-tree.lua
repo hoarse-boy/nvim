@@ -2,25 +2,44 @@ return {
   {
     "nvim-neo-tree/neo-tree.nvim",
     opts = {
-      -- FIX: NOT WORKING
-      -- event_handlers = {
-      --   {
-      --     event = "neo_tree_buffer_enter",
-      --     handler = function()
-      --       -- This effectively hides the cursor
-      --       vim.cmd("highlight! Cursor blend=100")
-      --     end,
-      --   },
-      --   {
-      --     event = "neo_tree_buffer_leave",
-      --     handler = function()
-      --       -- Make this whatever your current Cursor highlight group is.
-      --       vim.cmd("highlight! Cursor guibg=#5f87af blend=0")
-      --     end,
-      --   },
-      -- },
+      event_handlers = {
+        -- auto close when clicking file
+        {
+          event = "file_opened",
+          handler = function(file_path)
+            --auto close
+            require("neo-tree").close_all()
+          end,
+        },
+      },
 
       filesystem = {
+        -- harpoon_index
+        components = {
+          harpoon_index = function(config, node, state)
+            local Marked = require("harpoon.mark")
+            local path = node:get_id()
+            local succuss, index = pcall(Marked.get_index_of, path)
+            if succuss and index and index > 0 then
+              return {
+                text = string.format(" ⥤ %d", index), -- <-- Add your favorite harpoon like arrow here
+                highlight = config.highlight or "NeoTreeDirectoryIcon",
+              }
+            else
+              return {}
+            end
+          end,
+        },
+        renderers = {
+          file = {
+            { "icon" },
+            { "name", use_git_status_colors = true },
+            { "harpoon_index" },
+            { "diagnostics" },
+            { "git_status", highlight = "NeoTreeDimText" },
+          },
+        },
+
         window = {
           popup = {
             -- make a float right window
@@ -38,14 +57,16 @@ return {
         },
 
         bind_to_cwd = false,
+        -- NOTE: it will stick like glue to the current / active buffer in neo-tree. but it will not work at all in floating mode
         follow_current_file = true,
       },
 
       window = {
-        position = "float",
-        -- position = "left",
+        -- position = "float",
+        position = "left", -- NOTE: will use this as default to use follow_current_file behaviour. but the downside is. when dap-ui is active it will make the window behave strangely everytime the neo-tree is expanded
         mappings = {
           ["<space>"] = "none",
+          ["s"] = "none", -- disabled "s" which is the open vsplit. to let the s of "flash" be usefull in searching files
 
           -- to make the same behaviour as nvim-tree in lunarvim
           h = function(state)
