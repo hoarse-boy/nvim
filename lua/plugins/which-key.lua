@@ -1,12 +1,8 @@
 return {
   "folke/which-key.nvim",
-  keys = {
-    { "<leader>x", false }, -- FIX: not working
-  },
-
   -- NOTE: use opts to not overwrite default lazyvim
   opts = function(_, opts)
-    opts.plugins = { spelling = true }
+    -- FIX: not working now?
     opts.window = {
       border = "single", -- none, single, double, shadow
       position = "bottom", -- bottom, top
@@ -16,23 +12,23 @@ return {
     }
 
     -- NOTE: use below to create custom keymaps
-    local wk = require("which-key")
-    wk.setup(opts)
-    local keymaps = {
-      mode = { "n", "v" },
-      -- examples
-      -- ["g"] = { name = "+goto" },
-      -- ["gs"] = { name = "+surround" },
-      -- ["]"] = { name = "+next" },
-      -- ["["] = { name = "+prev" },
-      -- ["<leader><tab>"] = { name = "+tabs" },
-      -- ["<leader>w"] = { name = "+windows" },
-      -- ["<leader>x"] = { name = "kabom" }, -- disabled trouble.nvim  keymaps
-    }
-    wk.register(keymaps, opts)
+    -- local wk = require("which-key")
+    -- wk.setup(opts)
+    -- local keymaps = {
+    --   -- mode = { "n", "v" },
+    --   -- examples
+    --   -- ["g"] = { name = "+goto" },
+    --   -- ["gs"] = { name = "+surround" },
+    --   -- ["]"] = { name = "+next" },
+    --   -- ["["] = { name = "+prev" },
+    --   -- ["<leader><tab>"] = { name = "+tabs" },
+    --   -- ["<leader>w"] = { name = "+windows" },
+    --   -- ["<leader>x"] = { name = "kabom" }, -- disabled trouble.nvim  keymaps
+    -- }
+    -- wk.register(keymaps, opts)
 
     -- NOTE: make whichkey transparent
     -- TODO: find a way to trigger this cmd if a transparent theme
-    vim.cmd("hi WhichKeyFloat ctermbg=BLACK ctermfg=BLACK")
+    -- vim.cmd("hi WhichKeyFloat ctermbg=BLACK ctermfg=BLACK")
   end,
 }

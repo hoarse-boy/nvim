@@ -5,7 +5,7 @@
 local opt = vim.opt
 -- local api = vim.api
 
--- NOTE: disabled kinda visual buggy because of netrw when first opening nvim
+-- NOTE: disabled kinda visually buggy startup because of netrw
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 

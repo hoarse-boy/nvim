@@ -7,8 +7,6 @@ return {
     "ray-x/go.nvim",
     dependencies = { -- optional packages
       "ray-x/guihua.lua",
-      "neovim/nvim-lspconfig",
-
       {
         -- NOTE: uses highlighter from this plugin instead of treesitter
         -- which doesnt convey alot of go common syntax highlighter like printf %v, & and * pointer in type and other.
@@ -68,11 +66,12 @@ return {
             expr = false, -- use `expr` when creating keymaps
           }
 
+          -- TODO: change this just like rust config in default lazyvim.
           local mappings = {
             l = {
               name = "+lsp (go.nvim)",
-              s = { "<cmd>GoFillStruct<cr>", "Go Fill Struct" },
-              f = { "<cmd>GoFillSwitch<cr>", "Go Fill Switch" },
+              -- s = { "<cmd>GoFillStruct<cr>", "Go Fill Struct" },
+              -- f = { "<cmd>GoFillSwitch<cr>", "Go Fill Switch" },
 
               T = {
                 name = "+go tags",
@@ -130,6 +129,24 @@ return {
     event = { "CmdlineEnter" },
     ft = { "go", "gomod" },
     -- build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
+  },
+
+  -- FIX: check if the keymaps work
+  {
+    "neovim/nvim-lspconfig",
+    opts = {
+      servers = {
+        -- Ensure mason installs the server
+        gopls = {
+          keys = {
+            -- TODO: put the keymaps like above
+            { "<leader>ls", "<cmd>GoFillStruct<cr>", desc = "Go Fill Struct" },
+            { "<leader>lf", "<cmd>GoFillSwitch<cr>", desc = "Go Fill Switch" },
+            { "<leader>cR", "<cmd>RustCodeAction<cr>", desc = "Code Action (Rust)" },
+          },
+        },
+      },
+    },
   },
 
   -- correctly setup mason lsp / dap extensions
