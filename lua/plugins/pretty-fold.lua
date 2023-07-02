@@ -3,7 +3,6 @@ return {
   event = "VeryLazy",
   config = function()
     -- autcmd
-    -- FIX: move to
     -- TODO: move to pretty fold
     -- -- unfold folded code when opening any files
     -- local auto_fold = augroup("OpenFold", {})

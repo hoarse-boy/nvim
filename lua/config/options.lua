@@ -50,7 +50,7 @@ opt.scrolloff = 999 -- minimal number of screen lines to keep above and below th
 -- opt.scrolloff = 10 -- minimal number of screen lines to keep above and below the cursor.
 opt.sidescrolloff = 10 -- minimal number of screen lines to keep left and right of the cursor.
 opt.writebackup = false -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
-opt.swapfile = false -- creates a swapfile (i hate this thing, MUST BE FALSE!!!)
+opt.swapfile = false -- creates a swapfile. disable to avoid the anoying prompt
 opt.hlsearch = true -- highlight all matches on previous search pattern
 opt.relativenumber = false
 
