@@ -1,161 +1,66 @@
-return {
-  -- extend auto completion
-  {
-    "hrsh7th/nvim-cmp",
-    dependencies = {
-      {
-        "Saecki/crates.nvim",
-        event = { "BufRead Cargo.toml" },
-        config = true,
-      },
-    },
+-- TODO: remove alot of this code to use opts only to add keymaps or other. will use lazyvim rust config
+return {}
 
-    ---@param opts cmp.ConfigSchema
-    opts = function(_, opts)
-      local cmp = require("cmp")
-      opts.sources = cmp.config.sources(vim.list_extend(opts.sources, {
-        { name = "crates", priority = 750 },
-      }))
-    end,
-  },
-
-  -- add rust to treesitter
-  {
-    "nvim-treesitter/nvim-treesitter",
-    opts = function(_, opts)
-      if type(opts.ensure_installed) == "table" then
-        vim.list_extend(opts.ensure_installed, { "rust", "toml" })
-      end
-    end,
-  },
-
-  -- correctly setup mason lsp / dap extensions
-  {
-    "williamboman/mason.nvim",
-    opts = function(_, opts)
-      if type(opts.ensure_installed) == "table" then
-        vim.list_extend(opts.ensure_installed, { "codelldb", "rust-analyzer", "taplo" })
-      end
-    end,
-  },
-
-  -- correctly setup lspconfig for Rust 🚀
-  {
-    "neovim/nvim-lspconfig",
-    dependencies = { "simrat39/rust-tools.nvim" },
-
-    opts = {
-      -- make sure mason installs the server
-      servers = {
-        rust_analyzer = {},
-      },
-      setup = {
-        rust_analyzer = function(_, opts)
-          require("lazyvim.util").on_attach(function(client, buffer)
-            if client.name == "rust_analyzer" then
-              -- TODO: add other shortcut
-
-              -- overwrite regular hover action with rust's
-              vim.keymap.set("n", "K", "<cmd>RustHoverActions<cr>", { buffer = buffer, desc = "Hover Actions (Rust)" })
-
-              local wk = require("which-key")
-              local whichKeyOpts = {
-                mode = "n", -- NORMAL mode
-                prefix = "<leader>",
-                buffer = buffer, -- Global mappings. Specify a buffer number for buffer local mappings
-                silent = true, -- use `silent` when creating keymaps
-                noremap = true, -- use `noremap` when creating keymaps
-                nowait = false, -- use `nowait` when creating keymaps
-                expr = false, -- use `expr` when creating keymaps
-              }
-
-              local mappings = {
-                l = {
-                  name = "+lsp (rust-tools)",
-                  r = { "<cmd>RustDebuggables<cr>", "Run Debuggables (Rust)" },
-                  -- vim.keymap.set("n", "<leader>lr", "<cmd>RustDebuggables<cr>", { buffer = buffer, desc = "Run Debuggables (Rust)" })
-                },
-                c = {
-                  -- vim.keymap.set("n", "<leader>ca", "<cmd>RustCodeAction<cr>", { buffer = buffer, desc = "Code Action (Rust)" })
-                  a = { "<cmd>RustCodeAction<cr>", "Code Action (Rust)" },
-                },
-              }
-
-              wk.register(mappings, whichKeyOpts)
-            end
-          end)
-
-          -- rust tools configuration for debugging support
-          local mason_registry = require("mason-registry")
-          local codelldb = mason_registry.get_package("codelldb")
-          local extension_path = codelldb:get_install_path() .. "/extension/"
-          local codelldb_path = extension_path .. "adapter/codelldb"
-          local liblldb_path = vim.fn.has("mac") == 1 and extension_path .. "lldb/lib/liblldb.dylib"
-            or extension_path .. "lldb/lib/liblldb.so"
-          local rust_tools_opts = vim.tbl_deep_extend("force", opts, {
-            dap = {
-              adapter = require("rust-tools.dap").get_codelldb_adapter(codelldb_path, liblldb_path),
-            },
-            tools = {
-              on_initialized = function()
-                vim.cmd([[
-              augroup RustLSP
-              autocmd CursorHold                      *.rs silent! lua vim.lsp.buf.document_highlight()
-              autocmd CursorMoved,InsertEnter         *.rs silent! lua vim.lsp.buf.clear_references()
-              autocmd BufEnter,CursorHold,InsertLeave *.rs silent! lua vim.lsp.codelens.refresh()
-              augroup END
-              ]])
-              end,
-            },
-
-            server = {
-              settings = {
-                ["rust-analyzer"] = {
-                  cargo = {
-                    allFeatures = true,
-                    loadOutDirsFromCheck = true,
-                    runBuildScripts = true,
-                  },
-                  -- Add clippy lints for Rust.
-                  checkOnSave = {
-                    allFeatures = true,
-                    command = "clippy",
-                    extraArgs = { "--no-deps" },
-                  },
-                  procMacro = {
-                    enable = true,
-                    ignored = {
-                      ["async-trait"] = { "async_trait" },
-                      ["napi-derive"] = { "napi" },
-                      ["async-recursion"] = { "async_recursion" },
-                    },
-                  },
-                },
-              },
-            },
-          })
-          require("rust-tools").setup(rust_tools_opts)
-          return true
-        end,
-
-        taplo = function(_, _)
-          local function show_documentation()
-            if vim.fn.expand("%:t") == "Cargo.toml" and require("crates").popup_available() then
-              require("crates").show_popup()
-            else
-              vim.lsp.buf.hover()
-            end
-          end
-
-          require("lazyvim.util").on_attach(function(client, buffer)
-          -- stylua: ignore
-          if client.name == "taplo" then
-            vim.keymap.set("n", "K", show_documentation, { buffer = buffer, desc = "Show Crate Documentation" })
-          end
-          end)
-          return false -- make sure the base implementation calls taplo.setup
-        end,
-      },
-    },
-  },
-}
+-- TODO: this is the latest setup code. dont need to check for lsp using on_attach func.
+-- add keymaps like 'keys' below.
+-- -- Correctly setup lspconfig for Rust 🚀
+-- {
+--   "neovim/nvim-lspconfig",
+--   opts = {
+--     servers = {
+--       -- Ensure mason installs the server
+--       rust_analyzer = {
+--         keys = {
+--           { "K", "<cmd>RustHoverActions<cr>", desc = "Hover Actions (Rust)" },
+--           { "<leader>cR", "<cmd>RustCodeAction<cr>", desc = "Code Action (Rust)" },
+--           { "<leader>dr", "<cmd>RustDebuggables<cr>", desc = "Run Debuggables (Rust)" },
+--         },
+--         settings = {
+--           ["rust-analyzer"] = {
+--             cargo = {
+--               allFeatures = true,
+--               loadOutDirsFromCheck = true,
+--               runBuildScripts = true,
+--             },
+--             -- Add clippy lints for Rust.
+--             checkOnSave = {
+--               allFeatures = true,
+--               command = "clippy",
+--               extraArgs = { "--no-deps" },
+--             },
+--             procMacro = {
+--               enable = true,
+--               ignored = {
+--                 ["async-trait"] = { "async_trait" },
+--                 ["napi-derive"] = { "napi" },
+--                 ["async-recursion"] = { "async_recursion" },
+--               },
+--             },
+--           },
+--         },
+--       },
+--       taplo = {
+--         keys = {
+--           {
+--             "K",
+--             function()
+--               if vim.fn.expand("%:t") == "Cargo.toml" and require("crates").popup_available() then
+--                 require("crates").show_popup()
+--               else
+--                 vim.lsp.buf.hover()
+--               end
+--             end,
+--             desc = "Show Crate Documentation",
+--           },
+--         },
+--       },
+--     },
+--     setup = {
+--       rust_analyzer = function(_, opts)
+--         local rust_tools_opts = require("lazyvim.util").opts("rust-tools.nvim")
+--         require("rust-tools").setup(vim.tbl_deep_extend("force", rust_tools_opts or {}, { server = opts }))
+--         return true
+--       end,
+--     },
+--   },
+-- },
