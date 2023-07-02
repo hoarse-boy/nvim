@@ -35,9 +35,20 @@ return {
     },
 
     opts = {
+      -- NOTE: very usefull. it will do a 'viw' but a in more advance way as it uses treesitter
+      incremental_selection = {
+        enable = true,
+        keymaps = {
+          init_selection = "<Enter>",
+          node_incremental = "<Enter>",
+          node_decremental = "<BS>",
+        },
+      },
+
       highlight = {
         enable = true,
       },
+
       rainbow = {
         enable = true,
         -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
@@ -46,17 +57,6 @@ return {
         -- colors = {}, -- table of hex strings
         -- termcolors = {} -- table of colour name strings
       },
-      -- rainbow = {
-      --   enable = true,
-      --   -- list of languages you want to disable the plugin for
-      --   -- disable = { "jsx", "cpp" },
-      --   -- Which query to use for finding delimiters
-      --   query = "rainbow-parens",
-      --   -- Highlight the entire buffer all at once
-      --   strategy = require("ts-rainbow.strategy.global"),
-      --   -- Do not enable for files with more than n lines
-      --   max_file_lines = 3000,
-      -- },
     },
   },
 }
