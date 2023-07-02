@@ -1,6 +1,7 @@
 return {
   {
     "nvim-neo-tree/neo-tree.nvim",
+    -- disable = true, -- FIX: DELETE LATER teting nvim tree
     opts = {
       -- FIX: NOT WORKING
       -- event_handlers = {
