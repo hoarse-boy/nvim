@@ -41,6 +41,7 @@ return {
         },
 
         window = {
+
           popup = {
             -- make a float right window
             -- position = { col = "100%", row = "2" },
@@ -61,10 +62,26 @@ return {
         follow_current_file = true,
       },
 
+      commands = {
+        -- open dir using os specific app. like macOs open
+        -- TODO: find an api to check the current os
+        system_open = function(state)
+          local node = state.tree:get_node()
+          local path = node:get_id()
+          -- macOs: open file in default application in the background.
+          -- Probably you need to adapt the Linux recipe for manage path with spaces. I don't have a mac to try.
+          vim.api.nvim_command("!open -g " .. path)
+          -- Linux: open file in default application
+          -- vim.api.nvim_command(string.format("silent !xdg-open '%s'", path))
+        end,
+      },
+
       window = {
         -- position = "float",
         position = "left", -- NOTE: will use this as default to use follow_current_file behaviour. but the downside is. when dap-ui is active it will make the window behave strangely everytime the neo-tree is expanded
+        width = 30,
         mappings = {
+          ["o"] = "system_open", -- custom command
           ["<space>"] = "none",
           ["s"] = "none", -- disabled "s" which is the open vsplit. to let the s of "flash" be usefull in searching files
 
