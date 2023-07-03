@@ -41,7 +41,6 @@ return {
         },
 
         window = {
-
           popup = {
             -- make a float right window
             -- position = { col = "100%", row = "2" },
@@ -58,6 +57,7 @@ return {
         },
 
         bind_to_cwd = false,
+        -- the explorer will show the current / active buffer. even if we use telescope to move to other file it will find it in realtime
         -- NOTE: it will stick like glue to the current / active buffer in neo-tree. but it will not work at all in floating mode
         follow_current_file = true,
       },
@@ -79,7 +79,7 @@ return {
       window = {
         -- position = "float",
         position = "left", -- NOTE: will use this as default to use follow_current_file behaviour. but the downside is. when dap-ui is active it will make the window behave strangely everytime the neo-tree is expanded
-        width = 35,
+        width = 40,
         mappings = {
           ["o"] = "system_open", -- custom command
           ["<space>"] = "none",

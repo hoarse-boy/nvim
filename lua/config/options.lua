@@ -13,7 +13,7 @@ vim.opt.fillchars = { eob = " " } -- NOTE: removes trailing '~' in nvim
 
 -- NOTE: neovide config
 if vim.g.neovide then
-  opt.guifont = "jetbrainsmono nerd font:h17.5" -- the font used in graphical neovim applications
+  opt.guifont = "JetBrainsMono Nerd Font:h17.4" -- the font used in graphical neovim applications
 
   -- helper function for transparency formatting
   local alpha = function()
