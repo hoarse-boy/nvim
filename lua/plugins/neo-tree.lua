@@ -79,7 +79,7 @@ return {
       window = {
         -- position = "float",
         position = "left", -- NOTE: will use this as default to use follow_current_file behaviour. but the downside is. when dap-ui is active it will make the window behave strangely everytime the neo-tree is expanded
-        width = 30,
+        width = 35,
         mappings = {
           ["o"] = "system_open", -- custom command
           ["<space>"] = "none",

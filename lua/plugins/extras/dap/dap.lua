@@ -11,7 +11,7 @@ return {
     },
     opts = function()
       -- PERF: enabling nvim to load .vscode/launch.json file for debuging
-      -- added rt_lldb for debuging rust using plugin rust-tools
+      -- add rt_lldb for debuging rust using plugin rust-tools
       require("dap.ext.vscode").load_launchjs(nil, { rt_lldb = { "rust" } })
     end,
   },
