@@ -14,7 +14,8 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.lang.go" }, -- NOTE: change the syntax. makes the var func params to be highlighted differently thanks to semantic highlight enabled. but the * will have the same color as some type liek gin.Context
     { import = "lazyvim.plugins.extras.lang.rust" },
     { import = "lazyvim.plugins.extras.lang.typescript" },
-    { import = "lazyvim.plugins.extras.coding.yanky" }, -- FIX: can yank now but when click or q from the yank history. it will trhow an error
+    -- FIX: dont use it for now as it will yank everything. even if the "_dP is remap to not register anything, but this plugin will make register it
+    -- { import = "lazyvim.plugins.extras.coding.yanky" },
     { import = "lazyvim.plugins.extras.util.project" },
     { import = "lazyvim.plugins.extras.test.core" },
 
