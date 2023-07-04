@@ -45,7 +45,7 @@ return {
         default_delay = 7, -- The default delay (in ms) between each line when scrolling.
         -- NOTE: sometimes causing cursor to diseaper completely?
         hide_cursor = false, -- Hide the cursor while scrolling. Requires enabling termguicolors!
-        horizontal_scroll = false, -- Enable smooth horizontal scrolling when view shifts left or right.
+        -- horizontal_scroll = false, -- Enable smooth horizontal scrolling when view shifts left or right.
         -- NOTE: use the max lenght and limit to make search with n to not have massive delay in animation
         -- max_length = -1, -- Maximum length (in ms) of a command. The line delay will be
         max_length = 100, -- Maximum length (in ms) of a command. The line delay will be

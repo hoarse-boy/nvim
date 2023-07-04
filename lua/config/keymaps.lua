@@ -23,6 +23,7 @@ local opt = { noremap = true, silent = true }
 map({ "v", "n" }, "d", '"_d', opt)
 map("n", "dd", '"_dd', opt)
 
+-- NOTE: will not work if lazyvim yanky is installed / enabled
 map("v", "p", '"_dP', opt) -- replace currently selected text with default register. without yanking it
 
 map("n", "D", '"_D', opt)
@@ -37,6 +38,7 @@ map("n", "<a-y>", "<cmd>t.<cr>", { desc = "Duplicate line" })
 map("v", "y", "ygv<esc>", opt) -- makes the yank not to move back to the first selected line
 
 -- non shift enter and backspace are used for the treesitter's incremental selection
+-- TODO: find a way for this keymap to not yank -- or //
 map("n", "<S-BS>", "O<Esc>^D", opt) -- add empty space above. will also perform deletion if the current line is a comment, to make sure it really add empty space
 map("n", "<S-CR>", "o<Esc>^D", opt) -- add empty space below. will also perform deletion if the current line is a comment, to make sure it really add empty space
 
