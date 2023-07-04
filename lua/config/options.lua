@@ -46,13 +46,13 @@ if vim.g.neovide then
   -- vim.g.neovide_padding_left = 2
 end
 
-opt.scrolloff = 999 -- minimal number of screen lines to keep above and below the cursor.
+opt.scrolloff = 10 -- minimal number of screen lines to keep above and below the cursor.
 -- opt.scrolloff = 10 -- minimal number of screen lines to keep above and below the cursor.
 opt.sidescrolloff = 10 -- minimal number of screen lines to keep left and right of the cursor.
 opt.writebackup = false -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
 opt.swapfile = false -- creates a swapfile. disable to avoid the anoying prompt
 opt.hlsearch = true -- highlight all matches on previous search pattern
-opt.relativenumber = false
+-- opt.relativenumber = false
 
 -- The below settings make Leap's highlighting closer to what you've been
 -- used to in Lightspeed.
