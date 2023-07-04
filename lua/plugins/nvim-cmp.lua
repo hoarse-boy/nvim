@@ -2,7 +2,9 @@ return {
   "hrsh7th/nvim-cmp",
   dependencies = {
     "hrsh7th/cmp-emoji",
+    "hrsh7th/cmp-calc",
   },
+
   ---@param opts cmp.ConfigSchema
   opts = function(_, opts)
     local has_words_before = function()
@@ -14,12 +16,23 @@ return {
     local luasnip = require("luasnip")
     local cmp = require("cmp")
 
-    -- overwrite sources
-    -- opts.sources = { { name = "path" } } -- FIX: DELETE LATER test this
-    -- opts.sources = cmp.config.sources(vim.list_extend(opts.sources, { { name = "emoji" } }))
+    -- NOTE: to overwrite sources, just use opts.something. and dont add vim.list_extend
+    -- higher first in table has more priority
+    opts.sources = cmp.config.sources({
+      { name = "luasnip" },
+      { name = "nvim_lsp" },
+      { name = "buffer" },
+      { name = "calc" },
+      { name = "emoji" },
+      { name = "path" },
+    })
+
+    -- NOTE: this will fix gopls strange behavior in which it will go to the middle of cmp suggestions instead of the first in line
+    opts.preselect = cmp.PreselectMode.None
+    opts.completion = { completeopt = "menu,menuone,noinsert,noselect" }
 
     opts.mapping = vim.tbl_extend("force", opts.mapping, {
-      ["<esc>"] = cmp.mapping.abort(), -- default is control + e or escape
+      ["<esc>"] = cmp.mapping.abort(), -- default is control + e
       ["<CR>"] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
       ["<S-CR>"] = cmp.mapping.confirm({
         behavior = cmp.ConfirmBehavior.Replace,
@@ -27,13 +40,12 @@ return {
       }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
 
       -- add tab and shift tab to navigate the autocompleteion
+      -- NOTE: use arrow keys to select cmp suggestion. tab will be solely used by lausnip until the luasnip placeholder are gone
       ["<Tab>"] = cmp.mapping(function(fallback)
-        if cmp.visible() then
+        if luasnip.jumpable() then
+          luasnip.jump(1)
+        elseif cmp.visible() then
           cmp.select_next_item()
-          -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
-          -- they way you will only jump inside the snippet region
-        elseif luasnip.expand_or_jumpable() then
-          luasnip.expand_or_jump()
         elseif has_words_before() then
           cmp.complete()
         else
@@ -41,10 +53,10 @@ return {
         end
       end, { "i", "s" }),
       ["<S-Tab>"] = cmp.mapping(function(fallback)
-        if cmp.visible() then
-          cmp.select_prev_item()
-        elseif luasnip.jumpable(-1) then
+        if luasnip.jumpable(-1) then
           luasnip.jump(-1)
+        elseif cmp.visible() then
+          cmp.select_prev_item()
         else
           fallback()
         end
