@@ -118,8 +118,10 @@ return {
           NormalFloat = { bg = "none" },
           TelescopeTitle = { bg = "none" },
           TelescopeNormal = { bg = "none" },
-          CursorLine = { bg = "#1e1e21" }, -- NOTE: make the cursorline transparent or just disable it in option.lua opt.cursorline = false
-          -- CursorLine = { bg = "none" }, -- NOTE: make the cursorline transparent or just disable it in option.lua opt.cursorline = false
+          CursorLine = { bg = "#2e2e33" }, -- NOTE: make the cursorline transparent or just disable it in option.lua opt.cursorline = false
+          -- CursorLine = { bg = "none" },
+          -- TODO: change this color
+          ["@parameter"] = { fg = "#5c26bf" }, -- from vim.cmd("highlight @parameter guifg=#5c26bf")
         }
       end,
 
