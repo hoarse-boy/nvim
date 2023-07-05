@@ -2,6 +2,8 @@
 -- no hassle with duplicate gopls server in memory
 -- https://github.com/ray-x/go.nvim?ref=morioh.com&utm_source=morioh.com
 
+local notify = require("notify")
+
 return {
   {
     "ray-x/go.nvim",
@@ -31,7 +33,6 @@ return {
 
     config = function()
       require("go").setup()
-      local notify = require("notify")
 
       -- NOTE: autocmd
       local autocmd = vim.api.nvim_create_autocmd
@@ -70,55 +71,12 @@ return {
           local mappings = {
             l = {
               name = "+lsp (go.nvim)",
-              -- s = { "<cmd>GoFillStruct<cr>", "Go Fill Struct" },
-              -- f = { "<cmd>GoFillSwitch<cr>", "Go Fill Switch" },
-
               T = {
                 name = "+go tags",
-                a = {
-                  "<cmd>GoModifyTag -add-tags json -transform camelcase -add-options json=<cr>",
-                  "Go Add Tags No 'omitempty'",
-                },
-                A = {
-                  "<cmd>GoModifyTag -add-tags json -transform camelcase<cr>",
-                  "Go Add Tags",
-                },
-                r = { "<cmd>GoRmTag<cr>", "Go Remove Tags" },
               },
-
-              r = { "<cmd>GoRename<cr>", "Go Rename" },
-
               t = {
-                -- TODO: update some test to have argument. use func in keymaps?
                 name = "+go test",
-                a = { "<cmd>GoAddTest<cr>", "Go Add Test for Current Func" },
-                A = { "<cmd>GoAddAllTest<cr>", "Go Add Test for all Func" },
-                e = { "<cmd>GoAddExpTest<cr>", "Go Add Exported Func" },
-                t = { "<cmd>GoTest<cr>", "Go Test All" },
-                f = { "<cmd>GoTestFunc<cr>", "Go Test a Func" },
-                F = { "<cmd>GoTestFile<cr>", "Go Test All Func in the File" },
-                P = { "<cmd>GoTestPkg<cr>", "Go Test Package" },
-                c = { "<cmd>GoCoverage<cr>", "Go Test -coverprofile" },
               },
-
-              d = {
-                function()
-                  local docName = vim.fn.input("Specify Go Doc: ")
-                  if docName == "" then
-                    notify("Cannot find empty doc", "warn", { title = "go.nvim" })
-                  else
-                    local godoc = string.format(":GoDoc %s", docName)
-                    vim.cmd(godoc)
-                  end
-                end,
-                "Go Doc",
-              },
-              e = { "<cmd>GoIfErr<cr>", "Go Auto Generate 'if err'" },
-              l = { "<cmd>GoLint<cr>", "Go Run 'golangci_lint'" },
-              c = { "<cmd>GoCheat<cr>", "Go Cheatsheet" },
-              -- c = { "<cmd>GoCmt<cr>", "Go Generate Func Comments" },
-              m = { "<cmd>Gomvp<cr>", "Go Rename Module name" },
-              -- map("n", "<leader>lgm", "<cmd>GoFixPlurals<cr>", { desc = "Go Fix Redundant Func Params" }) -- not working?
             },
           }
 
@@ -131,7 +89,7 @@ return {
     -- build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
   },
 
-  -- FIX: check if the keymaps work
+  -- TODO: move the keymaps above to this keys table
   {
     "neovim/nvim-lspconfig",
     opts = {
@@ -140,9 +98,46 @@ return {
         gopls = {
           keys = {
             -- TODO: put the keymaps like above
-            { "<leader>ls", "<cmd>GoFillStruct<cr>", desc = "Go Fill Struct" },
-            { "<leader>lf", "<cmd>GoFillSwitch<cr>", desc = "Go Fill Switch" },
-            { "<leader>cR", "<cmd>RustCodeAction<cr>", desc = "Code Action (Rust)" },
+            { "<leader>ls", "<cmd>GoFillStruct<cr>", desc = "Fill Struct" },
+            { "<leader>lf", "<cmd>GoFillSwitch<cr>", desc = "Fill Switch" },
+            { "<leader>lr", "<cmd>GoRename<cr>", desc = "Rename" },
+
+            -- stylua: ignore
+            -- T = tags
+            { "<leader>lTa", "<cmd>GoModifyTag -add-tags json -transform camelcase -add-options json=<cr>", desc = "Add Tags No 'omitempty'", },
+            { "<leader>lTA", "<cmd>GoModifyTag -add-tags json -transform camelcase<cr>", desc = "Add Tags" },
+            { "<leader>lTr", "<cmd>GoRename<cr>", desc = "Remove Tags" },
+
+            -- t = test
+            { "<leader>lta", "<cmd>GoAddTest<cr>", desc = "Add Test for Current Func" },
+            { "<leader>ltA", "<cmd>GoAddAllTest<cr>", desc = "Add Test for all Func" },
+            { "<leader>lte", "<cmd>GoAddExpTest<cr>", desc = "Add Exported Func" },
+            { "<leader>ltt", "<cmd>GoTest<cr>", desc = "Test All" },
+            { "<leader>ltt", "<cmd>GoTestFunc<cr>", desc = "Test a Func" },
+            { "<leader>ltF", "<cmd>GoTestFile<cr>", desc = "Test All Func in the File" },
+            { "<leader>ltP", "<cmd>GoTestPkg<cr>", desc = "Test Package" },
+            { "<leader>ltc", "<cmd>GoCoverage<cr>", desc = "Test -coverprofile" },
+
+            {
+              "<leader>ld",
+              function()
+                local docName = vim.fn.input("Specify Go Doc: ")
+                if docName == "" then
+                  notify("Cannot find empty doc", "warn", { title = "go.nvim" })
+                else
+                  local godoc = string.format(":GoDoc %s", docName)
+                  vim.cmd(godoc)
+                end
+              end,
+              desc = "Go Doc",
+            },
+
+            { "<leader>le", "<cmd>GoIfErr<cr>", desc = "Auto Generate 'if err'" },
+            { "<leader>ll", "<cmd>GoLint<cr>", desc = "Run 'golangci_lint'" },
+            { "<leader>lc", "<cmd>GoCheat<cr>", desc = "Cheatsheet" },
+            { "<leader>lm", "<cmd>Gomvp<cr>", desc = "Rename Module name" },
+            -- c = { "<cmd>GoCmt<cr>", "Go Generate Func Comments" },
+            -- map("n", "<leader>lgm", "<cmd>GoFixPlurals<cr>", { desc = "Go Fix Redundant Func Params" }) -- not working?
           },
         },
       },
