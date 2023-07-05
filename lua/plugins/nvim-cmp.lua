@@ -41,8 +41,6 @@ return {
 
       -- add tab and shift tab to navigate the autocompleteion
       -- NOTE: use arrow keys to select cmp suggestion. tab will be solely used by lausnip until the luasnip placeholder are gone
-      -- -- FIX: when the luasnip placeholder has been used one time. it will disable cmp select for the rest of nvim session
-      -- TODO: change to use leader key?
       ["<Tab>"] = cmp.mapping(function(fallback)
         if cmp.visible() then
           cmp.select_next_item()
