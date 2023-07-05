@@ -49,6 +49,15 @@ map("v", "<S-l>", "$h", opt) -- visual mode $ will add extra space or \n. to avo
 
 map("n", "U", "<C-r>") -- dont have to use ctrl r to undo again
 
+-- NOTE: for luansip placeholder jumping
+-- stylua: ignore
+   map({"v", "i" }, "<C-J>", function() local luasnip = require("luasnip") if luasnip.jumpable() then luasnip.jump(1) end end, { desc = "Jump to next placeholder (LuaSnip)",   noremap = true, silent = true })
+-- stylua: ignore
+    map({"v", "i" }, "<C-I>", function() local luasnip = require("luasnip") if luasnip.jumpable() then luasnip.jump(-1) end end, { desc = "Jump to previous placeholder (LuaSnip)", noremap = true, silent = true })
+
+-- stylua: ignore
+    map("n", "<leader>?s", function() local notify = require("notify") notify("use ctrl j / i\nto jump to LuaSnip placeholder", "info", { title = "helper" }) end, { desc = "Jump to previous placeholder (LuaSnip)", noremap = true, silent = true })
+
 -- change the lazyvim buffer movement to tab
 map("n", "<Tab>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
 map("n", "<S-Tab>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
