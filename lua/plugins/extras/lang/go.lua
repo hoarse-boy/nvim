@@ -44,7 +44,7 @@ return {
         pattern = "*.go",
         callback = function()
           require("go.format").goimport()
-          notify("run GoTest?", "info", { title = "go.nvim" })
+          notify("Have you:\n- run GoTest?\n- checked todo 'FIX:'?", "info", { title = "go.nvim" })
         end,
         group = format_sync_grp,
       })
@@ -89,13 +89,49 @@ return {
     -- build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
   },
 
-  -- TODO: move the keymaps above to this keys table
+  -- TODO: copy all from lazy go language config but alter a bit
   {
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
-        -- Ensure mason installs the server
         gopls = {
+          settings = {
+            gopls = {
+              gofumpt = true,
+              codelenses = {
+                gc_details = false,
+                generate = true,
+                regenerate_cgo = true,
+                run_govulncheck = true,
+                test = true,
+                tidy = true,
+                upgrade_dependency = true,
+                vendor = true,
+              },
+              hints = {
+                assignVariableTypes = true,
+                compositeLiteralFields = true,
+                compositeLiteralTypes = true,
+                constantValues = true,
+                functionTypeParameters = true,
+                parameterNames = true,
+                rangeVariableTypes = true,
+              },
+              analyses = {
+                fieldalignment = true,
+                nilness = true,
+                unusedparams = true,
+                unusedwrite = true,
+                useany = true,
+              },
+              usePlaceholders = true,
+              completeUnimported = true,
+              staticcheck = true,
+              directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
+              semanticTokens = true,
+            },
+          },
+
           keys = {
             -- TODO: put the keymaps like above
             { "<leader>ls", "<cmd>GoFillStruct<cr>", desc = "Fill Struct" },
@@ -141,18 +177,149 @@ return {
           },
         },
       },
+
+      setup = {
+        gopls = function(_, opts)
+          -- workaround for gopls not supporting semanticTokensProvider
+          -- https://github.com/golang/go/issues/54531#issuecomment-1464982242
+          require("lazyvim.util").on_attach(function(client, _)
+            if client.name == "gopls" then
+              if not client.server_capabilities.semanticTokensProvider then
+                local semantic = client.config.capabilities.textDocument.semanticTokens
+                client.server_capabilities.semanticTokensProvider = {
+                  full = true,
+                  legend = {
+                    tokenTypes = semantic.tokenTypes,
+                    tokenModifiers = semantic.tokenModifiers,
+                  },
+                  range = true,
+                }
+              end
+            end
+          end)
+          -- end workaround
+        end,
+      },
     },
   },
+
+  -- {
+  --   "neovim/nvim-lspconfig",
+  --   opts = {
+  --     servers = {
+  --       -- Ensure mason installs the server
+  --       gopls = {
+  --         -- FIX: fix parameter higlight just like lazyvim extra
+  --         gofumpt = true,
+  --         codelenses = {
+  --           gc_details = false,
+  --           generate = true,
+  --           regenerate_cgo = true,
+  --           run_govulncheck = true,
+  --           test = true,
+  --           tidy = true,
+  --           upgrade_dependency = true,
+  --           vendor = true,
+  --         },
+  --         hints = {
+  --           assignVariableTypes = true,
+  --           compositeLiteralFields = true,
+  --           compositeLiteralTypes = true,
+  --           constantValues = true,
+  --           functionTypeParameters = true,
+  --           parameterNames = true,
+  --           rangeVariableTypes = true,
+  --         },
+  --         analyses = {
+  --           fieldalignment = true,
+  --           nilness = true,
+  --           unusedparams = true,
+  --           unusedwrite = true,
+  --           useany = true,
+  --         },
+  --         usePlaceholders = true,
+  --         completeUnimported = true,
+  --         staticcheck = true,
+  --         directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
+  --         semanticTokens = true,
+  --         keys = {
+  --           -- TODO: put the keymaps like above
+  --           { "<leader>ls", "<cmd>GoFillStruct<cr>", desc = "Fill Struct" },
+  --           { "<leader>lf", "<cmd>GoFillSwitch<cr>", desc = "Fill Switch" },
+  --           { "<leader>lr", "<cmd>GoRename<cr>", desc = "Rename" },
+
+  --           -- stylua: ignore
+  --           -- T = tags
+  --           { "<leader>lTa", "<cmd>GoModifyTag -add-tags json -transform camelcase -add-options json=<cr>", desc = "Add Tags No 'omitempty'", },
+  --           { "<leader>lTA", "<cmd>GoModifyTag -add-tags json -transform camelcase<cr>", desc = "Add Tags" },
+  --           { "<leader>lTr", "<cmd>GoRename<cr>", desc = "Remove Tags" },
+
+  --           -- t = test
+  --           { "<leader>lta", "<cmd>GoAddTest<cr>", desc = "Add Test for Current Func" },
+  --           { "<leader>ltA", "<cmd>GoAddAllTest<cr>", desc = "Add Test for all Func" },
+  --           { "<leader>lte", "<cmd>GoAddExpTest<cr>", desc = "Add Exported Func" },
+  --           { "<leader>ltt", "<cmd>GoTest<cr>", desc = "Test All" },
+  --           { "<leader>ltt", "<cmd>GoTestFunc<cr>", desc = "Test a Func" },
+  --           { "<leader>ltF", "<cmd>GoTestFile<cr>", desc = "Test All Func in the File" },
+  --           { "<leader>ltP", "<cmd>GoTestPkg<cr>", desc = "Test Package" },
+  --           { "<leader>ltc", "<cmd>GoCoverage<cr>", desc = "Test -coverprofile" },
+
+  --           {
+  --             "<leader>ld",
+  --             function()
+  --               local docName = vim.fn.input("Specify Go Doc: ")
+  --               if docName == "" then
+  --                 notify("Cannot find empty doc", "warn", { title = "go.nvim" })
+  --               else
+  --                 local godoc = string.format(":GoDoc %s", docName)
+  --                 vim.cmd(godoc)
+  --               end
+  --             end,
+  --             desc = "Go Doc",
+  --           },
+
+  --           { "<leader>le", "<cmd>GoIfErr<cr>", desc = "Auto Generate 'if err'" },
+  --           { "<leader>ll", "<cmd>GoLint<cr>", desc = "Run 'golangci_lint'" },
+  --           { "<leader>lc", "<cmd>GoCheat<cr>", desc = "Cheatsheet" },
+  --           { "<leader>lm", "<cmd>Gomvp<cr>", desc = "Rename Module name" },
+  --           -- c = { "<cmd>GoCmt<cr>", "Go Generate Func Comments" },
+  --           -- map("n", "<leader>lgm", "<cmd>GoFixPlurals<cr>", { desc = "Go Fix Redundant Func Params" }) -- not working?
+  --         },
+  --       },
+  --     },
+  --     setup = {
+  --       gopls = function(_, opts)
+  --         -- workaround for gopls not supporting semanticTokensProvider
+  --         -- https://github.com/golang/go/issues/54531#issuecomment-1464982242
+  --         require("lazyvim.util").on_attach(function(client, _)
+  --           if client.name == "gopls" then
+  --             if not client.server_capabilities.semanticTokensProvider then
+  --               local semantic = client.config.capabilities.textDocument.semanticTokens
+  --               client.server_capabilities.semanticTokensProvider = {
+  --                 full = true,
+  --                 legend = {
+  --                   tokenTypes = semantic.tokenTypes,
+  --                   tokenModifiers = semantic.tokenModifiers,
+  --                 },
+  --                 range = true,
+  --               }
+  --             end
+  --           end
+  --         end)
+  --         -- end workaround
+  --       end,
+  --     },
+  --   },
+  -- },
 
   -- correctly setup mason lsp / dap extensions
   {
     "williamboman/mason.nvim",
     opts = function(_, opts)
       if type(opts.ensure_installed) == "table" then
-        -- NOTE: it is better to install golangci_lint via binary from official web https://golangci-lint.run/usage/install/
+        -- NOTE: must install golangci_lint via binary from official web https://golangci-lint.run/usage/install/
+        -- installing from mason will have different path and other issue like, running golangci_lint in terminal will cause pc to lag
         -- after installed running golint in the terminal and using ray-x/go.nvim work flawlessly.
-
-        -- NOTE: need to installed golangci_lint_ls and golangci_lint to avoid lag when running golangci
         vim.list_extend(opts.ensure_installed, { "gopls" })
       end
     end,
@@ -164,6 +331,7 @@ return {
   {
     "jose-elias-alvarez/null-ls.nvim",
     opts = function(_, opts)
+      -- -- TODO:  make a modified golangci_lint to have the same output and linter uses as running golangci_lint in go.nvim and terminal
       local nls = require("null-ls")
       table.insert(opts.sources, nls.builtins.diagnostics.golangci_lint)
     end,
@@ -188,3 +356,127 @@ return {
     end,
   },
 }
+
+-- return {
+--   {
+--     "nvim-treesitter/nvim-treesitter",
+--     opts = function(_, opts)
+--       vim.list_extend(opts.ensure_installed, {
+--         "go",
+--         "gomod",
+--         "gowork",
+--         "gosum",
+--       })
+--     end,
+--   },
+--   {
+--     "neovim/nvim-lspconfig",
+--     opts = {
+--       servers = {
+--         gopls = {
+--           settings = {
+--             gopls = {
+--               gofumpt = true,
+--               codelenses = {
+--                 gc_details = false,
+--                 generate = true,
+--                 regenerate_cgo = true,
+--                 run_govulncheck = true,
+--                 test = true,
+--                 tidy = true,
+--                 upgrade_dependency = true,
+--                 vendor = true,
+--               },
+--               hints = {
+--                 assignVariableTypes = true,
+--                 compositeLiteralFields = true,
+--                 compositeLiteralTypes = true,
+--                 constantValues = true,
+--                 functionTypeParameters = true,
+--                 parameterNames = true,
+--                 rangeVariableTypes = true,
+--               },
+--               analyses = {
+--                 fieldalignment = true,
+--                 nilness = true,
+--                 unusedparams = true,
+--                 unusedwrite = true,
+--                 useany = true,
+--               },
+--               usePlaceholders = true,
+--               completeUnimported = true,
+--               staticcheck = true,
+--               directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
+--               semanticTokens = true,
+--             },
+--           },
+--         },
+--       },
+--       setup = {
+--         gopls = function(_, opts)
+--           -- workaround for gopls not supporting semanticTokensProvider
+--           -- https://github.com/golang/go/issues/54531#issuecomment-1464982242
+--           require("lazyvim.util").on_attach(function(client, _)
+--             if client.name == "gopls" then
+--               if not client.server_capabilities.semanticTokensProvider then
+--                 local semantic = client.config.capabilities.textDocument.semanticTokens
+--                 client.server_capabilities.semanticTokensProvider = {
+--                   full = true,
+--                   legend = {
+--                     tokenTypes = semantic.tokenTypes,
+--                     tokenModifiers = semantic.tokenModifiers,
+--                   },
+--                   range = true,
+--                 }
+--               end
+--             end
+--           end)
+--           -- end workaround
+--         end,
+--       },
+--     },
+--   },
+--   -- Ensure Go tools are installed
+--   {
+--     "jose-elias-alvarez/null-ls.nvim",
+--     opts = function(_, opts)
+--       if type(opts.sources) == "table" then
+--         local nls = require("null-ls")
+--         vim.list_extend(opts.sources, {
+--           nls.builtins.code_actions.gomodifytags,
+--           nls.builtins.code_actions.impl,
+--           nls.builtins.formatting.gofumpt,
+--           nls.builtins.formatting.goimports_reviser,
+--         })
+--       end
+--     end,
+--   },
+--   {
+--     "mfussenegger/nvim-dap",
+--     optional = true,
+--     dependencies = {
+--       {
+--         "mason.nvim",
+--         opts = function(_, opts)
+--           opts.ensure_installed = opts.ensure_installed or {}
+--           table.insert(opts.ensure_installed, "delve")
+--         end,
+--       },
+--     },
+--   },
+--   {
+--     "nvim-neotest/neotest",
+--     optional = true,
+--     dependencies = {
+--       "nvim-neotest/neotest-go",
+--     },
+--     opts = {
+--       adapters = {
+--         ["neotest-go"] = {
+--           -- Here we can set options for neotest-go, e.g.
+--           -- args = { "-tags=integration" }
+--         },
+--       },
+--     },
+--   },
+-- }
