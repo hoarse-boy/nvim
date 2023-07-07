@@ -14,6 +14,8 @@ require("lazy").setup({
     -- { import = "lazyvim.plugins.extras.lang.go" }, -- NOTE: change the syntax. makes the var func params to be highlighted differently thanks to semantic highlight enabled. but the * will have the same color as some type liek gin.Context
     -- { import = "lazyvim.plugins.extras.lang.rust" },
     { import = "lazyvim.plugins.extras.lang.typescript" },
+    { import = "lazyvim.plugins.extras.lang.python" },
+    { import = "lazyvim.plugins.extras.lang.terraform" },
     -- { import = "lazyvim.plugins.extras.coding.yanky" }, -- FIX: dont use it for now as it will yank everything. even if the "_dP is remap to not register anything, but this plugin will make register it
     { import = "lazyvim.plugins.extras.util.project" },
     { import = "lazyvim.plugins.extras.test.core" },
@@ -25,7 +27,7 @@ require("lazy").setup({
 
     { import = "lazyvim.plugins.extras.dap.core" },
     { import = "lazyvim.plugins.extras.dap.nlua" },
-    { import = "plugins.extras.dap.dap" }, -- NOTE: import / extend my dap config. make sure to import it below lazyvim dap.core
+    { import = "plugins.extras.dap.dap" }, -- NOTE: extend my dap config. make sure to import it below lazyvim dap.core
     { import = "lazyvim.plugins.extras.lang.json" },
     -- { import = "lazyvim.plugins.extras.ui.mini-animate" }, -- NOTE: use cinnamon.nvim. better in all regards. can animate any motion even gg and { and }
     { import = "lazyvim.plugins.extras.util.mini-hipatterns" },
