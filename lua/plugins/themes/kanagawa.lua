@@ -1,10 +1,12 @@
 local brighterColor = {
   fujiWhite = "#ccc6ab", -- variable
-  springGreen = "#ba866c", -- string
+  springGreen = "#C58674", -- string
+  -- springGreen = "#ba866c", -- string
   fujiGray = "#4d4b49", -- comments
   oniViolet = "#ad2650", -- func, defer etc. also affects var, let, local, anonym func in lua and js
   peachRed = "#ad2650", -- return and exception handling in other language. return in go will will be the same as function / "oniViolet" color
-  sakuraPink = "#9e3380", -- number
+  sakuraPink = "#BC1B8C", -- number
+  -- sakuraPink = "#9e3380", -- number
   springBlue = "#7f51e0", -- nil, require, builtin func, and indent line / Specials and builtin functions
   waveRed = "#ab9e9a", -- golang tag string in struct / Standout specials 1 (builtin variables). rust macro
   crystalBlue = "#0286c7", -- Functions and Titles
@@ -121,7 +123,7 @@ return {
           CursorLine = { bg = "#2e2e33" }, -- NOTE: make the cursorline transparent or just disable it in option.lua opt.cursorline = false
           -- CursorLine = { bg = "none" },
           -- TODO: change this color
-          ["@parameter"] = { fg = "#5c26bf" }, -- from vim.cmd("highlight @parameter guifg=#5c26bf")
+          ["@parameter"] = { fg = "#a13c38" }, -- from vim.cmd("highlight @parameter guifg=#5c26bf")
         }
       end,
 
