@@ -44,7 +44,7 @@ return {
         pattern = "*.go",
         callback = function()
           require("go.format").goimport()
-          notify("Have you:\n- run GoTest?\n- checked todo 'FIX:'?", "info", { title = "go.nvim" })
+          notify("Have you:\n- run GoTest?\n- run GoLint?\n- checked todo 'FIX:'?", "info", { title = "go.nvim" })
         end,
         group = format_sync_grp,
       })
