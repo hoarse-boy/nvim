@@ -34,7 +34,17 @@ snippet note "comment note"
 snippet stylua_ignore "stylelua ignore comment"
 	-- stylua: ignore
 
-snippet stylua_ignore "stylelua ignore comment"
+snippet lazy_keymap "lazy keymap"
 	keys = {
 		{ "${1:keymap ex => <leader>cR}", "<cmd>${2:cmd}<cr>", desc = "${3:description}" },
 	}
+
+snippet notify "generate notify with treesitter highlight"
+	notify("${1:Message}", "${2:Notifation Type: info, warn, debug, or error}", {
+		title = "${3:Title}",
+		on_open = function(win)
+			local buf = vim.api.nvim_win_get_buf(win)
+			vim.api.nvim_buf_set_option(buf, "filetype", "${4:ex. markdown}")
+		end,
+	})
+
