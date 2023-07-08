@@ -32,7 +32,8 @@ map("n", "x", '"_x', opt)
 map({ "v", "n" }, "c", '"_c', opt)
 map({ "v", "n" }, "C", '"_C', opt)
 
-map("i", "jk", "<esc>l", opt) -- added l when escaped to normal mode as to not make the cursor move back 1 column. note: it will add a single column if the cursor is in the first column
+-- use better-escape-nvim plugin to make it seamless in animation
+-- map("i", "jk", "<esc>l", opt) -- added l when escaped to normal mode as to not make the cursor move back 1 column. note: it will add a single column if the cursor is in the first column
 
 map("n", "<a-y>", "<cmd>t.<cr>", { desc = "Duplicate line" })
 map("v", "y", "ygv<esc>", opt) -- makes the yank not to move back to the first selected line
