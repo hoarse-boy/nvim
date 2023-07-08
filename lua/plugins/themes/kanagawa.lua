@@ -110,7 +110,7 @@ return {
       overrides = function(colors)
         local theme = colors.theme
         return {
-          Pmenu = { blend = vim.o.pumblend }, -- TODO: what does it do?
+          -- Pmenu = { blend = vim.o.pumblend }, -- TODO: what does it do?
 
           -- NOTE: the same as vim.cmd("highlight TelescopeBorder guibg=none") in lazy.lua
           -- make the ugly border highlight diseapper
@@ -122,8 +122,8 @@ return {
           TelescopeNormal = { bg = "none" },
           CursorLine = { bg = "#2e2e33" }, -- NOTE: make the cursorline transparent or just disable it in option.lua opt.cursorline = false
           -- CursorLine = { bg = "none" },
-          -- TODO: change this color
-          ["@parameter"] = { fg = "#a13c38" }, -- from vim.cmd("highlight @parameter guifg=#5c26bf")
+          -- should not be colored the same as function / return / (currently red) and go func name which (currently blue)
+          ["@parameter"] = { fg = "#A48111" }, -- from vim.cmd("highlight @parameter guifg=#5c26bf")
         }
       end,
 
