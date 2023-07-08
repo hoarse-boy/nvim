@@ -83,7 +83,7 @@ return {
         mappings = {
           ["o"] = "system_open", -- custom command
           ["<space>"] = "none",
-          ["s"] = "none", -- disabled "s" which is the open vsplit. to let the s of "flash" be usefull in searching files
+          -- ["s"] = "none", -- disabled "s" which is the open vsplit. to let the s of "flash" be usefull in searching files
 
           -- to make the same behaviour as nvim-tree in lunarvim
           h = function(state)
@@ -95,7 +95,7 @@ return {
             end
           end,
           l = "open",
-          ["/"] = "none", -- disable native filter of neo-tree. to use vim search instead
+          ["/"] = "none", -- disable native filter of neo-tree. to use vim search instead. can be used by flash if it is enabled
         },
       },
     },
