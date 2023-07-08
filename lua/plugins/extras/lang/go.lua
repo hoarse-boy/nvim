@@ -44,7 +44,15 @@ return {
         pattern = "*.go",
         callback = function()
           require("go.format").goimport()
-          notify("Have you:\n- run GoTest?\n- run GoLint?\n- checked todo 'FIX:'?", "info", { title = "go.nvim" })
+
+          -- print notification
+          notify("# Have you:\n- run GoTest?\n- run GoLint?\n- checked todo 'FIX:'?", "info", {
+            title = "go.nvim",
+            on_open = function(win)
+              local buf = vim.api.nvim_win_get_buf(win)
+              vim.api.nvim_buf_set_option(buf, "filetype", "markdown")
+            end,
+          })
         end,
         group = format_sync_grp,
       })
