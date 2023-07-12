@@ -6,6 +6,11 @@ return {
   -- lazy = false, -- make sure we load this during startup if it is your main colorscheme
   -- priority = 1000, -- make sure to load this before all the other start plugins
   config = function()
+    -- to disable notification when using transparent_background
+    require("notify").setup({
+      background_colour = "#000000",
+    })
+
     require("catppuccin").setup({
       flavour = "mocha", -- latte, frappe, macchiato, mocha
       -- flavour = "mocha", -- latte, frappe, macchiato, mocha
@@ -38,12 +43,24 @@ return {
         operators = {},
       },
       color_overrides = {
-
+        all = {
+          text = "#ccc6ab", -- var
+          green = "#C58674", -- string
+          lavender = "#10b7c7", -- Identifiers. will be a go package name when enabled with semantic highlight
+          -- lavender = "#0286c7", -- Functions and Titles
+          mauve = "#ad2650", -- return and exception handling in other language. return in go will will be the same as function / "oniViolet" color
+          -- FIX: DELETE LATER change to other color
+          -- yellow = "#2f6141", -- types
+          -- sapphire = "",
+        },
         -- TODO: do not change comment with 'valid'
         mocha = {
+
+          -- Green = "#C58674",
+          color2 = "#C58674",
           -- lavender = "#9cdcfe",
           -- flamingo = "#c6cccf",
-          text = "#93d1f1", -- valid
+          -- text = "#93d1f1", -- valid
           -- red = "#F38BA8",
           -- maroon = "#F38BA8",
           -- subtext1 = "#DEBAD4",
@@ -72,7 +89,7 @@ return {
       -- end,
 
       integrations = {
-        telescope = true,
+        -- telescope = true,
         notify = true,
         harpoon = true,
         neotree = true,
