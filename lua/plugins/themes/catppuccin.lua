@@ -50,6 +50,7 @@ return {
             Boolean = { fg = "#5c26bf" },
             Number = { fg = "#d11d9b" },
             Type = { fg = "#438c5e" },
+            TreesitterContextLineNumber = { fg = "#d1d1d1" },
             -- Float = { fg = "#d1d1d1" },
             ["@parameter"] = { fg = "#A48111" }, -- from vim.cmd("highlight @parameter guifg=#5c26bf")
             ["@string.special"] = { fg = "#10b7c7" },
