@@ -27,3 +27,12 @@ snippet lo "go log but delete later"
 
 snippet log "go log.Prinlt"
   log.Println(${1})
+
+snippet read_body_decoder "json new decoder"
+	var ${1:body} ${2:struct resp_body}
+	err := json.NewDecoder(${3:resp_body}).Decode(&${4:body})
+	if err != nil {
+		${5:error log}
+		return ${0}
+	}
+
