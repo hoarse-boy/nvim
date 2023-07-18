@@ -42,16 +42,67 @@ return {
         types = { "italic" },
         operators = {},
       },
+      highlight_overrides = {
+        all = function(colors)
+          return {
+            Comment = { fg = "#4d4b49" }, -- comments
+            Operator = { fg = "#d1d1d1" }, -- operator := etc
+            Boolean = { fg = "#5c26bf" },
+            Number = { fg = "#d11d9b" },
+            Type = { fg = "#438c5e" },
+            -- Float = { fg = "#d1d1d1" },
+            ["@parameter"] = { fg = "#A48111" }, -- from vim.cmd("highlight @parameter guifg=#5c26bf")
+            ["@string.special"] = { fg = "#10b7c7" },
+            ["@string.escape"] = { fg = "#10b7c7" },
+          }
+        end,
+      },
       color_overrides = {
         all = {
+
+          -- {
+          --   -- springGreen = "#ba866c", -- string
+          --   fujiGray = "#4d4b49", -- comments
+          --   oniViolet = "#ad2650", -- func, defer etc. also affects var, let, local, anonym func in lua and js
+          --   peachRed = "#ad2650", -- return and exception handling in other language. return in go will will be the same as function / "oniViolet" color
+          --   sakuraPink = "#BC1B8C", -- number
+          --   -- sakuraPink = "#9e3380", -- number
+          --   springBlue = "#7f51e0", -- nil, require, builtin func, and indent line / Specials and builtin functions
+          --   waveRed = "#ab9e9a", -- golang tag string in struct / Standout specials 1 (builtin variables). rust macro
+          --   crystalBlue = "#0286c7", -- Functions and Titles
+          --   carpYellow = "#10b7c7", -- Identifiers. will be a go package name when enabled with semantic highlight
+          --   waveAqua2 = "#438c5e", -- types
+          --   surimiOrange = "#84c496", -- Constants, imports, booleans. also nil in golang / when semantic hi is enabled golang's nil is changed to "springBlue"
+          --   boatYellow2 = "#d1d1d1", -- Operators => . != ==
+          --   springViolet1 = "#d1d1d1", -- Light foreground / special color for treesitter-context. it is the same color as the params but it is not changed at all except when the params is in at treesitter-context sticky header. it will change color to this
+          --   sumiInk0 = "none", -- Dark background (statuslines and floating windows)
+          --   sumiInk4 = "none", -- treesitter context highlight / Darker foreground (line numbers, fold column, non-text characters), float borders
+          --   -- #1c495f
+          --   -- TODO: find out how to change params color when semantic highlight is enabled
+          -- }
+
+          peach = "#BC1B8C", -- number
           text = "#ccc6ab", -- var
+          -- red = "#d42f62", -- rainbow bracket, nil, param var
+          -- maroon = "#ffffff", -- has connection with red?
+
           green = "#C58674", -- string
+          -- yellow = "#438c5e", -- types, warning string and symbol
+          blue = "#0286c7", -- funct and titles
+          pink = "#8d5afa", -- #nil, require, builtin func, and indent line / Specials and builtin functions
+          -- color5 = "#ffffff", -- #nil, require, builtin func, and indent line / Specials and builtin functions deldel -- FIX: DELETE LATER
+          -- teal = "#ffffff", -- color of NOTE: and rainbow bracket
+          -- subtext0 = "",
+          -- rosewater = "",
+          -- overlay0 = "#ffffff", -- FIX: DELETE LATER
+
+          -- surface2 = "#ffffff", -- comments -- FIX: DELETE LATER
+          -- crust = "#ffffff",
+          -- lavender = "#209FB5", -- Identifiers. will be a go package name when enabled with semantic highlight
           lavender = "#10b7c7", -- Identifiers. will be a go package name when enabled with semantic highlight
-          -- lavender = "#0286c7", -- Functions and Titles
-          mauve = "#ad2650", -- return and exception handling in other language. return in go will will be the same as function / "oniViolet" color
+          mauve = "#d42f62", -- return and exception handling in other language. return in go will will be the same as function / "oniViolet" color
           -- FIX: DELETE LATER change to other color
-          -- yellow = "#2f6141", -- types
-          -- sapphire = "",
+          -- sapphire = "#0286c7", -- Functions and Titles",
         },
         -- TODO: do not change comment with 'valid'
         mocha = {
@@ -89,21 +140,37 @@ return {
       -- end,
 
       integrations = {
-        -- telescope = true,
+        alpha = true,
+        nvimtree = false,
+        ts_rainbow = true,
+        cmp = true,
+        gitsigns = true,
+        illuminate = true,
+        indent_blankline = { enabled = true },
+        lsp_trouble = true,
+        mason = true,
+        mini = true,
+        native_lsp = {
+          enabled = true,
+          underlines = {
+            errors = { "undercurl" },
+            hints = { "undercurl" },
+            warnings = { "undercurl" },
+            information = { "undercurl" },
+          },
+        },
+        navic = { enabled = true, custom_bg = "lualine" },
+        neotest = true,
+        noice = true,
         notify = true,
-        harpoon = true,
         neotree = true,
+        semantic_tokens = true,
+        telescope = true,
         treesitter = true,
         treesitter_context = true,
-        leap = true,
         which_key = true,
-        lsp_trouble = true, -- trouble.nvim
+        harpoon = true,
         dap = true,
-        noice = true,
-        mini = true,
-        -- special = true,
-
-        -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
       },
     })
   end,

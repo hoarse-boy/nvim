@@ -6,9 +6,9 @@ return {
         -- auto close when clicking file
         {
           event = "file_opened",
-          handler = function(file_path)
-            --auto close
-            require("neo-tree").close_all()
+          handler = function(_)
+            -- require("neo-tree").close() -- NOTE: not working after 1.3
+            vim.cmd("Neotree close")
           end,
         },
       },

@@ -12,8 +12,8 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "kanagawa", -- default theme
-      -- colorscheme = "catppuccin",
+      -- colorscheme = "kanagawa", -- default theme
+      colorscheme = "catppuccin",
       -- colorscheme = "vscode",
       -- colorscheme = "mariana",
       --Earlysummer

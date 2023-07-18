@@ -20,6 +20,8 @@ return {
     keys = {
       -- disable the keymap to grep files. use "sg" instead
       { "<leader>/", false },
+      -- { "<leader>xt", false },
+      -- { "<leader>xT", false },
       -- change a keymap
       { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find Files" },
       -- add a keymap to browse plugin files
