@@ -105,7 +105,7 @@ return {
         gopls = {
           settings = {
             gopls = {
-              gofumpt = true,
+              gofumpt = false,
               codelenses = {
                 gc_details = false,
                 generate = true,
@@ -226,24 +226,25 @@ return {
 
   -- NOTE: installing golangci from official web and disable other golangci install in mason will make this work
   -- however, it doesnt work in igaming repo at all.
-  {
-    "jose-elias-alvarez/null-ls.nvim",
-    opts = function(_, opts)
-      local nls = require("null-ls")
+  -- disabled, as it will slow down nvim for around 3 seconds if the project is too big
+  -- {
+  --   "jose-elias-alvarez/null-ls.nvim",
+  --   opts = function(_, opts)
+  --     local nls = require("null-ls")
 
-      table.insert(
-        opts.sources,
-        nls.builtins.diagnostics.golangci_lint.with({
-          -- overwrite the default args to match GoLint from go.nvim
-          args = {
-            "run",
-            "--exclude-use-default=false",
-            "--out-format=json",
-          },
-        })
-      )
-    end,
-  },
+  --     table.insert(
+  --       opts.sources,
+  --       nls.builtins.diagnostics.golangci_lint.with({
+  --         -- overwrite the default args to match GoLint from go.nvim
+  --         args = {
+  --           "run",
+  --           "--exclude-use-default=false",
+  --           "--out-format=json",
+  --         },
+  --       })
+  --     )
+  --   end,
+  -- },
 
   -- install all go's parser to treesitter and disable 'go' parser
   {
