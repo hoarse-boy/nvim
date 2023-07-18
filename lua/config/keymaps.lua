@@ -6,6 +6,8 @@
 -- this is especially usefull if the keymaps will be overwrite by a prefix
 local del = vim.keymap.del
 del("n", "<leader>l") -- disable keymap l for lazyvim when lsp keymap is not present
+del("n", "<leader>xl")
+del("n", "<leader>xq")
 
 local function map(mode, lhs, rhs, opts)
   local keys = require("lazy.core.handler").handlers.keys
@@ -39,9 +41,8 @@ map("n", "<a-y>", "<cmd>t.<cr>", { desc = "Duplicate line" })
 map("v", "y", "ygv<esc>", opt) -- makes the yank not to move back to the first selected line
 
 -- non shift enter and backspace are used for the treesitter's incremental selection
--- TODO: find a way for this keymap to not yank -- or //
-map("n", "<S-BS>", "O<Esc>^D", opt) -- add empty space above. will also perform deletion if the current line is a comment, to make sure it really add empty space
-map("n", "<S-CR>", "o<Esc>^D", opt) -- add empty space below. will also perform deletion if the current line is a comment, to make sure it really add empty space
+map("n", "<S-BS>", 'O<Esc>^"_D', opt) -- add empty space above. will also perform deletion if the current line is a comment, to make sure it really add empty space
+map("n", "<S-CR>", 'o<Esc>^"_D', opt) -- add empty space below. will also perform deletion if the current line is a comment, to make sure it really add empty space
 
 -- 'H' and 'L' will be behave like the annoying '$' and '^'
 map({ "v", "n" }, "<S-h>", "^", opt)
