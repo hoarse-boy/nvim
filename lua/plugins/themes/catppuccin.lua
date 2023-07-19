@@ -46,13 +46,16 @@ return {
         all = function(colors)
           return {
             Comment = { fg = "#4d4b49" }, -- comments
+            FlashBackdrop = { fg = "#4d4b49" },
             Operator = { fg = "#d1d1d1" }, -- operator := etc
             Boolean = { fg = "#5c26bf" },
             Number = { fg = "#d11d9b" },
             Type = { fg = "#438c5e" },
             TreesitterContextLineNumber = { fg = "#d1d1d1" },
+            FlashLabel = { fg = "#ffffff" },
+            -- goNil = { fg = "#ffffff" }, -- NOTE: doesnt have any effect when semantic token is enabled
             -- Float = { fg = "#d1d1d1" },
-            ["@parameter"] = { fg = "#A48111" }, -- from vim.cmd("highlight @parameter guifg=#5c26bf")
+            ["@parameter"] = { fg = "#c29915" }, -- from vim.cmd("highlight @parameter guifg=#5c26bf")
             ["@string.special"] = { fg = "#10b7c7" },
             ["@string.escape"] = { fg = "#10b7c7" },
           }
@@ -84,7 +87,8 @@ return {
 
           peach = "#BC1B8C", -- number
           text = "#ccc6ab", -- var
-          -- red = "#d42f62", -- rainbow bracket, nil, param var
+          -- red = "#d42f62", -- NOTE:  disable for now. as it will overwrite the following: rainbow bracket, nil / overwrite goNil highlighter when using semantic token, param var
+
           -- maroon = "#ffffff", -- has connection with red?
 
           green = "#C58674", -- string
