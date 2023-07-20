@@ -57,7 +57,7 @@ return {
 
       {
         "nvim-treesitter/nvim-treesitter-context",
-        enabled = false, -- FIX: it causes an error when using {} to move
+        -- enabled = false, -- FIX: it causes an error when using {} to move
         config = function()
           require("treesitter-context").setup({
             enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)

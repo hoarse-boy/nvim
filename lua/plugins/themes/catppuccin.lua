@@ -11,6 +11,8 @@ return {
       background_colour = "#000000",
     })
 
+    -- vim.cmd("hi TreesitterContextBottom gui=underline guisp=Grey")
+
     require("catppuccin").setup({
       flavour = "mocha", -- latte, frappe, macchiato, mocha
       -- flavour = "mocha", -- latte, frappe, macchiato, mocha
@@ -52,8 +54,9 @@ return {
             Number = { fg = "#d11d9b" },
             Type = { fg = "#438c5e" },
             TreesitterContextLineNumber = { fg = "#d1d1d1" },
+            -- TreesitterContextBottom = { sp = "#d1d1d1" },
             FlashLabel = { fg = "#ffffff" },
-            -- goNil = { fg = "#ffffff" }, -- NOTE: doesnt have any effect when semantic token is enabled
+            -- goNil = { fg = "#ffffff" }, -- NOTE: get overwritten when semantic token is enabled
             -- Float = { fg = "#d1d1d1" },
             ["@parameter"] = { fg = "#c29915" }, -- from vim.cmd("highlight @parameter guifg=#5c26bf")
             ["@string.special"] = { fg = "#10b7c7" },
