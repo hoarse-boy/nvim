@@ -2,6 +2,7 @@
 return {
   "max397574/better-escape.nvim",
   event = "VeryLazy",
+  enabled = false, -- NOTE: disabled as it will make the esc using 'jk' to have flickering effect in telescope etc
   config = function()
     -- lua, default settings
     require("better_escape").setup({
