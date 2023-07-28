@@ -16,6 +16,17 @@ return {
     local luasnip = require("luasnip")
     local cmp = require("cmp")
 
+    opts.window = {
+      completion = {
+        border = "rounded",
+        winhighlight = "Normal:CmpNormal",
+      },
+      documentation = {
+        border = "rounded",
+        winhighlight = "Normal:CmpNormal",
+      },
+    }
+
     -- NOTE: to overwrite sources, just use opts.something. and dont add vim.list_extend
     -- higher first in table has more priority
     opts.sources = cmp.config.sources({
