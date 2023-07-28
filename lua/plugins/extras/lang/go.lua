@@ -144,7 +144,8 @@ return {
             -- TODO: put the keymaps like above
             { "<leader>ls", "<cmd>GoFillStruct<cr>", desc = "Fill Struct" },
             { "<leader>lf", "<cmd>GoFillSwitch<cr>", desc = "Fill Switch" },
-            { "<leader>lr", "<cmd>GoRename<cr>", desc = "Rename" },
+            { "<leader>lr", vim.lsp.buf.rename, desc = "Rename" },
+            -- { "<leader>lr", "<cmd>GoRename<cr>", desc = "Rename" }, -- NOTE: is buggy. use vim.lsp.buf.rename instead
 
             -- stylua: ignore
             -- T = tags
@@ -156,7 +157,7 @@ return {
             { "<leader>lta", "<cmd>GoAddTest<cr>", desc = "Add Test for Current Func" },
             { "<leader>ltA", "<cmd>GoAddAllTest<cr>", desc = "Add Test for all Func" },
             { "<leader>lte", "<cmd>GoAddExpTest<cr>", desc = "Add Exported Func" },
-            { "<leader>ltt", "<cmd>GoTest<cr>", desc = "Test All" },
+            { "<leader>ltT", "<cmd>GoTest<cr>", desc = "Test All" },
             { "<leader>ltt", "<cmd>GoTestFunc<cr>", desc = "Test a Func" },
             { "<leader>ltF", "<cmd>GoTestFile<cr>", desc = "Test All Func in the File" },
             { "<leader>ltP", "<cmd>GoTestPkg<cr>", desc = "Test Package" },
