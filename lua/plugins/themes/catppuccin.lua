@@ -56,6 +56,10 @@ return {
             TreesitterContextLineNumber = { fg = "#d1d1d1" },
             -- TreesitterContextBottom = { sp = "#d1d1d1" },
             FlashLabel = { fg = "#ffffff" },
+
+            -- go highlighter
+            ["goStructTypeField"] = { fg = "#21b897" }, --
+            ["@type.builtin"] = { fg = "#a3a121" }, -- primitive type: string, int, float etc in golang
             -- goNil = { fg = "#ffffff" }, -- NOTE: get overwritten when semantic token is enabled
             -- Float = { fg = "#d1d1d1" },
             ["@parameter"] = { fg = "#c29915" }, -- from vim.cmd("highlight @parameter guifg=#5c26bf")
