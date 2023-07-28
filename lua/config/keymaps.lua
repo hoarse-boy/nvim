@@ -35,7 +35,11 @@ map({ "v", "n" }, "c", '"_c', opt)
 map({ "v", "n" }, "C", '"_C', opt)
 
 -- use better-escape-nvim plugin to make it seamless in animation
--- map("i", "jk", "<esc>l", opt) -- added l when escaped to normal mode as to not make the cursor move back 1 column. note: it will add a single column if the cursor is in the first column
+map("i", "jk", "<esc>l", opt) -- added l when escaped to normal mode as to not make the cursor move back 1 column. note: it will add a single column if the cursor is in the first column
+-- TODO: make this func works
+-- map("i", "jk", function()
+--   return vim.api.nvim_win_get_cursor(0)[2] > 1 and "<esc>l" or "<esc>"
+-- end, opt) -- added l when escaped to normal mode as to not make the cursor move back 1 column. note: it will add a single column if the cursor is in the first column
 
 map("n", "<a-y>", "<cmd>t.<cr>", { desc = "Duplicate line" })
 map("v", "y", "ygv<esc>", opt) -- makes the yank not to move back to the first selected line
@@ -53,7 +57,7 @@ map("n", "U", "<C-r>") -- dont have to use ctrl r to undo again
 
 -- NOTE: for luansip placeholder jumping
 -- stylua: ignore
-   map({"v", "i" }, "<C-J>", function() local luasnip = require("luasnip") if luasnip.jumpable() then luasnip.jump(1) end end, { desc = "Jump to next placeholder (LuaSnip)",   noremap = true, silent = true })
+    map({"v", "i" }, "<C-J>", function() local luasnip = require("luasnip") if luasnip.jumpable() then luasnip.jump(1) end end, { desc = "Jump to next placeholder (LuaSnip)",   noremap = true, silent = true })
 -- stylua: ignore
     map({"v", "i" }, "<C-I>", function() local luasnip = require("luasnip") if luasnip.jumpable() then luasnip.jump(-1) end end, { desc = "Jump to previous placeholder (LuaSnip)", noremap = true, silent = true })
 
@@ -61,7 +65,10 @@ map("n", "U", "<C-r>") -- dont have to use ctrl r to undo again
     map("n", "<leader>?s", function() local notify = require("notify") notify("use ctrl j / i\nto jump to LuaSnip placeholder", "info", { title = "helper" }) end, { desc = "Jump to previous placeholder (LuaSnip)", noremap = true, silent = true })
 
 -- change the lazyvim buffer movement to tab
-map("n", "<Tab>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
+-- NOTE: importent, Tab in terminal has the issue of treating that keymap the same as ctrl+i
+-- so Tab should be mapped at all to avoid remapping ctrl+i too
+-- remapped alt / option and Tab instead
+map("n", "<A-Tab>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
 map("n", "<S-Tab>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
 
 -- stylua: ignore
