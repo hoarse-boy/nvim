@@ -75,7 +75,6 @@ return {
             expr = false, -- use `expr` when creating keymaps
           }
 
-          -- TODO: change this just like rust config in default lazyvim.
           local mappings = {
             l = {
               name = "+lsp (go.nvim)",
