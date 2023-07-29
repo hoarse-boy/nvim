@@ -59,8 +59,9 @@ return {
 
             -- go highlighter
             ["goStructTypeField"] = { fg = "#21b897" }, --
-            ["@type.builtin"] = { fg = "#a3a121" }, -- primitive type: string, int, float etc in golang
+            ["@variable.builtin"] = { fg = "#21b897" }, -- golang nil, if ST (semanteic token) is enabled, it will overwrite goNil
             -- goNil = { fg = "#ffffff" }, -- NOTE: get overwritten when semantic token is enabled
+            ["@type.builtin"] = { fg = "#a3a121" }, -- primitive type: string, int, float etc in golang
             -- Float = { fg = "#d1d1d1" },
             ["@parameter"] = { fg = "#c29915" }, -- from vim.cmd("highlight @parameter guifg=#5c26bf")
             ["@string.special"] = { fg = "#10b7c7" },
@@ -94,6 +95,7 @@ return {
 
           peach = "#BC1B8C", -- number
           text = "#ccc6ab", -- var
+          red = "#a10524", -- NOTE:  disable for now. as it will overwrite the following: rainbow bracket, nil / overwrite goNil highlighter when using semantic token, param var
           -- red = "#d42f62", -- NOTE:  disable for now. as it will overwrite the following: rainbow bracket, nil / overwrite goNil highlighter when using semantic token, param var
 
           -- maroon = "#ffffff", -- has connection with red?
