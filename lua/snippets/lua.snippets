@@ -48,3 +48,20 @@ snippet notify "generate notify with treesitter highlight"
 		end,
 	})
 
+snippet add_lazy_plugin "generate lazy.nvim plugin table with return"
+	return {
+		"${1:git link}",
+		event = "VeryLazy",
+		-- enabled = false, -- disabled plugin
+		-- dependencies = {},
+		-- init = function() end, -- functions are always executed during startup
+		-- opts = function(_, opts) end, -- use this to not overwrite this plugin config (usefull in lazyvim)
+		keys = {
+			-- { "<leader>ls", "<cmd>GoFillStruct<cr>", desc = "Fill Struct" }, -- example
+			-- { "<leader>ls", "<cmd>lua print('macro is disabled')<cr>", desc = "Fill Struct" }, -- example
+			{ "${2:define keymaps}", "${3:what the keys do}", desc = "${4:description}" }
+		},
+		config = function(_, opts)
+			require("${5:plugin name}").setup(${6:the plugin's lua table})
+		end,
+	}
