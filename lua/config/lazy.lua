@@ -24,6 +24,7 @@ require("lazy").setup({
 
     -- NOTE: import all of my languages config
     { import = "plugins.extras.lang.go" },
+    { import = "plugins.extras.lang.markdown" },
     -- { import = "plugins.extras.lang.rust" },
     { import = "plugins.extras.lang.helm" },
 
