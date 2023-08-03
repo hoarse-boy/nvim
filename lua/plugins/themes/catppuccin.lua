@@ -45,7 +45,7 @@ return {
         operators = {},
       },
       highlight_overrides = {
-        all = function(colors)
+        all = function(_) -- colors
           return {
             Comment = { fg = "#4d4b49" }, -- comments
             FlashBackdrop = { fg = "#4d4b49" },
@@ -56,6 +56,7 @@ return {
             TreesitterContextLineNumber = { fg = "#d1d1d1" },
             -- TreesitterContextBottom = { sp = "#d1d1d1" },
             FlashLabel = { fg = "#ffffff" },
+            -- FloatShadowThrough = { bg = "none" }, -- FIX: not working
 
             -- go highlighter
             ["goStructTypeField"] = { fg = "#21b897" }, --
@@ -63,9 +64,9 @@ return {
             -- goNil = { fg = "#ffffff" }, -- NOTE: get overwritten when semantic token is enabled
             ["@type.builtin"] = { fg = "#a3a121" }, -- primitive type: string, int, float etc in golang
             -- Float = { fg = "#d1d1d1" },
-            ["@parameter"] = { fg = "#c29915" }, -- from vim.cmd("highlight @parameter guifg=#5c26bf")
-            ["@string.special"] = { fg = "#10b7c7" },
-            ["@string.escape"] = { fg = "#10b7c7" },
+            ["@parameter"] = { fg = "#bf5836" }, -- from vim.cmd("highlight @parameter guifg=#5c26bf")
+            -- ["@string.special"] = { fg = "#10b7c7" },
+            -- ["@string.escape"] = { fg = "#10b7c7" },
           }
         end,
       },
