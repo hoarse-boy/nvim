@@ -13,18 +13,27 @@ vim.opt.fillchars = { eob = " " } -- NOTE: removes trailing '~' in nvim
 
 -- NOTE: neovide config
 if vim.g.neovide then
-  opt.guifont = "JetBrainsMono Nerd Font:h17.4" -- the font used in graphical neovim applications
+  opt.guifont = "JetBrainsMono Nerd Font:h17.3" -- the font used in graphical neovim applications
+  -- opt.guifont = "JetBrainsMono Nerd Font:h17.6" -- the font used in graphical neovim applications
 
   -- helper function for transparency formatting
   local alpha = function()
-    return string.format("%x", math.floor(255 * vim.g.transparency or 0.8))
+    return string.format("%x", math.floor((255 * vim.g.transparency) or 0.8))
   end
   -- g:neovide_transparency should be 0 if you want to unify transparency of content and title bar.
   vim.g.neovide_transparency = 0.0
   vim.g.transparency = 0.88
   vim.g.neovide_background_color = "#000000" .. alpha()
 
-  vim.g.neovide_input_macos_alt_is_meta = true
+  vim.g.neovide_input_macos_alt_is_meta = true -- for option in macos
+
+  -- Allow clipboard copy paste in neovim
+  vim.g.neovide_input_use_logo = 1
+  vim.api.nvim_set_keymap("", "<D-v>", "+p<CR>", { noremap = true, silent = true })
+  vim.api.nvim_set_keymap("!", "<D-v>", "<C-R>+", { noremap = true, silent = true })
+  vim.api.nvim_set_keymap("t", "<D-v>", "<C-R>+", { noremap = true, silent = true })
+  vim.api.nvim_set_keymap("v", "<D-v>", "<C-R>+", { noremap = true, silent = true })
+
   -- vim.g.neovide_cursor_vfx_mode = "railgun"
   vim.g.neovide_cursor_vfx_mode = "sonicboom"
   vim.g.neovide_hide_mouse_when_typing = true
