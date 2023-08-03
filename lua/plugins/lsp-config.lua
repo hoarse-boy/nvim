@@ -56,4 +56,9 @@ return {
     --     keys[#keys + 1] = { "<leader>lr", vim.lsp.buf.rename, desc = "Rename", has = "rename" }
     --   end
   end,
+  opts = function(_, _)
+    vim.diagnostic.config({
+      float = { border = "rounded" },
+    })
+  end,
 }
