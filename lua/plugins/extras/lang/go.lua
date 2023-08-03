@@ -84,6 +84,10 @@ return {
               t = {
                 name = "+go test",
               },
+              -- goplay.nvim
+              p = {
+                name = "+goplay.nvim",
+              },
             },
           }
 
@@ -182,6 +186,14 @@ return {
             { "<leader>lm", "<cmd>Gomvp<cr>", desc = "Rename Module name" },
             -- c = { "<cmd>GoCmt<cr>", "Go Generate Func Comments" },
             -- map("n", "<leader>lgm", "<cmd>GoFixPlurals<cr>", { desc = "Go Fix Redundant Func Params" }) -- not working?
+
+            -- goplay.nvim keymaps
+            { "<leader>lpo", ":GPOpen<CR>", desc = "Open Goplay" },
+            { "<leader>lpt", ":GPToggle<CR>", desc = "Toggle Goplay" },
+            { "<leader>lpe", ":GPExec<CR>", desc = "Execute" },
+            { "<leader>lpE", ":GPExecFile<CR>", desc = "Execute File" },
+            { "<leader>lpc", ":GPClose<CR>", desc = "Close Goplay" },
+            { "<leader>lpC", ":GPClear<CR>", desc = "Clear Goplay" },
           },
         },
       },
@@ -281,128 +293,29 @@ return {
       },
     },
   },
-}
 
--- return {
---   {
---     "nvim-treesitter/nvim-treesitter",
---     opts = function(_, opts)
---       vim.list_extend(opts.ensure_installed, {
---         "go",
---         "gomod",
---         "gowork",
---         "gosum",
---       })
---     end,
---   },
---   {
---     "neovim/nvim-lspconfig",
---     opts = {
---       servers = {
---         gopls = {
---           settings = {
---             gopls = {
---               gofumpt = true,
---               codelenses = {
---                 gc_details = false,
---                 generate = true,
---                 regenerate_cgo = true,
---                 run_govulncheck = true,
---                 test = true,
---                 tidy = true,
---                 upgrade_dependency = true,
---                 vendor = true,
---               },
---               hints = {
---                 assignVariableTypes = true,
---                 compositeLiteralFields = true,
---                 compositeLiteralTypes = true,
---                 constantValues = true,
---                 functionTypeParameters = true,
---                 parameterNames = true,
---                 rangeVariableTypes = true,
---               },
---               analyses = {
---                 fieldalignment = true,
---                 nilness = true,
---                 unusedparams = true,
---                 unusedwrite = true,
---                 useany = true,
---               },
---               usePlaceholders = true,
---               completeUnimported = true,
---               staticcheck = true,
---               directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
---               semanticTokens = true,
---             },
---           },
---         },
---       },
---       setup = {
---         gopls = function(_, opts)
---           -- workaround for gopls not supporting semanticTokensProvider
---           -- https://github.com/golang/go/issues/54531#issuecomment-1464982242
---           require("lazyvim.util").on_attach(function(client, _)
---             if client.name == "gopls" then
---               if not client.server_capabilities.semanticTokensProvider then
---                 local semantic = client.config.capabilities.textDocument.semanticTokens
---                 client.server_capabilities.semanticTokensProvider = {
---                   full = true,
---                   legend = {
---                     tokenTypes = semantic.tokenTypes,
---                     tokenModifiers = semantic.tokenModifiers,
---                   },
---                   range = true,
---                 }
---               end
---             end
---           end)
---           -- end workaround
---         end,
---       },
---     },
---   },
---   -- Ensure Go tools are installed
---   {
---     "jose-elias-alvarez/null-ls.nvim",
---     opts = function(_, opts)
---       if type(opts.sources) == "table" then
---         local nls = require("null-ls")
---         vim.list_extend(opts.sources, {
---           nls.builtins.code_actions.gomodifytags,
---           nls.builtins.code_actions.impl,
---           nls.builtins.formatting.gofumpt,
---           nls.builtins.formatting.goimports_reviser,
---         })
---       end
---     end,
---   },
---   {
---     "mfussenegger/nvim-dap",
---     optional = true,
---     dependencies = {
---       {
---         "mason.nvim",
---         opts = function(_, opts)
---           opts.ensure_installed = opts.ensure_installed or {}
---           table.insert(opts.ensure_installed, "delve")
---         end,
---       },
---     },
---   },
---   {
---     "nvim-neotest/neotest",
---     optional = true,
---     dependencies = {
---       "nvim-neotest/neotest-go",
---     },
---     opts = {
---       adapters = {
---         ["neotest-go"] = {
---           -- Here we can set options for neotest-go, e.g.
---           -- args = { "-tags=integration" }
---         },
---       },
---     },
---   },
--- }
+  {
+    "jeniasaigak/goplay.nvim", -- https://github.com/jeniasaigak/goplay.nvim
+    event = "VeryLazy",
+    -- enabled = false, -- disabled plugin
+    -- dependencies = {},
+    -- init = function() end, -- functions are always executed during startup
+    -- opts = function(_, opts) end, -- use this to not overwrite this plugin config (usefull in lazyvim)
+    -- keys = {
+    --   -- { "<leader>ls", "<cmd>GoFillStruct<cr>", desc = "Fill Struct" }, -- example
+    --   -- { "<leader>ls", "<cmd>lua print('macro is disabled')<cr>", desc = "Fill Struct" }, -- example
+    --   { "define keymaps", "what the keys do", desc = "description" }
+    -- },
+    config = function()
+      require("goplay").setup({
+        template = require("goplay.templates").default, -- template which will be used as the default content for the playground
+        mode = "current", -- current/split/[vsplit] specifies where the playground will be opened
+        -- mode = "vsplit", -- current/split/[vsplit] specifies where the playground will be opened
+        playgroundDirName = "goplayground", -- a name of the directory under GOPATH/src where the playground will be saved
+        tempPlaygroundDirName = "goplayground_temp", -- a name of the directory under GOPATH/src where the temporary playground will be saved. This option is used when you need to execute a file
+        output_mode = "raw", -- [formatted]/raw mode to display output
+        -- output_mode = "formatted", -- [formatted]/raw mode to display output
+      })
+    end,
+  },
+}
