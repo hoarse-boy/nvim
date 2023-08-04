@@ -17,7 +17,7 @@ return {
         -- NOTE: use this for a better { and } motion
         always_scroll = true, -- Scroll the cursor even when the window hasn't scrolled.
         centered = true, -- Keep cursor centered in window when using window scrolling.
-        disabled = false, -- Disables the plugin.
+        disabled = true, -- NOTE: disabled when using neovide. it has already some small animation and when enabling this it sometime cause it to slow down a bit
         default_delay = 7, -- The default delay (in ms) between each line when scrolling.
         -- NOTE: sometimes causing cursor to diseaper completely?
         hide_cursor = false, -- Hide the cursor while scrolling. Requires enabling termguicolors!
