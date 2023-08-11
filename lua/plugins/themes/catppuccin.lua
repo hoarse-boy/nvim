@@ -15,7 +15,6 @@ return {
 
     require("catppuccin").setup({
       flavour = "mocha", -- latte, frappe, macchiato, mocha
-      -- flavour = "mocha", -- latte, frappe, macchiato, mocha
       background = { -- :h background
         light = "latte",
         dark = "mocha",
@@ -56,17 +55,15 @@ return {
             TreesitterContextLineNumber = { fg = "#d1d1d1" },
             -- TreesitterContextBottom = { sp = "#d1d1d1" },
             FlashLabel = { fg = "#ffffff" },
-            -- FloatShadowThrough = { bg = "none" }, -- FIX: not working
 
-            -- go highlighter
-            ["goStructTypeField"] = { fg = "#21b897" }, --
             ["@variable.builtin"] = { fg = "#21b897" }, -- golang nil, if ST (semanteic token) is enabled, it will overwrite goNil
-            -- goNil = { fg = "#ffffff" }, -- NOTE: get overwritten when semantic token is enabled
             ["@type.builtin"] = { fg = "#a3a121" }, -- primitive type: string, int, float etc in golang
             -- Float = { fg = "#d1d1d1" },
             ["@parameter"] = { fg = "#bf5836" }, -- from vim.cmd("highlight @parameter guifg=#5c26bf")
-            -- ["@string.special"] = { fg = "#10b7c7" },
-            -- ["@string.escape"] = { fg = "#10b7c7" },
+
+            -- go highlighter
+            ["goStructTypeField"] = { fg = "#21b897" }, --
+            ["goStringFormat"] = { fg = "#10b7c7" },
           }
         end,
       },
@@ -105,18 +102,14 @@ return {
           -- yellow = "#438c5e", -- types, warning string and symbol
           blue = "#0286c7", -- funct and titles
           pink = "#8d5afa", -- #nil, require, builtin func, and indent line / Specials and builtin functions
-          -- color5 = "#ffffff", -- #nil, require, builtin func, and indent line / Specials and builtin functions deldel -- FIX: DELETE LATER
           -- teal = "#ffffff", -- color of NOTE: and rainbow bracket
           -- subtext0 = "",
           -- rosewater = "",
-          -- overlay0 = "#ffffff", -- FIX: DELETE LATER
 
-          -- surface2 = "#ffffff", -- comments -- FIX: DELETE LATER
           -- crust = "#ffffff",
           -- lavender = "#209FB5", -- Identifiers. will be a go package name when enabled with semantic highlight
           lavender = "#10b7c7", -- Identifiers. will be a go package name when enabled with semantic highlight
           mauve = "#d42f62", -- return and exception handling in other language. return in go will will be the same as function / "oniViolet" color
-          -- FIX: DELETE LATER change to other color
           -- sapphire = "#0286c7", -- Functions and Titles",
         },
         -- TODO: do not change comment with 'valid'
