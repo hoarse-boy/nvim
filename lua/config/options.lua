@@ -21,6 +21,8 @@ if vim.g.neovide then
     return string.format("%x", math.floor((255 * vim.g.transparency) or 0.8))
   end
   -- g:neovide_transparency should be 0 if you want to unify transparency of content and title bar.
+  -- NOTE: neovide arg --multigrid causing the float window to have black / blank background
+  -- to fix it, dont run the arg
   vim.g.neovide_transparency = 0.0
   vim.g.transparency = 0.88
   vim.g.neovide_background_color = "#000000" .. alpha()
@@ -46,13 +48,6 @@ if vim.g.neovide then
   vim.keymap.set("v", "<d-v>", '"+p') -- paste visual mode
   vim.keymap.set("c", "<d-v>", "<c-r>+") -- paste command mode
   vim.keymap.set("i", "<d-v>", '<esc>l"+pli') -- paste insert mode
-
-  -- FIX:  not working?
-  -- vim.g.neovide_padding_top = "1cell"
-  -- vim.g.neovide_padding_top = 2
-  -- vim.g.neovide_padding_bottom = 1
-  -- vim.g.neovide_padding_right = 1
-  -- vim.g.neovide_padding_left = 2
 end
 
 opt.scrolloff = 10 -- minimal number of screen lines to keep above and below the cursor.
