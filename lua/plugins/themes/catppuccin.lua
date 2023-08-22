@@ -56,7 +56,8 @@ return {
             -- TreesitterContextBottom = { sp = "#d1d1d1" },
             FlashLabel = { fg = "#ffffff" },
 
-            ["@variable.builtin"] = { fg = "#21b897" }, -- golang nil, if ST (semanteic token) is enabled, it will overwrite goNil
+            ["@variable.builtin"] = { fg = "#2a967f" }, -- golang nil, if ST (semanteic token) is enabled, it will overwrite goNil
+            -- ["@variable.builtin"] = { fg = "#21b897" }, -- golang nil, if ST (semanteic token) is enabled, it will overwrite goNil
             ["@type.builtin"] = { fg = "#a3a121" }, -- primitive type: string, int, float etc in golang
             -- Float = { fg = "#d1d1d1" },
             ["@parameter"] = { fg = "#bf5836" }, -- from vim.cmd("highlight @parameter guifg=#5c26bf")

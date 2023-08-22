@@ -1,6 +1,7 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
+    -- commit = "865483f8d1c6e263a1a9efd46f84e78ec5fa31d4",
     dependencies = {
       { "p00f/nvim-ts-rainbow" }, -- the original rainbow still works fine
 
