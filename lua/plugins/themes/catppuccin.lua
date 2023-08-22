@@ -55,6 +55,7 @@ return {
             TreesitterContextLineNumber = { fg = "#d1d1d1" },
             -- TreesitterContextBottom = { sp = "#d1d1d1" },
             FlashLabel = { fg = "#ffffff" },
+            Visual = { bg = "#292930" },
 
             ["@variable.builtin"] = { fg = "#2a967f" }, -- golang nil, if ST (semanteic token) is enabled, it will overwrite goNil
             -- ["@variable.builtin"] = { fg = "#21b897" }, -- golang nil, if ST (semanteic token) is enabled, it will overwrite goNil
