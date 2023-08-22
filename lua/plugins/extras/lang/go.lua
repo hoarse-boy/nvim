@@ -7,6 +7,7 @@ local notify = require("notify")
 return {
   {
     "ray-x/go.nvim",
+    commit = "44bd0589ad22e2bb91f2ed75624c4a3bab0e5f59", -- NOTE: it fixes the strange behavour when saving a file on the latest commit
     dependencies = { -- optional packages
       "ray-x/guihua.lua",
       {
@@ -144,7 +145,8 @@ return {
           },
 
           keys = {
-            -- TODO: put the keymaps like above
+            -- { "<leader>la", "<cmd>GoCodeAction<cr>", desc = "Code Action" },
+
             { "<leader>ls", "<cmd>GoFillStruct<cr>", desc = "Fill Struct" },
             { "<leader>lf", "<cmd>GoFillSwitch<cr>", desc = "Fill Switch" },
             { "<leader>lr", vim.lsp.buf.rename, desc = "Rename" },
