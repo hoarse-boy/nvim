@@ -22,6 +22,7 @@ return {
       -- ["]"] = { name = "+next" },
       -- ["["] = { name = "+prev" },
       ["<leader>?"] = { name = "+notes" },
+      ["<leader>o"] = { name = "+others" },
       -- ["<leader>w"] = { name = "+windows" },
       -- ["<leader>x"] = { name = "kabom" }, -- disabled trouble.nvim  keymaps
     }
