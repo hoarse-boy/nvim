@@ -12,6 +12,7 @@ return {
     })
 
     -- vim.cmd("hi TreesitterContextBottom gui=underline guisp=Grey")
+    -- vim.cmd("hi Visual cterm=none gui=none guibg=#ffffff")
 
     require("catppuccin").setup({
       flavour = "mocha", -- latte, frappe, macchiato, mocha
@@ -55,7 +56,8 @@ return {
             TreesitterContextLineNumber = { fg = "#d1d1d1" },
             -- TreesitterContextBottom = { sp = "#d1d1d1" },
             FlashLabel = { fg = "#ffffff" },
-            Visual = { bg = "#292930" },
+            Visual = { bg = "#292930" }, -- Visual cterm=bold gui=bold guibg=#292930
+            -- Visual = { bg = "#292930", cterm = "", gui = "" }, -- Visual cterm=bold gui=bold guibg=#292930
 
             ["@variable.builtin"] = { fg = "#2a967f" }, -- golang nil, if ST (semanteic token) is enabled, it will overwrite goNil
             -- ["@variable.builtin"] = { fg = "#21b897" }, -- golang nil, if ST (semanteic token) is enabled, it will overwrite goNil
