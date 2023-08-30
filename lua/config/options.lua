@@ -6,8 +6,9 @@ local opt = vim.opt
 -- local api = vim.api
 
 -- NOTE: disabled kinda visually buggy startup because of netrw
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
+-- is disabled in lazy.lua
+-- vim.g.loaded_netrw = 1
+-- vim.g.loaded_netrwPlugin = 1
 
 vim.opt.fillchars = { eob = " " } -- NOTE: removes trailing '~' in nvim
 

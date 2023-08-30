@@ -17,3 +17,16 @@ autocmd("TextYankPost", {
     })
   end,
 })
+
+local auto_start_lsp_group = augroup("AutoStartLsp", {})
+autocmd("WinScrolled", {
+  group = auto_start_lsp_group,
+  pattern = "*",
+  callback = function()
+    local ft = vim.bo.filetype
+    if ft == "neo-tree" then
+      -- vim.cmd([[silent! find go.mod]])
+      print("kabom")
+    end
+  end,
+})

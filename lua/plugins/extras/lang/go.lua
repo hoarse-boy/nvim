@@ -97,8 +97,9 @@ return {
         end
       end)
     end,
-    event = { "CmdlineEnter" },
+    -- event = { "CmdlineEnter" },
     -- ft = { "go", "gomod" }, -- FIX: DELETE LATER
+    event = "VeryLazy", -- FIX: DELETE LATER
     -- build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
   },
 
@@ -108,6 +109,7 @@ return {
     opts = {
       servers = {
         gopls = {
+          root_dir = require("lspconfig.util").root_pattern("neo-tree"), -- FIX: DELETE LATER testing not working
           settings = {
             gopls = {
               -- cmd = { "gopls", "--remote=auto" },-- FIX: DELETE LATER
@@ -204,7 +206,7 @@ return {
       },
 
       setup = {
-        -- root_dir = require("lspconfig.util").root_pattern("go.mod"), -- FIX: DELETE LATER testing
+        -- root_dir = require("lspconfig.util").root_pattern("neo-tree"), -- FIX: DELETE LATER testing
         -- root_dir = nvim_lsp.util.root_pattern("go.mod"), -- FIX: DELETE LATER testing
         -- root_dir = require("lspconfig").util.root_pattern("gomod", "gosum"), -- FIX: DELETE LATER testing
         -- single_file_support = false, -- FIX: DELETE LATER
