@@ -3,6 +3,8 @@
 return {
   -- LSP keymaps
   "neovim/nvim-lspconfig",
+  -- event = { "BufReadPre", "BufNewFile" },
+  event = { "CmdlineEnter" }, -- FIX: DELETE LATER
   init = function()
     local keys = require("lazyvim.plugins.lsp.keymaps").get()
     -- -- change a keymap
