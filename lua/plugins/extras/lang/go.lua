@@ -105,8 +105,8 @@ return {
       end)
     end,
     -- event = { "CmdlineEnter" },
-    -- ft = { "go", "gomod" }, -- FIX: DELETE LATER
-    event = "VeryLazy", -- FIX: DELETE LATER
+    -- ft = { "go", "gomod" },
+    event = "VeryLazy",
     -- build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
   },
 
@@ -116,11 +116,8 @@ return {
     opts = {
       servers = {
         gopls = {
-          root_dir = require("lspconfig.util").root_pattern("neo-tree"), -- FIX: DELETE LATER testing not working
           settings = {
             gopls = {
-              -- cmd = { "gopls", "--remote=auto" },-- FIX: DELETE LATER
-              -- root_dir = require("lspconfig.util").root_pattern("go.mod"), -- FIX: DELETE LATER
               gofumpt = false,
               codelenses = {
                 gc_details = false,
@@ -213,10 +210,6 @@ return {
       },
 
       setup = {
-        -- root_dir = require("lspconfig.util").root_pattern("neo-tree"), -- FIX: DELETE LATER testing
-        -- root_dir = nvim_lsp.util.root_pattern("go.mod"), -- FIX: DELETE LATER testing
-        -- root_dir = require("lspconfig").util.root_pattern("gomod", "gosum"), -- FIX: DELETE LATER testing
-        -- single_file_support = false, -- FIX: DELETE LATER
         gopls = function(_, _)
           -- gopls = function(_, opts)
           -- workaround for gopls not supporting semanticTokensProvider
