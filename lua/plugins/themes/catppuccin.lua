@@ -58,15 +58,25 @@ return {
             FlashLabel = { fg = "#ffffff" },
             Visual = { bg = "#292930" }, -- Visual cterm=bold gui=bold guibg=#292930
             -- Visual = { bg = "#292930", cterm = "", gui = "" }, -- Visual cterm=bold gui=bold guibg=#292930
+            -- FIX:
+            Identifier = { fg = "#b2dbb7" }, -- const, field, golang var / field in struct etc.
+            -- Identifier = { fg = "#91c497" }, -- const, field, golang var / field in struct etc.
+            -- Identifier = { fg = "#73c7b2" }, -- const, field, golang var / field in struct etc.
+            -- Identifier = { fg = "#2dc2a9" }, -- const, field, golang var / field in struct etc.
 
-            ["@variable.builtin"] = { fg = "#2a967f" }, -- golang nil, if ST (semanteic token) is enabled, it will overwrite goNil
+            ["@variable.builtin"] = { fg = "#4044ff" }, -- golang nil, if ST (semanteic token) is enabled, it will overwrite goNil
+            -- ["@variable.builtin"] = { fg = "#3236fc" }, -- golang nil, if ST (semanteic token) is enabled, it will overwrite goNil
+            -- ["@variable.builtin"] = { fg = "#3a2dfa" }, -- golang nil, if ST (semanteic token) is enabled, it will overwrite goNil
+            -- ["@variable.builtin"] = { fg = "#4e45d1" }, -- golang nil, if ST (semanteic token) is enabled, it will overwrite goNil
+            -- ["@variable.builtin"] = { fg = "#d42f62" }, -- golang nil, if ST (semanteic token) is enabled, it will overwrite goNil
+            -- ["@variable.builtin"] = { fg = "#2a967f" }, -- golang nil, if ST (semanteic token) is enabled, it will overwrite goNil
             -- ["@variable.builtin"] = { fg = "#21b897" }, -- golang nil, if ST (semanteic token) is enabled, it will overwrite goNil
             ["@type.builtin"] = { fg = "#a3a121" }, -- primitive type: string, int, float etc in golang
             -- Float = { fg = "#d1d1d1" },
             ["@parameter"] = { fg = "#bf5836" }, -- from vim.cmd("highlight @parameter guifg=#5c26bf")
 
             -- go highlighter
-            ["goStructTypeField"] = { fg = "#21b897" }, --
+            ["goStructTypeField"] = { fg = "#21b897" }, -- go type?
             ["goStringFormat"] = { fg = "#10b7c7" },
           }
         end,
