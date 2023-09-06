@@ -11,9 +11,9 @@ return {
 
     opts = function(_, opts)
       if type(opts.ensure_installed) == "table" then
-        vim.list_extend(opts.defaults.file_ignore_patterns, { "node_modules", "vendor" }) -- NOTE: ignore folder / files for live grep
+        vim.list_extend(opts.defaults.file_ignore_patterns, { "node_modules", "vendor", "proto/*" }) -- NOTE: ignore folder / files for live grep
       else
-        opts.defaults.file_ignore_patterns = { "node_modules", "vendor" }
+        opts.defaults.file_ignore_patterns = { "node_modules", "vendor", "proto/*" }
       end
     end,
 
@@ -26,7 +26,7 @@ return {
       { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find Files" },
       -- add a keymap to browse plugin files
       {
-        "<leader>fp",
+        "<leader>fP",
         function()
           require("telescope.builtin").find_files({ cwd = require("lazy.core.config").options.root })
         end,
