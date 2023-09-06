@@ -17,17 +17,24 @@ return {
         "charlespascoe/vim-go-syntax",
         config = function()
           vim.g.go_highlight_comma = 1 -- it uses the highlight color of func?
-          vim.g.go_highlight_fields = 0 -- Fields in expressions, e.g. bar in foo.bar = 123
-          vim.g.go_highlight_struct_fields = 0 -- Field names in struct literals, e.g. Bar in f := Foo{ Bar: 123 }.
+          -- NOTE: with catpuccin it is better in vanilla setting. but need to be changed. the highlight is called 'Identifier'
+          vim.g.go_highlight_fields = 1 -- Fields in expressions, e.g. bar in foo.bar = 123
+          -- vim.g.go_highlight_fields = 0 -- Fields in expressions, e.g. bar in foo.bar = 123
+          vim.g.go_highlight_struct_fields = 1 -- Field names in struct literals, e.g. Bar in f := Foo{ Bar: 123 }.
+          -- vim.g.go_highlight_struct_fields = 0 -- Field names in struct literals, e.g. Bar in f := Foo{ Bar: 123 }.
           vim.g.go_highlight_variable_assignments = 1
           -- vim.g.go_highlight_types = 0
           -- vim.g.go_highlight_type_parameters = 0
           vim.g.go_highlight_semicolon = 1
           vim.g.go_highlight_struct_type_fields = 1
-          vim.g.go_highlight_function_parameters = 0 -- Parameter names, e.g. bar in func foo(bar int)
+          vim.g.go_highlight_struct_tags = 1 -- Struct tags, the backtick-delimited strings in structs, e.g. `json:bar` in struct { Bar int `json:"bar"` }.
+          vim.g.go_highlight_function_parameters = 1 -- Parameter names, e.g. bar in func foo(bar int)
+          -- vim.g.go_highlight_function_parameters = 0 -- Parameter names, e.g. bar in func foo(bar int)
           -- vim.g.go_highlight_slice_brackets = 0
+          vim.g.go_highlight_slice_brackets = 1 -- The brackets in slice types, e.g. []string.
 
-          vim.g.go_highlight_variable_declarations = 0 -- disable highlight in var name of 'kaobm', ex. kaobm := os.Getenv("REDIS_HOST")
+          vim.g.go_highlight_variable_declarations = 1 -- disable highlight in var name of 'kaobm', ex. kaobm := os.Getenv("REDIS_HOST")
+          -- vim.g.go_highlight_variable_declarations = 0 -- disable highlight in var name of 'kaobm', ex. kaobm := os.Getenv("REDIS_HOST")
           -- vim.g.go_highlight_dot = 0 -- this works
         end,
       },
@@ -97,8 +104,9 @@ return {
         end
       end)
     end,
-    event = { "CmdlineEnter" },
-    -- ft = { "go", "gomod" }, -- FIX: DELETE LATER
+    -- event = { "CmdlineEnter" },
+    -- ft = { "go", "gomod" },
+    event = "VeryLazy",
     -- build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
   },
 
@@ -110,8 +118,6 @@ return {
         gopls = {
           settings = {
             gopls = {
-              -- cmd = { "gopls", "--remote=auto" },-- FIX: DELETE LATER
-              -- root_dir = require("lspconfig.util").root_pattern("go.mod"), -- FIX: DELETE LATER
               gofumpt = false,
               codelenses = {
                 gc_details = false,
@@ -204,10 +210,6 @@ return {
       },
 
       setup = {
-        -- root_dir = require("lspconfig.util").root_pattern("go.mod"), -- FIX: DELETE LATER testing
-        -- root_dir = nvim_lsp.util.root_pattern("go.mod"), -- FIX: DELETE LATER testing
-        -- root_dir = require("lspconfig").util.root_pattern("gomod", "gosum"), -- FIX: DELETE LATER testing
-        -- single_file_support = false, -- FIX: DELETE LATER
         gopls = function(_, _)
           -- gopls = function(_, opts)
           -- workaround for gopls not supporting semanticTokensProvider
