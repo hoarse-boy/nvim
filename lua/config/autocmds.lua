@@ -18,18 +18,57 @@ autocmd("TextYankPost", {
   end,
 })
 
--- -- Open Telescope on startup if the first argument is a directory
--- local ts_group = vim.api.nvim_create_augroup("TelescopeOnEnter", { clear = true })
--- vim.api.nvim_create_autocmd({ "VimEnter" }, {
+-- local test = augroup("AutoStartLsp", {})
+-- autocmd("Filetype", {
+--   group = test,
+--   pattern = "*",
 --   callback = function()
---     -- vim.cmd("Neotree")
-
---     local first_arg = vim.v.argv[3]
---     if first_arg and vim.fn.isdirectory(first_arg) == 1 then
---       -- Vim creates a buffer for folder. Close it.
---       vim.cmd(":bd 1")
---       require("telescope.builtin").find_files({ search_dirs = { first_arg } })
+--     print("kabomkj:")
+--     local ok, lspList = pcall(require, "plugins.extras.lang")
+--     if ok then
+--       for key, value in pairs(lspList[1]) do
+--         local findFile = vim.fn.findfile(value, ".;")
+--         if findFile == value then
+--           local vimCmd = string.format("LspStart %s", key)
+--           vim.cmd(vimCmd)
+--           break
+--         end
+--       end
 --     end
 --   end,
---   group = ts_group,
+-- })
+
+-- vim.api.nvim_create_autocmd("BufReadPost", {
+-- vim.api.nvim_create_autocmd("BufReadPost", {
+
+-- NOTE: this cause golang to behave strangely
+-- local autoStartLsp = augroup("MyAutoStartLsp", { clear = true })
+-- vim.api.nvim_create_autocmd("BufEnter", {
+--   -- desc = 'format python on write using black', -- FIX:
+
+--   group = autoStartLsp,
+--   callback = function(opts)
+--     -- print("ini buf", opts.buf)
+--     print(vim.bo[opts.buf].filetype)
+--     if vim.bo[opts.buf].filetype == "alpha" then
+--       -- print("kabom")
+--       -- vim.cmd 'Black'
+
+--       local ok, lspList = pcall(require, "plugins.extras.lang")
+--       if ok then
+--         for key, value in pairs(lspList[1]) do
+--           local findFile = vim.fn.findfile(value, ".;")
+--           if findFile == value then
+--             local vimCmd = string.format("LspStart %s", key)
+--             vim.cmd(vimCmd)
+--             break
+--           end
+--         end
+--       end
+
+--       vim.api.nvim_del_augroup_by_id(autoStartLsp) -- to make it run once
+
+--       -- -- FIX: and then delete the autocmd. to make it never run again
+--     end
+--   end,
 -- })
