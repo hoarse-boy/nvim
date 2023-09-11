@@ -77,7 +77,15 @@ return {
 
             -- go highlighter
             ["goStructTypeField"] = { fg = "#21b897" }, -- go type?
-            ["goStringFormat"] = { fg = "#10b7c7" },
+            -- ["goStringFormat"] = { fg = "#10b7c7" }, -- will overwrite "Special" but only for golang
+
+            -- rust highlighter
+            -- ["@function.builtin"] = { fg = "#21b897" }, -- go type?
+
+            -- TODO: lsp.typemod below need to change to blue like fn highlighter
+            ["Special"] = { fg = "#10b7c7" }, -- special char in string. go: "%v" / rust: "{:}"
+            ["@lsp.typemod.function.defaultLibrary"] = { fg = "#0286c7" }, -- rust. package function. ex. env::var(). var will be highlighted
+            -- #94e2d5
           }
         end,
       },
