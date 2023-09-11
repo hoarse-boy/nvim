@@ -116,6 +116,7 @@ return {
     opts = {
       servers = {
         gopls = {
+          root_dir = require("lspconfig.util").root_pattern("neo-tree", "alpha"), -- NOTE: this will enable LspStart gopls when in neo-tree buffer
           settings = {
             gopls = {
               gofumpt = false,
