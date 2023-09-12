@@ -271,7 +271,7 @@ return {
   --   end,
   -- },
 
-  -- install all go's parser to treesitter and disable 'go' parser
+  -- install all go's parser to treesitter and disable 'go' parser to use vim-go-syntax's highlighter
   {
     "nvim-treesitter/nvim-treesitter",
     opts = function(_, opts)
