@@ -50,7 +50,7 @@ return {
             Comment = { fg = "#4d4b49" }, -- comments
             FlashBackdrop = { fg = "#4d4b49" },
             Operator = { fg = "#d1d1d1" }, -- operator := etc
-            Boolean = { fg = "#5c26bf" },
+            Boolean = { fg = "#7833f5" },
             Number = { fg = "#d11d9b" },
             Type = { fg = "#438c5e" },
             TreesitterContextLineNumber = { fg = "#d1d1d1" },
@@ -59,24 +59,25 @@ return {
             Visual = { bg = "#292930" }, -- Visual cterm=bold gui=bold guibg=#292930
             -- Visual = { bg = "#292930", cterm = "", gui = "" }, -- Visual cterm=bold gui=bold guibg=#292930
             -- FIX:
-            Identifier = { fg = "#b2dbb7" }, -- const, field, golang var / field in struct etc.
-            -- Identifier = { fg = "#91c497" }, -- const, field, golang var / field in struct etc.
-            -- Identifier = { fg = "#73c7b2" }, -- const, field, golang var / field in struct etc.
-            -- Identifier = { fg = "#2dc2a9" }, -- const, field, golang var / field in struct etc.
+            Identifier = { fg = "#added6" }, -- const, field, golang var / field in struct etc.
+            -- Identifier = { fg = "#a2ded4" }, -- const, field, golang var / field in struct etc.
+            -- Identifier = { fg = "#94e2d5" }, -- const, field, golang var / field in struct etc.
+            -- Identifier = { fg = "#b2dbb7" }, -- const, field, golang var / field in struct etc.
 
-            ["@variable.builtin"] = { fg = "#4044ff" }, -- golang nil, if ST (semanteic token) is enabled, it will overwrite goNil
-            -- ["@variable.builtin"] = { fg = "#3236fc" }, -- golang nil, if ST (semanteic token) is enabled, it will overwrite goNil
-            -- ["@variable.builtin"] = { fg = "#3a2dfa" }, -- golang nil, if ST (semanteic token) is enabled, it will overwrite goNil
-            -- ["@variable.builtin"] = { fg = "#4e45d1" }, -- golang nil, if ST (semanteic token) is enabled, it will overwrite goNil
-            -- ["@variable.builtin"] = { fg = "#d42f62" }, -- golang nil, if ST (semanteic token) is enabled, it will overwrite goNil
-            -- ["@variable.builtin"] = { fg = "#2a967f" }, -- golang nil, if ST (semanteic token) is enabled, it will overwrite goNil
-            -- ["@variable.builtin"] = { fg = "#21b897" }, -- golang nil, if ST (semanteic token) is enabled, it will overwrite goNil
-            ["@type.builtin"] = { fg = "#a3a121" }, -- primitive type: string, int, float etc in golang
+            ["@variable.builtin"] = { fg = "#3463fa" }, -- golang nil, if ST (semanteic token) is enabled, it will overwrite goNil
+            -- ["@variable.builtin"] = { fg = "#4044ff" }, -- golang nil, if ST (semanteic token) is enabled, it will overwrite goNil
+            ["@type.builtin"] = { fg = "#F79327" }, -- primitive type: string, int, float etc in golang
+            -- ["@type.builtin"] = { fg = "#bf9d54" }, -- primitive type: string, int, float etc in golang
             -- Float = { fg = "#d1d1d1" },
             ["@parameter"] = { fg = "#bf5836" }, -- from vim.cmd("highlight @parameter guifg=#5c26bf")
 
             -- go highlighter
-            ["goStructTypeField"] = { fg = "#21b897" }, -- go type?
+            ["goStructTypeField"] = { fg = "#79a3d9" }, -- go struct field
+            -- ["goStructTypeField"] = { fg = "#7497c4" }, -- go struct field
+            ["PreProc"] = { fg = "#b0abab" }, -- go tag string. other?
+            -- ["goStructTypeField"] = { fg = "#53c2a9" }, -- go struct field
+            -- ["goStructTypeField"] = { fg = "#3bd9b6" }, -- go struct field
+            -- ["goStructTypeField"] = { fg = "#21b897" }, -- go type?
             -- ["goStringFormat"] = { fg = "#10b7c7" }, -- will overwrite "Special" but only for golang
 
             -- rust highlighter
@@ -85,6 +86,9 @@ return {
             -- TODO: lsp.typemod below need to change to blue like fn highlighter
             ["Special"] = { fg = "#10b7c7" }, -- special char in string. go: "%v" / rust: "{:}"
             ["@lsp.typemod.function.defaultLibrary"] = { fg = "#0286c7" }, -- rust. package function. ex. env::var(). var will be highlighted
+            -- ["@lsp.typemod.method.defaultLibrary"] = { fg = "#438c5e" }, -- rust. -- change the color?
+            ["@lsp.typemod.macro.defaultLibrary"] = { fg = "#94e2d5" }, -- rust. macro liek println!
+            ["@constant.builtin"] = { fg = "#438c5e" }, -- rust. return type? in match?
             -- #94e2d5
           }
         end,
