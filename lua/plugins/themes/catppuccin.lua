@@ -64,8 +64,10 @@ return {
             -- Identifier = { fg = "#94e2d5" }, -- const, field, golang var / field in struct etc.
             -- Identifier = { fg = "#b2dbb7" }, -- const, field, golang var / field in struct etc.
 
-            ["@variable.builtin"] = { fg = "#3463fa" }, -- golang nil, if ST (semanteic token) is enabled, it will overwrite goNil
-            -- ["@variable.builtin"] = { fg = "#4044ff" }, -- golang nil, if ST (semanteic token) is enabled, it will overwrite goNil
+            ["@variable.builtin"] = { fg = "#da8ede" }, -- golang nil, if ST (semanteic token) is enabled, it will overwrite goNil
+            -- ["@variable.builtin"] = { fg = "#c349e6" }, -- golang nil, if ST (semanteic token) is enabled, it will overwrite goNil
+            -- ["@variable.builtin"] = { fg = "#797979" }, -- golang nil, if ST (semanteic token) is enabled, it will overwrite goNil
+            -- ["@variable.builtin"] = { fg = "#3463fa" }, -- golang nil, if ST (semanteic token) is enabled, it will overwrite goNil
             ["@type.builtin"] = { fg = "#F79327" }, -- primitive type: string, int, float etc in golang
             -- ["@type.builtin"] = { fg = "#bf9d54" }, -- primitive type: string, int, float etc in golang
             -- Float = { fg = "#d1d1d1" },
@@ -73,6 +75,8 @@ return {
 
             -- go highlighter
             ["goStructTypeField"] = { fg = "#79a3d9" }, -- go struct field
+            -- ["goConstDecl"] = { fg = "#79a3d9" },
+            -- ["goIota"] = { fg = "#79a3d9" },
             -- ["goStructTypeField"] = { fg = "#7497c4" }, -- go struct field
             ["PreProc"] = { fg = "#b0abab" }, -- go tag string. other?
             -- ["goStructTypeField"] = { fg = "#53c2a9" }, -- go struct field
