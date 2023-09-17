@@ -51,49 +51,37 @@ return {
             FlashBackdrop = { fg = "#4d4b49" },
             Operator = { fg = "#d1d1d1" }, -- operator := etc
             Boolean = { fg = "#7833f5" },
-            Number = { fg = "#d11d9b" },
-            Type = { fg = "#438c5e" },
+            Number = { fg = "#87b7c7" },
+            Type = { fg = "#79b0a9" },
             TreesitterContextLineNumber = { fg = "#d1d1d1" },
             -- TreesitterContextBottom = { sp = "#d1d1d1" },
             FlashLabel = { fg = "#ffffff" },
             Visual = { bg = "#292930" }, -- Visual cterm=bold gui=bold guibg=#292930
-            -- Visual = { bg = "#292930", cterm = "", gui = "" }, -- Visual cterm=bold gui=bold guibg=#292930
-            -- FIX:
-            Identifier = { fg = "#added6" }, -- const, field, golang var / field in struct etc.
-            -- Identifier = { fg = "#a2ded4" }, -- const, field, golang var / field in struct etc.
-            -- Identifier = { fg = "#94e2d5" }, -- const, field, golang var / field in struct etc.
-            -- Identifier = { fg = "#b2dbb7" }, -- const, field, golang var / field in struct etc.
+            Identifier = { fg = "#15a191" }, -- const, field, golang var / field in struct etc.
 
-            ["@variable.builtin"] = { fg = "#da8ede" }, -- golang nil, if ST (semanteic token) is enabled, it will overwrite goNil
-            -- ["@variable.builtin"] = { fg = "#c349e6" }, -- golang nil, if ST (semanteic token) is enabled, it will overwrite goNil
-            -- ["@variable.builtin"] = { fg = "#797979" }, -- golang nil, if ST (semanteic token) is enabled, it will overwrite goNil
-            -- ["@variable.builtin"] = { fg = "#3463fa" }, -- golang nil, if ST (semanteic token) is enabled, it will overwrite goNil
-            ["@type.builtin"] = { fg = "#F79327" }, -- primitive type: string, int, float etc in golang
-            -- ["@type.builtin"] = { fg = "#bf9d54" }, -- primitive type: string, int, float etc in golang
             -- Float = { fg = "#d1d1d1" },
-            ["@parameter"] = { fg = "#bf5836" }, -- from vim.cmd("highlight @parameter guifg=#5c26bf")
+            ["@parameter"] = { fg = "#5179ad" }, -- parameter var in a func
+            -- ["Special"] = { fg = "#10b7c7" }, -- special char in string. go: "%v" / rust: "{:}" / overwrite var in go. dont use it. it is too general
 
             -- go highlighter
-            ["goStructTypeField"] = { fg = "#79a3d9" }, -- go struct field
+            ["@variable.builtin"] = { fg = "#d61c9f" }, -- golang nil, if ST (semanteic token) is enabled, it will overwrite goNil
+            ["@type.builtin"] = { fg = "#d9cb6f" }, -- primitive type: string, int, float etc in golang
+            ["goVarIdentifier"] = { fg = "#55B4BE" }, -- go const. but not imported const (will follow Identifier)
+            ["goStructTypeField"] = { fg = "#ba5a3a" }, -- go struct field
+            -- ["goStructTypeField"] = { fg = "#5179ad" }, -- go struct field
+            goVarAssign = { fg = "#D7658B" }, -- go overwrite var
             -- ["goConstDecl"] = { fg = "#79a3d9" },
             -- ["goIota"] = { fg = "#79a3d9" },
-            -- ["goStructTypeField"] = { fg = "#7497c4" }, -- go struct field
-            ["PreProc"] = { fg = "#b0abab" }, -- go tag string. other?
-            -- ["goStructTypeField"] = { fg = "#53c2a9" }, -- go struct field
-            -- ["goStructTypeField"] = { fg = "#3bd9b6" }, -- go struct field
-            -- ["goStructTypeField"] = { fg = "#21b897" }, -- go type?
-            -- ["goStringFormat"] = { fg = "#10b7c7" }, -- will overwrite "Special" but only for golang
+            ["PreProc"] = { fg = "#9c9797" }, -- go tag string. other?
+            ["goStringFormat"] = { fg = "#10b7c7" }, -- will overwrite "Special" but only for golang
 
             -- rust highlighter
-            -- ["@function.builtin"] = { fg = "#21b897" }, -- go type?
-
-            -- TODO: lsp.typemod below need to change to blue like fn highlighter
-            ["Special"] = { fg = "#10b7c7" }, -- special char in string. go: "%v" / rust: "{:}"
+            ["@punctuation.special"] = { fg = "#10b7c7" }, -- rust "{}"
+            ["@string.special"] = { fg = "#10b7c7" }, -- special char in string. go: "%v"
             ["@lsp.typemod.function.defaultLibrary"] = { fg = "#0286c7" }, -- rust. package function. ex. env::var(). var will be highlighted
-            -- ["@lsp.typemod.method.defaultLibrary"] = { fg = "#438c5e" }, -- rust. -- change the color?
             ["@lsp.typemod.macro.defaultLibrary"] = { fg = "#94e2d5" }, -- rust. macro liek println!
             ["@constant.builtin"] = { fg = "#438c5e" }, -- rust. return type? in match?
-            -- #94e2d5
+            -- available color #da8ede /
           }
         end,
       },
@@ -121,7 +109,8 @@ return {
           --   -- TODO: find out how to change params color when semantic highlight is enabled
           -- }
 
-          peach = "#BC1B8C", -- number
+          -- peach = "#BC1B8C", -- number
+          peach = "#da8ede", -- number
           text = "#ccc6ab", -- var
           red = "#a10524", -- NOTE:  disable for now. as it will overwrite the following: rainbow bracket, nil / overwrite goNil highlighter when using semantic token, param var
           -- red = "#d42f62", -- NOTE:  disable for now. as it will overwrite the following: rainbow bracket, nil / overwrite goNil highlighter when using semantic token, param var
