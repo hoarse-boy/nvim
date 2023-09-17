@@ -92,6 +92,14 @@ return {
             { "K", "<cmd>RustHoverActions<cr>", desc = "Hover Actions (Rust)" },
             { "<leader>cR", "<cmd>RustCodeAction<cr>", desc = "Code Action (Rust)" },
             { "<leader>dr", "<cmd>RustDebuggables<cr>", desc = "Run Debuggables (Rust)" },
+            { "<leader>lc", "<cmd>RustOpenCargo<cr>", desc = "Open Cargo (Rust)" },
+            { "<leader>lmu", "<cmd>RustMoveItemUp<cr>", desc = "Move Item Up (Rust)" },
+            { "<leader>lmd", "<cmd>RustMoveItemDown<cr>", desc = "Move Item Down (Rust)" },
+            { "<leader>lr", "<cmd>RustHoverRange<cr>", desc = "Hover Range (Rust)" },
+            { "<leader>lp", "<cmd>RustParentModule<cr>", desc = "Go to Parent Module (Rust)" },
+            { "<leader>lj", "<cmd>RustJoinLines<cr>", desc = "Join Line(Rust)" },
+            -- TODO: RustSSR [query]
+            -- RustViewCrateGraph [backend [output]]
           },
           settings = {
             ["rust-analyzer"] = {
