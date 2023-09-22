@@ -51,41 +51,11 @@ if vim.g.neovide then
   vim.keymap.set("i", "<d-v>", '<esc>l"+pli') -- paste insert mode
 end
 
+-- opt.cursorline = true
+opt.list = false -- NOTE: make the > and other symbol to be hidden when the object is commented.
 opt.scrolloff = 10 -- minimal number of screen lines to keep above and below the cursor.
 -- opt.scrolloff = 10 -- minimal number of screen lines to keep above and below the cursor.
 opt.sidescrolloff = 10 -- minimal number of screen lines to keep left and right of the cursor.
 opt.writebackup = false -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
 opt.swapfile = false -- creates a swapfile. disable to avoid the anoying prompt
 opt.hlsearch = true -- highlight all matches on previous search pattern
--- opt.relativenumber = false
-
--- The below settings make Leap's highlighting closer to what you've been
--- used to in Lightspeed.
-
--- NOTE: doesn't use leap flit anymore. change to flash
--- make leap to have lightspeed highlight.
--- NOTE: this is enabled automatically in catpuccin theme but not in kanagawa
--- TODO: move to kanagawa?
--- api.nvim_set_hl(0, "LeapBackdrop", { link = "Comment" }) -- or some grey
--- api.nvim_set_hl(0, "LeapMatch", {
---   -- For light themes, set to 'black' or similar.
---   fg = "white",
---   bold = true,
---   nocombine = true,
--- })
-
--- -- Of course, specify some nicer shades instead of the default "red" and "blue".
--- api.nvim_set_hl(0, "LeapLabelPrimary", {
---   fg = "red",
---   bold = true,
---   nocombine = true,
--- })
-
--- api.nvim_set_hl(0, "LeapLabelSecondary", {
---   fg = "blue",
---   bold = true,
---   nocombine = true,
--- })
-
--- Try it without this setting first, you might find you don't even miss it.
--- require('leap').opts.highlight_unlabeled_phase_one_targets = true
