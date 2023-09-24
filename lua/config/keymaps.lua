@@ -57,12 +57,9 @@ map("n", "U", "<C-r>") -- dont have to use ctrl r to undo again
 
 -- NOTE: for luansip placeholder jumping
 -- stylua: ignore
-    map({"v", "i" }, "<C-J>", function() local luasnip = require("luasnip") if luasnip.jumpable() then luasnip.jump(1) end end, { desc = "Jump to next placeholder (LuaSnip)",   noremap = true, silent = true })
+  map({"v", "i" }, "<C-J>", function() local luasnip = require("luasnip") if luasnip.jumpable() then luasnip.jump(1) end end, { desc = "Jump to next placeholder (LuaSnip)",   noremap = true, silent = true })
 -- stylua: ignore
-    map({"v", "i" }, "<C-I>", function() local luasnip = require("luasnip") if luasnip.jumpable() then luasnip.jump(-1) end end, { desc = "Jump to previous placeholder (LuaSnip)", noremap = true, silent = true })
-
--- stylua: ignore
-    map("n", "<leader>?s", function() local notify = require("notify") notify("use ctrl j / i\nto jump to LuaSnip placeholder", "info", { title = "helper" }) end, { desc = "Jump to previous placeholder (LuaSnip)", noremap = true, silent = true })
+  map({"v", "i" }, "<C-I>", function() local luasnip = require("luasnip") if luasnip.jumpable() then luasnip.jump(-1) end end, { desc = "Jump to previous placeholder (LuaSnip)", noremap = true, silent = true })
 
 -- change the lazyvim buffer movement to tab
 -- NOTE: importent, Tab in terminal has the issue of treating that keymap the same as ctrl+i
@@ -71,9 +68,6 @@ map("n", "U", "<C-r>") -- dont have to use ctrl r to undo again
 map("n", "<A-Tab>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
 map("n", "<S-Tab>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
 
--- stylua: ignore
--- save global path to "p" and save to clipboard
-map( "n", "cp", 'o<esc>:let @" = expand("%:p")<cr>""pVxk', { noremap = true, silent = true, desc = "Copy path to register" }) -- added l when escaped to normal mode as to not make the cursor move back 1 line
 -- map("n", "cp", ':let @" = expand("%:p")<cr>""', { noremap = true, silent = true, desc = "Copy path to register" }) -- added l when escaped to normal mode as to not make the cursor move back 1 line
 
 -- git which-key
@@ -90,3 +84,25 @@ map("n", "<leader>/", "<Plug>(comment_toggle_linewise_current)", { desc = "Comme
 
 -- disable macro 'q' as nvim-cmp stated that it will disable the plugin when a macro is pressed
 map("n", "q", "<cmd>lua print('macro is disabled')<cr>", opt)
+
+-- NOTE: reminder / notes / other cool stuff of nvim or other plugin
+-- stylua: ignore
+map("n", "<leader>?S", function() local notify = require("notify") notify("use ctrl j / i\nto jump to LuaSnip placeholder", "info", { title = "helper" }) end, { desc = "Jump to previous placeholder (LuaSnip)", noremap = true, silent = true })
+-- stylua: ignore
+map("n", "<leader>?n", function() local notify = require("notify") notify("ctrl a / x to increase or decrement a number.\ncan also have prefix like 5 ctrl a.\ncan be dot repeated", "info", { title = "helper" }) end, { desc = "Increase / decrement number", noremap = true, silent = true })
+-- stylua: ignore
+map("n", "<leader>?l", function() local notify = require("notify") notify(":pwd to show location", "info", { title = "helper" }) end, { desc = "pwd", noremap = true, silent = true })
+-- stylua: ignore
+map("n", "<leader>?s", function() local notify = require("notify") notify("visual block the words, open cmdline, and type sort", "info", { title = "helper" }) end, { desc = "sort list (alphabetical or numerical)", noremap = true, silent = true })
+
+-- +others keymaps
+map("n", "<leader>op", function()
+  local path = vim.fn.expand("%:p")
+  print(path)
+end, { desc = "Copy full path", noremap = true, silent = true })
+
+-- get the full path but with no file name / get the parent dir of that file
+map("n", "<leader>oP", function()
+  local path = vim.fn.expand("%:p:h")
+  print(path)
+end, { desc = "Copy full path", noremap = true, silent = true })
