@@ -162,9 +162,11 @@ return {
             { "<leader>lr", vim.lsp.buf.rename, desc = "Rename" },
             -- { "<leader>lr", "<cmd>GoRename<cr>", desc = "Rename" }, -- NOTE: is buggy. use vim.lsp.buf.rename instead
 
-            -- stylua: ignore
             -- T = tags
+            -- stylua: ignore
             { "<leader>lTa", "<cmd>GoModifyTag -add-tags json -transform camelcase -add-options json=<cr>", desc = "Add Tags No 'omitempty'", },
+            -- stylua: ignore
+            { "<leader>lTj", "<cmd>GoModifyTag -add-tags json -transform snakecase -add-options json=<cr>", desc = "Add Tags snakecase No 'omitempty'", },
             { "<leader>lTA", "<cmd>GoModifyTag -add-tags json -transform camelcase<cr>", desc = "Add Tags" },
             { "<leader>lTr", "<cmd>GoRename<cr>", desc = "Remove Tags" },
 
