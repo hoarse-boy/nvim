@@ -86,6 +86,7 @@ map("n", "<leader>/", "<Plug>(comment_toggle_linewise_current)", { desc = "Comme
 map("n", "q", "<cmd>lua print('macro is disabled')<cr>", opt)
 
 -- NOTE: reminder / notes / other cool stuff of nvim or other plugin
+-- +notes which-key
 -- stylua: ignore
 map("n", "<leader>?S", function() local notify = require("notify") notify("use ctrl j / i\nto jump to LuaSnip placeholder", "info", { title = "helper" }) end, { desc = "Jump to previous placeholder (LuaSnip)", noremap = true, silent = true })
 -- stylua: ignore
@@ -94,6 +95,8 @@ map("n", "<leader>?n", function() local notify = require("notify") notify("ctrl 
 map("n", "<leader>?l", function() local notify = require("notify") notify(":pwd to show location", "info", { title = "helper" }) end, { desc = "pwd", noremap = true, silent = true })
 -- stylua: ignore
 map("n", "<leader>?s", function() local notify = require("notify") notify("visual block the words, open cmdline, and type sort", "info", { title = "helper" }) end, { desc = "sort list (alphabetical or numerical)", noremap = true, silent = true })
+-- stylua: ignore
+map("n", "<leader>?r", function() local notify = require("notify") notify("vim cmd search and replace.\n%s/search/replace/\n':%s/' start of the search pattern\n'/' end of the search pattern, beginning of replacement pattern\noptional = '/e' suppress error messages if no match found", "info", { title = "helper" }) end, { desc = "Vim Search Replace Cmd", noremap = true, silent = true })
 
 -- +others keymaps
 map("n", "<leader>op", function()
@@ -105,4 +108,4 @@ end, { desc = "Copy full path", noremap = true, silent = true })
 map("n", "<leader>oP", function()
   local path = vim.fn.expand("%:p:h")
   print(path)
-end, { desc = "Copy full path", noremap = true, silent = true })
+end, { desc = "Copy full parent dir", noremap = true, silent = true })
