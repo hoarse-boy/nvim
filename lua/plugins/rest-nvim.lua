@@ -6,8 +6,10 @@ return {
     keys = {
       { "<leader>or", "", desc = "+rest.nvim (http)" },
       { "<leader>orr", "<Plug>RestNvim", desc = "Run Http Call" },
+      { "<leader>orl", "<Plug>RestNvimLast", desc = "Run Last Http Call" },
       { "<leader>orp", "<Plug>RestNvimPreview", desc = "Preview cURL" },
 
+      -- NOTE: env_file specifies file name that consist environment variables (default: .env)
       {
         "<leader>ore",
         function()

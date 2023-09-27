@@ -15,5 +15,13 @@ return {
       ":lua require('textcase').lsp_rename('to_constant_case')<CR>",
       { desc = "LSP Rename to Const Case" }
     )
+    -- TODO: remove null keymaps. <leader>cn is null ls
+    vim.api.nvim_set_keymap(
+      "n",
+      "<leader>cC",
+      -- "<leader>cn",
+      ":lua require('textcase').current_word('to_constant_case')<CR>",
+      { desc = "Rename to Const Case" }
+    )
   end,
 }
