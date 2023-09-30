@@ -63,10 +63,13 @@ map("n", "U", "<C-r>") -- dont have to use ctrl r to undo again
 
 -- change the lazyvim buffer movement to tab
 -- NOTE: importent, Tab in terminal has the issue of treating that keymap the same as ctrl+i
--- so Tab should be mapped at all to avoid remapping ctrl+i too
+-- so Tab should not be mapped at all to avoid remapping ctrl+i too
 -- remapped alt / option and Tab instead
-map("n", "<A-Tab>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
-map("n", "<S-Tab>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
+map("n", "<C-Tab>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
+map("n", "<C-S-Tab>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
+-- FIX:
+-- map("n", "<A-Tab>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
+-- map("n", "<S-Tab>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
 
 -- map("n", "cp", ':let @" = expand("%:p")<cr>""', { noremap = true, silent = true, desc = "Copy path to register" }) -- added l when escaped to normal mode as to not make the cursor move back 1 line
 

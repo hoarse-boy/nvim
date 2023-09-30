@@ -27,5 +27,9 @@ return {
       -- ["<leader>x"] = { name = "kabom" }, -- disabled trouble.nvim  keymaps
     }
     wk.register(keymaps, opts)
+
+    -- NOTE: make whichkey transparent
+    -- TODO: find a way to trigger this cmd if a transparent theme
+    -- vim.cmd("hi WhichKeyFloat ctermbg=BLACK ctermfg=BLACK")
   end,
 }

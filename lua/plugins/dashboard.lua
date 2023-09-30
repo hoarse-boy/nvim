@@ -1,10 +1,6 @@
 return {
-  "goolord/alpha-nvim",
-
-  keys = {
-    { "<leader>a", "<cmd>Alpha<cr>", desc = "Home (alpha.nvim)" },
-  },
-  opts = function(_, opt)
+  "nvimdev/dashboard-nvim",
+  opts = function(_, opts)
     local logo = [[
 ░░░░░██╗██╗░░██╗░█████╗░██╗░██████╗  ███╗░░██╗███████╗░█████╗░██╗░░░██╗██╗███╗░░░███╗
 ░░░░░██║██║░░██║██╔══██╗╚█║██╔════╝  ████╗░██║██╔════╝██╔══██╗██║░░░██║██║████╗░████║
@@ -13,6 +9,8 @@ return {
 ╚█████╔╝██║░░██║╚█████╔╝░░░██████╔╝  ██║░╚███║███████╗╚█████╔╝░░╚██╔╝░░██║██║░╚═╝░██║
 ░╚════╝░╚═╝░░╚═╝░╚════╝░░░░╚═════╝░  ╚═╝░░╚══╝╚══════╝░╚════╝░░░░╚═╝░░░╚═╝╚═╝░░░░░╚═╝
     ]]
-    opt.section.header.val = vim.split(logo, "\n", { trimempty = true })
+
+    logo = string.rep("\n", 8) .. logo .. "\n\n"
+    opts.config.header = vim.split(logo, "\n")
   end,
 }

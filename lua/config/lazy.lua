@@ -21,10 +21,11 @@ require("lazy").setup({
     -- { import = "lazyvim.plugins.extras.coding.yanky" }, -- FIX: dont use it for now as it will yank everything. even if the "_dP is remap to not register anything, but this plugin will make register it
     { import = "lazyvim.plugins.extras.util.project" },
     { import = "lazyvim.plugins.extras.test.core" },
+    { import = "lazyvim.plugins.extras.lang.markdown" },
 
     -- NOTE: import all of my languages config
     { import = "plugins.extras.lang.go" },
-    { import = "plugins.extras.lang.markdown" },
+    { import = "plugins.extras.lang.markdown" }, -- NOTE: enable toc plugin for markdown
     { import = "plugins.extras.lang.rust" },
     { import = "plugins.extras.lang.helm" },
 
@@ -34,6 +35,9 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.lang.json" },
     { import = "lazyvim.plugins.extras.util.mini-hipatterns" },
     { import = "lazyvim.plugins.extras.ui.edgy" },
+    { import = "lazyvim.plugins.extras.editor.aerial" },
+    -- { import = "lazyvim.plugins.extras.editor.navic" }, -- NOTE: dont install this. it will make double navic in lualine with the other is not trasnparent and slow
+
     -- import/override with your plugins
     { import = "plugins" },
   },

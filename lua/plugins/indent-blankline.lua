@@ -166,7 +166,7 @@ return {
   {
     "lukas-reineke/indent-blankline.nvim",
     event = { "BufReadPost", "BufNewFile" },
-    -- enabled = false, -- FIX: try other indent plugin
+    tag = "v2.20.8",
     config = function()
       require("indent_blankline").setup({
         show_current_context = true,
@@ -176,7 +176,7 @@ return {
         show_trailing_blankline_indent = false,
         indentLine_char = char_symbol,
         blankline_char = char_symbol, -- FIX: check this
-        -- context_char_blankline = "", -- NOTE: this will make the highlight gone for empty lines
+        -- context_char_blankline = "",
         -- indent_blankline_char = " ",
         -- indent_blankline_context_char = char_symbol, -- FIX:
       })
@@ -223,60 +223,51 @@ return {
     end,
   },
 
-  -- {
-  --   "shellRaining/hlchunk.nvim",
-  --   event = { "UIEnter" },
-  --   config = function()
-  --     require("hlchunk").setup({
-  --       chunk = {
-  --         enable = true,
-  --         notify = true,
-  --         use_treesitter = true,
-  --         -- details about support_filetypes and exclude_filetypes in https://github.com/shellRaining/hlchunk.nvim/blob/main/lua/hlchunk/utils/filetype.lua
-  --         -- support_filetypes = ft.support_filetypes,
-  --         -- exclude_filetypes = ft.exclude_filetypes,
-  --         chars = {
-  --           horizontal_line = "─",
-  --           vertical_line = char_symbol,
-  --           left_top = "╭",
-  --           left_bottom = "╰",
-  --           right_arrow = ">",
+  -- -- NOTE: best v2 with wezterm enable undercurl => https://wezfurlong.org/wezterm/faq.html#how-do-i-enable-undercurl-curly-underlines
+  -- -- make this for v3 for the rainbow hooks
+  -- return {
+  --   {
+  --     "lukas-reineke/indent-blankline.nvim",
+  --     -- event = { "BufReadPost", "BufNewFile" },
+  --     -- enabled = false, -- FIX: try other indent plugin
+  --     config = function()
+  --       require("ibl").setup({
+  --         indent = {
+  --           char = char_symbol,
+  --           tab_char = char_symbol,
   --         },
-  --         style = {
-  --           { fg = "#806d9c" },
-  --           { fg = "#c21f30" }, -- this fg is used to highlight wrong chunk
+  --         scope = { enabled = false },
+  --         exclude = {
+  --           filetypes = {
+  --             "help",
+  --             "alpha",
+  --             "dashboard",
+  --             "neo-tree",
+  --             "Trouble",
+  --             "lazy",
+  --             "mason",
+  --             "notify",
+  --             "toggleterm",
+  --             "lazyterm",
+  --           },
   --         },
-  --         textobject = "",
-  --         max_file_size = 1024 * 1024,
-  --         error_sign = true,
-  --       },
-  --       line_num = {
-  --         enable = false,
-  --         -- enable = true,
-  --         use_treesitter = true,
-  --         style = "#806d9c",
-  --       },
-  --       indent = {
-  --         enable = true,
-  --         -- enable = false,
-  --         use_treesitter = false,
-  --         chars = {
-  --           char_symbol,
-  --         },
-  --         style = {
-  --           { fg = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID("Whitespace")), "fg", "gui") },
-  --         },
-  --       },
-  --       blank = {
-  --         enable = false,
-  --         chars = {
-  --           "․",
-  --         },
-  --         style = {
-  --           vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID("Whitespace")), "fg", "gui"),
-  --         },
-  --       },
-  --     })
-  --   end,
-  -- },
+  --       })
+
+  --       --   -- require("indent_blankline").setup({
+  --       --   --   show_current_context = true,
+  --       --   --   show_current_context_start = true,
+  --       --   --   space_char_blankline = " ",
+  --       --   --   char = char_symbol,
+  --       --   --   show_trailing_blankline_indent = false,
+  --       --   --   indentLine_char = char_symbol,
+  --       --   --   blankline_char = char_symbol, -- FIX: check this
+  --       --   --   -- context_char_blankline = "", -- NOTE: this will make the highlight gone for empty lines
+  --       --   --   -- indent_blankline_char = " ",
+  --       --   --   -- indent_blankline_context_char = char_symbol, -- FIX:
+  --       --   -- })
+
+  --       --   -- vim.g.indent_blankline_context_char = char_symbol -- NOTE:
+  --     end,
+  --     -- main = "ibl",
+  --   },
 }
