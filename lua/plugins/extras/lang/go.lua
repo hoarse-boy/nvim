@@ -251,26 +251,31 @@ return {
     end,
   },
 
-  -- NOTE: installing golangci from official web and disable other golangci install in mason will make this work
-  -- however, it doesnt work in igaming repo at all.
-  -- disabled, as it will slow down nvim for around 3 seconds if the project is too big
-  -- {
-  --   "jose-elias-alvarez/null-ls.nvim",
-  --   opts = function(_, opts)
-  --     local nls = require("null-ls")
+  {
+    "nvimtools/none-ls.nvim",
+    optional = true,
+    opts = function(_, opts)
+      if type(opts.sources) == "table" then
+        local nls = require("null-ls")
+        vim.list_extend(opts.sources, {
+          nls.builtins.code_actions.gomodifytags,
+          nls.builtins.code_actions.impl,
+          nls.builtins.formatting.gofumpt,
+          nls.builtins.formatting.goimports_reviser,
+        })
+      end
+    end,
+  },
 
-  --     table.insert(
-  --       opts.sources,
-  --       nls.builtins.diagnostics.golangci_lint.with({
-  --         -- overwrite the default args to match GoLint from go.nvim
-  --         args = {
-  --           "run",
-  --           "--exclude-use-default=false",
-  --           "--out-format=json",
-  --         },
-  --       })
-  --     )
-  --   end,
+  -- used ray-x go nvim above to create autcmd instead.
+  -- {
+  --   "stevearc/conform.nvim",
+  --   optional = true,
+  --   opts = {
+  --     formatters_by_ft = {
+  --       go = { "goimports", "gofumpt" },
+  --     },
+  --   },
   -- },
 
   -- install all go's parser to treesitter and disable 'go' parser to use vim-go-syntax's highlighter
@@ -311,15 +316,6 @@ return {
   {
     "jeniasaigak/goplay.nvim", -- https://github.com/jeniasaigak/goplay.nvim
     event = "VeryLazy",
-    -- enabled = false, -- disabled plugin
-    -- dependencies = {},
-    -- init = function() end, -- functions are always executed during startup
-    -- opts = function(_, opts) end, -- use this to not overwrite this plugin config (usefull in lazyvim)
-    -- keys = {
-    --   -- { "<leader>ls", "<cmd>GoFillStruct<cr>", desc = "Fill Struct" }, -- example
-    --   -- { "<leader>ls", "<cmd>lua print('macro is disabled')<cr>", desc = "Fill Struct" }, -- example
-    --   { "define keymaps", "what the keys do", desc = "description" }
-    -- },
     config = function()
       require("goplay").setup({
         template = require("goplay.templates").default, -- template which will be used as the default content for the playground
