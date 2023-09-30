@@ -18,7 +18,6 @@ return {
     vim.api.nvim_set_keymap(
       "n",
       "<leader>cn",
-      -- "<leader>cn",
       ":lua require('textcase').current_word('to_constant_case')<CR>",
       { desc = "Rename to Const Case" }
     )
