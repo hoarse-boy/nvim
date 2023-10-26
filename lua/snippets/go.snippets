@@ -39,3 +39,10 @@ snippet read_body_decoder "json new decoder"
 		return ${0}
 	}
 
+snippet execute_time "func exec time"
+	startTime := time.Now()
+	defer func() {
+		endTime := time.Now()
+		fmt.Println("ElapsedTime in seconds:", endTime.Sub(startTime))
+	}() // FIX: delete later
+

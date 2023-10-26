@@ -8,7 +8,7 @@ return {
 
   {
     "echasnovski/mini.surround",
-    enabled = false,
+    -- enabled = false, -- FIX: testing it agian
   },
 
   {

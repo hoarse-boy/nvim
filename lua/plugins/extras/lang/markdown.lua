@@ -1,13 +1,5 @@
 return {
-  {
-    "williamboman/mason.nvim",
-    opts = function(_, opts)
-      if type(opts.ensure_installed) == "table" then
-        vim.list_extend(opts.ensure_installed, { "marksman" })
-      end
-    end,
-  },
-
+  -- NOTE: an extention of markdown from lazyvim's
   {
     "neovim/nvim-lspconfig",
     opts = {
@@ -25,7 +17,7 @@ return {
     "richardbizik/nvim-toc",
     event = "VeryLazy",
     config = function()
-      require("lazyvim.util").on_attach(function(client, buffer)
+      require("lazyvim.util").lsp.on_attach(function(client, buffer)
         if client.name == "marksman" then
           local wk = require("which-key")
           local opts = {

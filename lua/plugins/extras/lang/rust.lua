@@ -87,7 +87,7 @@ return {
       servers = {
         -- Ensure mason installs the server
         rust_analyzer = {
-          root_dir = require("lspconfig.util").root_pattern("neo-tree", "alpha", "Cargo.toml", "rust-project.json"), -- NOTE: append, write all files instead to make it works
+          -- root_dir = require("lspconfig.util").root_pattern("neo-tree", "alpha", "Cargo.toml", "rust-project.json"), -- NOTE: append, write all files instead to make it works
           keys = {
             { "K", "<cmd>RustHoverActions<cr>", desc = "Hover Actions (Rust)" },
             { "<leader>cR", "<cmd>RustCodeAction<cr>", desc = "Code Action (Rust)" },

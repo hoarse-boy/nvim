@@ -68,7 +68,7 @@ return {
       -- NOTE: end of autocmd
 
       -- use this to make which key shows for gopls buffer only
-      require("lazyvim.util").on_attach(function(client, buffer)
+      require("lazyvim.util").lsp.on_attach(function(client, buffer)
         if client.name == "gopls" then
           local wk = require("which-key")
           local opts = {
@@ -104,10 +104,9 @@ return {
         end
       end)
     end,
-    -- event = { "CmdlineEnter" },
-    -- ft = { "go", "gomod" },
-    event = "VeryLazy",
-    -- build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
+    event = { "CmdlineEnter" },
+    ft = { "go", "gomod" },
+    build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
   },
 
   -- TODO: copy all from lazy go language config but alter a bit
@@ -116,7 +115,7 @@ return {
     opts = {
       servers = {
         gopls = {
-          root_dir = require("lspconfig.util").root_pattern("neo-tree", "alpha"), -- NOTE: this will enable LspStart gopls when in neo-tree buffer
+          -- root_dir = require("lspconfig.util").root_pattern("neo-tree", "alpha"), -- NOTE: this will enable LspStart gopls when in neo-tree buffer
           settings = {
             gopls = {
               gofumpt = false,
@@ -217,7 +216,7 @@ return {
           -- gopls = function(_, opts)
           -- workaround for gopls not supporting semanticTokensProvider
           -- https://github.com/golang/go/issues/54531#issuecomment-1464982242
-          require("lazyvim.util").on_attach(function(client, _)
+          require("lazyvim.util").lsp.on_attach(function(client, _)
             if client.name == "gopls" then
               if not client.server_capabilities.semanticTokensProvider then
                 local semantic = client.config.capabilities.textDocument.semanticTokens
@@ -252,20 +251,39 @@ return {
   },
 
   {
-    "nvimtools/none-ls.nvim",
+    "mfussenegger/nvim-dap",
     optional = true,
-    opts = function(_, opts)
-      if type(opts.sources) == "table" then
-        local nls = require("null-ls")
-        vim.list_extend(opts.sources, {
-          nls.builtins.code_actions.gomodifytags,
-          nls.builtins.code_actions.impl,
-          nls.builtins.formatting.gofumpt,
-          nls.builtins.formatting.goimports_reviser,
-        })
-      end
-    end,
+    dependencies = {
+      {
+        "mason.nvim",
+        opts = function(_, opts)
+          opts.ensure_installed = opts.ensure_installed or {}
+          vim.list_extend(opts.ensure_installed, { "gomodifytags", "impl", "goimports", "delve" })
+        end,
+      },
+      {
+        "leoluz/nvim-dap-go",
+        config = true,
+      },
+    },
   },
+
+  -- used ray-x go nvim above to create autcmd instead.
+  -- {
+  --   "nvimtools/none-ls.nvim",
+  --   optional = true,
+  --   opts = function(_, opts)
+  --     if type(opts.sources) == "table" then
+  --       local nls = require("null-ls")
+  --       vim.list_extend(opts.sources, {
+  --         nls.builtins.code_actions.gomodifytags,
+  --         nls.builtins.code_actions.impl,
+  --         nls.builtins.formatting.gofumpt,
+  --         nls.builtins.formatting.goimports_reviser,
+  --       })
+  --     end
+  --   end,
+  -- },
 
   -- used ray-x go nvim above to create autcmd instead.
   -- {

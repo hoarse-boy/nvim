@@ -2,12 +2,12 @@ return {
   {
     "mfussenegger/nvim-dap",
     dependencies = {
-      {
-        "leoluz/nvim-dap-go",
-        config = function()
-          require("dap-go").setup()
-        end,
-      },
+      -- {
+      --   "leoluz/nvim-dap-go",
+      --   config = function()
+      --     require("dap-go").setup()
+      --   end,
+      -- },
       -- TODO: find out how to install and compile it https://github.com/Joakker/lua-json5
       -- FIX: fail to build. find out why
       -- https://github.com/folke/lazy.nvim/issues/368
