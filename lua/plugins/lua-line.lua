@@ -108,20 +108,23 @@ return {
               },
             },
             { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
-            {
-              "filename",
-              symbols = { modified = "  ", readonly = "", unnamed = "" },
-            },
-            -- FIX: this navic is so slow in lua line
-            -- {
-            --   function()
-            --     return require("nvim-navic").get_location()
-            --   end,
-            --   cond = function()
-            --     return package.loaded["nvim-navic"] and require("nvim-navic").is_available()
-            --   end,
-            --   color = { fg = colours.grey, bg = colours.bg },
+
+            { Util.lualine.pretty_path() },
+            --  {
+            --   "filename",
+            --   symbols = { modified = "  ", readonly = "", unnamed = "" },
             -- },
+
+            -- nvim navic
+            {
+              function()
+                return require("nvim-navic").get_location()
+              end,
+              cond = function()
+                return package.loaded["nvim-navic"] and require("nvim-navic").is_available()
+              end,
+              color = { fg = colours.grey, bg = colours.bg },
+            },
           },
 
           lualine_x = {
@@ -149,7 +152,6 @@ return {
               end,
             },
 
-            -- FIX: just added
             {
               function()
                 return "  " .. require("dap").status()
@@ -165,7 +167,6 @@ return {
               color = Util.ui.fg("Special"),
             },
 
-            -- { "diff" },
             {
               "diff",
               symbols = {
@@ -198,8 +199,8 @@ return {
 
           lualine_z = {
             function()
-              -- -- FIX: change the clippy simbol
-              return "  " .. os.date("%X") .. " 📎"
+              return "  " .. os.date("%X") .. " 󰐝"
+              -- return "  " .. os.date("%X") .. " 📎"
             end,
           },
         },
@@ -247,27 +248,4 @@ return {
       vim.api.nvim_set_hl(0, "TerminalNormalMode", { link = "lualine_a_terminal" })
     end,
   },
-
-  -- {
-  --   "mawkler/modicator.nvim",
-  --   event = "VeryLazy",
-  --   opts = function(_, opts)
-  --     -- NOTE: disable this because the lualine has a custom theme.
-  --     opts.integration = {
-  --       lualine = {
-  --         enabled = false,
-  --       },
-  --     }
-
-  --     -- highlight for modicator nvim to match this custom lualine's highlight color
-  --     vim.api.nvim_set_hl(0, "NormalMode", { link = "lualine_a_normal" })
-  --     vim.api.nvim_set_hl(0, "InsertMode", { link = "lualine_a_insert" })
-  --     vim.api.nvim_set_hl(0, "VisualMode", { link = "lualine_a_visual" })
-  --     vim.api.nvim_set_hl(0, "SelectMode", { link = "lualine_a_visual" })
-  --     vim.api.nvim_set_hl(0, "CommandMode", { link = "lualine_a_command" })
-  --     vim.api.nvim_set_hl(0, "ReplaceMode", { link = "lualine_a_replace" })
-  --     vim.api.nvim_set_hl(0, "TerminalMode", { link = "lualine_a_terminal" })
-  --     vim.api.nvim_set_hl(0, "TerminalNormalMode", { link = "lualine_a_terminal" })
-  --   end,
-  -- },
 }
