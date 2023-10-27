@@ -8,7 +8,12 @@ return {
 
   {
     "echasnovski/mini.surround",
-    -- enabled = false, -- FIX: testing it agian
+    -- enabled = false, -- NOTE: this is actually decent
+  },
+
+  {
+    "echasnovski/mini.ai",
+    enabled = false, -- disabled plugin
   },
 
   {
