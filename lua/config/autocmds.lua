@@ -5,15 +5,16 @@
 local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
 
--- make yank animation to be blazingly fast
-local yank_group = augroup("HighlightYank", {})
-autocmd("TextYankPost", {
-  group = yank_group,
-  pattern = "*",
-  callback = function()
-    vim.highlight.on_yank({
-      higroup = "IncSearch",
-      timeout = 10, -- yank latency
-    })
-  end,
-})
+-- NOTE: disable this in favor of the yanky plugin
+-- -- make yank animation to be blazingly fast
+-- local yank_group = augroup("HighlightYank", {})
+-- autocmd("TextYankPost", {
+--   group = yank_group,
+--   pattern = "*",
+--   callback = function()
+--     vim.highlight.on_yank({
+--       higroup = "IncSearch",
+--       timeout = 10, -- yank latency
+--     })
+--   end,
+-- })
