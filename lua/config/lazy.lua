@@ -58,7 +58,7 @@ require("lazy").setup({
         "gzip",
         -- "matchit",
         -- "matchparen",
-        "netrwPlugin",
+        "netrwPlugin", -- NOTE: disable this as it is visually buggy when opening nvim with 'nvim .'
         "tarPlugin",
         "tohtml",
         "tutor",
