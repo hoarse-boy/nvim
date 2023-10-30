@@ -41,12 +41,18 @@ return {
       local colours = {
         bg = get_hlgroup("Normal").bg,
         fg = "#d6d6d0",
-        grey = "#565f89",
-        green = "#9ece6a",
+        grey = "#d1d1d1",
+        -- grey = "#565f89",
+        green = "#15a191",
+        -- green = "#9ece6a",
         yellow = "#e0af68",
-        blue = "#7aa2f7",
-        magenta = "#bb9af7",
-        red = "#f7768e",
+        blue = "#0286c7",
+        -- blue = "#7aa2f7",
+        magenta = "#7833f5",
+        -- magenta = "#bb9af7",
+        red = "#a10524",
+        -- red = "#f7768e",
+        gitOrange = "#F24D29",
         cyan = "#7dcfff",
         orange = "#ff9e64",
       }
@@ -67,15 +73,15 @@ return {
               c = { fg = colours.fg, bg = colours.bg },
               x = { fg = colours.fg, bg = colours.bg },
               y = { fg = colours.magenta, bg = colours.bg },
-              z = { fg = colours.grey, bg = colours.bg },
+              -- z = { fg = colours.grey, bg = colours.bg }, -- NOTE: comment to make the z section to match each mode color
             },
             insert = {
               a = { fg = colours.green, bg = colours.bg },
-              z = { fg = colours.grey, bg = colours.bg },
+              -- z = { fg = colours.grey, bg = colours.bg }, -- NOTE: comment to make the z section to match each mode color
             },
             visual = {
               a = { fg = colours.magenta, bg = colours.bg },
-              z = { fg = colours.grey, bg = colours.bg },
+              -- z = { fg = colours.grey, bg = colours.bg }, -- NOTE: comment to make the z section to match each mode color
             },
             command = {
               a = { fg = colours.grey, bg = colours.bg },
@@ -85,7 +91,7 @@ return {
             },
             terminal = {
               a = { fg = colours.orange, bg = colours.bg },
-              z = { fg = colours.grey, bg = colours.bg },
+              -- z = { fg = colours.grey, bg = colours.bg }, -- NOTE: comment to make the z section to match each mode color
             },
           },
 
@@ -95,7 +101,11 @@ return {
 
         sections = {
           lualine_a = { { "mode", icon = "" } },
-          lualine_b = { { "branch", icon = "" } },
+          lualine_b = {
+            { "branch", icon = { "", color = { fg = colours.gitOrange } } },
+          },
+          -- lualine_b = { { "branch", icon = "" } },
+          -- lualine_b = { { "branch", icon = "" } },
 
           lualine_c = {
             {
@@ -198,10 +208,18 @@ return {
           },
 
           lualine_z = {
-            function()
-              return "  " .. os.date("%X") .. " 󰐝"
-              -- return "  " .. os.date("%X") .. " 📎"
-            end,
+            {
+              function()
+                return "  " .. os.date("%X")
+                -- return "  " .. os.date("%X") .. " 📎"
+              end,
+              color = { fg = colours.grey, bg = colours.bg },
+            },
+            {
+              function()
+                return "󰐝"
+              end,
+            },
           },
         },
         extensions = { "neo-tree", "lazy" },
