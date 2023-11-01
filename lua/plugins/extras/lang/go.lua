@@ -305,6 +305,7 @@ return {
         vim.list_extend(opts.ensure_installed, { "go", "gomod", "gosum", "gowork" })
       end
 
+      -- TODO: remove this, after nvim-treesitter can have %v and other fmt related string highlighter enabled.
       if type(opts.highlight.disable) == "table" then
         -- NOTE: disable go TS to use vim-go-syntx highlight instead but still uses the ts plugins like ts-rainbow and context
         vim.list_extend(opts.highlight.disable, { "go" })
