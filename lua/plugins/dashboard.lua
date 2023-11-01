@@ -1,5 +1,8 @@
 return {
   "nvimdev/dashboard-nvim",
+  keys = {
+    { "<leader>D", "<cmd>Dashboard<cr>", desc = "Dashboard" }, -- example
+  },
   opts = function(_, opts)
     local logo = [[
 ░░░░░██╗██╗░░██╗░█████╗░██╗░██████╗  ███╗░░██╗███████╗░█████╗░██╗░░░██╗██╗███╗░░░███╗
