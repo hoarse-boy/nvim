@@ -59,3 +59,4 @@ opt.sidescrolloff = 10 -- minimal number of screen lines to keep left and right 
 opt.writebackup = false -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
 opt.swapfile = false -- creates a swapfile. disable to avoid the anoying prompt
 opt.hlsearch = true -- highlight all matches on previous search pattern
+opt.relativenumber = false

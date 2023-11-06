@@ -20,7 +20,8 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.lang.terraform" },
     { import = "lazyvim.plugins.extras.util.project" },
     { import = "lazyvim.plugins.extras.test.core" },
-    { import = "lazyvim.plugins.extras.lang.markdown" },
+    -- { import = "lazyvim.plugins.extras.lang.markdown" }, -- disable as the none-ls warning is too many. TODO: change the warning parameters
+    { import = "lazyvim.plugins.extras.lsp.none-ls" },
 
     -- NOTE: import all of my languages config
     { import = "plugins.extras.lang.go" },
