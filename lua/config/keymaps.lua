@@ -41,8 +41,10 @@ map("i", "jk", "<esc>l", opt) -- added l when escaped to normal mode as to not m
 --   return vim.api.nvim_win_get_cursor(0)[2] > 1 and "<esc>l" or "<esc>"
 -- end, opt) -- added l when escaped to normal mode as to not make the cursor move back 1 column. note: it will add a single column if the cursor is in the first column
 
-map("n", "<a-y>", "<cmd>t.<cr>", { desc = "Duplicate line" })
-map("v", "y", "ygv<esc>", opt) -- makes the yank not to move back to the first selected line
+-- mini.operator plugin does the same
+-- map("n", "<a-y>", "<cmd>t.<cr>", { desc = "Duplicate line" })
+-- yanky plugin does the same
+-- map("v", "y", "ygv<esc>", opt) -- makes the yank not to move back to the first selected line
 
 -- non shift enter and backspace are used for the treesitter's incremental selection
 map("n", "<S-BS>", 'O<Esc>^"_D', opt) -- add empty space above. will also perform deletion if the current line is a comment, to make sure it really add empty space
