@@ -1,7 +1,6 @@
 -- put all other plugins that do not need any major code setup
 
 return {
-  -- { "nvim-treesitter/nvim-treesitter-context" }, -- cannot use the plugin when it uses event = "VeryLazy"
   -- { "mg979/vim-visual-multi" },
   -- {
   --   "instant-markdown/vim-instant-markdown",
@@ -17,5 +16,18 @@ return {
         desc = "Search on current file",
       },
     },
+  },
+
+  -- live preview for the custom Norm (norm) command.
+  {
+    "smjonas/live-command.nvim",
+    event = "VeryLazy",
+    config = function()
+      require("live-command").setup({
+        commands = {
+          Norm = { cmd = "norm" },
+        },
+      })
+    end,
   },
 }

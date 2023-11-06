@@ -11,9 +11,9 @@ return {
 
     opts = function(_, opts)
       if type(opts.ensure_installed) == "table" then
-        vim.list_extend(opts.defaults.file_ignore_patterns, { "node_modules", "vendor", "proto/*" }) -- NOTE: ignore folder / files for live grep
+        vim.list_extend(opts.defaults.file_ignore_patterns, { "node_modules", "vendor", "proto/*", "**/*.pb.go" }) -- NOTE: ignore folder / files for live grep
       else
-        opts.defaults.file_ignore_patterns = { "node_modules", "vendor", "proto/*" }
+        opts.defaults.file_ignore_patterns = { "node_modules", "vendor", "proto/*", "**/*.pb.go" }
       end
     end,
 

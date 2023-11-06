@@ -3,18 +3,18 @@
 -- https://github.com/ray-x/go.nvim?ref=morioh.com&utm_source=morioh.com
 
 local notify = require("notify")
--- local nvim_lsp = require("lspconfig")
 
 return {
   {
     "ray-x/go.nvim",
-    commit = "44bd0589ad22e2bb91f2ed75624c4a3bab0e5f59", -- NOTE: it fixes the strange behavour when saving a file on the latest commit
+    -- commit = "44bd0589ad22e2bb91f2ed75624c4a3bab0e5f59", -- NOTE: it fixes the strange behavour when saving a file on the latest commit
     dependencies = { -- optional packages
       "ray-x/guihua.lua",
       {
         -- NOTE: uses highlighter from this plugin instead of treesitter
         -- which doesnt convey alot of go common syntax highlighter like printf %v, & and * pointer in type and other.
         "charlespascoe/vim-go-syntax",
+        -- enabled = false, -- disabled plugin
         config = function()
           vim.g.go_highlight_comma = 1 -- it uses the highlight color of func?
           -- NOTE: with catpuccin it is better in vanilla setting. but need to be changed. the highlight is called 'Identifier'
@@ -41,6 +41,7 @@ return {
     },
 
     config = function()
+      -- FIX: update this to own setup
       require("go").setup()
 
       -- NOTE: autocmd
@@ -268,22 +269,22 @@ return {
     },
   },
 
-  -- used ray-x go nvim above to create autcmd instead.
-  -- {
-  --   "nvimtools/none-ls.nvim",
-  --   optional = true,
-  --   opts = function(_, opts)
-  --     if type(opts.sources) == "table" then
-  --       local nls = require("null-ls")
-  --       vim.list_extend(opts.sources, {
-  --         nls.builtins.code_actions.gomodifytags,
-  --         nls.builtins.code_actions.impl,
-  --         nls.builtins.formatting.gofumpt,
-  --         nls.builtins.formatting.goimports_reviser,
-  --       })
-  --     end
-  --   end,
-  -- },
+  {
+    "nvimtools/none-ls.nvim",
+    optional = true,
+    opts = function(_, opts)
+      if type(opts.sources) == "table" then
+        local nls = require("null-ls")
+        vim.list_extend(opts.sources, {
+          nls.builtins.code_actions.gomodifytags,
+          nls.builtins.code_actions.impl,
+          -- used ray-x go nvim above to create autcmd instead.
+          -- nls.builtins.formatting.gofumpt,
+          -- nls.builtins.formatting.goimports_reviser,
+        })
+      end
+    end,
+  },
 
   -- used ray-x go nvim above to create autcmd instead.
   -- {
