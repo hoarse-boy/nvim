@@ -19,7 +19,7 @@ return {
         centered = true, -- Keep cursor centered in window when using window scrolling.
         disabled = false,
         -- disabled = true, -- NOTE: disabled when using neovide. it has already some small animation and when enabling this it sometime cause it to slow down a bit
-        default_delay = 40, -- The default delay (in ms) between each line when scrolling.
+        default_delay = 5, -- The default delay (in ms) between each line when scrolling. ex. 30 mouse scrolling will take ages.
         -- default_delay = 7, -- The default delay (in ms) between each line when scrolling.
         -- NOTE: sometimes causing cursor to diseaper completely?
         hide_cursor = false, -- Hide the cursor while scrolling. Requires enabling termguicolors!
@@ -48,8 +48,7 @@ return {
         always_scroll = true, -- Scroll the cursor even when the window hasn't scrolled.
         centered = true, -- Keep cursor centered in window when using window scrolling.
         disabled = false, -- Disables the plugin.
-        default_delay = 30, -- The default delay (in ms) between each line when scrolling.
-        -- default_delay = 2, -- The default delay (in ms) between each line when scrolling.
+        default_delay = 5, -- The default delay (in ms) between each line when scrolling. ex. 30 mouse scrolling will take ages.
         -- NOTE: sometimes causing cursor to diseaper completely?
         hide_cursor = false, -- Hide the cursor while scrolling. Requires enabling termguicolors!
         horizontal_scroll = true, -- Enable smooth horizontal scrolling when view shifts left or right.
