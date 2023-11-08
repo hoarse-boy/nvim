@@ -77,7 +77,36 @@ return {
         },
       }
     end,
-    config = function() end,
+    config = function()
+      require("lazyvim.util").lsp.on_attach(function(client, buffer)
+        if client.name == "rust_analyzer" then
+          local wk = require("which-key")
+          local opts = {
+            mode = "n", -- NORMAL mode
+            -- prefix: use "<leader>f" for example for mapping everything related to finding files
+            -- the prefix is prepended to every mapping part of `mappings`
+            prefix = "<leader>",
+            -- NOTE: use buffer from lazyvim.util to only shows keymaps on the targetted buffer
+            buffer = buffer, -- Global mappings. Specify a buffer number for buffer local mappings
+            silent = true, -- use `silent` when creating keymaps
+            noremap = true, -- use `noremap` when creating keymaps
+            nowait = false, -- use `nowait` when creating keymaps
+            expr = false, -- use `expr` when creating keymaps
+          }
+
+          local mappings = {
+            l = {
+              name = "+lsp (Rust)",
+              m = {
+                name = "+item",
+              },
+            },
+          }
+
+          wk.register(mappings, opts)
+        end
+      end)
+    end,
   },
 
   -- Correctly setup lspconfig for Rust 🚀
@@ -87,11 +116,11 @@ return {
       servers = {
         -- Ensure mason installs the server
         rust_analyzer = {
-          -- root_dir = require("lspconfig.util").root_pattern("neo-tree", "alpha", "Cargo.toml", "rust-project.json"), -- NOTE: append, write all files instead to make it works
           keys = {
             { "K", "<cmd>RustHoverActions<cr>", desc = "Hover Actions (Rust)" },
-            { "<leader>cR", "<cmd>RustCodeAction<cr>", desc = "Code Action (Rust)" },
+            { "<leader>cA", "<cmd>RustCodeAction<cr>", desc = "Code Action (Rust)" }, -- FIX: check if it duplicated
             { "<leader>dr", "<cmd>RustDebuggables<cr>", desc = "Run Debuggables (Rust)" },
+            { "<leader>l", "", desc = "+ Lsp (Rust)" },
             { "<leader>lc", "<cmd>RustOpenCargo<cr>", desc = "Open Cargo (Rust)" },
             { "<leader>lmu", "<cmd>RustMoveItemUp<cr>", desc = "Move Item Up (Rust)" },
             { "<leader>lmd", "<cmd>RustMoveItemDown<cr>", desc = "Move Item Down (Rust)" },
