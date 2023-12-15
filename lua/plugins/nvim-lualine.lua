@@ -126,6 +126,7 @@ return {
           -- lualine_b = { { "branch", icon = "" } },
 
           lualine_c = {
+            { require("NeoComposer.ui").status_recording },
             {
               "diagnostics",
               symbols = {
