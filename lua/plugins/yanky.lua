@@ -9,10 +9,11 @@ return {
       ring = { storage = jit.os:find("Windows") and "shada" or "sqlite" },
     },
     keys = {
-        -- stylua: ignore
-      { "<leader>p", "<cmd>YankyRingHistory<CR>", desc = "Open Yank History" },
-      -- FIX: telescope to get the yank history got an error because of treesitter and ts rainbow bracket. find out how to fix this
-      -- { "<leader>p", function() require("telescope").extensions.yank_history.yank_history({ }) end, desc = "Open Yank History" },
+      -- stylua: ignore
+      -- { "<leader>p", "<cmd>YankyRingHistory<CR>", desc = "Open Yank History" }, -- NOTE: use this if below failed again
+      -- stylua: ignore
+      { "<leader>p", function() require("telescope").extensions.yank_history.yank_history({ }) end, desc = "Open Yank History" },
+
       { "y", "<Plug>(YankyYank)", mode = { "n", "x" }, desc = "Yank text" },
       -- { "p", "<Plug>(YankyPutAfter)", mode = { "n", "x" }, desc = "Put yanked text after cursor" }, -- NOTE: disable this as i have add my own custom keymap that make the 'p' to not yank the deleted text when using 'p'.
       { "P", "<Plug>(YankyPutBefore)", mode = { "n", "x" }, desc = "Put yanked text before cursor" },
