@@ -83,8 +83,7 @@ map("n", "<leader>L", "<cmd>:Lazy<cr>", { desc = "Lazy" }) -- use L instead of l
 map("v", "<leader>/", "<Plug>(comment_toggle_linewise_visual)", { desc = "Comment toggle linewise (visual)" })
 map("n", "<leader>/", "<Plug>(comment_toggle_linewise_current)", { desc = "Comment toggle current line" })
 
--- disable macro 'q' as nvim-cmp stated that it will disable the plugin when a macro is pressed
-map("n", "q", "<cmd>lua print('macro is disabled')<cr>", opt)
+-- map("n", "q", "<cmd>lua print('macro is disabled')<cr>", opt) -- nvim-cmp will enable back when not done saving the macro
 
 -- NOTE: reminder / notes / other cool stuff of nvim or other plugin
 -- +notes which-key
