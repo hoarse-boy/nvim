@@ -34,7 +34,6 @@ map("n", "x", '"_x', opt)
 map({ "v", "n" }, "c", '"_c', opt)
 map({ "v", "n" }, "C", '"_C', opt)
 
--- use better-escape-nvim plugin to make it seamless in animation
 map("i", "jk", "<esc>l", opt) -- added l when escaped to normal mode as to not make the cursor move back 1 column. note: it will add a single column if the cursor is in the first column
 -- TODO: make this func works
 -- map("i", "jk", function()
@@ -50,7 +49,7 @@ map("i", "jk", "<esc>l", opt) -- added l when escaped to normal mode as to not m
 map("n", "<S-BS>", 'O<Esc>^"_D', opt) -- add empty space above. will also perform deletion if the current line is a comment, to make sure it really add empty space
 map("n", "<S-CR>", 'o<Esc>^"_D', opt) -- add empty space below. will also perform deletion if the current line is a comment, to make sure it really add empty space
 
--- 'H' and 'L' will be behave like the annoying '$' and '^'
+-- 'H' and 'L' will be behave like the hard to reach '$' and '^'
 map({ "v", "n" }, "<S-h>", "^", opt)
 map("n", "<S-l>", "$", opt)
 map("v", "<S-l>", "$h", opt) -- visual mode $ will add extra space or \n. to avoid that it will be remap as $h
@@ -69,9 +68,6 @@ map("n", "U", "<C-r>") -- dont have to use ctrl r to undo again
 -- remapped alt / option and Tab instead
 map("n", "<C-Tab>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
 map("n", "<C-S-Tab>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
--- FIX:
--- map("n", "<A-Tab>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
--- map("n", "<S-Tab>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
 
 -- map("n", "cp", ':let @" = expand("%:p")<cr>""', { noremap = true, silent = true, desc = "Copy path to register" }) -- added l when escaped to normal mode as to not make the cursor move back 1 line
 

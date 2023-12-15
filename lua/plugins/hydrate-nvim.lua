@@ -6,7 +6,7 @@ return {
   -- init = function() end, -- functions are always executed during startup
   opts = {
     -- The interval between notifications in minutes
-    minute_interval = 30,
+    minute_interval = 60,
 
     -- The render style for notifications
     -- Accepted values are "default", "minimal", "simple" or "compact"

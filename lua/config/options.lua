@@ -14,8 +14,7 @@ vim.opt.fillchars = { eob = " " } -- NOTE: removes trailing '~' in nvim
 
 -- NOTE: neovide config
 if vim.g.neovide then
-  opt.guifont = "JetBrainsMono Nerd Font:h17.3" -- the font used in graphical neovim applications
-  -- opt.guifont = "JetBrainsMono Nerd Font:h17.6" -- the font used in graphical neovim applications
+  opt.guifont = "JetBrainsMono Nerd Font:h17.6" -- the font used in graphical neovim applications
 
   -- helper function for transparency formatting
   local alpha = function()
@@ -25,7 +24,8 @@ if vim.g.neovide then
   -- NOTE: neovide arg --multigrid causing the float window to have black / blank background
   -- to fix it, dont run the arg
   vim.g.neovide_transparency = 0.0
-  vim.g.transparency = 0.88
+  vim.g.transparency = 0.9
+  -- vim.g.transparency = 0.88
   vim.g.neovide_background_color = "#000000" .. alpha()
 
   vim.g.neovide_input_macos_alt_is_meta = true -- for option in macos
@@ -40,7 +40,7 @@ if vim.g.neovide then
   -- vim.g.neovide_cursor_vfx_mode = "railgun"
   vim.g.neovide_cursor_vfx_mode = "sonicboom"
   vim.g.neovide_hide_mouse_when_typing = true
-  vim.g.neovide_cursor_vfx_particle_density = 10.0
+  vim.g.neovide_cursor_vfx_particle_density = 20.0
 
   vim.g.neovide_input_use_logo = 1 -- enable use of the logo (cmd) key
   vim.keymap.set("n", "<d-s>", ":w<cr>") -- save
