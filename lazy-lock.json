@@ -65,7 +65,7 @@
   "nvim-spectre": { "branch": "master", "commit": "a18a58015b46f02b4fe537ebfffd82e46110ff24" },
   "nvim-spider": { "branch": "main", "commit": "c11e469cc1a6d099bcac7e15a7bfc0720b8e96b5" },
   "nvim-toc": { "branch": "main", "commit": "1324bb865fb446b048025514abb1e26bfe456a17" },
-  "nvim-treesitter": { "branch": "master", "commit": "ab818bf5a2ee21515ade9afcf428e98056b6197b" },
+  "nvim-treesitter": { "branch": "master", "commit": "194b3f0047816132b08bcc2857b23a49fa967d04" },
   "nvim-treesitter-context": { "branch": "master", "commit": "cfa8ee19ac9bae9b7fb2958eabe2b45b70c56ccb" },
   "nvim-treesitter-textobjects": { "branch": "master", "commit": "ec1c5bdb3d87ac971749fa6c7dbc2b14884f1f6a" },
   "nvim-ts-autotag": { "branch": "main", "commit": "8515e48a277a2f4947d91004d9aa92c29fdc5e18" },

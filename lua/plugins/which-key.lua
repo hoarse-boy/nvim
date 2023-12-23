@@ -33,7 +33,7 @@
 --     -- TODO: find a way to trigger this cmd if a transparent theme
 --     -- vim.cmd("hi WhichKeyFloat ctermbg=BLACK ctermfg=BLACK")
 --   end,
--- } -- FIX: dont delete above
+-- }
 
 return {
   "folke/which-key.nvim",
@@ -70,6 +70,7 @@ return {
       winblend = 0,
     },
   },
+
   config = function(_, opts)
     local wk = require("which-key")
     wk.setup(opts)
