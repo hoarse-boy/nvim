@@ -64,20 +64,7 @@ return {
             Identifier = { fg = "#5885b0" }, -- const, field, golang var / field in struct etc. -- FIX: change this
             -- Float = { fg = "#d1d1d1" },
             ["@parameter"] = { fg = "#a3563c" }, -- parameter var in a func
-            -- ["@parameter"] = { fg = "#5c8ac4" }, -- parameter var in a func
-            -- ["@parameter"] = { fg = "#a3563c" }, -- parameter var in a func
             -- ["Special"] = { fg = "#10b7c7" }, -- special char in string. go: "%v" / rust: "{:}" / overwrite var in go. dont use it. it is too general
-
-            -- IndentBlanklineContextChar xxx guifg=#bab49b
-            -- IndentBlanklineContextStart xxx cterm=underline gui=underline guisp=#bab49b
-            -- IndentBlanklineContextStart = { bold = true },
-            -- TreesitterContextBottom = { italic = true },
-            -- TreesitterContextBottom = { italic = true, sp = "bab49b" },
-            -- MiniIndentscopeSymbol = { fg = "#ffffff" }, -- FIX:
-            -- MiniIndentscopePrefix = { fg = "#000000" }, -- FIX:
-            -- IndentBlanklineContextChar = { fg = "#a3563c" }, -- FIX: got this
-            -- IndentBlanklineContextChar = { fg = "#000000" }, -- FIX: got this
-            -- IndentBlanklineContextStart = { fg = "#bab49b" }, -- FIX:
 
             -- go highlighter
             ["@variable.builtin"] = { fg = "#d61c9f" }, -- golang nil, if ST (semanteic token) is enabled, it will overwrite goNil
