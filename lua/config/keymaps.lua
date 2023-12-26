@@ -46,8 +46,11 @@ map("i", "jk", "<esc>l", opt) -- added l when escaped to normal mode as to not m
 -- map("v", "y", "ygv<esc>", opt) -- makes the yank not to move back to the first selected line
 
 -- non shift enter and backspace are used for the treesitter's incremental selection
-map("n", "<S-BS>", 'O<Esc>^"_D', opt) -- add empty space above. will also perform deletion if the current line is a comment, to make sure it really add empty space
-map("n", "<S-CR>", 'o<Esc>^"_D', opt) -- add empty space below. will also perform deletion if the current line is a comment, to make sure it really add empty space
+-- NOTE: change this as windows wsl cannot have shift keybinds. need to fix this
+map("n", "<BS>", 'O<Esc>^"_D', opt) -- add empty space above. will also perform deletion if the current line is a comment, to make sure it really add empty space
+map("n", "<CR>", 'o<Esc>^"_D', opt) -- add empty space below. will also perform deletion if the current line is a comment, to make sure it really add empty space
+-- map("n", "<S-BS>", 'O<Esc>^"_D', opt) -- add empty space above. will also perform deletion if the current line is a comment, to make sure it really add empty space
+-- map("n", "<S-CR>", 'o<Esc>^"_D', opt) -- add empty space below. will also perform deletion if the current line is a comment, to make sure it really add empty space
 
 -- 'H' and 'L' will be behave like the hard to reach '$' and '^'
 map({ "v", "n" }, "<S-h>", "^", opt)
