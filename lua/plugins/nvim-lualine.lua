@@ -25,23 +25,6 @@ end
 
 return {
   {
-    "justinhj/battery.nvim",
-    event = "VeryLazy",
-    dependencies = { { "nvim-tree/nvim-web-devicons" }, { "nvim-lua/plenary.nvim" } },
-    config = function(_, _)
-      require("battery").setup({
-        update_rate_seconds = 30, -- Number of seconds between checking battery status
-        show_status_when_no_battery = true, -- Don't show any icon or text when no battery found (desktop for example)
-        show_plugged_icon = true, -- If true show a cable icon alongside the battery icon when plugged in
-        show_unplugged_icon = true, -- When true show a diconnected cable icon when not plugged in
-        show_percent = true, -- Whether or not to show the percent charge remaining in digits
-        vertical_icons = true, -- When true icons are vertical, otherwise shows horizontal battery icon
-        multiple_battery_selection = 1, -- Which battery to choose when multiple found. "max" or "maximum", "min" or "minimum" or a number to pick the nth battery found (currently linux acpi only)
-      })
-    end,
-  },
-
-  {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
     opts = function()
@@ -74,12 +57,12 @@ return {
         cyan = "#7dcfff",
         orange = "#ff9e64",
       }
-      local copilot_colours = {
-        [""] = { fg = colours.grey, bg = colours.bg },
-        ["Normal"] = { fg = colours.grey, bg = colours.bg },
-        ["Warning"] = { fg = colours.red, bg = colours.bg },
-        ["InProgress"] = { fg = colours.yellow, bg = colours.bg },
-      }
+      -- local copilot_colours = {
+      --   [""] = { fg = colours.grey, bg = colours.bg },
+      --   ["Normal"] = { fg = colours.grey, bg = colours.bg },
+      --   ["Warning"] = { fg = colours.red, bg = colours.bg },
+      --   ["InProgress"] = { fg = colours.yellow, bg = colours.bg },
+      -- }
 
       return {
         options = {
@@ -162,24 +145,24 @@ return {
               cond = require("lazy.status").has_updates,
               color = { fg = colours.green },
             },
-            {
-              function()
-                local icon = " "
-                local status = require("copilot.api").status.data
-                return icon .. (status.message or "")
-              end,
-              cond = function()
-                local ok, clients = pcall(vim.lsp.get_active_clients, { name = "copilot", bufnr = 0 })
-                return ok and #clients > 0
-              end,
-              color = function()
-                if not package.loaded["copilot"] then
-                  return
-                end
-                local status = require("copilot.api").status.data
-                return copilot_colours[status.status] or copilot_colours[""]
-              end,
-            },
+            -- {
+            --   function()
+            --     local icon = " "
+            --     local status = require("copilot.api").status.data
+            --     return icon .. (status.message or "")
+            --   end,
+            --   cond = function()
+            --     local ok, clients = pcall(vim.lsp.get_active_clients, { name = "copilot", bufnr = 0 })
+            --     return ok and #clients > 0
+            --   end,
+            --   color = function()
+            --     if not package.loaded["copilot"] then
+            --       return
+            --     end
+            --     local status = require("copilot.api").status.data
+            --     return copilot_colours[status.status] or copilot_colours[""]
+            --   end,
+            -- },
 
             {
               function()
@@ -223,13 +206,6 @@ return {
             {
               "location",
               color = { fg = colours.cyan, bg = colours.bg },
-            },
-
-            {
-              function()
-                return require("battery").get_status_line()
-              end,
-              color = { fg = colours.pink, bg = colours.bg },
             },
           },
 
