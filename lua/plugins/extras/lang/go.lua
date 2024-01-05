@@ -7,7 +7,6 @@ local notify = require("notify")
 return {
   {
     "ray-x/go.nvim",
-    -- commit = "44bd0589ad22e2bb91f2ed75624c4a3bab0e5f59", -- NOTE: it fixes the strange behavour when saving a file on the latest commit
     dependencies = { -- optional packages
       "ray-x/guihua.lua",
       {
@@ -19,9 +18,7 @@ return {
           vim.g.go_highlight_comma = 1 -- it uses the highlight color of func?
           -- NOTE: with catpuccin it is better in vanilla setting. but need to be changed. the highlight is called 'Identifier'
           vim.g.go_highlight_fields = 1 -- Fields in expressions, e.g. bar in foo.bar = 123
-          -- vim.g.go_highlight_fields = 0 -- Fields in expressions, e.g. bar in foo.bar = 123
           vim.g.go_highlight_struct_fields = 1 -- Field names in struct literals, e.g. Bar in f := Foo{ Bar: 123 }.
-          -- vim.g.go_highlight_struct_fields = 0 -- Field names in struct literals, e.g. Bar in f := Foo{ Bar: 123 }.
           vim.g.go_highlight_variable_assignments = 1
           -- vim.g.go_highlight_types = 0
           -- vim.g.go_highlight_type_parameters = 0
@@ -29,20 +26,22 @@ return {
           vim.g.go_highlight_struct_type_fields = 1
           vim.g.go_highlight_struct_tags = 1 -- Struct tags, the backtick-delimited strings in structs, e.g. `json:bar` in struct { Bar int `json:"bar"` }.
           vim.g.go_highlight_function_parameters = 1 -- Parameter names, e.g. bar in func foo(bar int)
-          -- vim.g.go_highlight_function_parameters = 0 -- Parameter names, e.g. bar in func foo(bar int)
-          -- vim.g.go_highlight_slice_brackets = 0
           vim.g.go_highlight_slice_brackets = 1 -- The brackets in slice types, e.g. []string.
-
           vim.g.go_highlight_variable_declarations = 1 -- disable highlight in var name of 'kaobm', ex. kaobm := os.Getenv("REDIS_HOST")
-          -- vim.g.go_highlight_variable_declarations = 0 -- disable highlight in var name of 'kaobm', ex. kaobm := os.Getenv("REDIS_HOST")
           -- vim.g.go_highlight_dot = 0 -- this works
         end,
       },
     },
 
     config = function()
-      -- FIX: update this to own setup
-      require("go").setup()
+      require("go").setup({
+        lsp_inlay_hints = {
+          enable = false, -- disable go.nvim inlay as it is currently buggy.
+          -- hint style, set to 'eol' for end-of-line hints, 'inlay' for inline hints
+          -- inlay only avalible for 0.10.x
+          style = "inlay",
+        },
+      })
 
       -- NOTE: autocmd
       local autocmd = vim.api.nvim_create_autocmd
@@ -216,7 +215,7 @@ return {
           -- gopls = function(_, opts)
           -- workaround for gopls not supporting semanticTokensProvider
           -- https://github.com/golang/go/issues/54531#issuecomment-1464982242
-          require("lazyvim.util").lsp.on_attach(function(client, _)
+          require("lazyvim.util").lsp.on_attach(function(client, bufnr)
             if client.name == "gopls" then
               if not client.server_capabilities.semanticTokensProvider then
                 local semantic = client.config.capabilities.textDocument.semanticTokens
@@ -230,8 +229,31 @@ return {
                 }
               end
             end
+            -- end workaround
+
+            -- Enable inlay hints if the client supports it.
+            -- with a logic to make it disable when going into invsert mode.
+            if client.server_capabilities.inlayHintProvider then
+              local inlay_hints_group = vim.api.nvim_create_augroup("InlayHints", { clear = false })
+
+              vim.lsp.inlay_hint.enable(bufnr, true)
+
+              vim.api.nvim_create_autocmd("InsertEnter", {
+                group = inlay_hints_group,
+                buffer = buf,
+                callback = function()
+                  vim.lsp.inlay_hint.enable(bufnr, false)
+                end,
+              })
+              vim.api.nvim_create_autocmd("InsertLeave", {
+                group = inlay_hints_group,
+                buffer = buf,
+                callback = function()
+                  vim.lsp.inlay_hint.enable(bufnr, true)
+                end,
+              })
+            end
           end)
-          -- end workaround
         end,
       },
     },
@@ -279,6 +301,7 @@ return {
           nls.builtins.code_actions.impl,
           -- used ray-x go nvim above to create autcmd instead.
           -- nls.builtins.formatting.gofumpt,
+          -- nls.builtins.formatting.gofmt,
           -- nls.builtins.formatting.goimports_reviser,
         })
       end
@@ -286,15 +309,17 @@ return {
   },
 
   -- used ray-x go nvim above to create autcmd instead.
-  -- {
-  --   "stevearc/conform.nvim",
-  --   optional = true,
-  --   opts = {
-  --     formatters_by_ft = {
-  --       go = { "goimports", "gofumpt" },
-  --     },
-  --   },
-  -- },
+  -- -- FIX: test to ditch ray-x go.nvim
+  {
+    "stevearc/conform.nvim",
+    optional = true,
+    opts = {
+      formatters_by_ft = {
+        go = { "goimports", "gofmt" },
+        -- go = { "goimports", "gofumpt" },
+      },
+    },
+  },
 
   -- install all go's parser to treesitter and disable 'go' parser to use vim-go-syntax's highlighter
   {

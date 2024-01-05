@@ -66,11 +66,16 @@ map("n", "U", "<C-r>") -- dont have to use ctrl r to undo again
   map({"v", "i" }, "<C-I>", function() local luasnip = require("luasnip") if luasnip.jumpable() then luasnip.jump(-1) end end, { desc = "Jump to previous placeholder (LuaSnip)", noremap = true, silent = true })
 
 -- change the lazyvim buffer movement to tab
--- NOTE: importent, Tab in terminal has the issue of treating that keymap the same as ctrl+i
--- so Tab should not be mapped at all to avoid remapping ctrl+i too
--- remapped alt / option and Tab instead
+-- NOTE: importent, Tab in terminal has the issue of treating that keymap the same as ctrl+i.
+-- so Tab should not be mapped at all to avoid remapping ctrl+i too.
+-- remapped alt / option and Tab instead.
+-- this will be used by neovide.
 map("n", "<C-Tab>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
 map("n", "<C-S-Tab>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
+
+-- NOTE: buffer navigation. this will be used by wezterm wsl as above keybinds are prioritize for wezterm tabs.
+map("n", "<A-]>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
+map("n", "<A-[>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
 
 -- map("n", "cp", ':let @" = expand("%:p")<cr>""', { noremap = true, silent = true, desc = "Copy path to register" }) -- added l when escaped to normal mode as to not make the cursor move back 1 line
 

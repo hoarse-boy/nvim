@@ -58,7 +58,11 @@ return {
     --     keys[#keys + 1] = { "<leader>lr", vim.lsp.buf.rename, desc = "Rename", has = "rename" }
     --   end
   end,
-  opts = function(_, _)
+  opts = function(_, opts)
+    if type(opts.inlay_hints) == "table" then
+      vim.list_extend(opts.inlay_hints, { enabled = true })
+    end
+
     vim.diagnostic.config({
       float = { border = "rounded" },
     })

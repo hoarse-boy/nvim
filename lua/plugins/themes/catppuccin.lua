@@ -66,18 +66,25 @@ return {
             ["@parameter"] = { fg = "#a3563c" }, -- parameter var in a func
             -- ["Special"] = { fg = "#10b7c7" }, -- special char in string. go: "%v" / rust: "{:}" / overwrite var in go. dont use it. it is too general
 
+            MiniIndentscopeSymbol = { fg = "#74c7ec" }, -- indent animation color
+
+            -- fix the rainbow color that linked to string hl color
+            RainbowDelimiterGreen = { fg = "#0d8c4f" },
+            rainbow4 = { link = "RainbowDelimiterGreen" },
+            rainbowcol7 = { link = "RainbowDelimiterGreen" },
+            RainbowDelimiterViolet = { link = "rainbowcol5" },
+            rainbow6 = { link = "rainbowcol5" },
+
             -- go highlighter
             ["@variable.builtin"] = { fg = "#d61c9f" }, -- golang nil, if ST (semanteic token) is enabled, it will overwrite goNil
             ["@type.builtin"] = { fg = "#c4b864" }, -- primitive type: string, int, float etc in golang
             -- ["goVarIdentifier"] = { fg = "#55B4BE" }, -- go const. but not imported const (will follow Identifier). is commented as the default is linked to Identifier
             ["goStructTypeField"] = { fg = "#10b7c7" }, -- go struct field
-            -- ["goStructTypeField"] = { fg = "#a3563c" }, -- go struct field
-            -- ["goStructTypeField"] = { fg = "#5179ad" }, -- go struct field
             goVarAssign = { fg = "#D7658B" }, -- go overwrite var
             -- ["goConstDecl"] = { fg = "#79a3d9" },
             -- ["goIota"] = { fg = "#79a3d9" },
-            ["PreProc"] = { fg = "#9c9797" }, -- go tag string. other?
-            ["goStringFormat"] = { fg = "#10b7c7" }, -- will overwrite "Special" but only for golang
+            ["PreProc"] = { fg = "#9c9797" }, -- go tag string.
+            ["goStringFormat"] = { fg = "#10b7c7" }, -- will overwrite "Special" but only for golang.
 
             -- rust highlighter
             ["@punctuation.special"] = { fg = "#10b7c7" }, -- rust "{}"

@@ -1,5 +1,3 @@
-local isLspStart = false
-
 return {
   {
     "nvim-neo-tree/neo-tree.nvim",
@@ -9,64 +7,33 @@ return {
         {
           event = "file_opened",
           handler = function(_)
-            -- require("neo-tree").close() -- NOTE: not working after 1.3
             vim.cmd("Neotree close")
           end,
         },
-
-        -- FIX: delete later. not really impactfull
-        -- {
-        --   event = "after_render",
-        --   handler = function()
-        --     if isLspStart == false then
-        --       isLspStart = true
-        --       -- TODO: find a way to store some value in a array of string and then be required here
-        --       -- for now only check for go and rust files to start their lsp on local var in this module
-        --       -- -- FIX: rust_analyzer is not working? need to have single file true? need to uninstall and use mason only dir?
-        --       -- or use root dir to have neo tree like go?
-        --       local ok, lspList = pcall(require, "plugins.extras.lang")
-        --       if ok then
-        --         for key, value in pairs(lspList[1]) do
-        --           local findFile = vim.fn.findfile(value, ".;")
-        --           if findFile == value then
-        --             local vimCmd = string.format("LspStart %s", key)
-        --             vim.cmd(vimCmd)
-        --             break
-        --           end
-        --         end
-        --       end
-        --     end
-        --     -- -- TODO:
-        --     -- afer render is not one time. make it one time only
-        --     -- TODO: add logic to handle this and move to go.lua
-        --     -- create for rust and other
-        --     -- require("neo-tree.sources.filesystem").reset_search(state)
-        --   end,
-        -- },
       },
 
       filesystem = {
-        -- harpoon_index
-        components = {
-          harpoon_index = function(config, node, state)
-            local Marked = require("harpoon.mark")
-            local path = node:get_id()
-            local is_succes, index = pcall(Marked.get_index_of, path)
-            if is_succes and index and index > 0 then
-              return {
-                text = string.format(" ⥤ %d", index), -- <-- Add your favorite harpoon like arrow here
-                highlight = config.highlight or "NeoTreeDirectoryIcon",
-              }
-            else
-              return {}
-            end
-          end,
-        },
+        -- -- harpoon_index
+        -- components = {
+        --   harpoon_index = function(config, node, state)
+        --     local Marked = require("harpoon.mark")
+        --     local path = node:get_id()
+        --     local is_succes, index = pcall(Marked.get_index_of, path)
+        --     if is_succes and index and index > 0 then
+        --       return {
+        --         text = string.format(" ⥤ %d", index), -- <-- Add your favorite harpoon like arrow here
+        --         highlight = config.highlight or "NeoTreeDirectoryIcon",
+        --       }
+        --     else
+        --       return {}
+        --     end
+        --   end,
+        -- },
         renderers = {
           file = {
             { "icon" },
             { "name", use_git_status_colors = true },
-            { "harpoon_index" },
+            -- { "harpoon_index" }, -- used harpoon2 for now so disable this
             { "diagnostics" },
             { "git_status", highlight = "NeoTreeDimText" },
           },
@@ -77,14 +44,14 @@ return {
             -- make a float right window
             -- position = { col = "100%", row = "2" },
             position = { col = "-100%", row = "3" }, -- left side floating window
-            size = function(state)
-              local root_name = vim.fn.fnamemodify(state.path, ":~")
-              local root_len = string.len(root_name) + 4
-              return {
-                width = math.max(root_len, 50),
-                height = vim.o.lines - 6,
-              }
-            end,
+            -- size = function(state)
+            --   local root_name = vim.fn.fnamemodify(state.path, ":~")
+            --   local root_len = string.len(root_name) + 4
+            --   return {
+            --     width = math.max(root_len, 50),
+            --     height = vim.o.lines - 6,
+            --   }
+            -- end,
           },
         },
 
