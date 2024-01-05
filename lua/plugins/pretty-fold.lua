@@ -1,7 +1,7 @@
 return {
   "anuvyklack/pretty-fold.nvim",
   event = "VeryLazy",
-  -- enabled = false, -- disabled plugin
+  -- enabled = false,
   config = function()
     -- autcmd
     -- TODO: move to pretty fold
