@@ -41,12 +41,6 @@ if vim.g.neovide then
   vim.keymap.set("c", "<D-v>", "<C-R>+") -- Paste command mode
   vim.keymap.set("i", "<D-v>", '<ESC>l"+Pli') -- Paste insert mode
 
-  -- FIX: test
-  -- vim.api.nvim_set_keymap("", "<D-v>", "+p<CR>", { noremap = true, silent = true })
-  -- vim.api.nvim_set_keymap("!", "<D-v>", "<C-R>+", { noremap = true, silent = true })
-  -- vim.api.nvim_set_keymap("t", "<D-v>", "<C-R>+", { noremap = true, silent = true })
-  -- vim.api.nvim_set_keymap("v", "<D-v>", "<C-R>+", { noremap = true, silent = true })
-
   -- vim.g.neovide_cursor_vfx_mode = "railgun"
   vim.g.neovide_cursor_vfx_mode = "sonicboom"
   vim.g.neovide_hide_mouse_when_typing = true
@@ -113,7 +107,6 @@ end
 -- opt.cursorline = true
 opt.list = false -- NOTE: make the > and other symbol to be hidden when the object is commented.
 opt.scrolloff = 10 -- minimal number of screen lines to keep above and below the cursor.
--- opt.scrolloff = 10 -- minimal number of screen lines to keep above and below the cursor.
 opt.sidescrolloff = 10 -- minimal number of screen lines to keep left and right of the cursor.
 opt.writebackup = false -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
 opt.swapfile = false -- creates a swapfile. disable to avoid the anoying prompt

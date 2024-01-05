@@ -80,13 +80,11 @@ return {
             ["@type.builtin"] = { fg = "#c4b864" }, -- primitive type: string, int, float etc in golang
             -- ["goVarIdentifier"] = { fg = "#55B4BE" }, -- go const. but not imported const (will follow Identifier). is commented as the default is linked to Identifier
             ["goStructTypeField"] = { fg = "#10b7c7" }, -- go struct field
-            -- ["goStructTypeField"] = { fg = "#a3563c" }, -- go struct field
-            -- ["goStructTypeField"] = { fg = "#5179ad" }, -- go struct field
             goVarAssign = { fg = "#D7658B" }, -- go overwrite var
             -- ["goConstDecl"] = { fg = "#79a3d9" },
             -- ["goIota"] = { fg = "#79a3d9" },
-            ["PreProc"] = { fg = "#9c9797" }, -- go tag string. other?
-            ["goStringFormat"] = { fg = "#10b7c7" }, -- will overwrite "Special" but only for golang
+            ["PreProc"] = { fg = "#9c9797" }, -- go tag string.
+            ["goStringFormat"] = { fg = "#10b7c7" }, -- will overwrite "Special" but only for golang.
 
             -- rust highlighter
             ["@punctuation.special"] = { fg = "#10b7c7" }, -- rust "{}"
