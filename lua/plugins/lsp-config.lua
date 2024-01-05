@@ -58,10 +58,19 @@ return {
     --     keys[#keys + 1] = { "<leader>lr", vim.lsp.buf.rename, desc = "Rename", has = "rename" }
     --   end
   end,
-  opts = function(_, opts)
-    if type(opts.inlay_hints) == "table" then
-      vim.list_extend(opts.inlay_hints, { enabled = true })
-    end
+  opts = function(_, _)
+    -- globally enable inlay hint
+    -- vim.api.nvim_create_autocmd("LspAttach", {
+    --   group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+    --   callback = function(args)
+    --     local client = vim.lsp.get_client_by_id(args.data.client_id)
+    --     if client.server_capabilities.inlayHintProvider then
+    --       -- vim.lsp.inlay_hint.enable(bufnr, true)
+    --       vim.lsp.inlay_hint.enable(args.buf, true)
+    --     end
+    --     -- whatever other lsp config you want
+    --   end,
+    -- })
 
     vim.diagnostic.config({
       float = { border = "rounded" },

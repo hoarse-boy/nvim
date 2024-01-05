@@ -236,7 +236,7 @@ return {
             if client.server_capabilities.inlayHintProvider then
               local inlay_hints_group = vim.api.nvim_create_augroup("InlayHints", { clear = false })
 
-              vim.lsp.inlay_hint.enable(bufnr, true)
+              vim.lsp.inlay_hint.enable(bufnr, true) -- enable this only in go buffer
 
               vim.api.nvim_create_autocmd("InsertEnter", {
                 group = inlay_hints_group,
