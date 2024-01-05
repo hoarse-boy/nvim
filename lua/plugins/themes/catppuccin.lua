@@ -66,6 +66,15 @@ return {
             ["@parameter"] = { fg = "#a3563c" }, -- parameter var in a func
             -- ["Special"] = { fg = "#10b7c7" }, -- special char in string. go: "%v" / rust: "{:}" / overwrite var in go. dont use it. it is too general
 
+            MiniIndentscopeSymbol = { fg = "#74c7ec" }, -- indent animation color
+
+            -- fix the rainbow color that linked to string hl color
+            RainbowDelimiterGreen = { fg = "#0d8c4f" },
+            rainbow4 = { link = "RainbowDelimiterGreen" },
+            rainbowcol7 = { link = "RainbowDelimiterGreen" },
+            RainbowDelimiterViolet = { link = "rainbowcol5" },
+            rainbow6 = { link = "rainbowcol5" },
+
             -- go highlighter
             ["@variable.builtin"] = { fg = "#d61c9f" }, -- golang nil, if ST (semanteic token) is enabled, it will overwrite goNil
             ["@type.builtin"] = { fg = "#c4b864" }, -- primitive type: string, int, float etc in golang
