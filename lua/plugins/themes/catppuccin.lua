@@ -11,12 +11,6 @@ return {
       background_colour = "#000000",
     })
 
-    -- vim.cmd("hi TreesitterContextBottom gui=underline guisp=#ffffff")
-    -- vim.cmd("hi Visual cterm=none gui=none guibg=#ffffff")
-
-    -- vim.cmd("hi IndentBlanklineContextStart cterm=underline gui=underline guisp=#ffffff gui=bold")
-    -- vim.api.nvim_set_hl(0, "IndentBlanklineContextStart", { fg = "black", bold = true })
-
     require("catppuccin").setup({
       flavour = "mocha", -- latte, frappe, macchiato, mocha
       background = { -- :h background
@@ -56,9 +50,9 @@ return {
             Boolean = { fg = "#7833f5" },
             Number = { fg = "#87b7c7" },
             Type = { fg = "#15a191" },
-            -- Type = { fg = "#79b0a9" },
             TreesitterContextLineNumber = { fg = "#d1d1d1" },
-            -- TreesitterContextBottom = { special = "#d1d1d1" },
+            -- TreesitterContextBottom = { sp = "#d1d1d1" },
+
             FlashLabel = { fg = "#ffffff" },
             Visual = { bg = "#292930" }, -- Visual cterm=bold gui=bold guibg=#292930
             Identifier = { fg = "#5885b0" }, -- const, field, golang var / field in struct etc. -- FIX: change this
