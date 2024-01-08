@@ -1,9 +1,10 @@
 return {
   "anuvyklack/pretty-fold.nvim",
   event = "VeryLazy",
-  -- enabled = false, -- disabled plugin
+  -- enabled = false,
   config = function()
     -- autcmd
+
     -- TODO: move to pretty fold
     -- -- unfold folded code when opening any files
     -- local auto_fold = augroup("OpenFold", {})

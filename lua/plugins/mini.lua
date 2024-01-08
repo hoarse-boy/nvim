@@ -115,7 +115,7 @@ return {
         -- Window close
         close = {
           -- Whether to enable this animation
-          enable = true,
+          enable = false, -- NOTE: disable this to remove the ugly black bg hl when closing neo-tree
 
           -- Timing of animation (how steps will progress in time)
           -- timing = --<function: implements linear total 250ms animation duration>,

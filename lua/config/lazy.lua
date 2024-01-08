@@ -34,7 +34,7 @@ require("lazy").setup({
     { import = "plugins.extras.dap.dap" }, -- NOTE: extend my dap config. make sure to import it below lazyvim dap.core
     { import = "lazyvim.plugins.extras.lang.json" },
     { import = "lazyvim.plugins.extras.util.mini-hipatterns" },
-    { import = "lazyvim.plugins.extras.ui.edgy" },
+    { import = "lazyvim.plugins.extras.ui.edgy" }, -- uses edgy for a better terminal inside vim and other stuff.
     { import = "lazyvim.plugins.extras.editor.aerial" },
     -- { import = "lazyvim.plugins.extras.editor.navic" }, -- NOTE: dont install this. i have my own navic installed. and also it will make double navic in lualine with the other is not trasnparent and slow
 
