@@ -240,14 +240,14 @@ return {
 
               vim.api.nvim_create_autocmd("InsertEnter", {
                 group = inlay_hints_group,
-                buffer = buf,
+                buffer = bufnr,
                 callback = function()
                   vim.lsp.inlay_hint.enable(bufnr, false)
                 end,
               })
               vim.api.nvim_create_autocmd("InsertLeave", {
                 group = inlay_hints_group,
-                buffer = buf,
+                buffer = bufnr,
                 callback = function()
                   vim.lsp.inlay_hint.enable(bufnr, true)
                 end,
