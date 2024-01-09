@@ -5,38 +5,52 @@
 local opt = vim.opt
 -- local api = vim.api
 
--- NOTE: disabled kinda visually buggy startup because of netrw
--- is disabled in lazy.lua
--- vim.g.loaded_netrw = 1
--- vim.g.loaded_netrwPlugin = 1
-
 vim.opt.fillchars = { eob = " " } -- NOTE: removes trailing '~' in nvim
+local is_wsl = vim.fn.has("wsl") == 1
 
 -- NOTE: neovide config
 if vim.g.neovide then
-  opt.guifont = "CaskaydiaCove Nerd Font:h13.6" -- the font used in graphical neovim applications
+  -- opt.guifont = "CaskaydiaCove Nerd Font:h13.9" -- the font used in graphical neovim applications
+  opt.guifont = { "CaskaydiaCove Nerd Font", ":h13.9" }
+  -- opt.guifont = { "CaskaydiaCove Nerd Font", ":h13.9:b" }
   -- opt.guifont = "JetBrainsMono Nerd Font:h17.6" -- the font used in graphical neovim applications
 
   -- helper function for transparency formatting
   local alpha = function()
     return string.format("%x", math.floor((255 * vim.g.transparency) or 0.8))
   end
-  -- g:neovide_transparency should be 0 if you want to unify transparency of content and title bar.
+  -- g:neovide_transpaeency should be 0 if you want to unify transparency of content and title bar.
   -- NOTE: neovide arg --multigrid causing the float window to have black / blank background
   -- to fix it, dont run the arg
-  vim.g.neovide_transparency = 0.9
-  vim.g.transparency = 0.9
+  -- vim.g.neovide_transparency = 0.9 -- FIX:
+  -- vim.g.transparency = 0.9 -- FIX:
   -- vim.g.transparency = 0.88
   -- vim.g.neovide_background_color = "#000000" .. alpha()
 
-  vim.g.neovide_input_macos_alt_is_meta = true -- for option in macos
+  vim.g.neovide_refresh_rate = 75 -- current montior hertz
+  vim.g.neovide_refresh_rate_idle = 5
+  vim.g.neovide_padding_top = 0
+  vim.g.neovide_padding_bottom = 0
+  vim.g.neovide_padding_right = 0
+  vim.g.neovide_padding_left = 10.5 -- FIX: not working
 
-  vim.g.neovide_input_use_logo = 1
+  if is_wsl then
+    -- vim.g.neovide_fullscreen = true -- a little glitchy. on wsl
+  else
+    vim.g.neovide_input_macos_alt_is_meta = true -- for option in macos
+    vim.g.neovide_input_use_logo = 1 -- enable use of the logo (cmd) key
+  end
 
   -- Allow clipboard copy paste in neovim
+  -- vim.keymap.set("n", "<C-z>", '"+P') -- Paste normal mode -- -- FIX: this work. ctrl v
+  vim.keymap.set("n", "<c-V>", '"+P') -- Paste normal mode -- -- FIX: this work. ctrl v (but the keymap is a capital V). however, it is slow. my finding is ctrl V of wezterm is way faster as it is a local func call unlike nvim wsl to winodws.
+  vim.keymap.set("v", "<c-C>", '"+y') -- Copy
+
+  -- FIX: change to c-p not working in neovide?
+  -- FIX: A-v is not working
+
   vim.keymap.set("n", "<D-s>", ":w<CR>") -- Save
-  vim.keymap.set("v", "<D-c>", '"+y') -- Copy
-  vim.keymap.set("n", "<D-v>", '"+P') -- Paste normal mode
+  -- vim.keymap.set("n", "<D-V>", '"+P') -- Paste normal mode
   vim.keymap.set("v", "<D-v>", '"+P') -- Paste visual mode
   vim.keymap.set("c", "<D-v>", "<C-R>+") -- Paste command mode
   vim.keymap.set("i", "<D-v>", '<ESC>l"+Pli') -- Paste insert mode
@@ -44,25 +58,12 @@ if vim.g.neovide then
   -- vim.g.neovide_cursor_vfx_mode = "railgun"
   vim.g.neovide_cursor_vfx_mode = "sonicboom"
   vim.g.neovide_hide_mouse_when_typing = true
-  vim.g.neovide_cursor_vfx_particle_density = 20.0
-
-  vim.g.neovide_input_use_logo = 1 -- enable use of the logo (cmd) key
-  vim.keymap.set("n", "<d-s>", ":w<cr>") -- save
-  vim.keymap.set("v", "<d-c>", '"+y') -- copy
-  vim.keymap.set("n", "<d-v>", '"+p') -- paste normal mode
-  vim.keymap.set("v", "<d-v>", '"+p') -- paste visual mode
-  vim.keymap.set("c", "<d-v>", "<c-r>+") -- paste command mode
-  vim.keymap.set("i", "<d-v>", '<esc>l"+pli') -- paste insert mode
+  vim.g.neovide_cursor_vfx_particle_density = 50.0
 end
-
-local is_wsl = vim.fn.has("wsl") == 1
 
 -- -- WSL Clipboard support. doesnt use win32yank as it will have an error when using yanky plugin.
 -- if is_wsl then
---   -- FIX: tesst first
---   -- vim.opt.clipboard = "" -- -- FIX: dont use this. it makes the inside of vim cannot be copy to os specific
 --   vim.opt.clipboard = "unnamedplus" -- NOTE: to fix the error clip.exe is not an executable
---   -- vim.opt.clipboard = "unnamed" -- NOTE: to fix the error clip.exe is not an executable
 
 --   -- This is NeoVim's recommended way to solve clipboard sharing if you use WSL
 --   -- See: https://github.com/neovim/neovim/wiki/FAQ#how-to-use-the-windows-clipboard-from-wsl
@@ -87,7 +88,10 @@ local is_wsl = vim.fn.has("wsl") == 1
 -- FIX: cannot be used when su to user in wsl. the win32yank or clip.exe is not executable
 -- WSL Clipboard support
 if is_wsl then
-  vim.opt.clipboard = "unnamedplus" -- NOTE: to fix the error clip.exe is not an executable
+  vim.opt.clipboard = "unnamed" -- NOTE: to fix the error clip.exe is not an executable
+  -- vim.opt.clipboard = "unnamedplus" -- NOTE: to fix the error clip.exe is not an executable
+  -- vim.opt.clipboard = "" -- FIX: testing
+
   -- This is NeoVim's recommended way to solve clipboard sharing if you use WSL
   -- See: https://github.com/neovim/neovim/wiki/FAQ#how-to-use-the-windows-clipboard-from-wsl
   vim.g.clipboard = {
@@ -97,10 +101,10 @@ if is_wsl then
       ["*"] = "win32yank.exe -i --crlf",
     },
     paste = {
-      ["+"] = "win32yank.exe -o --lf",
+      ["+"] = "win32yank.exe -o --lf", -- NOTE: this is needed by neovide.
       ["*"] = "win32yank.exe -o --lf",
     },
-    cache_enabled = 0,
+    cache_enabled = 1,
   }
 end
 
