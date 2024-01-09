@@ -96,9 +96,6 @@ return {
           init_selection = "<S-Enter>",
           node_incremental = "<S-Enter>",
           node_decremental = "<S-BS>",
-          -- init_selection = "<Enter>",
-          -- node_incremental = "<Enter>",
-          -- node_decremental = "<BS>",
         },
       },
 
