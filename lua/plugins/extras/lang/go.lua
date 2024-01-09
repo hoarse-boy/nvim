@@ -43,18 +43,15 @@ return {
         },
       })
 
-      -- NOTE: autocmd
+      -- NOTE: autocmd.
       local autocmd = vim.api.nvim_create_autocmd
       local augroup = vim.api.nvim_create_augroup
 
-      -- Run gofmt + goimport on save - go.nvim
-      local format_sync_grp = augroup("GoImport", {})
+      local format_sync_grp = augroup("GoReminderPersonal", {})
       autocmd("BufWritePre", {
         pattern = "*.go",
         callback = function()
-          require("go.format").goimport()
-
-          -- print notification
+          -- print notification. to notify me.
           notify("# Have you:\n- run GoTest?\n- run GoLint?\n- checked todo 'FIX:'?", "info", {
             title = "go.nvim",
             on_open = function(win)
@@ -213,7 +210,7 @@ return {
       setup = {
         gopls = function(_, _)
           -- gopls = function(_, opts)
-          -- workaround for gopls not supporting semanticTokensProvider
+          -- NOTE: workaround for gopls not supporting semanticTokensProvider
           -- https://github.com/golang/go/issues/54531#issuecomment-1464982242
           require("lazyvim.util").lsp.on_attach(function(client, bufnr)
             if client.name == "gopls" then
@@ -229,10 +226,10 @@ return {
                 }
               end
             end
-            -- end workaround
+            -- NOTE: end workaround
 
             -- Enable inlay hints if the client supports it.
-            -- with a logic to make it disable when going into invsert mode.
+            -- with a logic to make it disable when going into insert and visual mode.
             if client.server_capabilities.inlayHintProvider then
               local inlay_hints_group = vim.api.nvim_create_augroup("InlayHints", { clear = false })
 
@@ -252,6 +249,8 @@ return {
                   vim.lsp.inlay_hint.enable(bufnr, true)
                 end,
               })
+
+              -- TODO: create autocmd for visual mode too. nvim still doest have this api?
             end
           end)
         end,
@@ -297,7 +296,7 @@ return {
       if type(opts.sources) == "table" then
         local nls = require("null-ls")
         vim.list_extend(opts.sources, {
-          nls.builtins.code_actions.gomodifytags,
+          -- nls.builtins.code_actions.gomodifytags, -- FIX: not working. use go.nvim instead
           nls.builtins.code_actions.impl,
           -- used ray-x go nvim above to create autcmd instead.
           -- nls.builtins.formatting.gofumpt,
