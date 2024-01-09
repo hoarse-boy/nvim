@@ -27,6 +27,9 @@ map("n", "dd", '"_dd', opt)
 
 -- NOTE: will not work if lazyvim yanky is installed / enabled
 map("v", "p", '"_dP', opt) -- replace currently selected text with default register. without yanking it
+-- NOTE: cannot use the ctrl v because it is not recognised by vim. it will go to a v-block mode instead and then paste and pressing `p` again.
+-- disabling like this `del("n", "<c-v>")` will make the paste slow like usual.
+-- map("n", "p", "<c-v>", opt)
 
 map("n", "D", '"_D', opt)
 map("n", "x", '"_x', opt)
@@ -117,3 +120,31 @@ map("n", "<leader>oP", function()
   local path = vim.fn.expand("%:p:h")
   print(path)
 end, { desc = "Copy full parent dir", noremap = true, silent = true })
+
+-- FIX:  testingk
+-- -- update clipboard keymaps
+-- -- NOTE: it should be "_d so uses '' to make the string, else the keymap will not be working
+-- -- "_* will not save to clipboard.
+
+-- -- NOTE: will not work if lazyvim yanky is installed / enabled
+-- map("v", "p", '"_dP', opt) -- replace currently selected text with default register. without yanking it
+-- map("n", "p", "<A-v>", opt) -- FIX:
+
+-- map("n", "dd", '"_dd', opt)
+-- map({ "v", "n" }, "d", '"_d', opt)
+-- map("n", "D", '"_D', opt)
+
+-- map("n", "x", '"_x', opt)
+
+-- map("n", "y", '"y', opt) -- FIX: test
+-- -- map("n", "yy", '"yy', opt) -- FIX:
+
+-- map({ "v", "n" }, "c", '"_c', opt)
+-- map({ "v", "n" }, "C", '"_C', opt)
+
+-- map("v", "<leader>C", '"+y', opt) -- FIX: test
+-- -- map("v", "<C-c>", '"+y', opt) -- FIX: test wezterm use this and disable nvim keymap actually
+
+-- map({ "n", "v" }, "<leader>V", '"+p', opt) -- FIX: test. or use ctrl v directly
+
+-- FIX: test using wezterm .act
