@@ -10,8 +10,10 @@ local is_wsl = vim.fn.has("wsl") == 1
 
 -- NOTE: neovide config
 if vim.g.neovide then
+  opt.guifont = "CaskaydiaCove Nerd Font:h13.2" -- the font used in graphical neovim applications
   -- opt.guifont = "CaskaydiaCove Nerd Font:h13.9" -- the font used in graphical neovim applications
-  opt.guifont = { "CaskaydiaCove Nerd Font", ":h13.9" }
+
+  -- opt.guifont = { "CaskaydiaCove Nerd Font", ":h13.9" }
   -- opt.guifont = { "CaskaydiaCove Nerd Font", ":h13.9:b" }
   -- opt.guifont = "JetBrainsMono Nerd Font:h17.6" -- the font used in graphical neovim applications
 
