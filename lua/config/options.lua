@@ -12,36 +12,24 @@ local is_wsl = vim.fn.has("wsl") == 1
 if vim.g.neovide then
   opt.guifont = "CaskaydiaCove Nerd Font:h13.2" -- the font used in graphical neovim applications
   -- opt.guifont = "CaskaydiaCove Nerd Font:h13.9" -- the font used in graphical neovim applications
-
-  -- opt.guifont = { "CaskaydiaCove Nerd Font", ":h13.9" }
-  -- opt.guifont = { "CaskaydiaCove Nerd Font", ":h13.9:b" }
   -- opt.guifont = "JetBrainsMono Nerd Font:h17.6" -- the font used in graphical neovim applications
 
-  -- helper function for transparency formatting
-  local alpha = function()
-    return string.format("%x", math.floor((255 * vim.g.transparency) or 0.8))
-  end
-  -- g:neovide_transpaeency should be 0 if you want to unify transparency of content and title bar.
-  -- NOTE: neovide arg --multigrid causing the float window to have black / blank background
-  -- to fix it, dont run the arg
-  -- vim.g.neovide_transparency = 0.9 -- FIX:
-  -- vim.g.transparency = 0.9 -- FIX:
-  -- vim.g.transparency = 0.88
-  -- vim.g.neovide_background_color = "#000000" .. alpha()
-
-  vim.g.neovide_refresh_rate = 75 -- current montior hertz
+  vim.g.neovide_transparency = 0.9 -- NOTE: can be used in windows too but moving neovide to new desktop in windows is not fun just to get transparency and background.
+  vim.g.neovide_refresh_rate = 120
   vim.g.neovide_refresh_rate_idle = 5
   vim.g.neovide_padding_top = 0
   vim.g.neovide_padding_bottom = 0
   vim.g.neovide_padding_right = 0
-  vim.g.neovide_padding_left = 10.5 -- FIX: not working
+  vim.g.neovide_padding_left = 0
 
   if is_wsl then
-    -- vim.g.neovide_fullscreen = true -- a little glitchy. on wsl
+    -- vim.g.neovide_fullscreen = true -- very glitchy on wsl. will also make the transparency gone (macos and windows).
   else
     vim.g.neovide_input_macos_alt_is_meta = true -- for option in macos
     vim.g.neovide_input_use_logo = 1 -- enable use of the logo (cmd) key
   end
+
+  -- TODO: fix below keymaps.
 
   -- Allow clipboard copy paste in neovim
   -- vim.keymap.set("n", "<C-z>", '"+P') -- Paste normal mode -- -- FIX: this work. ctrl v
