@@ -11,6 +11,8 @@ return {
       background_colour = "#000000",
     })
 
+    -- TODO: clean this up
+
     require("catppuccin").setup({
       flavour = "mocha", -- latte, frappe, macchiato, mocha
       background = { -- :h background
@@ -46,18 +48,21 @@ return {
           return {
             Comment = { fg = "#4d4b49" }, -- comments
             FlashBackdrop = { fg = "#4d4b49" },
-            Operator = { fg = "#d1d1d1" }, -- operator := etc
+            -- FIX:
+            Operator = { fg = "#d1d1d1" }, -- operator := , * & etc.
             Boolean = { fg = "#7833f5" },
             Number = { fg = "#87b7c7" },
             Type = { fg = "#15a191" },
             TreesitterContextLineNumber = { fg = "#d1d1d1" },
             -- TreesitterContextBottom = { sp = "#d1d1d1" },
 
+            LspInlayHint = { fg = "#3e4d4c" },
+
             FlashLabel = { fg = "#ffffff" },
             Visual = { bg = "#292930" }, -- Visual cterm=bold gui=bold guibg=#292930
             Identifier = { fg = "#5885b0" }, -- const, field, golang var / field in struct etc. -- FIX: change this
             -- Float = { fg = "#d1d1d1" },
-            ["@parameter"] = { fg = "#a3563c" }, -- parameter var in a func
+            ["@parameter"] = { fg = "#9c4528" }, -- parameter var in a func
             -- ["Special"] = { fg = "#10b7c7" }, -- special char in string. go: "%v" / rust: "{:}" / overwrite var in go. dont use it. it is too general
 
             MiniIndentscopeSymbol = { fg = "#74c7ec" }, -- indent animation color
@@ -71,7 +76,7 @@ return {
 
             -- go highlighter
             ["@variable.builtin"] = { fg = "#d61c9f" }, -- golang nil, if ST (semanteic token) is enabled, it will overwrite goNil
-            ["@type.builtin"] = { fg = "#c4b864" }, -- primitive type: string, int, float etc in golang
+            ["@type.builtin"] = { fg = "#ab9d3c" }, -- primitive type: string, int, float etc in golang
             -- ["goVarIdentifier"] = { fg = "#55B4BE" }, -- go const. but not imported const (will follow Identifier). is commented as the default is linked to Identifier
             ["goStructTypeField"] = { fg = "#10b7c7" }, -- go struct field
             goVarAssign = { fg = "#D7658B" }, -- go overwrite var
@@ -116,13 +121,15 @@ return {
 
           -- peach = "#BC1B8C", -- number
           peach = "#da8ede", -- number
-          text = "#bab49b", -- var
+          -- FIX:
+          text = "#b0ab8b", -- var
+          -- text = "#bab49b", -- var
           red = "#a10524", -- NOTE:  disable for now. as it will overwrite the following: rainbow bracket, nil / overwrite goNil highlighter when using semantic token, param var
           -- red = "#d42f62", -- NOTE:  disable for now. as it will overwrite the following: rainbow bracket, nil / overwrite goNil highlighter when using semantic token, param var
 
           -- maroon = "#ffffff", -- has connection with red?
 
-          green = "#C58674", -- string
+          green = "#ad7666", -- string
           -- yellow = "#438c5e", -- types, warning string and symbol
           blue = "#0286c7", -- funct and titles
           pink = "#8d5afa", -- #nil, require, builtin func, and indent line / Specials and builtin functions
