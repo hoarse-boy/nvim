@@ -56,19 +56,20 @@ return {
         { title = "Spectre", ft = "spectre_panel", size = { height = 0.4 } },
         { title = "Neotest Output", ft = "neotest-output-panel", size = { height = 15 } },
       },
+      -- NOTE: disable all. enable only neo-tree is so sluggish. use native neo-tree spawn window instead.
       left = {
-        {
-          title = "Neo-Tree",
-          ft = "neo-tree",
-          filter = function(buf)
-            return vim.b[buf].neo_tree_source == "filesystem"
-          end,
-          pinned = true,
-          open = function()
-            vim.api.nvim_input("<esc><space>e")
-          end,
-          size = { height = 0.5 },
-        },
+        -- {
+        --   title = "Neo-Tree",
+        --   ft = "neo-tree",
+        --   filter = function(buf)
+        --     return vim.b[buf].neo_tree_source == "filesystem"
+        --   end,
+        --   pinned = true,
+        --   open = function()
+        --     vim.api.nvim_input("<esc><space>e")
+        --   end,
+        --   size = { height = 0.5 },
+        -- },
         -- { title = "Neotest Summary", ft = "neotest-summary" },
         -- {
         --   title = "Neo-Tree Git",
@@ -87,8 +88,8 @@ return {
         --   end,
         --   pinned = true,
         --   open = "Neotree position=top buffers",
-        -- }, -- FIX: test first
-        "neo-tree",
+        -- },
+        -- "neo-tree",
       },
       keys = {
         -- increase width
