@@ -56,6 +56,7 @@ return {
             TreesitterContextLineNumber = { fg = "#d1d1d1" },
             -- TreesitterContextBottom = { sp = "#d1d1d1" },
 
+            -- LspInlayHint = { fg = "#4d4b49" },
             LspInlayHint = { fg = "#3e4d4c" },
 
             FlashLabel = { fg = "#ffffff" },
