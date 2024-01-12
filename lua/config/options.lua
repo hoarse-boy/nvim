@@ -10,9 +10,12 @@ local is_wsl = vim.fn.has("wsl") == 1
 
 -- NOTE: neovide config
 if vim.g.neovide then
-  opt.guifont = "CaskaydiaCove Nerd Font:h13.2" -- the font used in graphical neovim applications
-  -- opt.guifont = "CaskaydiaCove Nerd Font:h13.9" -- the font used in graphical neovim applications
-  -- opt.guifont = "JetBrainsMono Nerd Font:h17.6" -- the font used in graphical neovim applications
+  if not is_wsl then
+    -- opt.guifont = "JetBrainsMono Nerd Font:h15.6" -- the font used in graphical neovim applications
+    opt.guifont = "JetBrainsMono Nerd Font:h17.6" -- the font used in graphical neovim applications
+  else
+    opt.guifont = "CaskaydiaCove Nerd Font:h13.2" -- the font used in graphical neovim applications
+  end
 
   vim.g.neovide_transparency = 0.9 -- NOTE: can be used in windows too but moving neovide to new desktop in windows is not fun just to get transparency and background.
   vim.g.neovide_refresh_rate = 120
