@@ -38,22 +38,10 @@ map({ "v", "n" }, "c", '"_c', opt)
 map({ "v", "n" }, "C", '"_C', opt)
 
 map("i", "jk", "<esc>l", opt) -- added l when escaped to normal mode as to not make the cursor move back 1 column. note: it will add a single column if the cursor is in the first column
--- TODO: make this func works
--- map("i", "jk", function()
---   return vim.api.nvim_win_get_cursor(0)[2] > 1 and "<esc>l" or "<esc>"
--- end, opt) -- added l when escaped to normal mode as to not make the cursor move back 1 column. note: it will add a single column if the cursor is in the first column
 
--- mini.operator plugin does the same
--- map("n", "<a-y>", "<cmd>t.<cr>", { desc = "Duplicate line" })
--- yanky plugin does the same
--- map("v", "y", "ygv<esc>", opt) -- makes the yank not to move back to the first selected line
-
--- non shift enter and backspace are used for the treesitter's incremental selection
--- NOTE: change this as windows wsl cannot have shift keybinds. need to fix this
-map("n", "<BS>", 'O<Esc>^"_D', opt) -- add empty space above. will also perform deletion if the current line is a comment, to make sure it really add empty space
-map("n", "<CR>", 'o<Esc>^"_D', opt) -- add empty space below. will also perform deletion if the current line is a comment, to make sure it really add empty space
--- map("n", "<S-BS>", 'O<Esc>^"_D', opt) -- add empty space above. will also perform deletion if the current line is a comment, to make sure it really add empty space
--- map("n", "<S-CR>", 'o<Esc>^"_D', opt) -- add empty space below. will also perform deletion if the current line is a comment, to make sure it really add empty space
+-- append a blank line below or above current line.
+map("n", "<BS>", ":pu! _<cr>", opt)
+map("n", "<CR>", ":pu _<cr>", opt)
 
 -- 'H' and 'L' will be behave like the hard to reach '$' and '^'
 map({ "v", "n" }, "<S-h>", "^", opt)
