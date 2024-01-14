@@ -10,13 +10,13 @@ return {
     },
     keys = {
       -- stylua: ignore
-      -- { "<leader>p", "<cmd>YankyRingHistory<CR>", desc = "Open Yank History" }, -- NOTE: use this if below failed again
+      { "<leader>P", "<cmd>YankyRingHistory<CR>", desc = "Open Yank History" }, -- NOTE: use this if below failed again
       -- stylua: ignore
-      { "<leader>p", function() require("telescope").extensions.yank_history.yank_history({ }) end, desc = "Open Yank History" },
+      -- { "<leader>P", function() require("telescope").extensions.yank_history.yank_history({ }) end, desc = "Open Yank History" }, -- TODO: the telescope is getting the same error as before.
 
       { "y", "<Plug>(YankyYank)", mode = { "n", "x" }, desc = "Yank text" },
       -- { "p", "<Plug>(YankyPutAfter)", mode = { "n", "x" }, desc = "Put yanked text after cursor" }, -- NOTE: disable this as i have add my own custom keymap that make the 'p' to not yank the deleted text when using 'p'.
-      { "P", "<Plug>(YankyPutBefore)", mode = { "n", "x" }, desc = "Put yanked text before cursor" },
+      -- { "P", "<Plug>(YankyPutBefore)", mode = { "n", "x" }, desc = "Put yanked text before cursor" }, -- NOTE: disable this too. after every yank any keybind listed here will overwrite any keymap in keymaps.lua or any keymaps lua functions.
       { "gp", "<Plug>(YankyGPutAfter)", mode = { "n", "x" }, desc = "Put yanked text after selection" },
       { "gP", "<Plug>(YankyGPutBefore)", mode = { "n", "x" }, desc = "Put yanked text before selection" },
       { "[y", "<Plug>(YankyCycleForward)", desc = "Cycle forward through yank history" },
