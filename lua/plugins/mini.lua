@@ -81,10 +81,10 @@ return {
           scroll = {
             enable = true,
             -- timing = animate.gen_timing.cubic({ duration = 20, unit = "total" }),
-            timing = animate.gen_timing.linear({ duration = 20, unit = "total" }),
+            timing = animate.gen_timing.linear({ duration = 10, unit = "total" }),
 
             -- Animate equally but with at most 120 steps instead of default 60
-            subscroll = animate.gen_subscroll.equal({ max_output_steps = 60 }),
+            subscroll = animate.gen_subscroll.equal({ max_output_steps = 10 }),
             -- subscroll = animate.gen_subscroll.equal({ max_output_steps = 120 }),
           },
 
