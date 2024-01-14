@@ -3,7 +3,7 @@
 -- Add any additional options here
 
 local opt = vim.opt
--- local api = vim.api
+local set_keymap = vim.keymap.set
 
 vim.opt.fillchars = { eob = " " } -- NOTE: removes trailing '~' in nvim
 local is_wsl = vim.fn.has("wsl") == 1
@@ -35,18 +35,18 @@ if vim.g.neovide then
   -- TODO: fix below keymaps.
 
   -- Allow clipboard copy paste in neovim
-  -- vim.keymap.set("n", "<C-z>", '"+P') -- Paste normal mode -- -- FIX: this work. ctrl v
-  vim.keymap.set("n", "<c-V>", '"+P') -- Paste normal mode -- -- FIX: this work. ctrl v (but the keymap is a capital V). however, it is slow. my finding is ctrl V of wezterm is way faster as it is a local func call unlike nvim wsl to winodws.
-  vim.keymap.set("v", "<c-C>", '"+y') -- Copy
+  -- set_keymap("n", "<C-z>", '"+P') -- Paste normal mode -- -- FIX: this work. ctrl v
+  set_keymap("n", "<c-V>", '"+P') -- Paste normal mode -- -- FIX: this work. ctrl v (but the keymap is a capital V). however, it is slow. my finding is ctrl V of wezterm is way faster as it is a local func call unlike nvim wsl to winodws.
+  set_keymap("v", "<c-C>", '"+y') -- Copy
 
   -- FIX: change to c-p not working in neovide?
   -- FIX: A-v is not working
 
-  vim.keymap.set("n", "<D-s>", ":w<CR>") -- Save
-  -- vim.keymap.set("n", "<D-V>", '"+P') -- Paste normal mode
-  vim.keymap.set("v", "<D-v>", '"+P') -- Paste visual mode
-  vim.keymap.set("c", "<D-v>", "<C-R>+") -- Paste command mode
-  vim.keymap.set("i", "<D-v>", '<ESC>l"+Pli') -- Paste insert mode
+  set_keymap("n", "<D-s>", ":w<CR>") -- Save
+  -- set_keymap("n", "<D-V>", '"+P') -- Paste normal mode
+  set_keymap("v", "<D-v>", '"+P') -- Paste visual mode
+  set_keymap("c", "<D-v>", "<C-R>+") -- Paste command mode
+  set_keymap("i", "<D-v>", '<ESC>l"+Pli') -- Paste insert mode
 
   -- vim.g.neovide_cursor_vfx_mode = "railgun"
   vim.g.neovide_cursor_vfx_mode = "sonicboom"
@@ -73,11 +73,11 @@ if is_wsl then
     cache_enabled = true,
   }
 
-  -- change the mapping to still use the performant clipboard of "0 (last yank) and create a keybind that use <leader> to paste the value from os clipboard."
-  local map_option = { noremap = true, silent = true }
-  vim.keymap.set("n", "p", '"0p', map_option)
-  vim.keymap.set("n", "P", '"0P', map_option)
-  vim.keymap.set("n", "<leader>p", '"+p', map_option) -- paste system clipboard.
+  -- change the mapping to still use the performant clipboard of "0 (last yank) and create a keybind that use <leader> to paste the value from os clipboard.
+  local map_opt = { noremap = true, silent = true }
+  set_keymap("n", "p", '"0p', map_opt)
+  set_keymap("n", "P", '"0P', map_opt)
+  set_keymap("n", "<leader>p", '"+p', map_opt) -- paste system clipboard.
 end
 
 -- TODO: try this again. it is said to be faster than win32yank
@@ -112,6 +112,6 @@ opt.list = false -- NOTE: make the > and other symbol to be hidden when the obje
 opt.scrolloff = 10 -- minimal number of screen lines to keep above and below the cursor.
 opt.sidescrolloff = 10 -- minimal number of screen lines to keep left and right of the cursor.
 opt.writebackup = false -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
-opt.swapfile = false -- creates a swapfile. disable to avoid the anoying prompt
+opt.swapfile = false -- creates a swapfile. disable to avoid the annoying prompt
 opt.hlsearch = true -- highlight all matches on previous search pattern
 -- opt.relativenumber = false
