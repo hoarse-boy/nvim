@@ -59,9 +59,10 @@ snippet add_lazy_plugin "generate lazy.nvim plugin table with return"
 		keys = {
 			-- { "<leader>l", "", desc = "+go.nvim" }, -- example
 			-- { "<leader>ls", "<cmd>GoFillStruct<cr>", desc = "Fill Struct" }, -- example
-			{ "${2:define keymaps}", "${3:what the keys do}", desc = "${4:description}" }
+      -- { "<s-tab>", function() require("luasnip").jump(-1) end,  mode = { "i", "s" }, desc = "luasnip tab", noremap = true, silent = true },
+			{ "${2:define keymaps}", "${3:what the keys do}", desc = "${4:description}", mode = "${5:vim mode}" }
 		},
 		config = function(_, opts)
-			require("${5:plugin name}").setup(${6:the plugin's lua table})
+			require("${6:plugin name}").setup(${7:the plugin's lua table})
 		end,
 	}
