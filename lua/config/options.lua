@@ -54,41 +54,14 @@ if vim.g.neovide then
   vim.g.neovide_cursor_vfx_particle_density = 50.0
 end
 
--- -- WSL Clipboard support. doesnt use win32yank as it will have an error when using yanky plugin.
--- if is_wsl then
---   vim.opt.clipboard = "unnamedplus" -- NOTE: to fix the error clip.exe is not an executable
-
---   -- This is NeoVim's recommended way to solve clipboard sharing if you use WSL
---   -- See: https://github.com/neovim/neovim/wiki/FAQ#how-to-use-the-windows-clipboard-from-wsl
---   vim.g.clipboard = {
---     name = "WslClipboard",
---     copy = {
---       ["+"] = "clip.exe",
---       ["*"] = "clip.exe",
---     },
---     paste = {
---       ["+"] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
---       ["*"] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
---     },
---     cache_enabled = 0,
---   }
-
---   -- TODO: make p to use the ctrl v as it is way faster when pasting (p is noticeably slow)
-
---   -- vim.keymap.set({ "n", "v" }, "p", "<c-v>") -- FIX: not working
--- end
-
--- FIX: cannot be used when su to user in wsl. the win32yank or clip.exe is not executable
 -- WSL Clipboard support
 if is_wsl then
-  vim.opt.clipboard = "unnamed" -- NOTE: to fix the error clip.exe is not an executable
-  -- vim.opt.clipboard = "unnamedplus" -- NOTE: to fix the error clip.exe is not an executable
-  -- vim.opt.clipboard = "" -- FIX: testing
+  vim.opt.clipboard = "unnamedplus"
 
   -- This is NeoVim's recommended way to solve clipboard sharing if you use WSL
   -- See: https://github.com/neovim/neovim/wiki/FAQ#how-to-use-the-windows-clipboard-from-wsl
   vim.g.clipboard = {
-    name = "win32yank-wsl", -- -- FIX: is faster than above but still slow. its like twice as fast than clip.exe but like 50x slower than when not using unnamedplus
+    name = "win32yank-wsl", --
     copy = {
       ["+"] = "win32yank.exe -i --crlf",
       ["*"] = "win32yank.exe -i --crlf",
@@ -97,9 +70,42 @@ if is_wsl then
       ["+"] = "win32yank.exe -o --lf", -- NOTE: this is needed by neovide.
       ["*"] = "win32yank.exe -o --lf",
     },
-    cache_enabled = 1,
+    cache_enabled = true,
   }
+
+  -- change the mapping to still use the performant clipboard of "0 (last yank) and create a keybind that use <leader> to paste the value from os clipboard."
+  local map_option = { noremap = true, silent = true }
+  vim.keymap.set("n", "p", '"0p', map_option)
+  vim.keymap.set("n", "P", '"0P', map_option)
+  vim.keymap.set("n", "<leader>p", '"+p', map_option) -- paste system clipboard.
 end
+
+-- TODO: try this again. it is said to be faster than win32yank
+
+-- wl-clipboard for wsl
+-- if vim.fn.has("wsl") == 1 then
+-- vim.opt.clipboard = "unnamedplus"
+--   if vim.fn.executable("wl-copy") == 0 then
+--     print("wl-clipboard not found, clipboard integration won't work")
+--   else
+--     vim.g.clipboard = {
+--       name = "wl-clipboard (wsl)",
+--       copy = {
+--         ["+"] = "wl-copy --foreground --type text/plain",
+--         ["*"] = "wl-copy --foreground --primary --type text/plain",
+--       },
+--       paste = {
+--         ["+"] = function()
+--           return vim.fn.systemlist('wl-paste --no-newline|sed -e "s/\r$//"', { "" }, 1) -- '1' keeps empty lines
+--         end,
+--         ["*"] = function()
+--           return vim.fn.systemlist('wl-paste --primary --no-newline|sed -e "s/\r$//"', { "" }, 1)
+--         end,
+--       },
+--       cache_enabled = true,
+--     }
+--   end
+-- end
 
 -- opt.cursorline = true
 opt.list = false -- NOTE: make the > and other symbol to be hidden when the object is commented.
