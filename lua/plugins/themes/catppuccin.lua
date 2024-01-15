@@ -65,7 +65,7 @@ return {
             TreesitterContextLineNumber = { fg = "#d1d1d1" },
             -- TreesitterContextBottom = { sp = "#d1d1d1" },
 
-            -- change the treesitter todo highlighter such as 'NOTE' and 'TODO'.
+            -- change the treesitter todo highlighter such as 'NOTE' and 'TODO'. the default is too bright.
             -- NOTE.
             TodoBgNOTE = { bold = true, bg = hl_colors.todo_NOTE, fg = "#000000" }, -- example to use bold and others. ex. TodoBgNOTE    xxx gui=bold guifg=#000000 guibg=#94e2d5
             TodoSignNOTE = { fg = hl_colors.todo_NOTE },
