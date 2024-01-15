@@ -1,5 +1,6 @@
 return {
   "rcarriga/nvim-notify",
+  -- TODO: make the nvim-notify to have different animation.
   opts = {
     stages = "fade",
     -- timeout = 3000,

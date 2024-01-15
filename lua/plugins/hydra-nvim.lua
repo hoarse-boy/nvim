@@ -1,5 +1,7 @@
 return {
   "anuvyklack/hydra.nvim",
+  -- TODO: remove this?
+  enabled = false,
   event = "VeryLazy",
   config = function(_, _)
     local Hydra = require("hydra")
