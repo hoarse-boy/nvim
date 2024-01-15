@@ -1,3 +1,13 @@
+local hl_colors = {
+  dark_blue = "#0286c7",
+  types = "#15a191",
+  todo_NOTE = "#15a191",
+  todo_TODO = "#18a4db",
+  todo_WARN = "#b0ab8b",
+  todo_HACK = "#7833f5",
+  todo_FIX = "#a10524",
+}
+
 return {
   "catppuccin/nvim",
   name = "catppuccin",
@@ -48,20 +58,39 @@ return {
           return {
             Comment = { fg = "#4d4b49" }, -- comments
             FlashBackdrop = { fg = "#4d4b49" },
-            -- FIX:
             Operator = { fg = "#d1d1d1" }, -- operator := , * & etc.
             Boolean = { fg = "#7833f5" },
             Number = { fg = "#87b7c7" },
-            Type = { fg = "#15a191" },
+            Type = { fg = hl_colors.types },
             TreesitterContextLineNumber = { fg = "#d1d1d1" },
             -- TreesitterContextBottom = { sp = "#d1d1d1" },
 
-            -- LspInlayHint = { fg = "#4d4b49" },
-            LspInlayHint = { fg = "#3e4d4c" },
+            -- change the treesitter todo highlighter such as 'NOTE' and 'TODO'.
+            -- NOTE.
+            TodoBgNOTE = { bold = true, bg = hl_colors.todo_NOTE, fg = "#000000" }, -- example to use bold and others. ex. TodoBgNOTE    xxx gui=bold guifg=#000000 guibg=#94e2d5
+            TodoSignNOTE = { fg = hl_colors.todo_NOTE },
+            TodoFgNOTE = { fg = hl_colors.todo_NOTE },
+            -- TODO.
+            TodoBgTODO = { bold = true, bg = hl_colors.todo_TODO, fg = "#000000" },
+            TodoSignTODO = { fg = hl_colors.todo_TODO },
+            TodoFgTODO = { fg = hl_colors.todo_TODO },
+            -- WARN.
+            TodoBgWARN = { bold = true, bg = hl_colors.todo_WARN, fg = "#000000" },
+            TodoSignWARN = { fg = hl_colors.todo_WARN },
+            TodoFgWARN = { fg = hl_colors.todo_WARN },
+            -- HACK.
+            TodoBgHACK = { bold = true, bg = hl_colors.todo_HACK, fg = "#000000" },
+            TodoSignHACK = { fg = hl_colors.todo_HACK },
+            TodoFgHACK = { fg = hl_colors.todo_HACK },
+            -- FIX.
+            TodoBgFIX = { bold = true, bg = hl_colors.todo_FIX, fg = "#000000" },
+            TodoSignFIX = { fg = hl_colors.todo_FIX },
+            TodoFgFIX = { fg = hl_colors.todo_FIX },
 
+            LspInlayHint = { fg = "#3e4d4c" },
             FlashLabel = { fg = "#ffffff" },
             Visual = { bg = "#292930" }, -- Visual cterm=bold gui=bold guibg=#292930
-            Identifier = { fg = "#5885b0" }, -- const, field, golang var / field in struct etc. -- FIX: change this
+            Identifier = { fg = "#5885b0" }, -- const, field, golang var / field in struct etc.
             -- Float = { fg = "#d1d1d1" },
             ["@parameter"] = { fg = "#9c4528" }, -- parameter var in a func
             -- ["Special"] = { fg = "#10b7c7" }, -- special char in string. go: "%v" / rust: "{:}" / overwrite var in go. dont use it. it is too general
@@ -122,17 +151,16 @@ return {
 
           -- peach = "#BC1B8C", -- number
           peach = "#da8ede", -- number
-          -- FIX:
           text = "#b0ab8b", -- var
           -- text = "#bab49b", -- var
-          red = "#a10524", -- NOTE:  disable for now. as it will overwrite the following: rainbow bracket, nil / overwrite goNil highlighter when using semantic token, param var
+          red = "#a10524",
           -- red = "#d42f62", -- NOTE:  disable for now. as it will overwrite the following: rainbow bracket, nil / overwrite goNil highlighter when using semantic token, param var
 
           -- maroon = "#ffffff", -- has connection with red?
 
           green = "#ad7666", -- string
           -- yellow = "#438c5e", -- types, warning string and symbol
-          blue = "#0286c7", -- funct and titles
+          blue = hl_colors.dark_blue, -- funct and titles
           pink = "#8d5afa", -- #nil, require, builtin func, and indent line / Specials and builtin functions
           -- teal = "#ffffff", -- color of NOTE: and rainbow bracket
           -- subtext0 = "",
