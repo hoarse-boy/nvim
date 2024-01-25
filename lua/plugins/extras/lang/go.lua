@@ -235,22 +235,23 @@ return {
 
               vim.lsp.inlay_hint.enable(bufnr, true) -- enable this only in go buffer
 
-              vim.api.nvim_create_autocmd("InsertEnter", {
-                group = inlay_hints_group,
-                buffer = bufnr,
-                callback = function()
-                  vim.lsp.inlay_hint.enable(bufnr, false)
-                end,
-              })
-              vim.api.nvim_create_autocmd("InsertLeave", {
-                group = inlay_hints_group,
-                buffer = bufnr,
-                callback = function()
-                  vim.lsp.inlay_hint.enable(bufnr, true)
-                end,
-              })
+              -- toggle inlay off when go to insert mode.
+              -- vim.api.nvim_create_autocmd("InsertEnter", {
+              --   group = inlay_hints_group,
+              --   buffer = bufnr,
+              --   callback = function()
+              --     vim.lsp.inlay_hint.enable(bufnr, false)
+              --   end,
+              -- })
+              -- vim.api.nvim_create_autocmd("InsertLeave", {
+              --   group = inlay_hints_group,
+              --   buffer = bufnr,
+              --   callback = function()
+              --     vim.lsp.inlay_hint.enable(bufnr, true)
+              --   end,
+              -- })
 
-              -- TODO: create autocmd for visual mode too. nvim still doest have this api?
+              -- -- TODO: create autocmd for visual mode too. nvim still doest have this api?
             end
           end)
         end,
