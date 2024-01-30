@@ -66,7 +66,7 @@ return {
           -- Cursor path
           cursor = {
             enable = false,
-            timing = animate.gen_timing.linear({ duration = 20, unit = "total" }),
+            -- timing = animate.gen_timing.linear({ duration = 20, unit = "total" }),
           },
 
           -- Vertical scroll
