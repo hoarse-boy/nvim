@@ -13,13 +13,13 @@ return {
   name = "catppuccin",
   event = "VeryLazy",
   -- enabled = false,
-  -- lazy = false, -- make sure we load this during startup if it is your main colorscheme
-  -- priority = 1000, -- make sure to load this before all the other start plugins
+  lazy = false, -- make sure we load this during startup if it is your main colorscheme
+  priority = 1000, -- make sure to load this before all the other start plugins
   config = function()
     -- to disable notification when using transparent_background
-    require("notify").setup({
-      background_colour = "#000000",
-    })
+    -- require("notify").setup({
+    --   background_colour = "#000000",
+    -- })
 
     -- TODO: clean this up
 
