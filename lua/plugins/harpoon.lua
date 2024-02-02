@@ -45,8 +45,11 @@ return {
     })
     require("telescope").load_extension("harpoon")
   end,
-} -- FIX: delete later
+}
 
+-- FIX: harpoon2 still buggy.
+-- when opening the file in harpoon list it will not append to the same buffer. opening file using neo-tree will append the file into buffer list.
+-- when opening harpoon list and the current buffer is open it will go to that position of the same file name in harppon list. which harpoon2 cannot do atm.
 -- return {
 --   "theprimeagen/harpoon",
 --   event = "VeryLazy",
