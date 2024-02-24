@@ -8,6 +8,14 @@ return {
       pre_hook = ts_comment.create_pre_hook()
     end
 
+    local ft = require("Comment.ft")
+
+    -- 1. Using set function
+
+    ft
+      -- Set only line comment
+      .set("hurl", "#%s")
+
     require("Comment").setup({
       ---Add a space b/w comment and the line
       padding = true,
