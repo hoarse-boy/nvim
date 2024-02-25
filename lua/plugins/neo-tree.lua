@@ -1,6 +1,9 @@
 return {
   {
     "nvim-neo-tree/neo-tree.nvim",
+    -- NOTE: updating the 'l' to use a function like 'h' doesnt fix the jumping issue. changing the tag does.
+    -- github issue on https://github.com/nvim-neo-tree/neo-tree.nvim/issues/1310.
+    tag = "3.14",
     opts = {
       event_handlers = {
         -- auto close when clicking file
@@ -95,8 +98,6 @@ return {
             end
           end,
           -- move or open child node.
-          -- NOTE: also fix the issue of using neo-tree command 'open' that causes the cursor to jump to previous node after tag 3.4.
-          -- github issue on https://github.com/nvim-neo-tree/neo-tree.nvim/issues/1310.
           l = function(state)
             local node = state.tree:get_node()
             if node.type == "directory" or node:has_children() then
