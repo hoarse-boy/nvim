@@ -23,11 +23,14 @@ require("lazy").setup({
     -- { import = "lazyvim.plugins.extras.lang.markdown" }, -- disable as the none-ls warning is too many. TODO: change the warning parameters
     { import = "lazyvim.plugins.extras.lsp.none-ls" },
 
-    -- NOTE: import all of my languages config
+    -- NOTE: import all of my languages config.
     { import = "plugins.extras.lang.go" },
     { import = "plugins.extras.lang.markdown" }, -- NOTE: enable toc plugin for markdown
     { import = "plugins.extras.lang.rust" },
     { import = "plugins.extras.lang.helm" },
+
+    -- NOTE: import all of my coding plugins.
+    { import = "plugins.extras.coding.codeium" },
 
     { import = "lazyvim.plugins.extras.dap.core" },
     { import = "lazyvim.plugins.extras.dap.nlua" },
