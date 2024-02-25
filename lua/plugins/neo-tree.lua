@@ -58,7 +58,7 @@ return {
         bind_to_cwd = false,
         -- the explorer will show the current / active buffer. even if we use telescope to move to other file it will find it in realtime
         -- NOTE: it will stick like glue to the current / active buffer in neo-tree. but it will not work at all in floating mode
-        follow_current_file = true,
+        -- follow_current_file = true,
       },
 
       commands = {
@@ -77,14 +77,15 @@ return {
 
       window = {
         -- position = "float",
-        position = "left", -- NOTE: will use this as default to use follow_current_file behaviour. but the downside is. when dap-ui is active it will make the window behave strangely everytime the neo-tree is expanded
+        position = "left", -- NOTE: will use this as default to use follow_current_file behaviour.
         width = 40,
         mappings = {
           ["o"] = "system_open", -- custom command
           ["<space>"] = "none",
           -- ["s"] = "none", -- disabled "s" which is the open vsplit. to let the s of "flash" be usefull in searching files
 
-          -- to make the same behaviour as nvim-tree in lunarvim
+          -- to make the same behaviour as nvim-tree in lunarvim.
+          -- move move back to the parent node.
           h = function(state)
             local node = state.tree:get_node()
             if (node.type == "directory" or node:has_children()) and node:is_expanded() then
@@ -93,7 +94,20 @@ return {
               require("neo-tree.ui.renderer").focus_node(state, node:get_parent_id())
             end
           end,
-          l = "open",
+          -- move or open child node.
+          -- NOTE: also fix the issue of using neo-tree command 'open' that causes the cursor to jump to previous node after tag 3.4.
+          -- github issue on https://github.com/nvim-neo-tree/neo-tree.nvim/issues/1310.
+          l = function(state)
+            local node = state.tree:get_node()
+            if node.type == "directory" or node:has_children() then
+              if not node:is_expanded() then
+                state.commands.toggle_node(state)
+              else
+                require("neo-tree.ui.renderer").focus_node(state, node:get_child_ids()[1])
+              end
+            end
+          end,
+
           ["/"] = "none", -- disable native filter of neo-tree. to use vim search instead. can be used by flash if it is enabled
         },
       },
