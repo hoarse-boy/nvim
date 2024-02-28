@@ -53,6 +53,8 @@ return {
           if type(opts.ensure_installed) == "table" then
             vim.list_extend(opts.ensure_installed, { "query" })
           end
+
+          opts.auto_install = true
         end,
       },
 
