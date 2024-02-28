@@ -35,5 +35,5 @@ autocmd("Filetype", {
       }
   end,
   group = "mygroup",
-  desc = "Don't continue comments with o and O",
+  desc = "Don't continue comments with o, O, and enter",
 })
