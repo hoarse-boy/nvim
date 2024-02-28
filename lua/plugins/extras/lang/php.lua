@@ -7,9 +7,9 @@ autocmd("Filetype", {
   pattern = { "php" },
   callback = function()
     vim.schedule(function()
-      vim.keymap.set("n", "<leader>la", ":Laravel artisan<cr>", { buffer = true, desc = "Laravel artisan" })
-      vim.keymap.set("n", "<leader>lr", ":Laravel routes<cr>", { buffer = true, desc = "Laravel routes" })
-      vim.keymap.set("n", "<leader>lm", ":Laravel related<cr>", { buffer = true, desc = "Laravel related" })
+      -- vim.keymap.set("n", "<leader>la", ":Laravel artisan<cr>", { buffer = true, desc = "Laravel artisan" })
+      -- vim.keymap.set("n", "<leader>lr", ":Laravel routes<cr>", { buffer = true, desc = "Laravel routes" })
+      -- vim.keymap.set("n", "<leader>lm", ":Laravel related<cr>", { buffer = true, desc = "Laravel related" })
 
       local wk = require("which-key")
       local opts = { prefix = "<leader>", buffer = 0 }
@@ -38,34 +38,63 @@ return {
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
-        phpactor = {
-          cmd = { "phpactor", "language-server" },
+        intelephense = {
+          cmd = { "intelephense", "--stdio" }, -- NOTE: intelephense is better than phpactor to display the laravel class function?
           filetypes = { "php" },
           root_dir = require("lspconfig.util").root_pattern("composer.json", ".git"),
         },
+        -- phpactor = {
+        --   cmd = { "phpactor", "language-server" },
+        --   filetypes = { "php" },
+        --   root_dir = require("lspconfig.util").root_pattern("composer.json", ".git"),
+        -- },
       },
     },
   },
 
-  {
-    "adalessa/laravel.nvim",
-    dependencies = {
-      "nvim-telescope/telescope.nvim",
-      "tpope/vim-dotenv",
-      "MunifTanjim/nui.nvim",
-    },
-    cmd = { "Sail", "Artisan", "Composer", "Npm", "Yarn", "Laravel" },
-    event = "VeryLazy",
-    config = true,
-  },
+  -- {
+  --   "gbprod/phpactor.nvim",
+  --   event = "VeryLazy",
+  --   dependencies = {
+  --     "nvim-lua/plenary.nvim", -- required to update phpactor
+  --   },
+  --   -- build = function()
+  --   --   require("phpactor.handler.update")()
+  --   -- end,
+  --   opts = {
+  --     install = {
+  --       path = vim.fn.stdpath("data") .. "/mason/phpactor",
+  --       bin = vim.fn.stdpath("data") .. "/mason/bin/phpactor",
+  --     },
+  --   },
+  --   -- config = function()
+  --   --   require("phpactor").setup({
+  --   --     -- your configuration comes here
+  --   --     -- or leave it empty to use the default settings
+  --   --     -- refer to the configuration section below
+  --   --   })
+  --   -- end,
+  -- },
+
+  -- {
+  --   "adalessa/laravel.nvim",
+  --   dependencies = {
+  --     "nvim-telescope/telescope.nvim",
+  --     "tpope/vim-dotenv",
+  --     "MunifTanjim/nui.nvim",
+  --   },
+  --   cmd = { "Sail", "Artisan", "Composer", "Npm", "Yarn", "Laravel" },
+  --   event = "VeryLazy",
+  --   config = true,
+  -- },
 
   -- Ensure PHP tools are installed
   {
     "williamboman/mason.nvim",
     opts = function(_, opts)
       opts.ensure_installed = opts.ensure_installed or {}
-      vim.list_extend(opts.ensure_installed, { "phpactor", "phpcbf" })
-      -- vim.list_extend(opts.ensure_installed, { "intelephense", "phpactor", "phpcbf" })
+      -- vim.list_extend(opts.ensure_installed, { "phpactor", "phpcbf" })
+      vim.list_extend(opts.ensure_installed, { "intelephense", "phpcbf" })
     end,
   },
 
@@ -126,51 +155,3 @@ return {
     },
   },
 }
-
--- return {
---   {
---     "nvim-treesitter/nvim-treesitter",
---     opts = function(_, opts)
---       vim.list_extend(opts.ensure_installed, {
---         "php",
---       })
---     end,
---   },
---   {
---     "williamboman/mason.nvim",
---     opts = function(_, opts)
---       vim.list_extend(opts.ensure_installed, {
---         "phpactor",
---       })
---     end,
---   },
---   {
---     "neovim/nvim-lspconfig",
---     opts = {
---       servers = {
---         phpactor = {},
---       },
---     },
---   },
---   {
---     "mfussenegger/nvim-dap",
---     optional = true,
---     dependencies = {
---       "williamboman/mason.nvim",
---       opts = function(_, opts)
---         if type(opts.ensure_installed) == "table" then
---           table.insert(opts.ensure_installed, "php-debug-adapter")
---         end
---       end,
---     },
---     opts = function()
---       local dap = require("dap")
---       local path = require("mason-registry").get_package("php-debug-adapter"):get_install_path()
---       dap.adapters.php = {
---         type = "executable",
---         command = "node",
---         args = { path .. "/extension/out/phpDebug.js" },
---       }
---     end,
---   },
--- }
