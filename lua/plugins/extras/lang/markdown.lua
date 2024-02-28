@@ -1,48 +1,34 @@
+local autocmd = vim.api.nvim_create_autocmd
+local augroup = vim.api.nvim_create_augroup
+
+-- rust keymaps
+local markdown_keymaps = augroup("markdown_keymaps", {})
+autocmd("Filetype", {
+  group = markdown_keymaps,
+  pattern = { "md", "markdown" },
+  callback = function()
+    vim.schedule(function()
+      vim.keymap.set("n", "<leader>lt", "<cmd>TOC<cr>", { buffer = true, desc = "Generate Table of Contents" })
+
+      local wk = require("which-key")
+      local opts = { prefix = "<leader>", buffer = 0 }
+      local mappings = {
+        l = {
+          name = "+lsp (marksman)",
+        },
+      }
+
+      wk.register(mappings, opts)
+    end)
+  end,
+})
+
 return {
   -- NOTE: an extention of markdown from lazyvim's
-  {
-    "neovim/nvim-lspconfig",
-    opts = {
-      servers = {
-        marksman = {
-          keys = {
-            { "<leader>lt", "<cmd>TOC<cr>", desc = "generate table of contents" },
-          },
-        },
-      },
-    },
-  },
-
   {
     "richardbizik/nvim-toc",
     event = "VeryLazy",
     config = function()
-      require("lazyvim.util").lsp.on_attach(function(client, buffer)
-        if client.name == "marksman" then
-          local wk = require("which-key")
-          local opts = {
-            mode = "n", -- NORMAL mode
-            -- prefix: use "<leader>f" for example for mapping everything related to finding files
-            -- the prefix is prepended to every mapping part of `mappings`
-            prefix = "<leader>",
-            -- NOTE: use buffer from lazyvim.util to only shows keymaps on the targetted buffer
-            buffer = buffer, -- Global mappings. Specify a buffer number for buffer local mappings
-            silent = true, -- use `silent` when creating keymaps
-            noremap = true, -- use `noremap` when creating keymaps
-            nowait = false, -- use `nowait` when creating keymaps
-            expr = false, -- use `expr` when creating keymaps
-          }
-
-          local mappings = {
-            l = {
-              name = "+lsp (marksman)",
-            },
-          }
-
-          wk.register(mappings, opts)
-        end
-      end)
-
       require("nvim-toc").setup({})
     end,
   },

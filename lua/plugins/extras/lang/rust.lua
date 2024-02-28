@@ -1,3 +1,43 @@
+local autocmd = vim.api.nvim_create_autocmd
+local augroup = vim.api.nvim_create_augroup
+
+-- rust keymaps
+local rust_keymaps = augroup("rust_keymaps", {})
+autocmd("Filetype", {
+  group = rust_keymaps,
+  pattern = { "rust" },
+  callback = function()
+    vim.schedule(function()
+      vim.keymap.set("n", "K", "<cmd>RustHoverActions<cr>", { buffer = true, desc = "Hover Actions (Rust)" })
+      vim.keymap.set("n", "<leader>la", "<cmd>RustCodeAction<cr>", { buffer = true, desc = "Code Action (Rust)" })
+      vim.keymap.set("n", "<leader>dr", "<cmd>RustDebuggables<cr>", { buffer = true, desc = "Run Debuggables (Rust)" })
+      vim.keymap.set("n", "<leader>l", "", { buffer = true, desc = "+ Lsp (Rust)" })
+      vim.keymap.set("n", "<leader>lc", "<cmd>RustOpenCargo<cr>", { buffer = true, desc = "Open Cargo (Rust)" })
+      vim.keymap.set("n", "<leader>lmu", "<cmd>RustMoveItemUp<cr>", { buffer = true, desc = "Move Item Up (Rust)" })
+      vim.keymap.set("n", "<leader>lmd", "<cmd>RustMoveItemDown<cr>", { buffer = true, desc = "Move Item Down (Rust)" })
+      vim.keymap.set("n", "<leader>lr", "<cmd>RustHoverRange<cr>", { buffer = true, desc = "Hover Range (Rust)" })
+      -- stylua: ignore
+      vim.keymap.set("n", "<leader>lp", "<cmd>RustParentModule<cr>", { buffer = true, desc = "Go to Parent Module (Rust)" })
+      vim.keymap.set("n", "<leader>lj", "<cmd>RustJoinLines<cr>", { buffer = true, desc = "Join Line(Rust)" })
+      --   -- TODO: RustSSR [query]
+      --   -- RustViewCrateGraph [backend [output]]
+
+      local wk = require("which-key")
+      local opts = { prefix = "<leader>", buffer = 0 }
+      local mappings = {
+        l = {
+          name = "+lsp (rust_tools)",
+          m = {
+            name = "+item",
+          },
+        },
+      }
+
+      wk.register(mappings, opts)
+    end)
+  end,
+})
+
 return {
   -- Extend auto completion
   {
@@ -77,36 +117,7 @@ return {
         },
       }
     end,
-    config = function()
-      require("lazyvim.util").lsp.on_attach(function(client, buffer)
-        if client.name == "rust_analyzer" then
-          local wk = require("which-key")
-          local opts = {
-            mode = "n", -- NORMAL mode
-            -- prefix: use "<leader>f" for example for mapping everything related to finding files
-            -- the prefix is prepended to every mapping part of `mappings`
-            prefix = "<leader>",
-            -- NOTE: use buffer from lazyvim.util to only shows keymaps on the targetted buffer
-            buffer = buffer, -- Global mappings. Specify a buffer number for buffer local mappings
-            silent = true, -- use `silent` when creating keymaps
-            noremap = true, -- use `noremap` when creating keymaps
-            nowait = false, -- use `nowait` when creating keymaps
-            expr = false, -- use `expr` when creating keymaps
-          }
-
-          local mappings = {
-            l = {
-              name = "+lsp (Rust)",
-              m = {
-                name = "+item",
-              },
-            },
-          }
-
-          wk.register(mappings, opts)
-        end
-      end)
-    end,
+    config = function() end,
   },
 
   -- Correctly setup lspconfig for Rust 🚀
@@ -116,20 +127,6 @@ return {
       servers = {
         -- Ensure mason installs the server
         rust_analyzer = {
-          keys = {
-            { "K", "<cmd>RustHoverActions<cr>", desc = "Hover Actions (Rust)" },
-            { "<leader>cA", "<cmd>RustCodeAction<cr>", desc = "Code Action (Rust)" }, -- FIX: check if it duplicated
-            { "<leader>dr", "<cmd>RustDebuggables<cr>", desc = "Run Debuggables (Rust)" },
-            { "<leader>l", "", desc = "+ Lsp (Rust)" },
-            { "<leader>lc", "<cmd>RustOpenCargo<cr>", desc = "Open Cargo (Rust)" },
-            { "<leader>lmu", "<cmd>RustMoveItemUp<cr>", desc = "Move Item Up (Rust)" },
-            { "<leader>lmd", "<cmd>RustMoveItemDown<cr>", desc = "Move Item Down (Rust)" },
-            { "<leader>lr", "<cmd>RustHoverRange<cr>", desc = "Hover Range (Rust)" },
-            { "<leader>lp", "<cmd>RustParentModule<cr>", desc = "Go to Parent Module (Rust)" },
-            { "<leader>lj", "<cmd>RustJoinLines<cr>", desc = "Join Line(Rust)" },
-            -- TODO: RustSSR [query]
-            -- RustViewCrateGraph [backend [output]]
-          },
           settings = {
             ["rust-analyzer"] = {
               cargo = {
