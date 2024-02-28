@@ -28,6 +28,7 @@ require("lazy").setup({
     { import = "plugins.extras.lang.markdown" }, -- NOTE: enable toc plugin for markdown
     { import = "plugins.extras.lang.rust" },
     { import = "plugins.extras.lang.helm" },
+    { import = "plugins.extras.lang.php" },
 
     -- NOTE: import all of my coding plugins.
     { import = "plugins.extras.coding.codeium" },
