@@ -9,6 +9,8 @@ return {
 
         -- Change '<C-g>' here to any keycode you like.
         -- stylua: ignore
+        vim.keymap.set('n', '<leader>C', function () return vim.fn['codeium#Chat']() end, { expr = true, silent = true, desc = "Open Codeium Chat" })
+        -- stylua: ignore
         vim.keymap.set('i', '<C-g>', function () return vim.fn['codeium#Accept']() end, { expr = true, silent = true })
         -- stylua: ignore
         -- -- FIX: this one is not working
