@@ -52,6 +52,25 @@ return {
     },
   },
 
+  -- plugin to help with laravel project. this is way better than nvim version as it doesnt call the command in the notes below that causes timeout. thus rendering the plugin useless.
+  {
+    "noahfrederick/vim-laravel",
+    dependencies = {
+      -- dependencies are needed to run the command from vim-laravel. TODO: add the most usefull command as keymaps above.
+      "tpope/vim-dispatch",
+      "tpope/vim-projectionist",
+      "noahfrederick/vim-composer",
+    },
+    event = "VeryLazy",
+  },
+
+  -- NOTE:
+  -- adalessa/laravel.nvim
+  -- phpactor.nvim
+  -- and phpactor
+  -- will all calls planery job.lua that will call the command php artisan route:list -v which if the project is too big will be more than 5s and return an error instead.
+  -- use intelephense instead for now.
+
   -- {
   --   "gbprod/phpactor.nvim",
   --   event = "VeryLazy",
