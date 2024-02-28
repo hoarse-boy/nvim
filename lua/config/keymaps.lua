@@ -9,9 +9,9 @@ local del = vim.keymap.del
 local set = vim.keymap.set
 local map_opt = { noremap = true, silent = true }
 
-del("n", "<leader>l") -- disable keymap l for lazyvim when lsp keymap is not present
-del("n", "<leader>xl")
-del("n", "<leader>xq")
+del("n", "<leader>l") -- disable keymap l for lazyvim as it will be used for other lsp keymaps.
+-- del("n", "<leader>xl")
+-- del("n", "<leader>xq")
 
 -- FIX: group below keylmap to make it organized. such as void keybinding of "_d should be on the same place
 -- -- TODO: visual x doesnt put to last yank?
