@@ -38,6 +38,7 @@
 return {
   "folke/which-key.nvim",
   event = "VeryLazy",
+  tag = "v1.4.3", -- NOTE: reverted to this tag to make +prefix bug in whichkey to show correct defaults name.
   opts = {
     plugins = { spelling = true },
     defaults = {
@@ -51,7 +52,7 @@ return {
       ["<leader>c"] = { name = "+code" },
       ["<leader>f"] = { name = "+file/find" },
       ["<leader>g"] = { name = "+git" },
-      ["<leader>gh"] = { name = "+hunks" }, -- FIX: not working?
+      ["<leader>gh"] = { name = "+hunks" }, -- NOTE: not working? tag 1.5 above which has the auto remove defaults when the child keymap is empty causes a bug where the name will be +prefix.
       ["<leader>q"] = { name = "+quit/session" },
       ["<leader>s"] = { name = "+search" },
       ["<leader>u"] = { name = "+ui" },
