@@ -15,7 +15,7 @@ autocmd("Filetype", {
       local opts = { prefix = "<leader>", buffer = 0 }
       local mappings = {
         l = {
-          name = "+lsp (phpactor)",
+          name = "+lsp (intelephense)",
         },
       }
 
@@ -27,10 +27,27 @@ autocmd("Filetype", {
 return {
   {
     "nvim-treesitter/nvim-treesitter",
-    opts = function(_, opts)
-      vim.list_extend(opts.ensure_installed, {
-        "php",
+    config = function(_, opts)
+      -- NOTE: treesitter blade is not supported yet. so add the parser manually like below and install it.
+      -- see this link https://github.com/EmranMR/tree-sitter-blade/discussions/19#discussion-5400675 for details.
+      local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+
+      parser_config.blade = {
+        install_info = {
+          url = "https://github.com/EmranMR/tree-sitter-blade",
+          files = { "src/parser.c" },
+          branch = "main",
+        },
+        filetype = "blade",
+      }
+
+      vim.filetype.add({
+        pattern = {
+          [".*%.blade%.php"] = "blade",
+        },
       })
+
+      require("nvim-treesitter.configs").setup(opts)
     end,
   },
 
@@ -40,7 +57,7 @@ return {
       servers = {
         intelephense = {
           cmd = { "intelephense", "--stdio" }, -- NOTE: intelephense is better than phpactor to display the laravel class function?
-          filetypes = { "php" },
+          filetypes = { "php", "blade" },
           root_dir = require("lspconfig.util").root_pattern("composer.json", ".git"),
         },
         -- phpactor = {
@@ -62,6 +79,75 @@ return {
       "noahfrederick/vim-composer",
     },
     event = "VeryLazy",
+  },
+
+  -- Ensure PHP tools are installed
+  {
+    "williamboman/mason.nvim",
+    opts = function(_, opts)
+      opts.ensure_installed = opts.ensure_installed or {}
+      -- vim.list_extend(opts.ensure_installed, { "phpactor", "phpcbf" })
+      vim.list_extend(opts.ensure_installed, { "intelephense", "phpcbf" })
+    end,
+  },
+
+  {
+    "nvimtools/none-ls.nvim",
+    optional = true,
+    dependencies = {
+      {
+        "williamboman/mason.nvim",
+        opts = function(_, opts)
+          opts.ensure_installed = opts.ensure_installed or {}
+          vim.list_extend(opts.ensure_installed, { "phpcbf", "blade-formatter" })
+        end,
+      },
+    },
+    opts = function(_, opts)
+      local nls = require("null-ls")
+      opts.sources = vim.list_extend(opts.sources or {}, {
+        nls.builtins.formatting.phpcbf,
+        nls.builtins.formatting.blade_formatter,
+      })
+    end,
+  },
+
+  -- {
+  --   "stevearc/conform.nvim",
+  --   optional = true,
+  --   opts = {
+  --     formatters_by_ft = {
+  --       php = { "phpcbf" },
+  --       blade = { "blade-formatter" },
+  --     },
+  --   },
+  -- },
+
+  {
+    "mfussenegger/nvim-dap",
+    optional = true,
+    dependencies = {
+      {
+        "williamboman/mason.nvim",
+        opts = function(_, opts)
+          opts.ensure_installed = opts.ensure_installed or {}
+          vim.list_extend(opts.ensure_installed, { "php-debug-adapter" })
+        end,
+      },
+    },
+  },
+
+  {
+    "nvim-neotest/neotest",
+    optional = true,
+    dependencies = {
+      "olimorris/neotest-phpunit",
+    },
+    opts = {
+      adapters = {
+        ["neotest-phpunit"] = {},
+      },
+    },
   },
 
   -- NOTE:
@@ -106,71 +192,4 @@ return {
   --   event = "VeryLazy",
   --   config = true,
   -- },
-
-  -- Ensure PHP tools are installed
-  {
-    "williamboman/mason.nvim",
-    opts = function(_, opts)
-      opts.ensure_installed = opts.ensure_installed or {}
-      -- vim.list_extend(opts.ensure_installed, { "phpactor", "phpcbf" })
-      vim.list_extend(opts.ensure_installed, { "intelephense", "phpcbf" })
-    end,
-  },
-
-  {
-    "nvimtools/none-ls.nvim",
-    optional = true,
-    dependencies = {
-      {
-        "williamboman/mason.nvim",
-        opts = function(_, opts)
-          opts.ensure_installed = opts.ensure_installed or {}
-          vim.list_extend(opts.ensure_installed, { "phpcbf" })
-        end,
-      },
-    },
-    opts = function(_, opts)
-      local nls = require("null-ls")
-      opts.sources = vim.list_extend(opts.sources or {}, {
-        nls.builtins.formatting.phpcbf,
-      })
-    end,
-  },
-
-  {
-    "stevearc/conform.nvim",
-    optional = true,
-    opts = {
-      formatters_by_ft = {
-        php = { "phpcbf" },
-      },
-    },
-  },
-
-  {
-    "mfussenegger/nvim-dap",
-    optional = true,
-    dependencies = {
-      {
-        "williamboman/mason.nvim",
-        opts = function(_, opts)
-          opts.ensure_installed = opts.ensure_installed or {}
-          vim.list_extend(opts.ensure_installed, { "php-debug-adapter" })
-        end,
-      },
-    },
-  },
-
-  {
-    "nvim-neotest/neotest",
-    optional = true,
-    dependencies = {
-      "olimorris/neotest-phpunit",
-    },
-    opts = {
-      adapters = {
-        ["neotest-phpunit"] = {},
-      },
-    },
-  },
 }
