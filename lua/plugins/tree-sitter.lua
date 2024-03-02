@@ -83,6 +83,7 @@ return {
             function()
               require("treesitter-context").go_to_context()
             end,
+            mode = { "n", "v" },
             desc = "Go to Context",
           },
         },
