@@ -11,10 +11,8 @@ require("lazy").setup({
     -- add LazyVim and import its plugins
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
     -- import any extras modules here
-    -- { import = "lazyvim.plugins.extras.lang.go" }, -- NOTE: use my own
-    -- { import = "lazyvim.plugins.extras.lang.rust" }, -- NOTE: use my own
     { import = "lazyvim.plugins.extras.lang.docker" },
-    -- { import = "lazyvim.plugins.extras.lang.yaml" }, -- NOTE: it forces auto format when save. dont need this at the momment.
+    { import = "lazyvim.plugins.extras.lang.yaml" },
     { import = "lazyvim.plugins.extras.lang.typescript" },
     -- { import = "lazyvim.plugins.extras.lang.python" }, -- TODO: disable for now as it is failing in ubuntu wsl. fix this
     { import = "lazyvim.plugins.extras.lang.terraform" },
@@ -31,16 +29,15 @@ require("lazy").setup({
     { import = "plugins.extras.lang.php" },
 
     -- NOTE: import all of my coding plugins.
-    { import = "plugins.extras.coding.codeium" },
+    { import = "plugins.extras.coding.copilot" }, -- NOTE: use my own copilot as lazyvim's uses cmp which is not working atm.
+    -- { import = "plugins.extras.coding.codeium" }, -- NOTE: enabling copilot alongside codeium (even with disabled true) will create a bug where copilot keymaps to accept suggestion fails.
 
     { import = "lazyvim.plugins.extras.dap.core" },
     { import = "lazyvim.plugins.extras.dap.nlua" },
     { import = "plugins.extras.dap.dap" }, -- NOTE: extend my dap config. make sure to import it below lazyvim dap.core
     { import = "lazyvim.plugins.extras.lang.json" },
     { import = "lazyvim.plugins.extras.util.mini-hipatterns" },
-    -- { import = "lazyvim.plugins.extras.ui.edgy" }, -- uses own edgy.nvim only enable neo-tree.
     { import = "lazyvim.plugins.extras.editor.aerial" },
-    -- { import = "lazyvim.plugins.extras.editor.navic" }, -- NOTE: dont install this. i have my own navic installed. and also it will make double navic in lualine with the other is not trasnparent and slow
 
     -- import/override with your plugins
     { import = "plugins" },
@@ -54,7 +51,7 @@ require("lazy").setup({
     version = false, -- always use the latest git commit
     -- version = "*", -- try installing the latest stable version for plugins that support semver
   },
-  install = { colorscheme = { "tokyonight", "habamax" } },
+  -- install = { colorscheme = { "tokyonight", "habamax" } },
   checker = { enabled = false }, -- automatically check for plugin updates
   performance = {
     rtp = {
