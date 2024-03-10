@@ -27,29 +27,43 @@ local icons = {
   TypeParameter = "󰊄 ",
 }
 
+local nvim_navic = {
+  "SmiteshP/nvim-navic",
+  -- event = "VeryLazy",
+  dependencies = { "neovim/nvim-lspconfig" },
+  config = function()
+    require("nvim-navic").setup({
+      icons = icons,
+      lsp = {
+        auto_attach = true,
+        preference = nil,
+      },
+      highlight = false,
+      separator = " > ",
+      depth_limit = 5,
+      depth_limit_indicator = "..",
+      safe_output = true,
+      lazy_update_context = false,
+      click = false,
+    })
+  end,
+}
+
 return {
   {
-    "SmiteshP/nvim-navic",
+    "utilyre/barbecue.nvim",
+    name = "barbecue",
     event = "VeryLazy",
-    dependencies = { "neovim/nvim-lspconfig" },
-    config = function()
-      require("nvim-navic").setup({
-        icons = icons,
-        lsp = {
-          auto_attach = true,
-          preference = nil,
-        },
-        highlight = false,
-        separator = " > ",
-        depth_limit = 5,
-        depth_limit_indicator = "..",
-        safe_output = true,
-        lazy_update_context = false,
-        click = false,
-      })
-    end,
+    version = "*",
+    dependencies = {
+      -- "SmiteshP/nvim-navic",
+      nvim_navic,
+      "nvim-tree/nvim-web-devicons", -- optional dependency
+    },
+    opts = {
+      -- configurations go here
+    },
   },
-
   -- navbuddy
   {
     "neovim/nvim-lspconfig",
