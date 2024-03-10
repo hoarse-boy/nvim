@@ -6,6 +6,7 @@
   "NeoComposer.nvim": { "branch": "main", "commit": "b06e8e88e289947937f241f76e86f7c46f4a5805" },
   "SchemaStore.nvim": { "branch": "main", "commit": "86dee561c41febe36e4c5e1c09af0fa70c3c3db1" },
   "aerial.nvim": { "branch": "master", "commit": "3748e87a316a68754341cdffcef44fee61dee51c" },
+  "barbecue": { "branch": "main", "commit": "cd7e7da622d68136e13721865b4d919efd6325ed" },
   "bigfile.nvim": { "branch": "main", "commit": "33eb067e3d7029ac77e081cfe7c45361887a311a" },
   "bufferline.nvim": { "branch": "main", "commit": "b15c6daf5a64426c69732b31a951f4e438cb6590" },
   "catppuccin": { "branch": "main", "commit": "9703f227bfab20d04bcee62d2f08f1795723b4ae" },
