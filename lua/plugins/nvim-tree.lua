@@ -1,8 +1,4 @@
 return {
-  -- TODO: https://github.com/nvim-tree/nvim-tree.lua/wiki/Recipes#automatically-focus-already-opened-file-by-enter-cr
-  -- make add, copy, del, cut,rename legends using hydranvim using above link.
-  -- dont make 'h' to close the nvim-tree buffer.
-  -- add filter func.
   "nvim-tree/nvim-tree.lua",
   event = "VeryLazy",
   -- enabled = false, -- disabled plugin
