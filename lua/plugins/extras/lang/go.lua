@@ -257,23 +257,24 @@ return {
           nls.builtins.code_actions.impl,
           -- used ray-x go nvim above to create autcmd instead.
           -- nls.builtins.formatting.gofumpt,
-          -- nls.builtins.formatting.gofmt,
+          nls.builtins.formatting.gofmt,
           -- nls.builtins.formatting.goimports_reviser,
+          nls.builtins.formatting.goimports,
         })
       end
     end,
   },
 
-  {
-    "stevearc/conform.nvim",
-    optional = true,
-    opts = {
-      formatters_by_ft = {
-        go = { "goimports", "gofmt" },
-        -- go = { "goimports", "gofumpt" },
-      },
-    },
-  },
+  -- {
+  --   "stevearc/conform.nvim",
+  --   optional = true,
+  --   opts = {
+  --     formatters_by_ft = {
+  --       go = { "goimports", "gofmt" },
+  --       -- go = { "goimports", "gofumpt" },
+  --     },
+  --   },
+  -- },
 
   -- install all go's parser to treesitter and disable 'go' parser to use vim-go-syntax's highlighter
   {
