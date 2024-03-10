@@ -23,6 +23,39 @@ function M.get_hlgroup(name, fallback)
   return fallback or {}
 end
 
+-- AndreM222/copilot-lualine
+-- TODO: do pcall
+
+-- create a function pcall to require copilot-lualine
+local copilot_lua = {
+  "copilot",
+  symbols = {
+    status = {
+      icons = {
+        enabled = " ",
+        sleep = " ", -- auto-trigger disabled
+        disabled = " ",
+        warning = " ",
+        unknown = " ",
+      },
+      hl = {
+        enabled = "#428f55",
+        sleep = "#949cb3",
+        disabled = "#4e6096",
+        warning = "#c4833d",
+        unknown = "#e04c4c",
+      },
+    },
+    spinners = require("copilot-lualine.spinners").dots,
+    spinner_color = "#6272A4",
+  },
+  show_colors = true,
+  show_loading = true,
+}
+
+-- TODO: find a way to append into existing lua list to not clutter this plugin. example is like copilot above.
+-- also to make a seperate code for each code. to easily enable or disable whithout changing this code.
+
 return {
   {
     "nvim-lualine/lualine.nvim",
@@ -101,15 +134,23 @@ return {
         },
 
         sections = {
-          lualine_a = { { "mode", icon = "" } },
+          -- lualine_a = { { icon = "" } },
+          lualine_a = {
+            {
+              "mode",
+              icon_only = true,
+              icon = "",
+              separator = "",
+              padding = { left = 1, right = 0 },
+            },
+          },
+
+          -- lualine_a = { { "mode", icon = "" } }, -- FIX:
           lualine_b = {
             { "branch", icon = { "", color = { fg = colours.gitOrange } } },
           },
-          -- lualine_b = { { "branch", icon = "" } },
-          -- lualine_b = { { "branch", icon = "" } },
 
           lualine_c = {
-            { require("NeoComposer.ui").status_recording },
             {
               "diagnostics",
               symbols = {
@@ -121,30 +162,36 @@ return {
             },
             { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
 
-            { Util.lualine.pretty_path() },
-            --  {
-            --   "filename",
-            --   symbols = { modified = "  ", readonly = "", unnamed = "" },
-            -- },
-
-            -- nvim navic
+            -- { Util.lualine.pretty_path() }, -- FIX: what is this?
             {
-              function()
-                return require("nvim-navic").get_location()
-              end,
-              cond = function()
-                return package.loaded["nvim-navic"] and require("nvim-navic").is_available()
-              end,
-              color = { fg = colours.grey, bg = colours.bg },
+              "filename",
+              symbols = { modified = "  ", readonly = "", unnamed = "" },
             },
+            { require("NeoComposer.ui").status_recording }, -- FIX:
+
+            -- FIX: move nvim navic to below buffer list?
+            -- -- nvim navic
+            -- {
+            --   function()
+            --     return require("nvim-navic").get_location()
+            --   end,
+            --   cond = function()
+            --     return package.loaded["nvim-navic"] and require("nvim-navic").is_available()
+            --   end,
+            --   color = { fg = colours.grey, bg = colours.bg },
+            -- },
           },
 
           lualine_x = {
+            copilot_lua,
+
             {
               require("lazy.status").updates,
               cond = require("lazy.status").has_updates,
               color = { fg = colours.green },
             },
+
+            -- FIX:
             -- {
             --   function()
             --     local icon = " "
@@ -173,11 +220,11 @@ return {
               end,
               color = Util.ui.fg("Debug"),
             },
-            {
-              require("lazy.status").updates,
-              cond = require("lazy.status").has_updates,
-              color = Util.ui.fg("Special"),
-            },
+            -- { what is this
+            --   require("lazy.status").updates,
+            --   cond = require("lazy.status").has_updates,
+            --   color = Util.ui.fg("Special"),
+            -- },
 
             {
               "diff",
