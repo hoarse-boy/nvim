@@ -93,6 +93,8 @@ return {
             Identifier = { fg = "#5885b0" }, -- const, field, golang var / field in struct etc.
             -- Float = { fg = "#d1d1d1" },
             ["@parameter"] = { fg = "#9c4528" }, -- parameter var in a func
+
+            ["@string.special.url"] = { fg = "#a89996" }, -- string url
             -- ["Special"] = { fg = "#10b7c7" }, -- special char in string. go: "%v" / rust: "{:}" / overwrite var in go. dont use it. it is too general
 
             MiniIndentscopeSymbol = { fg = "#74c7ec" }, -- indent animation color
