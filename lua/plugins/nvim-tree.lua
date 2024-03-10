@@ -50,36 +50,48 @@ return {
 
       -- default mappings
       api.config.mappings.default_on_attach(bufnr)
+      -- NOTE: here are the list of other usefull keybinds
+      -- C is used to toggle collapse all.
+      -- H is used to toggle hidden files.
 
       -- on_attach
       vim.keymap.set("n", "l", edit_or_open, opts("Edit Or Open"))
       vim.keymap.set("n", "L", vsplit_preview, opts("Vsplit Preview"))
       vim.keymap.set("n", "h", api.node.navigate.parent_close, opts("Close Directory"))
-      vim.keymap.set("n", "H", api.tree.collapse_all, opts("Collapse All"))
+      vim.keymap.set("n", "c", api.fs.copy.absolute_path, opts("Yank Path"))
+      -- vim.keymap.set("n", "/", api.live_filter.start, opts("Filter")) -- NOTE: nvim filter is buggy.
+      vim.keymap.set("n", "?", api.tree.toggle_help, opts("Help"))
     end
 
-    require("nvim-tree").setup({ -- BEGIN_DEFAULT_OPTS
+    require("nvim-tree").setup({
       on_attach = on_attach,
-      hijack_cursor = true,
-      -- hijack_cursor = false,
+      hijack_cursor = true, -- NOTE: very usefull to avoid catpuccin and other theme highlighting the symbol '>' when the cursor is on it.
       auto_reload_on_write = true,
       disable_netrw = false, -- already disabled by lazyvim.
       hijack_netrw = true,
       hijack_unnamed_buffer_when_opening = false,
-      root_dirs = {},
-      prefer_startup_root = false,
-      sync_root_with_cwd = false,
+
+      -- NOTE: make the nvim-tree shows the current file's directory like neo-tree behavior.
+      root_dirs = { ".git", "package.json", "Cargo.toml", "init.lua", "go.mod", "License", "tsconfig.json", "Makefile", ".gitignore", ".env", ".dockerignore", "Dockerfile", "composer.json" },
+      prefer_startup_root = true,
+      update_focused_file = {
+        enable = true,
+        update_root = true, -- update the root dir when opening file that has different root dir. it is not working like neo-tree unless prefer_startup_root is true and root_dirs has the correct file to identify it as a root.
+        ignore_list = {},
+      },
+      respect_buf_cwd = true,
+      sync_root_with_cwd = true,
+
       reload_on_bufenter = false,
-      respect_buf_cwd = false, -- FIX: testing.
-      -- respect_buf_cwd = false,
       select_prompts = false,
       sort = {
         sorter = "name",
         folders_first = true,
         files_first = false,
       },
+
       view = {
-        centralize_selection = false,
+        centralize_selection = true,
         cursorline = true,
         debounce_delay = 15,
         side = "left",
@@ -101,17 +113,18 @@ return {
           },
         },
       },
+
       renderer = {
-        group_empty = true, -- FIX: what is this?
+        group_empty = true,
         root_folder_label = true,
         -- root_folder_label = false,
+        -- root_folder_label = ":~:s?$?/..?",
         highlight_modified = "all",
         highlight_git = true,
-        -- root_folder_label = ":~:s?$?/..?",
         add_trailing = false,
         full_name = false,
         indent_width = 2,
-        special_files = { "Cargo.toml", "Makefile", "README.md", "readme.md" },
+        special_files = { "Cargo.toml", "Makefile", "makefile", "README.md", "readme.md", "Dockerfile", "dockerfile", "go.mod", "go.work" },
         symlink_destination = true,
         highlight_diagnostics = "none",
         highlight_opened_files = "all",
@@ -135,7 +148,7 @@ return {
               color = true,
             },
             folder = {
-              enable = false,
+              enable = true,
               color = true,
             },
           },
@@ -181,21 +194,17 @@ return {
           },
         },
       },
+
       hijack_directories = {
         enable = false,
         auto_open = false,
-        -- enable = true,
-        -- auto_open = true,
       },
-      update_focused_file = {
-        enable = true,
-        update_root = false, -- update the root dir. but is not that quite smart like neo tree. -- TODO: find a better way.
-        ignore_list = {},
-      },
+
       system_open = {
         cmd = "",
         args = {},
       },
+
       git = {
         enable = true,
         show_on_dirs = true,
@@ -204,6 +213,7 @@ return {
         timeout = 400,
         cygwin_support = false,
       },
+
       diagnostics = {
         enable = false,
         show_on_dirs = false,
@@ -220,29 +230,34 @@ return {
           error = "",
         },
       },
+
       modified = {
         enable = false,
         show_on_dirs = true,
         show_on_open_dirs = true,
       },
+
       filters = {
         git_ignored = true,
-        dotfiles = false,
+        dotfiles = true,
         git_clean = false,
         no_buffer = false,
         no_bookmark = false,
         custom = {},
         exclude = {},
       },
+
       live_filter = {
         prefix = "[FILTER]: ",
         always_show_folders = true,
       },
+
       filesystem_watchers = {
         enable = true,
         debounce_delay = 50,
         ignore_dirs = {},
       },
+
       actions = {
         use_system_clipboard = true,
         change_dir = {
@@ -281,9 +296,11 @@ return {
           close_window = true,
         },
       },
+
       trash = {
         cmd = "gio trash",
       },
+
       tab = {
         sync = {
           open = false,
@@ -291,13 +308,16 @@ return {
           ignore = {},
         },
       },
+
       notify = {
         threshold = vim.log.levels.INFO,
         absolute_path = true,
       },
+
       help = {
         sort_by = "key",
       },
+
       ui = {
         confirm = {
           remove = true,
@@ -305,7 +325,9 @@ return {
           default_yes = false,
         },
       },
+
       experimental = {},
+
       log = {
         enable = false,
         truncate = false,
