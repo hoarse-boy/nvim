@@ -1,9 +1,12 @@
 return {
   {
+    -- NOTE: use nvim-tree instead for now as Neotree is buggy.
+    -- dont delete this plugin.
     "nvim-neo-tree/neo-tree.nvim",
     -- NOTE: updating the 'l' to use a function like 'h' doesnt fix the jumping issue. changing the tag does.
     -- github issue on https://github.com/nvim-neo-tree/neo-tree.nvim/issues/1310.
     tag = "3.14",
+    enabled = false, -- disabled plugin
     opts = {
       event_handlers = {
         -- auto close when clicking file
@@ -109,7 +112,7 @@ return {
             end
           end,
 
-          ["/"] = "none", -- disable native filter of neo-tree. to use vim search instead. can be used by flash if it is enabled
+          -- ["/"] = "none", -- disable native filter of neo-tree. to use vim search instead. can be used by flash if it is enabled
         },
       },
     },
