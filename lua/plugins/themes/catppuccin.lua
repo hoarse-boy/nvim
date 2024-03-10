@@ -209,7 +209,7 @@ return {
 
       integrations = {
         alpha = true,
-        nvimtree = false,
+        nvimtree = true,
         ts_rainbow = true,
         cmp = true,
         gitsigns = true,
