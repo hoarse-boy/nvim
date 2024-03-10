@@ -28,6 +28,7 @@ return {
           "notify",
           "toggleterm",
           "lazyterm",
+          "nvimtree",
         },
       },
     },
@@ -61,6 +62,7 @@ return {
           "notify",
           "toggleterm",
           "lazyterm",
+          "nvimtree",
         },
         callback = function()
           vim.b.miniindentscope_disable = true
