@@ -99,7 +99,9 @@ return {
 
       return {
         options = {
-          component_separators = { left = " ", right = " " },
+          component_separators = { left = "", right = "" },
+          section_separators = { left = "", right = "" },
+
           theme = {
             normal = {
               a = { fg = colours.blue, bg = colours.bg },
@@ -134,20 +136,18 @@ return {
         },
 
         sections = {
-          -- lualine_a = { { icon = "" } },
           lualine_a = {
             {
               "mode",
               icon_only = true,
               icon = "",
               separator = "",
-              padding = { left = 1, right = 0 },
+              padding = { left = 1, right = 1 },
             },
           },
 
-          -- lualine_a = { { "mode", icon = "" } }, -- FIX:
           lualine_b = {
-            { "branch", icon = { "", color = { fg = colours.gitOrange } } },
+            { "branch", icon = { "", color = { fg = colours.gitOrange } }, padding = { left = 1, right = 1 } },
           },
 
           lualine_c = {
@@ -160,16 +160,10 @@ return {
                 hint = icons.diagnostics.Hint,
               },
             },
-            { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
 
-            -- { Util.lualine.pretty_path() }, -- FIX: what is this?
-            {
-              "filename",
-              symbols = { modified = "  ", readonly = "", unnamed = "" },
-            },
-            { require("NeoComposer.ui").status_recording }, -- FIX:
+            { require("NeoComposer.ui").status_recording, separator = "", padding = { left = 1, right = 1 } }, -- TODO: fix the ugly separator.
 
-            -- FIX: move nvim navic to below buffer list?
+            -- use barbecue.nvim
             -- -- nvim navic
             -- {
             --   function()
@@ -185,30 +179,10 @@ return {
           lualine_x = {
             copilot_lua,
 
-            {
-              require("lazy.status").updates,
-              cond = require("lazy.status").has_updates,
-              color = { fg = colours.green },
-            },
-
-            -- FIX:
             -- {
-            --   function()
-            --     local icon = " "
-            --     local status = require("copilot.api").status.data
-            --     return icon .. (status.message or "")
-            --   end,
-            --   cond = function()
-            --     local ok, clients = pcall(vim.lsp.get_active_clients, { name = "copilot", bufnr = 0 })
-            --     return ok and #clients > 0
-            --   end,
-            --   color = function()
-            --     if not package.loaded["copilot"] then
-            --       return
-            --     end
-            --     local status = require("copilot.api").status.data
-            --     return copilot_colours[status.status] or copilot_colours[""]
-            --   end,
+            --   require("lazy.status").updates,
+            --   cond = require("lazy.status").has_updates,
+            --   color = { fg = colours.green },
             -- },
 
             {
@@ -220,11 +194,6 @@ return {
               end,
               color = Util.ui.fg("Debug"),
             },
-            -- { what is this
-            --   require("lazy.status").updates,
-            --   cond = require("lazy.status").has_updates,
-            --   color = Util.ui.fg("Special"),
-            -- },
 
             {
               "diff",
@@ -248,6 +217,25 @@ return {
 
           lualine_y = {
             {
+              function()
+                local words = vim.fn.wordcount()["words"]
+                return "Words: " .. words
+              end,
+              cond = function()
+                local ft = vim.opt_local.filetype:get()
+                local count = {
+                  latex = true,
+                  tex = true,
+                  text = true,
+                  markdown = true,
+                  vimwiki = true,
+                }
+                return count[ft] ~= nil
+              end,
+              -- TODO: add color.
+              color = { fg = colours.green },
+            },
+            {
               "progress",
             },
             {
@@ -260,7 +248,6 @@ return {
             {
               function()
                 return "  " .. os.date("%X")
-                -- return "  " .. os.date("%X") .. " 📎"
               end,
               color = { fg = colours.grey, bg = colours.bg },
             },
