@@ -1,11 +1,11 @@
 return {
   {
     "nvim-tree/nvim-tree.lua",
-    event = "VeryLazy",
+    event = "VeryLazy", -- use this to fix the bug, if entering the dashboard and click s to load session. nvim will be unable to open the nvim-tree. don't use cmd or lazy = true.
     -- enabled = false, -- disabled plugin
     dependencies = { "nvim-tree/nvim-web-devicons" },
     keys = {
-      { "<leader>e", ":NvimTreeToggle<cr>", mode = "n", desc = "Nvim-tree (Explorer)", silent = true, noremap = true },
+      { "<leader>e", "<cmd>NvimTreeToggle<cr>", mode = "n", desc = "Nvim-tree (Explorer)", silent = true, noremap = true },
     },
     config = function()
       local api = require("nvim-tree.api")
@@ -120,7 +120,8 @@ return {
           highlight_git = true,
           add_trailing = false,
           full_name = false,
-          indent_width = 2,
+          indent_width = 0,
+          -- indent_width = 2,
           special_files = { "Cargo.toml", "Makefile", "makefile", "README.md", "readme.md", "Dockerfile", "dockerfile", "go.mod", "go.work" },
           symlink_destination = true,
           highlight_diagnostics = "none",
