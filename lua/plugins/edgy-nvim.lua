@@ -91,6 +91,14 @@ return {
         -- },
         -- "neo-tree",
       },
+      right = {
+        -- TODO: fix the edgy window to be extremeley small.
+        -- {
+        --   title = "CopilotChat.nvim", -- Title of the window
+        --   ft = "copilot-chat", -- This is custom file type from CopilotChat.nvim
+        --   size = { width = 0.4 }, -- Width of the window
+        -- },
+      },
       keys = {
         -- increase width
         ["<c-Right>"] = function(win)
