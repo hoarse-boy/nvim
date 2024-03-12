@@ -29,7 +29,7 @@ local icons = {
 
 local nvim_navic = {
   "SmiteshP/nvim-navic",
-  -- event = "VeryLazy",
+  event = "VeryLazy",
   dependencies = { "neovim/nvim-lspconfig" },
   config = function()
     require("nvim-navic").setup({
@@ -44,26 +44,28 @@ local nvim_navic = {
       depth_limit_indicator = "..",
       safe_output = true,
       lazy_update_context = false,
-      click = false,
+      click = true,
     })
   end,
 }
 
 return {
-  {
-    "utilyre/barbecue.nvim",
-    name = "barbecue",
-    event = "VeryLazy",
-    version = "*",
-    dependencies = {
-      -- "SmiteshP/nvim-navic",
-      nvim_navic,
-      "nvim-tree/nvim-web-devicons", -- optional dependency
-    },
-    opts = {
-      -- configurations go here
-    },
-  },
+  nvim_navic,
+  -- {
+  --   "utilyre/barbecue.nvim",
+  --   name = "barbecue",
+  --   event = "VeryLazy",
+  --   version = "*",
+  --   dependencies = {
+  --     -- "SmiteshP/nvim-navic",
+  --     nvim_navic,
+  --     "nvim-tree/nvim-web-devicons", -- optional dependency
+  --   },
+  --   opts = {
+  --     -- configurations go here
+  --   },
+  -- },
+
   -- navbuddy
   {
     "neovim/nvim-lspconfig",
