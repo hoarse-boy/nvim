@@ -23,8 +23,45 @@ function M.get_hlgroup(name, fallback)
   return fallback or {}
 end
 
--- AndreM222/copilot-lualine
--- TODO: do pcall
+-- NOTE: move modicator here to avoid error in notify.
+-- will always use lualine so this is fine
+local modicator_nvim = {
+  "mawkler/modicator.nvim",
+  event = "VeryLazy",
+  init = function()
+    -- These are required for Modicator to work
+    vim.o.cursorline = true
+    vim.o.number = true
+    vim.o.termguicolors = true
+  end,
+  config = function()
+    require("modicator").setup({
+      -- Show warning if any required option is missing
+      show_warnings = false,
+      highlights = {
+        -- Default options for bold/italic
+        defaults = {
+          bold = true,
+          italic = true,
+        },
+      },
+      integration = {
+        lualine = {
+          enabled = false,
+        },
+      },
+    })
+
+    vim.api.nvim_set_hl(0, "NormalMode", { link = "lualine_a_normal" })
+    vim.api.nvim_set_hl(0, "InsertMode", { link = "lualine_a_insert" })
+    vim.api.nvim_set_hl(0, "VisualMode", { link = "lualine_a_visual" })
+    vim.api.nvim_set_hl(0, "SelectMode", { link = "lualine_a_visual" })
+    vim.api.nvim_set_hl(0, "CommandMode", { link = "lualine_a_command" })
+    vim.api.nvim_set_hl(0, "ReplaceMode", { link = "lualine_a_replace" })
+    vim.api.nvim_set_hl(0, "TerminalMode", { link = "lualine_a_terminal" })
+    vim.api.nvim_set_hl(0, "TerminalNormalMode", { link = "lualine_a_terminal" })
+  end,
+}
 
 -- create a function pcall to require copilot-lualine
 local copilot_lua = {
@@ -60,6 +97,9 @@ return {
   {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
+    dependencies = {
+      modicator_nvim,
+    },
     opts = function()
       -- PERF: we don't need this lualine require madness 🤷
       local lualine_require = require("lualine_require")
@@ -78,58 +118,52 @@ return {
         -- grey = "#d1d1d1",
         -- grey = "#565f89",
         green = "#15a191",
-        -- green = "#9ece6a",
         yellow = "#e0af68",
         blue = "#0286c7",
-        -- blue = "#7aa2f7",
         magenta = "#7833f5",
-        -- magenta = "#bb9af7",
         red = "#a10524",
         pink = "#f7768e",
         gitOrange = "#F24D29",
-        cyan = "#7dcfff",
+        cyan = "#62a0c4",
         orange = "#ff9e64",
       }
-      -- local copilot_colours = {
-      --   [""] = { fg = colours.grey, bg = colours.bg },
-      --   ["Normal"] = { fg = colours.grey, bg = colours.bg },
-      --   ["Warning"] = { fg = colours.red, bg = colours.bg },
-      --   ["InProgress"] = { fg = colours.yellow, bg = colours.bg },
-      -- }
+
+      local my_theme = {
+        normal = {
+          a = { fg = colours.blue, bg = colours.bg },
+          b = { fg = colours.cyan, bg = colours.bg },
+          c = { fg = colours.fg, bg = colours.bg },
+          x = { fg = colours.fg, bg = colours.bg },
+          y = { fg = colours.magenta, bg = colours.bg },
+          -- z = { fg = colours.grey, bg = colours.bg }, -- NOTE: comment to make the z section to match each mode color
+        },
+        insert = {
+          a = { fg = colours.green, bg = colours.bg },
+          -- z = { fg = colours.grey, bg = colours.bg }, -- NOTE: comment to make the z section to match each mode color
+        },
+        visual = {
+          a = { fg = colours.magenta, bg = colours.bg },
+          -- z = { fg = colours.grey, bg = colours.bg }, -- NOTE: comment to make the z section to match each mode color
+        },
+        command = {
+          a = { fg = colours.grey, bg = colours.bg },
+        },
+        replace = {
+          a = { fg = colours.red, bg = colours.bg },
+        },
+        terminal = {
+          a = { fg = colours.orange, bg = colours.bg },
+          -- z = { fg = colours.grey, bg = colours.bg }, -- NOTE: comment to make the z section to match each mode color
+        },
+      }
 
       return {
         options = {
           component_separators = { left = "", right = "" },
           section_separators = { left = "", right = "" },
 
-          theme = {
-            normal = {
-              a = { fg = colours.blue, bg = colours.bg },
-              b = { fg = colours.cyan, bg = colours.bg },
-              c = { fg = colours.fg, bg = colours.bg },
-              x = { fg = colours.fg, bg = colours.bg },
-              y = { fg = colours.magenta, bg = colours.bg },
-              -- z = { fg = colours.grey, bg = colours.bg }, -- NOTE: comment to make the z section to match each mode color
-            },
-            insert = {
-              a = { fg = colours.green, bg = colours.bg },
-              -- z = { fg = colours.grey, bg = colours.bg }, -- NOTE: comment to make the z section to match each mode color
-            },
-            visual = {
-              a = { fg = colours.magenta, bg = colours.bg },
-              -- z = { fg = colours.grey, bg = colours.bg }, -- NOTE: comment to make the z section to match each mode color
-            },
-            command = {
-              a = { fg = colours.grey, bg = colours.bg },
-            },
-            replace = {
-              a = { fg = colours.red, bg = colours.bg },
-            },
-            terminal = {
-              a = { fg = colours.orange, bg = colours.bg },
-              -- z = { fg = colours.grey, bg = colours.bg }, -- NOTE: comment to make the z section to match each mode color
-            },
-          },
+          theme = my_theme,
+          -- theme = "catppuccin" ,
 
           globalstatus = true,
           disabled_filetypes = { statusline = { "dashboard", "alpha", "starter" } },
@@ -161,29 +195,25 @@ return {
               },
             },
 
-            { require("NeoComposer.ui").status_recording, separator = "", padding = { left = 1, right = 1 } }, -- TODO: fix the ugly separator.
+            { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
+            { "filename" },
 
-            -- use barbecue.nvim
-            -- -- nvim navic
-            -- {
-            --   function()
-            --     return require("nvim-navic").get_location()
-            --   end,
-            --   cond = function()
-            --     return package.loaded["nvim-navic"] and require("nvim-navic").is_available()
-            --   end,
-            --   color = { fg = colours.grey, bg = colours.bg },
-            -- },
+            -- nvim navic
+            {
+              function()
+                return require("nvim-navic").get_location()
+              end,
+              cond = function()
+                return package.loaded["nvim-navic"] and require("nvim-navic").is_available()
+              end,
+              color = { fg = colours.grey, bg = colours.bg },
+            },
           },
 
           lualine_x = {
-            copilot_lua,
+            { require("NeoComposer.ui").status_recording, separator = "", padding = { left = 1, right = 1 } }, -- TODO: fix the grey highlight when the symbol appear.
 
-            -- {
-            --   require("lazy.status").updates,
-            --   cond = require("lazy.status").has_updates,
-            --   color = { fg = colours.green },
-            -- },
+            copilot_lua,
 
             {
               function()
@@ -232,12 +262,13 @@ return {
                 }
                 return count[ft] ~= nil
               end,
-              -- TODO: add color.
               color = { fg = colours.green },
             },
+
             {
               "progress",
             },
+
             {
               "location",
               color = { fg = colours.cyan, bg = colours.bg },
@@ -249,57 +280,18 @@ return {
               function()
                 return "  " .. os.date("%X")
               end,
-              color = { fg = colours.grey, bg = colours.bg },
+              -- color = { fg = colours.grey, bg = colours.bg },
             },
-            {
-              function()
-                return "󰐝"
-              end,
-            },
+
+            -- {
+            --   function()
+            --     return "󰐝"
+            --   end,
+            -- },
           },
         },
         extensions = { "neo-tree", "lazy" },
       }
-    end,
-  },
-
-  -- NOTE: move modicator here to avoid error in notify.
-  -- will always use lualine so this is fine
-  {
-    "mawkler/modicator.nvim",
-    event = "VeryLazy",
-    init = function()
-      -- These are required for Modicator to work
-      vim.o.cursorline = true
-      vim.o.number = true
-      vim.o.termguicolors = true
-    end,
-    config = function()
-      require("modicator").setup({
-        -- Show warning if any required option is missing
-        show_warnings = false,
-        highlights = {
-          -- Default options for bold/italic
-          defaults = {
-            bold = true,
-            italic = true,
-          },
-        },
-        integration = {
-          lualine = {
-            enabled = false,
-          },
-        },
-      })
-
-      vim.api.nvim_set_hl(0, "NormalMode", { link = "lualine_a_normal" })
-      vim.api.nvim_set_hl(0, "InsertMode", { link = "lualine_a_insert" })
-      vim.api.nvim_set_hl(0, "VisualMode", { link = "lualine_a_visual" })
-      vim.api.nvim_set_hl(0, "SelectMode", { link = "lualine_a_visual" })
-      vim.api.nvim_set_hl(0, "CommandMode", { link = "lualine_a_command" })
-      vim.api.nvim_set_hl(0, "ReplaceMode", { link = "lualine_a_replace" })
-      vim.api.nvim_set_hl(0, "TerminalMode", { link = "lualine_a_terminal" })
-      vim.api.nvim_set_hl(0, "TerminalNormalMode", { link = "lualine_a_terminal" })
     end,
   },
 }
