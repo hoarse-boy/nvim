@@ -1,7 +1,10 @@
 return {
   {
     "nvim-tree/nvim-tree.lua",
-    event = "VeryLazy", -- use this to fix the bug, if entering the dashboard and click s to load session. nvim will be unable to open the nvim-tree. don't use cmd or lazy = true.
+    -- use this to fix the bug, if entering the dashboard and click s to load session. nvim will be unable to open the nvim-tree. don't use cmd or lazy = true.
+    -- FIX: there is one time NvimTreeToggle not working after loading session.
+    event = "VeryLazy",
+    -- lazy = false, -- NOTE: if the bug persist, uncomment this and comment VeryLazy event.
     -- enabled = false, -- disabled plugin
     dependencies = { "nvim-tree/nvim-web-devicons" },
     keys = {
@@ -64,7 +67,7 @@ return {
         on_attach = on_attach,
         hijack_cursor = true, -- NOTE: very usefull to avoid catpuccin and other theme highlighting the symbol '>' when the cursor is on it.
         auto_reload_on_write = true,
-        disable_netrw = false, -- already disabled by lazyvim.
+        disable_netrw = true, -- already disabled by lazyvim.
         hijack_netrw = true,
         hijack_unnamed_buffer_when_opening = false,
 
@@ -88,7 +91,8 @@ return {
         },
 
         view = {
-          centralize_selection = true,
+          centralize_selection = false,
+          -- centralize_selection = true,
           cursorline = true,
           debounce_delay = 15,
           side = "left",
@@ -350,18 +354,49 @@ return {
   {
     "akinsho/bufferline.nvim",
     -- optional = true,
-    opts = {
-      options = {
-        offsets = {
-          {
-            filetype = "NvimTree",
-            text = "File Explorer",
-            highlight = "Directory",
-            text_align = "center",
-            separator = true, -- use a "true" to enable the default, or set your own character
-          },
-        },
-      },
-    },
+    -- opts = {
+    --   options = {
+    --     offsets = {
+    --       {
+    --         filetype = "NvimTree",
+    --         text = "File Explorer",
+    --         highlight = "Directory",
+    --         text_align = "center",
+    --         separator = true, -- use a "true" to enable the default, or set your own character
+    --       },
+    --     },
+    --   },
+    -- },
+    opts = function(_, opts)
+      table.insert(opts.options.offsets, {
+        filetype = "NvimTree",
+        text = "File Explorer",
+        highlight = "Directory",
+        text_align = "center",
+        separator = true, -- use a "true" to enable the default, or set your own character
+      })
+    end,
   },
+
+  -- FIX: still not working. both bufferline code above works. but not for lualine.
+  -- {
+  --   "nvim-lualine/lualine.nvim",
+  --   -- opts = function(_, opts)
+  --   --   -- require("table").insert(opts.sections.lualine_x, "😄")
+  --   --   opts.sections.lualine_a = {}
+  --   -- end,
+  --   -- config = function () -- FIX: this will overwrite like usual.
+  --   --
+  --   --   require("lualine").setup({
+  --   --   sections = {
+  --   --     lualine_a = { },
+  --   --   }})
+  --   -- end
+  -- },
+  -- {
+  --   "nvim-lualine/lualine.nvim",
+  --   opts = function(_, opts)
+  --     table.remove(opts.sections.lualine_c, 1)
+  --   end,
+  -- },
 }
