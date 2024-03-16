@@ -81,34 +81,16 @@ return {
       { "<leader>Cb", ":CopilotChatBuffer ", desc = "CopilotChat - Chat with current buffer" },
       { "<leader>Cc", ":CopilotChat ", desc = "CopilotChat - Chat" },
       { "<leader>Ce", "<cmd>CopilotChatExplain<cr>", desc = "CopilotChat - Explain code" },
-      { "<leader>Ct", "<cmd>CopilotChatTests<cr>", desc = "CopilotChat - Generate tests" },
-      {
-        "<leader>CT",
-        "<cmd>CopilotChatVsplitToggle<cr>",
-        desc = "CopilotChat - Toggle Vsplit", -- Toggle vertical split
-      },
-      {
-        "<leader>Cv",
-        ":CopilotChatVisual ",
-        mode = "x",
-        desc = "CopilotChat - Open in vertical split",
-      },
-      {
-        "<leader>Cx",
-        ":CopilotChatInPlace<cr>",
-        mode = "x",
-        desc = "CopilotChat - Run in-place code",
-      },
-      {
-        "<leader>Cf",
-        "<cmd>CopilotChatFixDiagnostic<cr>", -- Get a fix for the diagnostic message under the cursor.
-        desc = "CopilotChat - Fix diagnostic",
-      },
-      {
-        "<leader>Cr",
-        "<cmd>CopilotChatReset<cr>", -- Reset chat history and clear buffer.
-        desc = "CopilotChat - Reset chat history and clear buffer",
-      },
+      { "<leader>CT", "<cmd>CopilotChatTests<cr>", desc = "CopilotChat - Generate tests" },
+      -- stylua: ignore
+      { "<leader>Ct", "<cmd>CopilotChatVsplitToggle<cr>", desc = "CopilotChat - Toggle Vsplit" },
+      -- stylua: ignore
+      { "<leader>Cv", ":CopilotChatVisual ", mode = "x", desc = "CopilotChat - Open in vertical split", },
+      -- stylua: ignore
+      { "<leader>Cx", ":CopilotChatInPlace<cr>", mode = "x", desc = "CopilotChat - Run in-place code", },
+      -- stylua: ignore
+      { "<leader>Cf", "<cmd>CopilotChatFixDiagnostic<cr>",  }, -- Get a fix for the diagnostic message under the cursor. desc = "CopilotChat - Fix diagnostic",
+      { "<leader>Cr", "<cmd>CopilotChatReset<cr>" }, -- Reset chat history and clear buffer. desc = "CopilotChat - Reset chat history and clear buffer",
     },
   },
 }
