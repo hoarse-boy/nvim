@@ -1,7 +1,6 @@
 return {
   "stefanlogue/hydrate.nvim",
   event = "VeryLazy",
-  -- FIX: remove this?
   enabled = false, -- disabled plugin
   -- dependencies = {},
   -- init = function() end, -- functions are always executed during startup

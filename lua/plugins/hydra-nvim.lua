@@ -1,6 +1,5 @@
 return {
   "anuvyklack/hydra.nvim",
-  -- TODO: remove this?
   enabled = false,
   event = "VeryLazy",
   config = function(_, _)

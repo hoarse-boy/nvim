@@ -1,7 +1,7 @@
 return {
   "kevinhwang91/nvim-ufo",
   event = "VeryLazy",
-  -- enabled = false, -- disabled plugin
+  enabled = false, -- disabled plugin
   dependencies = { "kevinhwang91/promise-async" },
   init = function()
     vim.o.foldcolumn = "0" -- '0' is not bad. will not show the complex number and symbol on the left side of current symbol and no.

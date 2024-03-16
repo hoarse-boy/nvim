@@ -1,7 +1,7 @@
 return {
   "anuvyklack/pretty-fold.nvim",
   event = "VeryLazy",
-  -- enabled = false,
+  enabled = false,
   config = function()
     -- autcmd
 
