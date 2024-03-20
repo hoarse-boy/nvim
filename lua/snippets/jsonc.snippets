@@ -24,10 +24,10 @@ snippet go-json-debug "create launch.json for go debugging"
 				"name": "${1}",
 				"type": "go",
 				"request": "launch",
-				// "program": "main.go",
-				// "program": "./cmd",
-				"program": "\${workspaceFolder\}/main.go",
-				// "args": ["--config-file=config.yaml", "arg2"],
+				// "program": "main.go", // it is limited to the current directory.
+				// "program": "./cmd", // usefull in monorepo or the golang project that has multiple main.go.
+				"program": "\${workspaceFolder\}/main.go", // can run nvim dap in any directory that has .go extention.
+				"args": ["--config-file=config.yaml"], // pass your args when running go program. such as 'go run main.go --config-file=config.yaml'
 				"env": {
 					"${2}": "${3}"
 				}
