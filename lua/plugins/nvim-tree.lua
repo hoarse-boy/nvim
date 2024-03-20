@@ -58,7 +58,7 @@ return {
         vim.keymap.set("n", "l", edit_or_open, opts("Edit Or Open"))
         vim.keymap.set("n", "L", vsplit_preview, opts("Vsplit Preview"))
         vim.keymap.set("n", "h", api.node.navigate.parent_close, opts("Close Directory"))
-        vim.keymap.set("n", "c", api.fs.copy.absolute_path, opts("Yank Path"))
+        -- vim.keymap.set("n", "c", api.fs.copy.absolute_path, opts("Yank Path"))
         -- vim.keymap.set("n", "/", api.live_filter.start, opts("Filter")) -- NOTE: nvim filter is buggy.
         vim.keymap.set("n", "?", api.tree.toggle_help, opts("Help"))
       end
@@ -117,7 +117,8 @@ return {
 
         renderer = {
           group_empty = true,
-          root_folder_label = true,
+          root_folder_label = ":t",
+          -- root_folder_label = true,
           -- root_folder_label = false,
           -- root_folder_label = ":~:s?$?/..?",
           highlight_modified = "all",
