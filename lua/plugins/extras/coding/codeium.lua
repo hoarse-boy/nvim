@@ -9,7 +9,7 @@ return {
       config = function()
         vim.g.codeium_disable_bindings = 1
         -- stylua: ignore
-        vim.keymap.set('n', '<leader>C', function () return vim.fn['codeium#Chat']() end, { expr = true, silent = true, desc = "Open Codeium Chat" })
+        vim.keymap.set('n', '<leader>C', "<cmd>lua vim.fn['codeium#Chat']()<cr>"  , { silent = true, desc = "Open Codeium Chat" })
         -- stylua: ignore
         vim.keymap.set('i', '<C-a>', function () return vim.fn['codeium#Accept']() end, { expr = true, silent = true })
         -- stylua: ignore
@@ -86,5 +86,4 @@ return {
   --     table.insert(opts.sections.lualine_x, 2, LazyVim.lualine.cmp_source("codeium"))
   --   end,
   -- },
-
 }
