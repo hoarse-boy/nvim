@@ -63,6 +63,16 @@ return {
         vim.keymap.set("n", "?", api.tree.toggle_help, opts("Help"))
       end
 
+
+      -- TODO: find a way to run require("dapui").open({ reset = true }) when toggling nvim tree.
+      -- local Event = api.events.Event
+      -- api.events.subscribe(Event.TreeClose, function()
+      --   if require("dap").session() then
+      --     require("dapui").open({ reset = true })
+      --   end
+      -- end)
+
+
       require("nvim-tree").setup({
         on_attach = on_attach,
         hijack_cursor = true, -- NOTE: very usefull to avoid catpuccin and other theme highlighting the symbol '>' when the cursor is on it.
