@@ -20,6 +20,7 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.test.core" },
     -- { import = "lazyvim.plugins.extras.lang.markdown" }, -- disable as the none-ls warning is too many. TODO: change the warning parameters
     { import = "lazyvim.plugins.extras.lsp.none-ls" },
+    -- { import = "lazyvim.plugins.extras.lang.helm" },
 
     -- NOTE: import all of my languages config.
     { import = "plugins.extras.lang.go" },
@@ -27,10 +28,11 @@ require("lazy").setup({
     { import = "plugins.extras.lang.rust" },
     { import = "plugins.extras.lang.helm" },
     { import = "plugins.extras.lang.php" },
+    { import = "plugins.extras.lang.json" },
 
     -- NOTE: import all of my coding plugins.
-    { import = "plugins.extras.coding.copilot" }, -- NOTE: use my own copilot as lazyvim's uses cmp which is not working atm.
-    -- { import = "plugins.extras.coding.codeium" }, -- NOTE: enabling copilot alongside codeium (even with disabled true) will create a bug where copilot keymaps to accept suggestion fails.
+    -- { import = "plugins.extras.coding.copilot" }, -- NOTE: use my own copilot as lazyvim's uses cmp which is not working atm.
+    { import = "plugins.extras.coding.codeium" }, -- NOTE: enabling copilot alongside codeium (even with disabled true) will create a bug where copilot keymaps to accept suggestion fails.
 
     { import = "lazyvim.plugins.extras.dap.core" },
     { import = "lazyvim.plugins.extras.dap.nlua" },
@@ -38,6 +40,8 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.lang.json" },
     { import = "lazyvim.plugins.extras.util.mini-hipatterns" },
     { import = "lazyvim.plugins.extras.editor.aerial" },
+
+    { import = "plugins.extras.ui.nvim-lualine" }, -- FIX: import this to overwrite lazyvims as it has no plugins ordering when importing all plugins folder.
 
     -- import/override with your plugins
     { import = "plugins" },
