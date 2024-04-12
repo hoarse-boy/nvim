@@ -28,11 +28,10 @@ autocmd("Filetype", {
     if vim.bo["ft"] == "css" then
       vim.opt_local.formatoptions:remove("r") -- don't enter comment leader on Enter in css files
     end
-    vim.opt.formatoptions = vim.opt.formatoptions
-      + {
-        o = false, -- Don't continue comments with o and O
-        r = false, -- don't insert comment leader on Enter
-      }
+    vim.opt.formatoptions = vim.opt.formatoptions + {
+      o = false, -- Don't continue comments with o and O
+      r = false, -- don't insert comment leader on Enter
+    }
   end,
   group = "mygroup",
   desc = "Don't continue comments with o, O, and enter",
