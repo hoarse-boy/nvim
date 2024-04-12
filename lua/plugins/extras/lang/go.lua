@@ -241,7 +241,9 @@ return {
       },
       {
         "leoluz/nvim-dap-go",
-        config = true,
+        config = function()
+          require("dap-go").setup()
+        end,
       },
     },
   },
