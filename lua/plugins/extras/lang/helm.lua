@@ -13,4 +13,27 @@ return {
       end
     end,
   },
+
+  -- TODO: fix the helm lsp not working.
+  -- {
+  --   "neovim/nvim-lspconfig",
+  --   opts = {
+  --     servers = {
+  --       ["helm-ls"] = {
+  --       },
+  --       yamlls = {
+  --         path = "yaml-language-server",
+  --       },
+  --     },
+  --   },
+  -- },
+
+  -- {
+  --   "neovim/nvim-lspconfig",
+  --   opts = {
+  --     servers = {
+  --       ['helm-ls'] = {},
+  --     },
+  --   },
+  -- },
 }
