@@ -1,10 +1,9 @@
 return {
   "rcarriga/nvim-notify",
-  -- PERF: disabled animation as it is very costly.
-
+  -- NOTE: requiring notify to any other file will result in notify or any lua plugin to use the default.
   keys = {
     {
-      "<leader>uh",
+      "<leader>uH",
       function()
         require("telescope").extensions.notify.notify()
       end,

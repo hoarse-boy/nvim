@@ -1,10 +1,6 @@
 return {
   "chrisgrieser/nvim-spider",
   event = "VeryLazy",
-  -- enabled = false, -- disabled plugin
-  -- dependencies = {},
-  -- init = function() end, -- functions are always executed during startup
-  -- opts = function(_, opts) end, -- use this to not overwrite this plugin config (usefull in lazyvim)
   config = function()
     vim.keymap.set({ "n", "o", "x" }, "w", "<cmd>lua require('spider').motion('w')<CR>", { desc = "Spider-w" })
     vim.keymap.set({ "n", "o", "x" }, "e", "<cmd>lua require('spider').motion('e')<CR>", { desc = "Spider-e" })

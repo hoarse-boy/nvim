@@ -36,7 +36,6 @@ return {
       vim.api.nvim_create_autocmd("FileType", {
         group = augroup("close_with_q", { clear = true }),
         pattern = {
-          -- "httpResult", -- FIX: delet this if rest.nvim is not used
           "hurl",
           "json", -- for web-tools-nvim floating window
           "html", -- for web-tools-nvim floating window
