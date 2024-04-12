@@ -3,40 +3,6 @@ local augroup = vim.api.nvim_create_augroup
 
 -- rust keymaps
 local rust_keymaps = augroup("rust_keymaps", {})
-autocmd("Filetype", {
-  group = rust_keymaps,
-  pattern = { "rust" },
-  callback = function()
-    vim.schedule(function()
-      vim.keymap.set("n", "K", "<cmd>RustHoverActions<cr>", { buffer = true, desc = "Hover Actions (Rust)" })
-      vim.keymap.set("n", "<leader>la", "<cmd>RustCodeAction<cr>", { buffer = true, desc = "Code Action (Rust)" })
-      vim.keymap.set("n", "<leader>dr", "<cmd>RustDebuggables<cr>", { buffer = true, desc = "Run Debuggables (Rust)" })
-      vim.keymap.set("n", "<leader>l", "", { buffer = true, desc = "+ Lsp (Rust)" })
-      vim.keymap.set("n", "<leader>lc", "<cmd>RustOpenCargo<cr>", { buffer = true, desc = "Open Cargo (Rust)" })
-      vim.keymap.set("n", "<leader>lmu", "<cmd>RustMoveItemUp<cr>", { buffer = true, desc = "Move Item Up (Rust)" })
-      vim.keymap.set("n", "<leader>lmd", "<cmd>RustMoveItemDown<cr>", { buffer = true, desc = "Move Item Down (Rust)" })
-      vim.keymap.set("n", "<leader>lr", "<cmd>RustHoverRange<cr>", { buffer = true, desc = "Hover Range (Rust)" })
-      -- stylua: ignore
-      vim.keymap.set("n", "<leader>lp", "<cmd>RustParentModule<cr>", { buffer = true, desc = "Go to Parent Module (Rust)" })
-      vim.keymap.set("n", "<leader>lj", "<cmd>RustJoinLines<cr>", { buffer = true, desc = "Join Line(Rust)" })
-      --   -- TODO: RustSSR [query]
-      --   -- RustViewCrateGraph [backend [output]]
-
-      local wk = require("which-key")
-      local opts = { prefix = "<leader>", buffer = 0 }
-      local mappings = {
-        l = {
-          name = "+lsp (rust_tools)",
-          m = {
-            name = "+item",
-          },
-        },
-      }
-
-      wk.register(mappings, opts)
-    end)
-  end,
-})
 
 return {
   -- Extend auto completion
@@ -65,6 +31,46 @@ return {
       if type(opts.ensure_installed) == "table" then
         vim.list_extend(opts.ensure_installed, { "ron", "rust", "toml" })
       end
+    end,
+  },
+
+  {
+    "folke/which-key.nvim",
+    opts = function(_, _)
+      autocmd("Filetype", {
+        group = rust_keymaps,
+        pattern = { "rust" },
+        callback = function()
+          vim.schedule(function()
+            vim.keymap.set("n", "K", "<cmd>RustHoverActions<cr>", { buffer = true, desc = "Hover Actions (Rust)" })
+            vim.keymap.set("n", "<leader>la", "<cmd>RustCodeAction<cr>", { buffer = true, desc = "Code Action (Rust)" })
+            vim.keymap.set("n", "<leader>dr", "<cmd>RustDebuggables<cr>", { buffer = true, desc = "Run Debuggables (Rust)" })
+            vim.keymap.set("n", "<leader>l", "", { buffer = true, desc = "+ Lsp (Rust)" })
+            vim.keymap.set("n", "<leader>lc", "<cmd>RustOpenCargo<cr>", { buffer = true, desc = "Open Cargo (Rust)" })
+            vim.keymap.set("n", "<leader>lmu", "<cmd>RustMoveItemUp<cr>", { buffer = true, desc = "Move Item Up (Rust)" })
+            vim.keymap.set("n", "<leader>lmd", "<cmd>RustMoveItemDown<cr>", { buffer = true, desc = "Move Item Down (Rust)" })
+            vim.keymap.set("n", "<leader>lr", "<cmd>RustHoverRange<cr>", { buffer = true, desc = "Hover Range (Rust)" })
+            -- stylua: ignore
+            vim.keymap.set("n", "<leader>lp", "<cmd>RustParentModule<cr>", { buffer = true, desc = "Go to Parent Module (Rust)" })
+            vim.keymap.set("n", "<leader>lj", "<cmd>RustJoinLines<cr>", { buffer = true, desc = "Join Line(Rust)" })
+            --   -- TODO: RustSSR [query]
+            --   -- RustViewCrateGraph [backend [output]]
+
+            local wk = require("which-key")
+            local opts = { prefix = "<leader>", buffer = 0 }
+            local mappings = {
+              l = {
+                name = "+lsp (rust_tools)",
+                m = {
+                  name = "+item",
+                },
+              },
+            }
+
+            wk.register(mappings, opts)
+          end)
+        end,
+      })
     end,
   },
 

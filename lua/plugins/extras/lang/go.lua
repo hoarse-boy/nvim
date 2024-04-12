@@ -2,98 +2,10 @@
 -- no hassle with duplicate gopls server in memory
 -- https://github.com/ray-x/go.nvim?ref=morioh.com&utm_source=morioh.com
 
-local notify = require("notify")
-
 local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
 
--- go keymaps
 local go_keymaps = augroup("go_keymaps", {})
-autocmd("Filetype", {
-  group = go_keymaps,
-  pattern = { "go", "gomod" },
-  callback = function()
-    vim.schedule(function()
-      vim.keymap.set("n", "<leader>la", "<cmd>GoCodeAction<cr>", { buffer = true, desc = "Code Action" })
-      vim.keymap.set("n", "<leader>ls", "<cmd>GoFillStruct<cr>", { buffer = true, desc = "Fill Struct" })
-      vim.keymap.set("n", "<leader>ls", "<cmd>GoFillStruct<cr>", { buffer = true, desc = "Fill Struct" })
-      -- stylua: ignore
-      vim.keymap.set("n", "<leader>lr", vim.lsp.buf.rename, { buffer = true, desc = "Rename" })
-
-      -- go tags.
-      -- stylua: ignore
-      vim.keymap.set("n", "<leader>lTj", "<cmd>GoModifyTag -add-tags json -transform snakecase -add-options json=<cr>", { buffer = true, desc = "Add Tags snakecase No 'omitempty'" })
-      -- stylua: ignore
-      vim.keymap.set("n", "<leader>lTa", "<cmd>GoModifyTag -add-tags json -transform camelcase -add-options json=<cr>", { buffer = true, desc = "Add Tags No 'omitempty'" })
-      -- stylua: ignore
-      vim.keymap.set("n", "<leader>lTA", "<cmd>GoModifyTag -add-tags json -transform camelcase<cr>", { buffer = true, desc = "Add Tags" })
-      vim.keymap.set("n", "<leader>lTr", "<cmd>GoRename<cr>", { buffer = true, desc = "Remove Tags" })
-      vim.keymap.set("n", "<leader>lTr", "<cmd>GoRename<cr>", { buffer = true, desc = "Remove Tags" })
-
-      -- go test.
-      vim.keymap.set("n", "<leader>lta", "<cmd>GoAddTest<cr>", { buffer = true, desc = "Add Test for Current Func" })
-      vim.keymap.set("n", "<leader>ltA", "<cmd>GoAddAllTest<cr>", { buffer = true, desc = "Add Test for all Func" })
-      vim.keymap.set("n", "<leader>lte", "<cmd>GoAddExpTest<cr>", { buffer = true, desc = "Add Exported Func" })
-      vim.keymap.set("n", "<leader>ltT", "<cmd>GoTest<cr>", { buffer = true, desc = "Test All" })
-      vim.keymap.set("n", "<leader>ltt", "<cmd>GoTestFunc<cr>", { buffer = true, desc = "Test a Func" })
-      vim.keymap.set("n", "<leader>ltF", "<cmd>GoTestFile<cr>", { buffer = true, desc = "Test All Func in the File" })
-      vim.keymap.set("n", "<leader>ltP", "<cmd>GoTestPkg<cr>", { buffer = true, desc = "Test Package" })
-      vim.keymap.set("n", "<leader>ltc", "<cmd>GoCoverage<cr>", { buffer = true, desc = "Test -coverprofile" })
-      vim.keymap.set("n", "<leader>ld", "<cmd>GoDoc<cr>", { buffer = true, desc = "Go Doc" })
-      vim.keymap.set("n", "<leader>le", "<cmd>GoIfErr<cr>", { buffer = true, desc = "Auto Generate 'if err'" })
-      vim.keymap.set("n", "<leader>ll", "<cmd>GoLint<cr>", { buffer = true, desc = "Run 'golangci_lint'" })
-      vim.keymap.set("n", "<leader>lm", "<cmd>Gomvp<cr>", { buffer = true, desc = "Rename Module name" })
-      vim.keymap.set("n", "<leader>lc", "<cmd>GoCheat<cr>", { buffer = true, desc = "Cheatsheet" })
-      vim.keymap.set("n", "<leader>lC", "<cmd>GoCmt<cr>", { buffer = true, desc = "Go Generate Func Comments" })
-      -- -- map("n", "<leader>lgm", "<cmd>GoFixPlurals<cr>", { desc = "Go Fix Redundant Func Params" }) -- not working?
-
-      -- goplay.nvim keymaps
-      vim.keymap.set("n", "<leader>lpo", ":GPOpen<CR>", { buffer = true, desc = "Open Goplay" })
-      vim.keymap.set("n", "<leader>lpt", ":GPToggle<CR>", { buffer = true, desc = "Toggle Goplay" })
-      vim.keymap.set("n", "<leader>lpe", ":GPExec<CR>", { buffer = true, desc = "Execute" })
-      vim.keymap.set("n", "<leader>lpE", ":GPExecFile<CR>", { buffer = true, desc = "Execute File" })
-      vim.keymap.set("n", "<leader>lpc", ":GPClose<CR>", { buffer = true, desc = "Close Goplay" })
-      vim.keymap.set("n", "<leader>lpC", ":GPClear<CR>", { buffer = true, desc = "Clear Goplay" })
-
-      local wk = require("which-key")
-      local opts = { prefix = "<leader>", buffer = 0 }
-      local mappings = {
-        l = {
-          name = "+lsp (go.nvim)",
-          T = {
-            name = "+go tags",
-          },
-          t = {
-            name = "+go test",
-          },
-          -- goplay.nvim
-          p = {
-            name = "+goplay.nvim",
-          },
-        },
-      }
-
-      wk.register(mappings, opts)
-    end)
-  end,
-})
-
--- create a notification when file is saved.
-local format_sync_grp = augroup("GoReminderPersonal", {})
-autocmd("BufWritePre", {
-  pattern = "*.go",
-  callback = function()
-    -- print notification. to notify me.
-    notify("# Have you:\n- run GoTest?\n- run GoLint?\n- checked todo 'FIX:'?", "info", {
-      title = "go.nvim",
-      on_open = function(win)
-        local buf = vim.api.nvim_win_get_buf(win)
-        vim.api.nvim_buf_set_option(buf, "filetype", "markdown")
-      end,
-    })
-  end,
-  group = format_sync_grp,
-})
 
 return {
   {
@@ -215,6 +127,104 @@ return {
     },
   },
 
+  -- create dynamic keymaps for go.
+  {
+    "folke/which-key.nvim",
+    opts = function(_, _)
+      autocmd("Filetype", {
+        group = go_keymaps,
+        pattern = { "go", "gomod" },
+        callback = function()
+          vim.schedule(function()
+            vim.keymap.set("n", "<leader>la", "<cmd>GoCodeAction<cr>", { buffer = true, desc = "Code Action" })
+            vim.keymap.set("n", "<leader>ls", "<cmd>GoFillStruct<cr>", { buffer = true, desc = "Fill Struct" })
+            vim.keymap.set("n", "<leader>ls", "<cmd>GoFillStruct<cr>", { buffer = true, desc = "Fill Struct" })
+            -- stylua: ignore
+            vim.keymap.set("n", "<leader>lr", vim.lsp.buf.rename, { buffer = true, desc = "Rename" })
+
+            -- go tags.
+            -- stylua: ignore
+            vim.keymap.set("n", "<leader>lTj", "<cmd>GoModifyTag -add-tags json -transform snakecase -add-options json=<cr>", { buffer = true, desc = "Add Tags snakecase No 'omitempty'" })
+            -- stylua: ignore
+            vim.keymap.set("n", "<leader>lTa", "<cmd>GoModifyTag -add-tags json -transform camelcase -add-options json=<cr>", { buffer = true, desc = "Add Tags No 'omitempty'" })
+            -- stylua: ignore
+            vim.keymap.set("n", "<leader>lTA", "<cmd>GoModifyTag -add-tags json -transform camelcase<cr>", { buffer = true, desc = "Add Tags" })
+            vim.keymap.set("n", "<leader>lTr", "<cmd>GoRename<cr>", { buffer = true, desc = "Remove Tags" })
+            vim.keymap.set("n", "<leader>lTr", "<cmd>GoRename<cr>", { buffer = true, desc = "Remove Tags" })
+
+            -- go test.
+            vim.keymap.set("n", "<leader>lta", "<cmd>GoAddTest<cr>", { buffer = true, desc = "Add Test for Current Func" })
+            vim.keymap.set("n", "<leader>ltA", "<cmd>GoAddAllTest<cr>", { buffer = true, desc = "Add Test for all Func" })
+            vim.keymap.set("n", "<leader>lte", "<cmd>GoAddExpTest<cr>", { buffer = true, desc = "Add Exported Func" })
+            vim.keymap.set("n", "<leader>ltT", "<cmd>GoTest<cr>", { buffer = true, desc = "Test All" })
+            vim.keymap.set("n", "<leader>ltt", "<cmd>GoTestFunc<cr>", { buffer = true, desc = "Test a Func" })
+            vim.keymap.set("n", "<leader>ltF", "<cmd>GoTestFile<cr>", { buffer = true, desc = "Test All Func in the File" })
+            vim.keymap.set("n", "<leader>ltP", "<cmd>GoTestPkg<cr>", { buffer = true, desc = "Test Package" })
+            vim.keymap.set("n", "<leader>ltc", "<cmd>GoCoverage<cr>", { buffer = true, desc = "Test -coverprofile" })
+            vim.keymap.set("n", "<leader>ld", "<cmd>GoDoc<cr>", { buffer = true, desc = "Go Doc" })
+            vim.keymap.set("n", "<leader>le", "<cmd>GoIfErr<cr>", { buffer = true, desc = "Auto Generate 'if err'" })
+            vim.keymap.set("n", "<leader>ll", "<cmd>GoLint<cr>", { buffer = true, desc = "Run 'golangci_lint'" })
+            vim.keymap.set("n", "<leader>lm", "<cmd>Gomvp<cr>", { buffer = true, desc = "Rename Module name" })
+            vim.keymap.set("n", "<leader>lc", "<cmd>GoCheat<cr>", { buffer = true, desc = "Cheatsheet" })
+            vim.keymap.set("n", "<leader>lC", "<cmd>GoCmt<cr>", { buffer = true, desc = "Go Generate Func Comments" })
+            -- -- map("n", "<leader>lgm", "<cmd>GoFixPlurals<cr>", { desc = "Go Fix Redundant Func Params" }) -- not working?
+
+            -- goplay.nvim keymaps
+            vim.keymap.set("n", "<leader>lpo", ":GPOpen<CR>", { buffer = true, desc = "Open Goplay" })
+            vim.keymap.set("n", "<leader>lpt", ":GPToggle<CR>", { buffer = true, desc = "Toggle Goplay" })
+            vim.keymap.set("n", "<leader>lpe", ":GPExec<CR>", { buffer = true, desc = "Execute" })
+            vim.keymap.set("n", "<leader>lpE", ":GPExecFile<CR>", { buffer = true, desc = "Execute File" })
+            vim.keymap.set("n", "<leader>lpc", ":GPClose<CR>", { buffer = true, desc = "Close Goplay" })
+            vim.keymap.set("n", "<leader>lpC", ":GPClear<CR>", { buffer = true, desc = "Clear Goplay" })
+
+            local wk = require("which-key")
+            local opts = { prefix = "<leader>", buffer = 0 }
+            local mappings = {
+              l = {
+                name = "+lsp (go.nvim)",
+                T = {
+                  name = "+go tags",
+                },
+                t = {
+                  name = "+go test",
+                },
+                -- goplay.nvim
+                p = {
+                  name = "+goplay.nvim",
+                },
+              },
+            }
+
+            wk.register(mappings, opts)
+          end)
+        end,
+      })
+    end,
+  },
+
+  {
+    "rcarriga/nvim-notify",
+    opts = function(_, _)
+      -- create a notification when file is saved.
+      local format_sync_grp = augroup("GoReminderPersonal", {})
+      autocmd("BufWritePre", {
+        pattern = "*.go",
+        callback = function()
+          local notify = require("notify")
+
+          notify("# Have you:\n- run GoTest?\n- run GoLint?\n- checked todo 'FIX:'?", "info", {
+            title = "go.nvim",
+            on_open = function(win)
+              local buf = vim.api.nvim_win_get_buf(win)
+              vim.api.nvim_buf_set_option(buf, "filetype", "markdown")
+            end,
+          })
+        end,
+        group = format_sync_grp,
+      })
+    end,
+  },
+
   -- correctly setup mason lsp / dap extensions
   {
     "williamboman/mason.nvim",
@@ -257,7 +267,6 @@ return {
         vim.list_extend(opts.sources, {
           -- nls.builtins.code_actions.gomodifytags, -- FIX: not working. use go.nvim instead
           nls.builtins.code_actions.impl,
-          -- used ray-x go nvim above to create autcmd instead.
           -- nls.builtins.formatting.gofumpt,
           nls.builtins.formatting.gofmt,
           -- nls.builtins.formatting.goimports_reviser,

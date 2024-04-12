@@ -2,27 +2,6 @@ local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
 
 local php_keymaps = augroup("php_keymaps", {})
-autocmd("Filetype", {
-  group = php_keymaps,
-  pattern = { "php" },
-  callback = function()
-    vim.schedule(function()
-      -- vim.keymap.set("n", "<leader>la", ":Laravel artisan<cr>", { buffer = true, desc = "Laravel artisan" })
-      -- vim.keymap.set("n", "<leader>lr", ":Laravel routes<cr>", { buffer = true, desc = "Laravel routes" })
-      -- vim.keymap.set("n", "<leader>lm", ":Laravel related<cr>", { buffer = true, desc = "Laravel related" })
-
-      local wk = require("which-key")
-      local opts = { prefix = "<leader>", buffer = 0 }
-      local mappings = {
-        l = {
-          name = "+lsp (intelephense)",
-        },
-      }
-
-      wk.register(mappings, opts)
-    end)
-  end,
-})
 
 return {
   {
@@ -67,6 +46,33 @@ return {
         -- },
       },
     },
+  },
+
+  {
+    "folke/which-key.nvim",
+    opts = function(_, _)
+      autocmd("Filetype", {
+        group = php_keymaps,
+        pattern = { "php" },
+        callback = function()
+          vim.schedule(function()
+            vim.keymap.set("n", "<leader>la", ":Laravel artisan<cr>", { buffer = true, desc = "Laravel artisan" })
+            vim.keymap.set("n", "<leader>lr", ":Laravel routes<cr>", { buffer = true, desc = "Laravel routes" })
+            vim.keymap.set("n", "<leader>lm", ":Laravel related<cr>", { buffer = true, desc = "Laravel related" })
+
+            local wk = require("which-key")
+            local opts = { prefix = "<leader>", buffer = 0 }
+            local mappings = {
+              l = {
+                name = "+lsp (intelephense)",
+              },
+            }
+
+            wk.register(mappings, opts)
+          end)
+        end,
+      })
+    end,
   },
 
   -- plugin to help with laravel project. this is way better than nvim version as it doesnt call the command in the notes below that causes timeout. thus rendering the plugin useless.
