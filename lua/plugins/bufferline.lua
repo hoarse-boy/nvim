@@ -2,7 +2,6 @@ return {
   "akinsho/bufferline.nvim",
   opts = function(_, opts)
     opts.options = {
-
       diagnostics = "nvim_lsp",
       indicator = {
         icon = "", -- this should be omitted if indicator style is not 'icon'
