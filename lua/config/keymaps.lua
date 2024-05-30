@@ -77,14 +77,15 @@ set("n", "<leader>?s", function() local notify = require("notify") notify("visua
 -- stylua: ignore
 set("n", "<leader>?r", function() local notify = require("notify") notify("vim cmd search and replace.\n%s/search/replace/\n':%s/' start of the search pattern\n'/' end of the search pattern, beginning of replacement pattern\noptional = '/e' suppress error messages if no match found", "info", { title = "helper" }) end, { desc = "Vim Search Replace Cmd", noremap = true, silent = true })
 
--- +others keymaps
-set("n", "<leader>op", function()
-  local path = vim.fn.expand("%:p")
-  print(path)
-end, { desc = "Copy full path", noremap = true, silent = true })
+-- FIX: commented this for now. will be removed in the future. <space>o will be used for obsidian and this notes will be in obsidian vault and will be searchd by telescope.
+-- -- +others keymaps
+-- set("n", "<leader>op", function()
+--   local path = vim.fn.expand("%:p")
+--   print(path)
+-- end, { desc = "Copy full path", noremap = true, silent = true })
 
--- get the full path but with no file name / get the parent dir of that file
-set("n", "<leader>oP", function()
-  local path = vim.fn.expand("%:p:h")
-  print(path)
-end, { desc = "Copy full parent dir", noremap = true, silent = true })
+-- -- get the full path but with no file name / get the parent dir of that file
+-- set("n", "<leader>oP", function()
+--   local path = vim.fn.expand("%:p:h")
+--   print(path)
+-- end, { desc = "Copy full parent dir", noremap = true, silent = true })

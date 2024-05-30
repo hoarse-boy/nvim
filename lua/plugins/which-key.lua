@@ -61,7 +61,8 @@ return {
 
       -- NOTE: my own defaults
       ["<leader>?"] = { name = "+notes" },
-      ["<leader>o"] = { name = "+others" },
+      ["<leader>o"] = { name = "+obsidian" },
+      -- ["<leader>o"] = { name = "+others" }, -- FIX: remove this later.
     },
     window = {
       border = "single", -- none, single, double, shadow

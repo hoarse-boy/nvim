@@ -118,6 +118,7 @@ return {
 
             -- Enable inlay hints if the client supports it.
             -- with a logic to make it disable when going into insert and visual mode.
+            -- NOTE: go.nvim inlay is currently buggy. when saving the inlay disappears.
             if client.server_capabilities.inlayHintProvider then
               vim.lsp.inlay_hint.enable(bufnr, true) -- -- TODO: find a way to enable in go lsp only.
             end
