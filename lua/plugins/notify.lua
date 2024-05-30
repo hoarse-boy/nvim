@@ -3,7 +3,7 @@ return {
   -- NOTE: requiring notify to any other file will result in notify or any lua plugin to use the default.
   keys = {
     {
-      "<leader>uH",
+      "<leader>uh",
       function()
         require("telescope").extensions.notify.notify()
       end,
