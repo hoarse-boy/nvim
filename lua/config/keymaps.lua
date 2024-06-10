@@ -10,6 +10,22 @@ local set = vim.keymap.set
 local map_opt = { noremap = true, silent = true }
 
 del("n", "<leader>l") -- disable keymap l for lazyvim as it will be used for other lsp keymaps.
+
+-- -- disable move lines ALA vscode. this is being used in hyrpland. this will impact linux and macos nvim.
+-- del("n", "<A-j>")
+-- del("n", "<A-k>")
+-- del("i", "<A-j>")
+-- del("i", "<A-k>")
+-- del("v", "<A-j>")
+-- del("v", "<A-k>")
+-- -- use Alt+shift+ J / K to move lines instead.
+-- set("n", "<A-J>", "<cmd>m .+1<cr>==", { desc = "Move Down" })
+-- set("n", "<A-K>", "<cmd>m .-2<cr>==", { desc = "Move Up" })
+-- set("i", "<A-J>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move Down" })
+-- set("i", "<A-K>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move Up" })
+-- set("v", "<A-J>", ":m '>+1<cr>gv=gv", { desc = "Move Down" })
+-- set("v", "<A-K>", ":m '<-2<cr>gv=gv", { desc = "Move Up" })
+
 -- del("n", "<leader>xl")
 -- del("n", "<leader>xq")
 
@@ -46,12 +62,14 @@ set("v", "<S-l>", "$h", map_opt) -- visual mode $ will add extra space or \n. to
 -- undo and redo.
 set("n", "U", "<C-r>") -- dont have to use ctrl r to undo again.
 
+-- FIX: change this. check notes 'change nvim keybinds for linux'
 -- buffer navigation. this will be used by wezterm wsl and macos. NOTE: Tab in most terminal emulators have the issue of treating that keymap the same as ctrl+i. Tab should not be mapped at all to avoid remapping ctrl+i and changing its behavior. https://superuser.com/questions/770068/in-vim-how-can-i-remap-tab-without-also-remapping-ctrli
 set("n", "<A-]>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
 set("n", "<A-[>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
 -- this will be used by neovide.
-set("n", "<C-Tab>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
-set("n", "<C-S-Tab>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
+-- FIX: 'change nvim keybinds for linux'. neovide will be handled later. commented for now
+-- set("n", "<C-Tab>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
+-- set("n", "<C-S-Tab>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
 
 -- TODO: what is this for? remove?
 set("n", "<leader>sx", require("telescope.builtin").resume, { noremap = true, silent = true, desc = "Resume" })

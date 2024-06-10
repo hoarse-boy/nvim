@@ -100,7 +100,7 @@ return {
           -- gopls = function(_, opts)
           -- NOTE: workaround for gopls not supporting semanticTokensProvider
           -- https://github.com/golang/go/issues/54531#issuecomment-1464982242
-          require("lazyvim.util").lsp.on_attach(function(client, bufnr)
+          require("lazyvim.util").lsp.on_attach(function(client, _)
             if client.name == "gopls" then
               if not client.server_capabilities.semanticTokensProvider then
                 local semantic = client.config.capabilities.textDocument.semanticTokens
@@ -120,7 +120,9 @@ return {
             -- with a logic to make it disable when going into insert and visual mode.
             -- NOTE: go.nvim inlay is currently buggy. when saving the inlay disappears.
             if client.server_capabilities.inlayHintProvider then
-              vim.lsp.inlay_hint.enable(bufnr, true) -- -- TODO: find a way to enable in go lsp only.
+              -- FIX: the api has been changed and .enable only has boolean as param.
+              vim.lsp.inlay_hint.enable(true) -- -- TODO: find a way to enable in go lsp only.
+              -- vim.lsp.inlay_hint.enable(bufnr, true) -- -- TODO: find a way to enable in go lsp only.
             end
           end)
         end,
