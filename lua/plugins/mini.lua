@@ -76,10 +76,12 @@ return {
             -- ex. gg or G, pres k for example to make it finish the animation.
             -- NOTE: lowering the duration will not fix it. disable the plugin will.
             enable = true,
-            timing = animate.gen_timing.linear({ duration = 60, unit = "total" }),
+            -- timing = animate.gen_timing.linear({ duration = 60, unit = "total" }),
+            timing = animate.gen_timing.linear({ duration = 20, unit = "total" }),
             -- timing = animate.gen_timing.linear({ duration = 10, unit = "total" }),
             -- Animate equally but with at most 120 steps instead of default 60
-            subscroll = animate.gen_subscroll.equal({ max_output_steps = 100 }),
+            subscroll = animate.gen_subscroll.equal({ max_output_steps = 40 }),
+            -- subscroll = animate.gen_subscroll.equal({ max_output_steps = 100 }),
             -- subscroll = animate.gen_subscroll.equal({ max_output_steps = 25 }),
             -- subscroll = animate.gen_subscroll.equal({ max_output_steps = 120 }),
           },
