@@ -30,18 +30,26 @@ return {
       ---@type string|function
       ignore = "^$",
 
+      -- FIX: commented this
       ---LHS of toggle mappings in NORMAL mode
       toggler = {
         ---Line-comment toggle keymap
-        line = "gcc",
+        line = "gCc",
         ---Block-comment toggle keymap
         block = "gbc",
+
+        -- ---Line-comment toggle keymap
+        -- line = "gcc",
+        -- ---Block-comment toggle keymap
+        -- block = "gbc",
       },
 
+      -- FIX: change this
       ---LHS of operator-pending mappings in NORMAL and VISUAL mode
       opleader = {
         ---Line-comment keymap
-        line = "gc",
+        line = "gC",
+        -- line = "gc",
         ---Block-comment keymap
         block = "gb",
       },
@@ -49,11 +57,14 @@ return {
       ---LHS of extra mappings
       extra = {
         ---Add comment on the line above
-        above = "gcO",
+        -- above = "gcO",
+        above = "gCO",
         ---Add comment on the line below
-        below = "gco",
+        below = "gCo",
+        -- below = "gco",
         ---Add comment at the end of line
-        eol = "gcA",
+        eol = "gCA",
+        -- eol = "gcA",
       },
 
       ---Enable keybindings
