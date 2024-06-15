@@ -40,8 +40,8 @@ local obsidian_path = "~/google-drive/obsidian-vault"
 
 local os_name = require("plugins.util.check-os").getName()
 -- my current macos has different directory.
-if not os_name == "Linux" then
-  obsidian_path = "~/Google Drive/My Drive/My Vault"
+if os_name == "OSX" then
+  obsidian_path = "~/My Drive/obsidian-vault"
 end
 
 local my_img_folder = "_resources/"
