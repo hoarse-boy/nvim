@@ -15,12 +15,12 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.lang.docker" },
     { import = "lazyvim.plugins.extras.lang.yaml" },
     { import = "lazyvim.plugins.extras.lang.typescript" },
-    -- { import = "lazyvim.plugins.extras.lang.python" }, -- TODO: disable for now as it is failing in ubuntu wsl. fix this
     { import = "lazyvim.plugins.extras.lang.terraform" },
     { import = "lazyvim.plugins.extras.util.project" },
     { import = "lazyvim.plugins.extras.test.core" },
-    -- { import = "lazyvim.plugins.extras.lang.markdown" }, -- disable as the none-ls warning is too many. TODO: change the warning parameters
     { import = "lazyvim.plugins.extras.lsp.none-ls" },
+    -- { import = "lazyvim.plugins.extras.lang.python" }, -- TODO: disable for now as it is failing in ubuntu wsl. fix this
+    -- { import = "lazyvim.plugins.extras.lang.markdown" }, -- disable as the none-ls warning is too many. TODO: change the warning parameters
     -- { import = "lazyvim.plugins.extras.lang.helm" },
 
     -- NOTE: import all of my languages config.
@@ -34,6 +34,8 @@ require("lazy").setup({
     -- NOTE: import all of my coding plugins.
     -- { import = "plugins.extras.coding.copilot" }, -- NOTE: use my own copilot as lazyvim's uses cmp which is not working atm.
     { import = "plugins.extras.coding.codeium" }, -- NOTE: enabling copilot alongside codeium (even with disabled true) will create a bug where copilot keymaps to accept suggestion fails.
+    { import = "lazyvim.plugins.extras.coding.mini-surround" },
+    { import = "lazyvim.plugins.extras.coding.luasnip" },
 
     { import = "lazyvim.plugins.extras.dap.core" },
     { import = "lazyvim.plugins.extras.dap.nlua" },
@@ -55,7 +57,7 @@ require("lazy").setup({
     -- version = "*", -- try installing the latest stable version for plugins that support semver
   },
   -- install = { colorscheme = { "tokyonight", "habamax" } },
-  checker = { enabled = true }, -- automatically check for plugin updates
+  checker = { enabled = true, notify = false }, -- automatically check for plugin updates
   performance = {
     rtp = {
       -- disable some rtp plugins

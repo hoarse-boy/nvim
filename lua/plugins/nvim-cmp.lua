@@ -19,12 +19,14 @@ return {
 
       opts.window = {
         completion = {
+          winblend = 0, -- make it transparent
           border = "rounded",
           winhighlight = "Normal:CmpNormal",
         },
         documentation = {
+          winblend = 0, -- make it transparent
           border = "rounded",
-          winhighlight = "Normal:CmpNormal",
+          winhighlight = "Normal:CmpDocNormal",
         },
       }
 
