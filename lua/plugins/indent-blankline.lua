@@ -1,12 +1,13 @@
 local char_symbol = "▏"
 
--- -- NOTE: best v2 with wezterm enable undercurl => https://wezfurlong.org/wezterm/faq.html#how-do-i-enable-undercurl-curly-underlines
+-- NOTE: best v2 with wezterm enable undercurl => https://wezfurlong.org/wezterm/faq.html#how-do-i-enable-undercurl-curly-underlines
+-- disable these plugins to use one plugin that can do both without mini.indentscope performance hit.
 return {
-
   -- indent guides for Neovim
   {
     "lukas-reineke/indent-blankline.nvim",
     event = "LazyFile",
+    enabled = false, -- disabled plugin
     opts = {
       indent = {
         -- char = "│",
@@ -41,6 +42,7 @@ return {
   {
     "echasnovski/mini.indentscope",
     version = false, -- wait till new 0.7.0 release to put it back on semver
+    enabled = false, -- disabled plugin
     event = "LazyFile",
     opts = {
       -- symbol = "▏",
