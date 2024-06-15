@@ -13,12 +13,12 @@ return {
 
   {
     "echasnovski/mini.ai",
-    enabled = false, -- disabled plugin
+    -- enabled = false, -- disabled plugin
   },
 
   {
     "folke/trouble.nvim",
-    enabled = false,
+    -- enabled = false,
     keys = {
       -- disable the keymap to grep files
       { "<leader>x", false }, -- NOTE: which key has updated to remove empty keymap
