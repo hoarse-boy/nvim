@@ -56,7 +56,7 @@ return {
   {
     "echasnovski/mini.animate",
     version = false,
-    -- enabled = false, -- disabled plugin
+    enabled = false, -- disabled plugin
     event = "VeryLazy",
     config = function(_, _)
       if not vim.g.neovide then
