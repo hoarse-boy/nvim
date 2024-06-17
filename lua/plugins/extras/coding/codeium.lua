@@ -5,7 +5,7 @@ return {
     {
       "Exafunction/codeium.vim",
       event = "BufEnter",
-      disabled = true,
+      -- enabled = false,
       config = function()
         vim.g.codeium_disable_bindings = 1
         -- stylua: ignore
