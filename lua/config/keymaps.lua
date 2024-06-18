@@ -11,21 +11,6 @@ local map_opt = { noremap = true, silent = true }
 
 del("n", "<leader>l") -- disable keymap l for lazyvim as it will be used for other lsp keymaps.
 
--- -- disable move lines ALA vscode. this is being used in hyrpland. this will impact linux and macos nvim.
--- del("n", "<A-j>")
--- del("n", "<A-k>")
--- del("i", "<A-j>")
--- del("i", "<A-k>")
--- del("v", "<A-j>")
--- del("v", "<A-k>")
--- -- use Alt+shift+ J / K to move lines instead.
--- set("n", "<A-J>", "<cmd>m .+1<cr>==", { desc = "Move Down" })
--- set("n", "<A-K>", "<cmd>m .-2<cr>==", { desc = "Move Up" })
--- set("i", "<A-J>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move Down" })
--- set("i", "<A-K>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move Up" })
--- set("v", "<A-J>", ":m '>+1<cr>gv=gv", { desc = "Move Down" })
--- set("v", "<A-K>", ":m '<-2<cr>gv=gv", { desc = "Move Up" })
-
 -- del("n", "<leader>xl")
 -- del("n", "<leader>xq")
 
@@ -107,3 +92,6 @@ set("n", "<leader>?r", function() local notify = require("notify") notify("vim c
 --   local path = vim.fn.expand("%:p:h")
 --   print(path)
 -- end, { desc = "Copy full parent dir", noremap = true, silent = true })
+
+-- TODO: remove this if the lazyVim.format is working again. this is a fix for lua formatting. other formatting is working fine.
+set({ "n", "v" }, "<leader>cf", "<cmd>lua vim.lsp.buf.format()<cr>", { desc = "Format" })
