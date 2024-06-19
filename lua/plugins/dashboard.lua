@@ -49,6 +49,8 @@ return {
     opts.config.header = vim.split(logo, "\n")
 
     -- TODO: update obsidian_todos and obsidian_inbox to have dynamic dir using util function. for macos and arch linux.
+
+    -- add new dashboard item obsidian_todos.
     local obsidian_todos = {
       action = [[lua require("plugins.util.teles-find").ChangeDirAndFindFiles("~/google-drive/obsidian-vault/todos/")]],
       desc = " Obsidian Todos",
@@ -61,6 +63,7 @@ return {
 
     table.insert(opts.config.center, 2, obsidian_todos)
 
+    -- add new dashboard item obsidian_inbox.
     local obsidian_inbox = {
       action = [[lua require("plugins.util.teles-find").ChangeDirAndFindFiles("~/google-drive/obsidian-vault/inbox/")]],
       desc = " Obsidian Inbox", icon = "󱉳 ", key = "i"
