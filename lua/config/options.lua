@@ -30,7 +30,7 @@ if vim.g.neovide then
   vim.g.neovide_padding_right = 0
   vim.g.neovide_padding_left = 6
   vim.g.neovide_input_macos_alt_is_meta = true -- for option in macos
-  vim.g.neovide_input_use_logo = 1             -- enable use of the logo (cmd) key
+  vim.g.neovide_input_use_logo = 1 -- enable use of the logo (cmd) key
 
   -- TODO: fix below keymaps.
 
@@ -42,10 +42,10 @@ if vim.g.neovide then
   -- FIX: change to c-p not working in neovide?
   -- FIX: A-v is not working
 
-  set_keymap("n", "<D-s>", ":w<CR>")      -- Save
+  set_keymap("n", "<D-s>", ":w<CR>") -- Save
   -- set_keymap("n", "<D-V>", '"+P') -- Paste normal mode
-  set_keymap("v", "<D-v>", '"+P')         -- Paste visual mode
-  set_keymap("c", "<D-v>", "<C-R>+")      -- Paste command mode
+  set_keymap("v", "<D-v>", '"+P') -- Paste visual mode
+  set_keymap("c", "<D-v>", "<C-R>+") -- Paste command mode
   set_keymap("i", "<D-v>", '<ESC>l"+Pli') -- Paste insert mode
 
   -- vim.g.neovide_cursor_vfx_mode = "railgun"
@@ -55,12 +55,12 @@ if vim.g.neovide then
 end
 
 -- opt.cursorline = true
-opt.list = false        -- NOTE: make the > and other symbol to be hidden when the object is commented.
-opt.scrolloff = 10      -- minimal number of screen lines to keep above and below the cursor.
-opt.sidescrolloff = 10  -- minimal number of screen lines to keep left and right of the cursor.
+opt.list = false -- NOTE: make the > and other symbol to be hidden when the object is commented.
+opt.scrolloff = 10 -- minimal number of screen lines to keep above and below the cursor.
+opt.sidescrolloff = 10 -- minimal number of screen lines to keep left and right of the cursor.
 opt.writebackup = false -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited.
-opt.swapfile = false    -- creates a swapfile. disable to avoid the annoying prompt.
-opt.hlsearch = true     -- highlight all matches on previous search pattern.
+opt.swapfile = false -- creates a swapfile. disable to avoid the annoying prompt.
+opt.hlsearch = true -- highlight all matches on previous search pattern.
 opt.relativenumber = false
 
 vim.g.autoformat = false -- disable auto format. use <leader>cf to format.
