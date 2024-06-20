@@ -7,7 +7,17 @@ return {
     },
     dependencies = { "kkharji/sqlite.lua", "nvim-telescope/telescope.nvim" },
     config = function(_, opts)
-      require("NeoComposer").setup()
+      require("NeoComposer").setup({
+        keymaps = {
+          play_macro = "Q",
+          yank_macro = "yq",
+          stop_macro = "cq",
+          toggle_record = "q",
+          cycle_next = "gqn", -- NOTE: disable it the default c-n as it is used by supermaven.
+          cycle_prev = "gqp",
+          toggle_macro_menu = "<m-q>",
+        },
+      })
       require("telescope").load_extension("macros")
     end,
   },
