@@ -22,7 +22,7 @@ if vim.g.neovide then
     change_scale_factor(1 / 1.25)
   end)
 
-  vim.g.neovide_transparency = 0.7 -- NOTE: can be used in windows too but moving neovide to new desktop in windows is not fun just to get transparency and background.
+  vim.g.neovide_transparency = 0.9 -- NOTE: can be used in windows too but moving neovide to new desktop in windows is not fun just to get transparency and background.
   vim.g.neovide_refresh_rate = 75
   vim.g.neovide_refresh_rate_idle = 5
   vim.g.neovide_padding_top = 4
