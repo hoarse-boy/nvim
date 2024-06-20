@@ -35,7 +35,6 @@ local function toggle_checkbox_and_date()
   end
 end
 
--- FIX:
 local obsidian_path = "~/google-drive/obsidian-vault"
 
 local os_name = require("plugins.util.check-os").getName()
@@ -45,13 +44,15 @@ if os_name == "OSX" then
 end
 
 local my_img_folder = "_resources/"
+local notes_subdir = "inbox"
+local obsidian_extract_note_desc = "Extract Note in " .. notes_subdir
 
 return {
   {
     "epwalsh/obsidian.nvim",
     version = "*", -- recommended, use latest release instead of latest commit
     event = "VeryLazy",
-    ft = "markdown",
+    -- ft = "markdown",
     -- Replace the above line with this if you only want to load obsidian.nvim for markdown files in your vault:
     -- event = {
     --   -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.
@@ -71,10 +72,8 @@ return {
             path = obsidian_path,
           },
         },
-
-        notes_subdir = "inbox",
+        notes_subdir = notes_subdir,
         new_notes_location = "notes_subdir",
-
         disable_frontmatter = true,
         templates = {
           subdir = "templates",
@@ -82,108 +81,84 @@ return {
           time_format = "%H:%M:%S",
         },
 
+        -- TODO: update this to create work's todo.
+        -- create its template using the daily todo in GUI (see Daily notes core plugin's option).
+        -- create shell command that when creating new todo works alongside GUI core plugin.
+        -- need to refactor the directory structure. currently it is inside nested folder of Office.
+        -- change it "work/daily-todo" to host all daily todos.
+        -- create new dir "work/todo" to host all of the todos that will be linked to "work/daily-todo".
+        -- create new dir "work/done" to host all of the todos that has been done.
+        -- use the current date like "Thu 20 Jun 2024", or change it?
+        -- the template is "Office/Stand up/Daily Todo/Daily Todo template". it will use the same template but the file will be moved.
+        daily_notes = {
+          folder = "work/daily-todo",
+          -- Optional, if you want to change the date format for the ID of daily notes.
+          date_format = "%Y-%m-%d",
+          -- Optional, if you want to change the date format of the default alias of daily notes.
+          alias_format = "%B %-d, %Y",
+          -- Optional, if you want to automatically insert a template from your template directory like 'daily.md'
+          template = nil,
+        },
+
         mappings = {}, -- disable default keybindings.
         completion = {
           nvim_cmp = true,
           min_chars = 2,
         },
-        -- Specify how to handle attachments.
-        attachments = {
-          confirm_img_paste = false,
-          -- The default folder to place images in via `:ObsidianPasteImg`.
-          -- If this is a relative path it will be interpreted as relative to the vault root.
-          -- You can always override this per image by passing a full path to the command instead of just a filename.
-          img_folder = my_img_folder, -- This is the default
-          -- A function that determines the text to insert in the note when pasting an image.
-          -- It takes two arguments, the `obsidian.Client` and an `obsidian.Path` to the image file.
-          -- This is the default implementation.
-          -- ---@param client obsidian.Client
-          -- ---@param path obsidian.Path the absolute path to the image file
-          -- ---@return string
-          img_text_func = function(client, path)
-            print(path)
-
-            path = client:vault_relative_path(path) or path
-            -- to make random numbers to avoid overwriting image.
-            local timestamp = string.format("%s-", os.time())
-            return string.format("![%s%s](%s)", timestamp, path.name, path)
-
-            -- FIX: disable this if the other plugins works
-            -- local img_name = string.format("%s-%s", os.time(), path.name)
-            -- return string.format("![%s](%s%s)",  img_name, path,img_name )
-          end,
-
-          image_name_func = function()
-            -- Prefix image names with timestamp.
-            return string.format("%s-", os.time())
-          end,
-        },
       })
     end,
     keys = {
-    -- stylua: ignore
-    { "<leader>of", "<cmd>ObsidianFollowLink<cr>", desc = "Obsidian Go to File", mode = "n" },
-    -- stylua: ignore
-    { "<leader>oo", "<cmd>ObsidianOpen<cr>", desc = "Obsidian Open", mode = "n" },
-    -- stylua: ignore
-    { "<leader>op", "<cmd>ObsidianPasteImg<cr>", desc = "Obsidian Paste Image", mode = "n" },
-    -- stylua: ignore
-    { "<leader>oc", function() return toggle_checkbox_and_date()  end, desc = "Obsidian Toggle Checkbox", mode = "n" },
-      {
-        "gt",
-        function()
-          return toggle_checkbox_and_date()
-        end,
-        desc = "Obsidian Toggle Checkbox",
-        mode = "n",
-      },
-      -- FIX: add more keymaps
-      -- { "<leader>oc", function() return require("obsidian").util.toggle_checkbox()  end, desc = "Obsidian Toggle Checkbox", mode = "n" }, -- NOTE: made my custom func to make better checkbox.
-      -- { "<leader>os", function() return require("obsidian").util.smart_action()  end, desc = "Obsidian Smart Action", mode = "n" }, -- Smart action depending on context, either follow link or toggle checkbox.
+      { "<leader>og", "<cmd>ObsidianFollowLink<cr>",                    desc = "Go to Linked File",                  mode = "n" },
+      { "<leader>ob", "<cmd>ObsidianBacklinks<cr>",                     desc = "Open List of Backlinks",             mode = "n" },
+      { "<leader>oe", "<cmd>ObsidianExtractNote<cr>",                   desc = obsidian_extract_note_desc,           mode = "v" },
+      { "<leader>ol", "<cmd>ObsidianLink<cr>",                          desc = "Find Matching Note and Create Link", mode = "v" },
+      { "<leader>ol", "<cmd>ObsidianLinks<cr>",                         desc = "List Links in Current Note",         mode = "n" },
+      { "<leader>os", "<cmd>ObsidianSearch<cr>",                        desc = "Search or Create New Note",          mode = "n" },
+      { "<leader>oo", "<cmd>ObsidianOpen<cr>",                          desc = "Open File in GUI",                   mode = "n" },
+      -- stylua: ignore
+      { "<leader>oc", function() return toggle_checkbox_and_date() end, desc = "Toggle Checkbox",                    mode = "n" },
+      -- stylua: ignore
+      { "gt",         function() return toggle_checkbox_and_date() end, desc = "Toggle Checkbox",                    mode = "n" },
+      -- { "<leader>op", "<cmd>ObsidianPasteImg<cr>", desc = "Obsidian Paste Image", mode = "n" }, -- NOTE: this suck. use the plugin below instead.
     },
   },
 
-  -- FIX: error.
-  -- {
-  --   "ekickx/clipboard-image.nvim",
-  --   event = "VeryLazy",
-  --   -- enabled = false, -- disabled plugin
-  --   -- dependencies = {},
-  --   -- init = function() end, -- functions are always executed during startup
-  --   -- opts = function(_, opts) end, -- use this to not overwrite this plugin config (usefull in lazyvim)
-  --   keys = {
-  --     -- { "<leader>l", "", desc = "+go.nvim" }, -- example
-  --     -- { "<leader>ls", "<cmd>GoFillStruct<cr>", desc = "Fill Struct" }, -- example
-  --     { "<leader>op", "<cmd>PasteImg", mode = "n", desc = "Paste Image", noremap = true, silent = true },
-  --   },
-  --   config = function()
-  --     require("clipboard-image").setup({
-  --       -- Default configuration for all filetype
-  --       default = {
-  --         -- img_dir = obsidian_path + my_img_folder,
-  --         img_name = function()
-  --           return os.date("%Y-%m-%d-%H-%M-%S")
-  --         end, -- Example result: "2021-04-13-10-04-18"
-  --         -- affix = "markdown", -- FIX:
-  --         affix = "<\n  %s\n>", -- Multi lines affix
-  --       },
-  --       -- You can create configuration for ceartain filetype by creating another field (markdown, in this case)
-  --       -- If you're uncertain what to name your field to, you can run `lua print(vim.bo.filetype)`
-  --       -- Missing options from `markdown` field will be replaced by options from `default` field
-  --       markdown = {
-  --         img_dir = { "src", "assets", "img" }, -- Use table for nested dir (New feature form PR #20)
-  --         -- img_dir = obsidian_path + my_img_folder,
-  --         img_dir_txt = "/assets/img",
-  --         img_handler = function(img) -- New feature from PR #22
-  --           local script = string.format('./image_compressor.sh "%s"', img.path)
-  --           os.execute(script)
-  --         end,
+  -- this plugin can imitate the obsidian paste image function.
+  {
+    "dfendr/clipboard-image.nvim",
+    event = "VeryLazy",
+    -- enabled = false, -- disabled plugin
+    keys = {
+      { "<leader>op", "<cmd>PasteImg<cr>", mode = "n", desc = "Paste Image", noremap = true, silent = true },
+    },
+    config = function()
+      require("clipboard-image").setup({
+        -- Default configuration for all filetype
+        default = {
+          img_name = function()
+            return os.date("%Y-%m-%d-%H-%M-%S")
+          end,                  -- Example result: "2021-04-13-10-04-18"
+          affix = "<\n  %s\n>", -- Multi lines affix
+        },
+        -- You can create configuration for ceartain filetype by creating another field (markdown, in this case)
+        -- If you're uncertain what to name your field to, you can run `lua print(vim.bo.filetype)`
+        -- Missing options from `markdown` field will be replaced by options from `default` field
+        markdown = {
+          img_dir = { "~", "google-drive", "obsidian-vault", "_resources" }, -- Use table for nested dir (New feature form PR #20)
+          img_dir_txt = "",                                                  -- no directory name as it uses obsidian wiki format.
+          -- NOTE: this one if failed. create strange text in nvim.
+          -- img_handler = function(img) -- New feature from PR #22
+          -- local script = string.format('./image_compressor.sh "%s"', img.path)
+          -- os.execute(script)
+          -- end,
 
-  --         img_name = function()
-  --           return os.date("%Y-%m-%d-%H-%M-%S")
-  --         end, -- Example result: "2021-04-13-10-04-18"
-  --       },
-  --     })
-  --   end,
-  -- },
+          img_name = function()
+            local random_number = math.random(1000000, 9999999)
+            return string.format("%s%s", os.date("%Y-%m-%d-%H-%M-%S"), random_number)
+          end,               -- Example result: "2021-04-13-10-04-18-1234567"
+          affix = "![[%s]]", -- NOTE: for obsidian wiki format.
+        },
+      })
+    end,
+  },
 }
