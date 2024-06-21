@@ -5,17 +5,6 @@ return {
     "echasnovski/mini.comment",
     enabled = false,
   },
-
-  {
-    "echasnovski/mini.surround",
-    -- enabled = false, -- NOTE: this is actually decent
-  },
-
-  {
-    "echasnovski/mini.ai",
-    -- enabled = false, -- disabled plugin
-  },
-
   {
     "folke/trouble.nvim",
     -- enabled = false,
@@ -28,13 +17,8 @@ return {
       { "<leader>xT", false },
     },
   },
-
   {
     "folke/tokyonight.nvim",
     enabled = false,
   },
-  -- {
-  --   "lewis6991/gitsigns.nvim",
-  --   enabled = false,
-  -- },
 }
