@@ -2,6 +2,7 @@ return {
   {
     "supermaven-inc/supermaven-nvim",
     event = "VeryLazy",
+    build = ":SupermavenUseFree", -- this line is optional, remove if you are using pro
     config = function()
       require("supermaven-nvim").setup({
         keymaps = {
