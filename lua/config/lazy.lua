@@ -20,24 +20,25 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.util.project" },
     { import = "lazyvim.plugins.extras.test.core" },
     { import = "lazyvim.plugins.extras.lsp.none-ls" },
+    { import = "lazyvim.plugins.extras.lang.helm" },
+    { import = "lazyvim.plugins.extras.editor.telescope" },
     -- { import = "lazyvim.plugins.extras.lsp.neoconf" }   ,
     -- { import = "lazyvim.plugins.extras.editor.inc-rename" }, -- disable this as the rename cannot use vim normal mode.
     -- { import = "lazyvim.plugins.extras.lang.python" }, -- TODO: disable for now as it is failing in ubuntu wsl. fix this
     -- { import = "lazyvim.plugins.extras.lang.markdown" }, -- disable as the none-ls warning is too many. TODO: change the warning parameters
-    { import = "lazyvim.plugins.extras.lang.helm" },
 
     -- NOTE: import all of my languages config.
     { import = "plugins.extras.lang.go" },
     { import = "plugins.extras.lang.markdown" }, -- NOTE: enable toc plugin for markdown
     { import = "plugins.extras.lang.rust" },
-    -- { import = "plugins.extras.lang.helm" },
     { import = "plugins.extras.lang.php" },
     { import = "plugins.extras.lang.json" },
+    -- { import = "plugins.extras.lang.helm" },
 
     -- NOTE: import all of my coding plugins.
+    { import = "plugins.extras.coding.supermaven" }, --supermaven is a better codeium alternative.
     -- { import = "plugins.extras.coding.copilot" }, -- NOTE: use my own copilot as lazyvim's uses cmp which is not working atm.
     -- { import = "plugins.extras.coding.codeium" }, -- NOTE: enabling copilot alongside codeium (even with disabled true) will create a bug where copilot keymaps to accept suggestion fails.
-    { import = "plugins.extras.coding.supermaven" }, --supermaven is a better codeium alternative.
 
     { import = "lazyvim.plugins.extras.coding.mini-surround" },
     { import = "lazyvim.plugins.extras.coding.luasnip" },
