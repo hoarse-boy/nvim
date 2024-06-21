@@ -50,8 +50,8 @@ set("n", "U", "<C-r>") -- dont have to use ctrl r to undo again.
 
 -- buffer navigation. this will be used by wezterm wsl and macos. NOTE: Tab in most terminal emulators have the issue of treating that keymap the same as ctrl+i. Tab should not be mapped at all to avoid remapping ctrl+i and changing its behavior. https://superuser.com/questions/770068/in-vim-how-can-i-remap-tab-without-also-remapping-ctrli
 -- NOTE: macos + wezterm cannot use cmd-[ or ] so it has differnet keymap than arch linux.
-  set("n", "<A-]>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
-  set("n", "<A-[>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
+set("n", "<A-]>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
+set("n", "<A-[>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
 
 -- this will be used by neovide.
 -- set("n", "<C-Tab>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
@@ -76,33 +76,29 @@ set("n", "<leader>?S",
     local notify = require("notify")
     notify("use ctrl j / i\nto jump to LuaSnip placeholder", "info", { title = "helper" })
   end, { desc = "Jump to previous placeholder (LuaSnip)", noremap = true, silent = true })
--- stylua: ignore
-set("n", "<leader>?n",
-  function()
-    local notify = require("notify")
-    notify("ctrl a / x to increase or decrement a number.\ncan also have prefix like 5 ctrl a.\ncan be dot repeated",
-      "info", { title = "helper" })
-  end, { desc = "Increase / decrement number", noremap = true, silent = true })
--- stylua: ignore
-set("n", "<leader>?l",
-  function()
-    local notify = require("notify")
-    notify(":pwd to show location", "info", { title = "helper" })
-  end, { desc = "pwd", noremap = true, silent = true })
--- stylua: ignore
-set("n", "<leader>?s",
-  function()
-    local notify = require("notify")
-    notify("visual block the words, open cmdline, and type sort", "info", { title = "helper" })
-  end, { desc = "sort list (alphabetical or numerical)", noremap = true, silent = true })
--- stylua: ignore
-set("n", "<leader>?r",
-  function()
-    local notify = require("notify")
-    notify(
-    "vim cmd search and replace.\n%s/search/replace/\n':%s/' start of the search pattern\n'/' end of the search pattern, beginning of replacement pattern\noptional = '/e' suppress error messages if no match found",
-      "info", { title = "helper" })
-  end, { desc = "Vim Search Replace Cmd", noremap = true, silent = true })
+
+set("n", "<leader>?n", function()
+  local notify = require("notify")
+  notify("ctrl a / x to increase or decrement a number.\ncan also have prefix like 5 ctrl a.\ncan be dot repeated",
+    "info", { title = "helper" })
+end, { desc = "Increase / decrement number", noremap = true, silent = true })
+
+set("n", "<leader>?l", function()
+  local notify = require("notify")
+  notify(":pwd to show location", "info", { title = "helper" })
+end, { desc = "pwd", noremap = true, silent = true })
+
+set("n", "<leader>?s", function()
+  local notify = require("notify")
+  notify("visual block the words, open cmdline, and type sort", "info", { title = "helper" })
+end, { desc = "sort list (alphabetical or numerical)", noremap = true, silent = true })
+
+set("n", "<leader>?r", function()
+  local notify = require("notify")
+  notify(
+  "vim cmd search and replace.\n%s/search/replace/\n':%s/' start of the search pattern\n'/' end of the search pattern, beginning of replacement pattern\noptional = '/e' suppress error messages if no match found",
+    "info", { title = "helper" })
+end, { desc = "Vim Search Replace Cmd", noremap = true, silent = true })
 
 -- FIX: commented this for now. will be removed in the future. <space>o will be used for obsidian and this notes will be in obsidian vault and will be searchd by telescope.
 -- -- +others keymaps
