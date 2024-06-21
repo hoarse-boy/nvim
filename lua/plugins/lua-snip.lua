@@ -5,11 +5,10 @@ local honza_snippets_path = "~/.local/share/nvim/lazy/vim-snippets/snippets"
 
 local friendly_snippets = {
   "rafamadriz/friendly-snippets",
-  config = function()
-    -- TODO: why snipmate_path and honza_snippets_path not working? the directory is available. but why the warning still persist?
-    require("luasnip.loaders.from_snipmate").lazy_load({ paths = snipmate_path })
+  opts = function()
+    require("luasnip.loaders.from_snipmate").lazy_load({ paths = { snipmate_path } })
     require("luasnip.loaders.from_vscode").lazy_load({ paths = vscode_path })
-    require("luasnip.loaders.from_snipmate").lazy_load({ paths = honza_snippets_path })
+    require("luasnip.loaders.from_snipmate").lazy_load({ paths = { honza_snippets_path } })
   end,
 }
 
@@ -24,20 +23,67 @@ return {
     history = true,
     delete_check_events = "TextChanged",
   },
-    -- stylua: ignore
-    keys = {
-      {
-        "<tab>",
-        function()
-          return require("luasnip").jumpable(1) and "<Plug>luasnip-jump-next" or "<tab>"
-        end,
-        expr = true, silent = true, mode = "i",
-      },
-      { "<tab>", function() require("luasnip").jump(1) end, mode = "s" },
-      { "<s-tab>", function() require("luasnip").jump(-1) end, mode = { "i", "s" } },
-    -- for luansip placeholder jumping
-    -- stylua: ignore
-      { "<C-J>", function() local luasnip = require("luasnip") if luasnip.jumpable() then luasnip.jump(1) end end,  desc = "Jump to next placeholder (LuaSnip)",   noremap = true, silent = true , mode = {"v", "i" } },
-      { "<C-I>", function() local luasnip = require("luasnip") if luasnip.jumpable() then luasnip.jump(-1) end end,  desc = "Jump to previous placeholder (LuaSnip)", noremap = true, silent = true, mode =  {"v", "i" } },
+
+  keys = {
+    {
+      "<tab>",
+      function()
+        return require("luasnip").jumpable(1) and "<Plug>luasnip-jump-next" or "<tab>"
+      end,
+      expr = true,
+      silent = true,
+      mode = "i",
     },
+    {
+      "<tab>",
+      function()
+        require("luasnip").jump(1)
+      end,
+      mode = "s",
+    },
+    {
+      "<s-tab>",
+      function()
+        require("luasnip").jump(-1)
+      end,
+      mode = {
+        "i",
+        "s",
+      },
+    },
+
+    -- for luansip placeholder jumping
+    {
+      "<C-J>",
+      function()
+        local luasnip = require("luasnip")
+        if luasnip.jumpable() then
+          luasnip.jump(1)
+        end
+      end,
+      desc = "Jump to next placeholder (LuaSnip)",
+      noremap = true,
+      silent = true,
+      mode = {
+        "v",
+        "i",
+      },
+    },
+    {
+      "<C-I>",
+      function()
+        local luasnip = require("luasnip")
+        if luasnip.jumpable() then
+          luasnip.jump(-1)
+        end
+      end,
+      desc = "Jump to previous placeholder (LuaSnip)",
+      noremap = true,
+      silent = true,
+      mode = {
+        "v",
+        "i",
+      },
+    },
+  },
 }
