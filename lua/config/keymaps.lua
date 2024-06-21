@@ -10,11 +10,9 @@ local set = vim.keymap.set
 local map_opt = { noremap = true, silent = true }
 
 del("n", "<leader>l") -- disable keymap l for lazyvim as it will be used for other lsp keymaps.
-
 -- del("n", "<leader>xl")
 -- del("n", "<leader>xq")
 
--- FIX: group below keylmap to make it organized. such as void keybinding of "_d should be on the same place
 -- -- TODO: visual x doesnt put to last yank?
 
 -- keymap to make them to save to void.
@@ -22,12 +20,15 @@ del("n", "<leader>l") -- disable keymap l for lazyvim as it will be used for oth
 -- "_* will not save to clipboard.
 -- p
 set("v", "p", '"_dP', map_opt) -- replace currently selected text with default register. without yanking it
+
 -- d
-set({ "v", "n" }, "d", '"_d', map_opt)
+set({ "v", "n" }, "d", '"_d', map_opt) --  will make checkhealth to have a warning. ignore it.
 set("n", "dd", '"_dd', map_opt)
 set("n", "D", '"_D', map_opt)
+
 -- x
 set("n", "x", '"_x', map_opt)
+
 -- c
 set({ "v", "n" }, "c", '"_c', map_opt)
 set({ "v", "n" }, "C", '"_C', map_opt)
@@ -47,12 +48,12 @@ set("v", "<S-l>", "$h", map_opt) -- visual mode $ will add extra space or \n. to
 -- undo and redo.
 set("n", "U", "<C-r>") -- dont have to use ctrl r to undo again.
 
--- FIX: change this. check notes 'change nvim keybinds for linux'
 -- buffer navigation. this will be used by wezterm wsl and macos. NOTE: Tab in most terminal emulators have the issue of treating that keymap the same as ctrl+i. Tab should not be mapped at all to avoid remapping ctrl+i and changing its behavior. https://superuser.com/questions/770068/in-vim-how-can-i-remap-tab-without-also-remapping-ctrli
-set("n", "<A-]>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
-set("n", "<A-[>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
+-- NOTE: macos + wezterm cannot use cmd-[ or ] so it has differnet keymap than arch linux.
+  set("n", "<A-]>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
+  set("n", "<A-[>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
+
 -- this will be used by neovide.
--- FIX: 'change nvim keybinds for linux'. neovide will be handled later. commented for now
 -- set("n", "<C-Tab>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
 -- set("n", "<C-S-Tab>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
 
@@ -70,15 +71,38 @@ set("n", "<leader>/", "<Plug>(comment_toggle_linewise_current)", { desc = "Comme
 -- NOTE: reminder / notes / other cool stuff of nvim or other plugin
 -- +notes which-key
 -- stylua: ignore
-set("n", "<leader>?S", function() local notify = require("notify") notify("use ctrl j / i\nto jump to LuaSnip placeholder", "info", { title = "helper" }) end, { desc = "Jump to previous placeholder (LuaSnip)", noremap = true, silent = true })
+set("n", "<leader>?S",
+  function()
+    local notify = require("notify")
+    notify("use ctrl j / i\nto jump to LuaSnip placeholder", "info", { title = "helper" })
+  end, { desc = "Jump to previous placeholder (LuaSnip)", noremap = true, silent = true })
 -- stylua: ignore
-set("n", "<leader>?n", function() local notify = require("notify") notify("ctrl a / x to increase or decrement a number.\ncan also have prefix like 5 ctrl a.\ncan be dot repeated", "info", { title = "helper" }) end, { desc = "Increase / decrement number", noremap = true, silent = true })
+set("n", "<leader>?n",
+  function()
+    local notify = require("notify")
+    notify("ctrl a / x to increase or decrement a number.\ncan also have prefix like 5 ctrl a.\ncan be dot repeated",
+      "info", { title = "helper" })
+  end, { desc = "Increase / decrement number", noremap = true, silent = true })
 -- stylua: ignore
-set("n", "<leader>?l", function() local notify = require("notify") notify(":pwd to show location", "info", { title = "helper" }) end, { desc = "pwd", noremap = true, silent = true })
+set("n", "<leader>?l",
+  function()
+    local notify = require("notify")
+    notify(":pwd to show location", "info", { title = "helper" })
+  end, { desc = "pwd", noremap = true, silent = true })
 -- stylua: ignore
-set("n", "<leader>?s", function() local notify = require("notify") notify("visual block the words, open cmdline, and type sort", "info", { title = "helper" }) end, { desc = "sort list (alphabetical or numerical)", noremap = true, silent = true })
+set("n", "<leader>?s",
+  function()
+    local notify = require("notify")
+    notify("visual block the words, open cmdline, and type sort", "info", { title = "helper" })
+  end, { desc = "sort list (alphabetical or numerical)", noremap = true, silent = true })
 -- stylua: ignore
-set("n", "<leader>?r", function() local notify = require("notify") notify("vim cmd search and replace.\n%s/search/replace/\n':%s/' start of the search pattern\n'/' end of the search pattern, beginning of replacement pattern\noptional = '/e' suppress error messages if no match found", "info", { title = "helper" }) end, { desc = "Vim Search Replace Cmd", noremap = true, silent = true })
+set("n", "<leader>?r",
+  function()
+    local notify = require("notify")
+    notify(
+    "vim cmd search and replace.\n%s/search/replace/\n':%s/' start of the search pattern\n'/' end of the search pattern, beginning of replacement pattern\noptional = '/e' suppress error messages if no match found",
+      "info", { title = "helper" })
+  end, { desc = "Vim Search Replace Cmd", noremap = true, silent = true })
 
 -- FIX: commented this for now. will be removed in the future. <space>o will be used for obsidian and this notes will be in obsidian vault and will be searchd by telescope.
 -- -- +others keymaps
