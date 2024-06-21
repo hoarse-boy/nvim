@@ -142,15 +142,11 @@ return {
             vim.keymap.set("n", "<leader>la", "<cmd>GoCodeAction<cr>", { buffer = true, desc = "Code Action" })
             vim.keymap.set("n", "<leader>ls", "<cmd>GoFillStruct<cr>", { buffer = true, desc = "Fill Struct" })
             vim.keymap.set("n", "<leader>ls", "<cmd>GoFillStruct<cr>", { buffer = true, desc = "Fill Struct" })
-            -- stylua: ignore
             vim.keymap.set("n", "<leader>lr", vim.lsp.buf.rename, { buffer = true, desc = "Rename" })
 
             -- go tags.
-            -- stylua: ignore
             vim.keymap.set("n", "<leader>lTj", "<cmd>GoModifyTag -add-tags json -transform snakecase -add-options json=<cr>", { buffer = true, desc = "Add Tags snakecase No 'omitempty'" })
-            -- stylua: ignore
             vim.keymap.set("n", "<leader>lTa", "<cmd>GoModifyTag -add-tags json -transform camelcase -add-options json=<cr>", { buffer = true, desc = "Add Tags No 'omitempty'" })
-            -- stylua: ignore
             vim.keymap.set("n", "<leader>lTA", "<cmd>GoModifyTag -add-tags json -transform camelcase<cr>", { buffer = true, desc = "Add Tags" })
             vim.keymap.set("n", "<leader>lTr", "<cmd>GoRename<cr>", { buffer = true, desc = "Remove Tags" })
             vim.keymap.set("n", "<leader>lTr", "<cmd>GoRename<cr>", { buffer = true, desc = "Remove Tags" })
