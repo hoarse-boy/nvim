@@ -58,6 +58,9 @@ return {
       ["<leader>u"] = { name = "+ui" },
       ["<leader>w"] = { name = "+windows" },
       ["<leader>x"] = { name = "+diagnostics/quickfix" },
+      ["<leader>d"] = { name = "+dap" },
+      ["<leader>t"] = { name = "+test" },
+      ["<leader>sn"] = { name = "+noice" },
 
       -- NOTE: my own defaults
       ["<leader>?"] = { name = "+notes" },
