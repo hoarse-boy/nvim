@@ -115,3 +115,8 @@ end, { desc = "Vim Search Replace Cmd", noremap = true, silent = true })
 
 -- TODO: remove this if the lazyVim.format is working again. this is a fix for lua formatting. other formatting is working fine.
 set({ "n", "v" }, "<leader>cf", "<cmd>lua vim.lsp.buf.format()<cr>", { desc = "Format" })
+
+set("n", "<leader>ul", function()
+  vim.cmd("set nu signcolumn=yes")
+  print("enabled (this is to counter dashboard issue)")
+end, { desc = "Enable line number and signcolumn", noremap = true, silent = true })
