@@ -16,7 +16,6 @@ local logo = [[
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ]]
 
-
 -- modify existing dashboard shortcut in config.center. the one showing when launching nvim.
 local function update_dashboard_shortcut(opts, current_keymap, new_action, new_desc)
   for _, item in ipairs(opts.config.center) do
@@ -36,10 +35,19 @@ local function remove_dashboard_item(opts, key_to_remove)
   end
 end
 
+-- FIX: dashboard can alter buffer no. line and signcolumn when openingg buffer from trouble-nvim.
+-- this is the message when running "verbose :set nu? rnu? signcolumn?" in vim command. need to run nvim -V1 in terminal to see the full message.
+-- nonumber
+-- 	Last set from ~/.local/share/nvim/lazy/dashboard-nvim/lua/dashboard/init.lua line 82
+-- norelativenumber
+-- 	Last set from ~/.local/share/nvim/lazy/dashboard-nvim/lua/dashboard/init.lua line 82
+--   signcolumn=no
+-- 	Last set from ~/.local/share/nvim/lazy/dashboard-nvim/lua/dashboard/init.lua line 82
 return {
   "nvimdev/dashboard-nvim",
+  -- enabled = false,
   keys = {
-    { "<leader>D", "<cmd>Dashboard<cr>", desc = "Dashboard" }, -- example
+    { "<leader>D", "<cmd>Dashboard<cr>", desc = "Dashboard" },
   },
   opts = function(_, opts)
     -- NOTE: create the braille at https://asciiart.club/
@@ -55,7 +63,7 @@ return {
       action = [[lua require("plugins.util.teles-find").ChangeDirAndFindFiles("~/google-drive/obsidian-vault/todos/")]],
       desc = " Obsidian Todos",
       icon = " ",
-      key = "t"
+      key = "t",
     }
 
     obsidian_todos.desc = obsidian_todos.desc .. string.rep(" ", 43 - #obsidian_todos.desc)
@@ -66,7 +74,9 @@ return {
     -- add new dashboard item obsidian_inbox.
     local obsidian_inbox = {
       action = [[lua require("plugins.util.teles-find").ChangeDirAndFindFiles("~/google-drive/obsidian-vault/inbox/")]],
-      desc = " Obsidian Inbox", icon = "󱉳 ", key = "i"
+      desc = " Obsidian Inbox",
+      icon = "󱉳 ",
+      key = "i",
     }
 
     obsidian_inbox.desc = obsidian_inbox.desc .. string.rep(" ", 43 - #obsidian_inbox.desc)
@@ -76,7 +86,9 @@ return {
 
     local lazyvim_config = {
       action = [[lua require("plugins.util.teles-find").ChangeDirAndFindFiles("~/.local/share/nvim/lazy/LazyVim/")]],
-      desc = " Lazyvim Config", icon = " ", key = "L"
+      desc = " Lazyvim Config",
+      icon = " ",
+      key = "L",
     }
 
     lazyvim_config.desc = lazyvim_config.desc .. string.rep(" ", 43 - #lazyvim_config.desc)
@@ -84,11 +96,12 @@ return {
 
     table.insert(opts.config.center, 11, lazyvim_config)
 
-    update_dashboard_shortcut(opts, "c", [[lua require("plugins.util.teles-find").ChangeDirAndFindFiles("~/.config/nvim/")]], " Config")
+    update_dashboard_shortcut(opts, "c",
+      [[lua require("plugins.util.teles-find").ChangeDirAndFindFiles("~/.config/nvim/")]], " Config")
 
     -- remove some defaults dashboard items.
-remove_dashboard_item(opts, "n")
-remove_dashboard_item(opts, "x")
+    remove_dashboard_item(opts, "n")
+    remove_dashboard_item(opts, "x")
   end,
 }
 
