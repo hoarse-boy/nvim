@@ -66,3 +66,16 @@ snippet add_lazy_plugin "generate lazy.nvim plugin table with return"
 			require("${6:plugin name}").setup(${7:the plugin's lua table})
 		end,
 	}
+
+snippet add_which_key "generate which-key plugin"
+  {
+    "folke/which-key.nvim",
+    opts = function(_, _)
+      local wk = require("which-key")
+      local keymaps = {
+        mode = { "n" },
+        ["<leader>${1:key}"] = { name = "+${2:description}" },
+      }
+      wk.register(keymaps, opts)
+    end,
+  },
