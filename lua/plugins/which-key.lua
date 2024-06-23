@@ -28,7 +28,8 @@ return {
       -- NOTE: my own defaults
       ["<leader>?"] = { name = "+notes" },
       ["<leader>o"] = { name = "+obsidian" },
-      -- ["<leader>o"] = { name = "+others" }, -- FIX: remove this later.
+      ["<leader>h"] = { name = "+harpoon" },
+      ["<leader>m"] = { name = "+mark" },
     },
     window = {
       border = "rounded", -- none, single, double, shadow, rounded
