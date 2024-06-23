@@ -41,17 +41,26 @@ return {
       noremap = true,
       silent = true,
     },
+    {
+      "<leader>mf",
+      "<cmd>Trouble todo filter = {tag = {FIX}}<cr>",
+      mode = "n",
+      desc = "Trouble Open 'FIX' Todo",
+      noremap = true,
+      silent = true,
+    },
   },
 
-  {
-    "folke/which-key.nvim",
-    opts = function(_, _)
-      local wk = require("which-key")
-      local keymaps = {
-        mode = { "n" },
-        ["<leader>m"] = { name = "+mark" },
-      }
-      wk.register(keymaps, opts)
-    end,
-  },
+  -- NOTE: this is not working. but the same code in harppon works. why?
+  -- {
+  --   "folke/which-key.nvim",
+  --   opts = function(_, opts)
+  --       local wk = require("which-key")
+  --       local keymaps = {
+  --         mode = { "n" },
+  --         ["<leader>m"] = { name = "+mark" },
+  --       }
+  --       wk.register(keymaps, opts)
+  --   end,
+  -- },
 }
