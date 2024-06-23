@@ -17,18 +17,18 @@ return {
         -- which doesnt convey alot of go common syntax highlighter like printf %v, & and * pointer in type and other.
         "charlespascoe/vim-go-syntax",
         config = function()
-          vim.g.go_highlight_comma = 1 -- it uses the highlight color of func?
+          vim.g.go_highlight_comma = 1         -- it uses the highlight color of func?
           -- NOTE: with catpuccin it is better in vanilla setting. but need to be changed. the highlight is called 'Identifier'
-          vim.g.go_highlight_fields = 1 -- Fields in expressions, e.g. bar in foo.bar = 123
+          vim.g.go_highlight_fields = 1        -- Fields in expressions, e.g. bar in foo.bar = 123
           vim.g.go_highlight_struct_fields = 1 -- Field names in struct literals, e.g. Bar in f := Foo{ Bar: 123 }.
           vim.g.go_highlight_variable_assignments = 1
           -- vim.g.go_highlight_types = 0
           -- vim.g.go_highlight_type_parameters = 0
           vim.g.go_highlight_semicolon = 1
           vim.g.go_highlight_struct_type_fields = 1
-          vim.g.go_highlight_struct_tags = 1 -- Struct tags, the backtick-delimited strings in structs, e.g. `json:bar` in struct { Bar int `json:"bar"` }.
-          vim.g.go_highlight_function_parameters = 1 -- Parameter names, e.g. bar in func foo(bar int)
-          vim.g.go_highlight_slice_brackets = 1 -- The brackets in slice types, e.g. []string.
+          vim.g.go_highlight_struct_tags = 1           -- Struct tags, the backtick-delimited strings in structs, e.g. `json:bar` in struct { Bar int `json:"bar"` }.
+          vim.g.go_highlight_function_parameters = 1   -- Parameter names, e.g. bar in func foo(bar int)
+          vim.g.go_highlight_slice_brackets = 1        -- The brackets in slice types, e.g. []string.
           vim.g.go_highlight_variable_declarations = 1 -- disable highlight in var name of 'kaobm', ex. kaobm := os.Getenv("REDIS_HOST")
           -- vim.g.go_highlight_dot = 0 -- this works
         end,
@@ -37,6 +37,7 @@ return {
 
     config = function()
       require("go").setup({
+        lsp_cfg = false,
         lsp_inlay_hints = {
           enable = false, -- disable go.nvim inlay as it is currently buggy.
           -- hint style, set to 'eol' for end-of-line hints, 'inlay' for inline hints
@@ -145,19 +146,26 @@ return {
             vim.keymap.set("n", "<leader>lr", vim.lsp.buf.rename, { buffer = true, desc = "Rename" })
 
             -- go tags.
-            vim.keymap.set("n", "<leader>lTj", "<cmd>GoModifyTag -add-tags json -transform snakecase -add-options json=<cr>", { buffer = true, desc = "Add Tags snakecase No 'omitempty'" })
-            vim.keymap.set("n", "<leader>lTa", "<cmd>GoModifyTag -add-tags json -transform camelcase -add-options json=<cr>", { buffer = true, desc = "Add Tags No 'omitempty'" })
-            vim.keymap.set("n", "<leader>lTA", "<cmd>GoModifyTag -add-tags json -transform camelcase<cr>", { buffer = true, desc = "Add Tags" })
+            vim.keymap.set("n", "<leader>lTj",
+              "<cmd>GoModifyTag -add-tags json -transform snakecase -add-options json=<cr>",
+              { buffer = true, desc = "Add Tags snakecase No 'omitempty'" })
+            vim.keymap.set("n", "<leader>lTa",
+              "<cmd>GoModifyTag -add-tags json -transform camelcase -add-options json=<cr>",
+              { buffer = true, desc = "Add Tags No 'omitempty'" })
+            vim.keymap.set("n", "<leader>lTA", "<cmd>GoModifyTag -add-tags json -transform camelcase<cr>",
+              { buffer = true, desc = "Add Tags" })
             vim.keymap.set("n", "<leader>lTr", "<cmd>GoRename<cr>", { buffer = true, desc = "Remove Tags" })
             vim.keymap.set("n", "<leader>lTr", "<cmd>GoRename<cr>", { buffer = true, desc = "Remove Tags" })
 
             -- go test.
-            vim.keymap.set("n", "<leader>lta", "<cmd>GoAddTest<cr>", { buffer = true, desc = "Add Test for Current Func" })
+            vim.keymap.set("n", "<leader>lta", "<cmd>GoAddTest<cr>",
+              { buffer = true, desc = "Add Test for Current Func" })
             vim.keymap.set("n", "<leader>ltA", "<cmd>GoAddAllTest<cr>", { buffer = true, desc = "Add Test for all Func" })
             vim.keymap.set("n", "<leader>lte", "<cmd>GoAddExpTest<cr>", { buffer = true, desc = "Add Exported Func" })
             vim.keymap.set("n", "<leader>ltT", "<cmd>GoTest<cr>", { buffer = true, desc = "Test All" })
             vim.keymap.set("n", "<leader>ltt", "<cmd>GoTestFunc<cr>", { buffer = true, desc = "Test a Func" })
-            vim.keymap.set("n", "<leader>ltF", "<cmd>GoTestFile<cr>", { buffer = true, desc = "Test All Func in the File" })
+            vim.keymap.set("n", "<leader>ltF", "<cmd>GoTestFile<cr>",
+              { buffer = true, desc = "Test All Func in the File" })
             vim.keymap.set("n", "<leader>ltP", "<cmd>GoTestPkg<cr>", { buffer = true, desc = "Test Package" })
             vim.keymap.set("n", "<leader>ltc", "<cmd>GoCoverage<cr>", { buffer = true, desc = "Test -coverprofile" })
             vim.keymap.set("n", "<leader>ld", "<cmd>GoDoc<cr>", { buffer = true, desc = "Go Doc" })
@@ -328,11 +336,11 @@ return {
     config = function()
       require("goplay").setup({
         template = require("goplay.templates").default, -- template which will be used as the default content for the playground
-        mode = "current", -- current/split/[vsplit] specifies where the playground will be opened
+        mode = "current",                               -- current/split/[vsplit] specifies where the playground will be opened
         -- mode = "vsplit", -- current/split/[vsplit] specifies where the playground will be opened
-        playgroundDirName = "goplayground", -- a name of the directory under GOPATH/src where the playground will be saved
-        tempPlaygroundDirName = "goplayground_temp", -- a name of the directory under GOPATH/src where the temporary playground will be saved. This option is used when you need to execute a file
-        output_mode = "raw", -- [formatted]/raw mode to display output
+        playgroundDirName = "goplayground",             -- a name of the directory under GOPATH/src where the playground will be saved
+        tempPlaygroundDirName = "goplayground_temp",    -- a name of the directory under GOPATH/src where the temporary playground will be saved. This option is used when you need to execute a file
+        output_mode = "raw",                            -- [formatted]/raw mode to display output
         -- output_mode = "formatted", -- [formatted]/raw mode to display output
       })
     end,
