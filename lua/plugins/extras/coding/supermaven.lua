@@ -8,7 +8,9 @@ return {
         keymaps = {
           accept_suggestion = "<C-a>",
           clear_suggestion = "<C-]>",
-          accept_word = "<C-n>",
+          -- NOTE: nvim-cmp will take over <c-n> binding in certain situation, so deleting has no effect. us <c-w> instead.
+          -- <c-m> also is reserved for 'enter' or <cr>. showkey -a return "<CTL-J=LF>" in both tmux or non. debug this later to make tmux and non to be consistent.
+          accept_word = "<C-w>",
         },
         -- ignore_filetypes = { cpp = true },
         color = {
@@ -18,9 +20,9 @@ return {
           suggestion_color = vim.api.nvim_get_hl(0, { name = "NonText" }).fg,
           cterm = vim.api.nvim_get_hl(0, { name = "NonText" }).cterm,
         },
-        log_level = "info",                -- set to "off" to disable logging completely
+        log_level = "info", -- set to "off" to disable logging completely
         disable_inline_completion = false, -- disables inline completion for use with cmp
-        disable_keymaps = false,           -- disables built in keymaps for more manual control
+        disable_keymaps = false, -- disables built in keymaps for more manual control
       })
       require("supermaven-nvim.completion_preview").suggestion_group = "SupermavenSuggestion"
     end,
