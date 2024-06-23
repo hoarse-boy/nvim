@@ -35,7 +35,7 @@ local function remove_dashboard_item(opts, key_to_remove)
   end
 end
 
--- FIX: dashboard can alter buffer no. line and signcolumn when openingg buffer from trouble-nvim.
+-- NOTE: dashboard can alter buffer no. line and signcolumn when openingg buffer from trouble-nvim.
 -- this is the message when running "verbose :set nu? rnu? signcolumn?" in vim command. need to run nvim -V1 in terminal to see the full message.
 -- nonumber
 -- 	Last set from ~/.local/share/nvim/lazy/dashboard-nvim/lua/dashboard/init.lua line 82
