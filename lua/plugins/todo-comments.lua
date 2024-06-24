@@ -6,7 +6,7 @@ return {
     -- add my custom todo.
     opts.keywords = {
       MARKED = {
-        icon = " 󰓾", -- " 󰣉"
+        icon = "󰓾", -- "󰣉"
         color = "mark",
         -- signs = false, -- configure signs for some keywords individually
       },
