@@ -85,11 +85,12 @@ return {
         -- create its template using the daily todo in GUI (see Daily notes core plugin's option).
         -- create shell command that when creating new todo works alongside GUI core plugin.
         -- need to refactor the directory structure. currently it is inside nested folder of Office.
-        -- change it "work/daily-todo" to host all daily todos.
+        -- change it "work/daily-todo" to host all daily todos. create a shell to mv done todo to "work/done".
         -- create new dir "work/todo" to host all of the todos that will be linked to "work/daily-todo".
         -- create new dir "work/done" to host all of the todos that has been done.
         -- use the current date like "Thu 20 Jun 2024", or change it?
         -- the template is "Office/Stand up/Daily Todo/Daily Todo template". it will use the same template but the file will be moved.
+        -- update keybindings for daily notes.
         daily_notes = {
           folder = "work/daily-todo",
           -- Optional, if you want to change the date format for the ID of daily notes.
