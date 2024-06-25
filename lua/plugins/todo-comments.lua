@@ -26,6 +26,16 @@ return {
       silent = true,
     },
     {
+      "<leader>mf", -- TODO: change the insert_custom_todo_comments func to not add new line but add to the right as comments? if lang is not availabl, create new line.
+      function()
+        require("plugins.util.custome_todo_comments").insert_custom_todo_comments("FIX: ")
+      end,
+      mode = "n",
+      desc = "Insert FIXED todo",
+      noremap = true,
+      silent = true,
+    },
+    {
       "<leader>mt",
       "<cmd>TodoTelescope keywords=MARKED<cr>",
       mode = "n",
@@ -42,7 +52,7 @@ return {
       silent = true,
     },
     {
-      "<leader>mf",
+      "<leader>mF",
       "<cmd>Trouble todo filter = {tag = {FIX}}<cr>",
       mode = "n",
       desc = "Trouble Open 'FIX' Todo",
