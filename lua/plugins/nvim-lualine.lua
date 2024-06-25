@@ -126,8 +126,8 @@ return {
       opts.sections.lualine_a = { { "mode", separator = { left = "" }, right_padding = 2 } } -- init value from lazyvim is just { "mode" }. so we need to overwrite it.
       opts.sections.lualine_y = { { "location", padding = { left = 1, right = 1 } } }
 
-      table.insert(opts.sections.lualine_x, 1, lsp)
-      table.insert(opts.sections.lualine_x, 2, word_count)
+      -- table.insert(opts.sections.lualine_x, 1, lsp) -- takes too much space. need to be refined to return only one client.
+      table.insert(opts.sections.lualine_x, 1, word_count)
 
       opts.sections.lualine_z = {
         {
