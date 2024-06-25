@@ -6,7 +6,7 @@ return {
       { "<leader>M", "<cmd>Telescope macros<cr>", desc = "NeoComposer (macro)" },
     },
     dependencies = { "kkharji/sqlite.lua", "nvim-telescope/telescope.nvim" },
-    config = function(_, opts)
+    config = function(_, _)
       require("NeoComposer").setup({
         keymaps = {
           play_macro = "Q",
@@ -22,13 +22,13 @@ return {
     end,
   },
 
-  -- FIX: not working.
   {
     "nvim-lualine/lualine.nvim",
     optional = true,
     event = "VeryLazy",
     opts = function(_, opts)
-      table.insert(opts.sections.lualine_x, 2, require("NeoComposer.ui").status_recording)
+      table.remove(opts.sections.lualine_x, 2) -- remove the 2nd element responsible for the recording macro.
+      table.insert(opts.sections.lualine_x, 2, require("NeoComposer.ui").status_recording) -- add NeoComposer status recording.
     end,
   },
 }
