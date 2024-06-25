@@ -59,7 +59,7 @@ snippet add_lazy_plugin "generate lazy.nvim plugin table with return"
 		keys = {
 			-- { "<leader>l", "", desc = "+go.nvim" }, -- example
 			-- { "<leader>ls", "<cmd>GoFillStruct<cr>", desc = "Fill Struct" }, -- example
-      -- { "<s-tab>", function() require("luasnip").jump(-1) end,  mode = { "i", "s" }, desc = "luasnip tab", noremap = true, silent = true },
+			-- { "<s-tab>", function() require("luasnip").jump(-1) end,  mode = { "i", "s" }, desc = "luasnip tab", noremap = true, silent = true },
 			{ "${2:define keymaps}", "${3:what the keys do}", desc = "${4:description}", mode = "${5:vim mode}" }
 		},
 		config = function(_, opts)
@@ -68,14 +68,50 @@ snippet add_lazy_plugin "generate lazy.nvim plugin table with return"
 	}
 
 snippet add_which_key "generate which-key plugin"
-  {
-    "folke/which-key.nvim",
-    opts = function(_, _)
-      local wk = require("which-key")
-      local keymaps = {
-        mode = { "n" },
-        ["<leader>${1:key}"] = { name = "+${2:description}" },
-      }
-      wk.register(keymaps, opts)
-    end,
-  },
+	{
+		"folke/which-key.nvim",
+		opts = function(_, _)
+			local wk = require("which-key")
+			local keymaps = {
+				mode = { "n" },
+				["<leader>${1:key}"] = { name = "+${2:description}" },
+			}
+			wk.register(keymaps, opts)
+		end,
+	},
+
+snippet log_table_create "generate func to log a table usefull for debugging, use snippet log_table to call it"
+	local function log_table(tbl, message)
+		local inspected = vim.inspect(tbl)
+		vim.notify(message .. ": " .. inspected, vim.log.levels.INFO)
+	end
+
+snippet log_table "call log_table"
+	log_table(${1:table to log}, ${2:message})
+
+snippet log "create a snippet for log non table using vim.notify"
+	vim.notify("${1:message}", vim.log.levels.${2:INFO})
+
+snippet create_notify "generate notify with treesitter highlight"
+	notify("${1:Message}", "${2:Notifation Type: info, warn, debug, or error}", {
+		title = "${3:Title}",
+		on_open = function(win)
+			local buf = vim.api.nvim_win_get_buf(win)
+			vim.api.nvim_buf_set_option(buf, "filetype", "${4:ex. markdown}")
+		end,
+	})
+
+snippet create_notify_with_highlight "generate notify with treesitter highlight"
+	notify("${1:Message}", "${2:Notifation Type: info, warn, debug, or error}", {
+		title = "${3:Title}",
+		on_open = function(win)
+			local buf = vim.api.nvim_win_get_buf(win)
+			vim.api.nvim_buf_set_option(buf, "filetype", "${4:ex. markdown}")
+		end,
+		render = function(bufnr)
+			local buf = vim.api.nvim_win_get_buf(bufnr)
+			vim.api.nvim_buf_set_option(buf, "filetype", "${5:ex. markdown}")
+		end,
+	})
+
+
