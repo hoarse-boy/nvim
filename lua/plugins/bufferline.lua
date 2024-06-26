@@ -5,7 +5,8 @@ return {
       diagnostics = "nvim_lsp",
       indicator = {
         icon = "", -- this should be omitted if indicator style is not 'icon'
-        style = "underline", -- "icon" | "underline" | "none",
+        style = "none",
+        -- style = "underline", -- "icon" | "underline" | "none", -- NOTE: underline is broken in tmux.
       },
 
       always_show_bufferline = true,
