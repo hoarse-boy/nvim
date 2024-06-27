@@ -28,7 +28,7 @@ return {
     {
       "<leader>mf", -- TODO: change the insert_custom_todo_comments func to not add new line but add to the right as comments? if lang is not availabl, create new line.
       function()
-        require("plugins.util.custome_todo_comments").insert_custom_todo_comments("FIX: ")
+        require("plugins.util.custome_todo_comments").append_todo_comments_to_current_line()
       end,
       mode = "n",
       desc = "Insert FIXED todo",
