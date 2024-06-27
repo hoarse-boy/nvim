@@ -64,6 +64,7 @@ function M.insert_custom_todo_comments(keyword_str)
   vim.cmd("startinsert!")
 end
 
+-- TODO: add  bool in params, if true, go to insert mode by using vim 'A'.
 -- define a local function to insert a todo comment keyword at the end of the current line.
 function M.append_todo_comments_to_current_line(keyword_str)
   if keyword_str == nil then
