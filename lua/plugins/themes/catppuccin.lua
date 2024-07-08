@@ -21,7 +21,7 @@ return {
     --   background_colour = "#000000",
     -- })
 
-    -- TODO: clean this up
+    vim.api.nvim_set_hl(0, "@lsp.type.string.go", {}) -- disable nvim 0.10 lsp string highlight that causes conflict with goStringFormat.
 
     require("catppuccin").setup({
       flavour = "mocha", -- latte, frappe, macchiato, mocha
