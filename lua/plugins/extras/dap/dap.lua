@@ -26,7 +26,7 @@ return {
     opts = function()
       -- NOTE: enabling nvim to load .vscode/launch.json file for debuging
       -- add rt_lldb for debuging rust using plugin rust-tools
-      require("dap.ext.vscode").load_launchjs(nil, { rt_lldb = { "rust" } })
+      -- require("dap.ext.vscode").load_launchjs(nil, { rt_lldb = { "rust" } }) -- NOTE: disable this as it is already loaded by nvim dap to use vscode dap. if this is enabled it will make the launch.json to more than 1 when selecting dap.
       -- NOTE: open dap ui again in case the nvim dap existed / terminated to check if there is error log.
       -- however, developer must log if an error occured to make it easy to fix the issue to start debugging.
 

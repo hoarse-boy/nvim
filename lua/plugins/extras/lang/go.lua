@@ -253,7 +253,8 @@ return {
         "mason.nvim",
         opts = function(_, opts)
           opts.ensure_installed = opts.ensure_installed or {}
-          vim.list_extend(opts.ensure_installed, { "gomodifytags", "impl", "goimports", "delve" })
+          vim.list_extend(opts.ensure_installed, { "gomodifytags", "impl", "goimports" })
+          -- vim.list_extend(opts.ensure_installed, { "gomodifytags", "impl", "goimports", "delve" }) -- NOTE: disable delve as it will make dap has a lot of option and the nvim dap uses non mason delve package.
         end,
       },
       {
