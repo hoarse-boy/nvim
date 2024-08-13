@@ -79,8 +79,7 @@ set("n", "<leader>?S",
 
 set("n", "<leader>?n", function()
   local notify = require("notify")
-  notify("ctrl a / x to increase or decrement a number.\ncan also have prefix like 5 ctrl a.\ncan be dot repeated",
-    "info", { title = "helper" })
+  notify("ctrl a / x to increase or decrement a number.\ncan also have prefix like 5 ctrl a.\ncan be dot repeated", "info", { title = "helper" })
 end, { desc = "Increase / decrement number", noremap = true, silent = true })
 
 set("n", "<leader>?l", function()
@@ -95,10 +94,13 @@ end, { desc = "sort list (alphabetical or numerical)", noremap = true, silent = 
 
 set("n", "<leader>?r", function()
   local notify = require("notify")
-  notify(
-  "vim cmd search and replace.\n%s/search/replace/\n':%s/' start of the search pattern\n'/' end of the search pattern, beginning of replacement pattern\noptional = '/e' suppress error messages if no match found",
-    "info", { title = "helper" })
+  notify("vim cmd search and replace.\n%s/search/replace/\n':%s/' start of the search pattern\n'/' end of the search pattern, beginning of replacement pattern\noptional = '/e' suppress error messages if no match found", "info", { title = "helper" })
 end, { desc = "Vim Search Replace Cmd", noremap = true, silent = true })
+
+set("n", "<leader>?y", function()
+  local notify = require("notify")
+  notify("use 'yig' to yank the word under the cursor.", "info", { title = "helper" })
+end, { desc = "mini.ai to yank entire buffer content", noremap = true, silent = true })
 
 -- FIX: commented this for now. will be removed in the future. <space>o will be used for obsidian and this notes will be in obsidian vault and will be searchd by telescope.
 -- -- +others keymaps
