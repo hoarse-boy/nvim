@@ -2,6 +2,7 @@ return {
   {
     "ecthelionvi/NeoComposer.nvim",
     event = "VeryLazy",
+    enabled = false, -- NOTE: disable neocomposer as sqlite makes macos nvim slows down. it is fine in arch linux.
     keys = {
       { "<leader>M", "<cmd>Telescope macros<cr>", desc = "NeoComposer (macro)" },
     },
@@ -22,13 +23,13 @@ return {
     end,
   },
 
-  {
-    "nvim-lualine/lualine.nvim",
-    optional = true,
-    event = "VeryLazy",
-    opts = function(_, opts)
-      table.remove(opts.sections.lualine_x, 2) -- remove the 2nd element responsible for the recording macro.
-      table.insert(opts.sections.lualine_x, 2, require("NeoComposer.ui").status_recording) -- add NeoComposer status recording.
-    end,
-  },
+  -- {
+  --   "nvim-lualine/lualine.nvim",
+  --   optional = true,
+  --   event = "VeryLazy",
+  --   opts = function(_, opts)
+  --     table.remove(opts.sections.lualine_x, 2) -- remove the 2nd element responsible for the recording macro.
+  --     table.insert(opts.sections.lualine_x, 2, require("NeoComposer.ui").status_recording) -- add NeoComposer status recording.
+  --   end,
+  -- },
 }
