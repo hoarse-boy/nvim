@@ -7,7 +7,7 @@ return {
   {
     "lukas-reineke/indent-blankline.nvim",
     event = "LazyFile",
-    enabled = false, -- disabled plugin
+    -- enabled = false, -- disabled plugin
     opts = {
       indent = {
         -- char = "│",

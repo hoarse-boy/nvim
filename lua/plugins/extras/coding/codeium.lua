@@ -1,3 +1,5 @@
+local printf = require("plugins.util.printf").printf
+
 return {
   -- NOTE: will change to use the codeium.nvim below if the issue is solved.
   -- it also supports chat now but still waiting PR to fix the root dir bug where it doesnt know the root dir.
@@ -9,13 +11,16 @@ return {
       config = function()
         vim.g.codeium_disable_bindings = 1
         -- stylua: ignore
-        vim.keymap.set('n', '<leader>C', "<cmd>lua vim.fn['codeium#Chat']()<cr>"  , { silent = true, desc = "Open Codeium Chat" })
+        vim.keymap.set('n', '<leader>C', "<cmd>lua vim.fn['codeium#Chat']()<cr>",
+          { silent = true, desc = printf "Open Codeium Chat" })
         -- stylua: ignore
-        vim.keymap.set('i', '<C-a>', function () return vim.fn['codeium#Accept']() end, { expr = true, silent = true })
+        vim.keymap.set('i', '<C-a>', function() return vim.fn['codeium#Accept']() end, { expr = true, silent = true })
         -- stylua: ignore
-        vim.keymap.set('i', '<c-;>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true, silent = true })
+        vim.keymap.set('i', '<c-;>', function() return vim.fn['codeium#CycleCompletions'](1) end,
+          { expr = true, silent = true })
         -- stylua: ignore
-        vim.keymap.set('i', '<c-,>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true, silent = true })
+        vim.keymap.set('i', '<c-,>', function() return vim.fn['codeium#CycleCompletions'](-1) end,
+          { expr = true, silent = true })
         -- stylua: ignore
         vim.keymap.set('i', '<c-x>', function() return vim.fn['codeium#Clear']() end, { expr = true, silent = true })
       end,

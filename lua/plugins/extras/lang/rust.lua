@@ -1,5 +1,6 @@
 local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
+local printf = require("plugins.util.printf").printf
 
 -- rust keymaps
 local rust_keymaps = augroup("rust_keymaps", {})
@@ -42,17 +43,26 @@ return {
         pattern = { "rust" },
         callback = function()
           vim.schedule(function()
-            vim.keymap.set("n", "K", "<cmd>RustHoverActions<cr>", { buffer = true, desc = "Hover Actions (Rust)" })
-            vim.keymap.set("n", "<leader>la", "<cmd>RustCodeAction<cr>", { buffer = true, desc = "Code Action (Rust)" })
-            vim.keymap.set("n", "<leader>dr", "<cmd>RustDebuggables<cr>", { buffer = true, desc = "Run Debuggables (Rust)" })
-            vim.keymap.set("n", "<leader>l", "", { buffer = true, desc = "+ Lsp (Rust)" })
-            vim.keymap.set("n", "<leader>lc", "<cmd>RustOpenCargo<cr>", { buffer = true, desc = "Open Cargo (Rust)" })
-            vim.keymap.set("n", "<leader>lmu", "<cmd>RustMoveItemUp<cr>", { buffer = true, desc = "Move Item Up (Rust)" })
-            vim.keymap.set("n", "<leader>lmd", "<cmd>RustMoveItemDown<cr>", { buffer = true, desc = "Move Item Down (Rust)" })
-            vim.keymap.set("n", "<leader>lr", "<cmd>RustHoverRange<cr>", { buffer = true, desc = "Hover Range (Rust)" })
+            vim.keymap.set("n", "K", "<cmd>RustHoverActions<cr>",
+              { buffer = true, desc = printf("Hover Actions (Rust)") })
+            vim.keymap.set("n", "<leader>la", "<cmd>RustCodeAction<cr>",
+              { buffer = true, desc = printf("Code Action (Rust)") })
+            vim.keymap.set("n", "<leader>dr", "<cmd>RustDebuggables<cr>",
+              { buffer = true, desc = printf("Run Debuggables (Rust)") })
+            vim.keymap.set("n", "<leader>l", "", { buffer = true, desc = printf("Lsp (Rust)") })
+            vim.keymap.set("n", "<leader>lc", "<cmd>RustOpenCargo<cr>",
+              { buffer = true, desc = printf("Open Cargo (Rust)") })
+            vim.keymap.set("n", "<leader>lmu", "<cmd>RustMoveItemUp<cr>",
+              { buffer = true, desc = printf("Move Item Up (Rust)") })
+            vim.keymap.set("n", "<leader>lmd", "<cmd>RustMoveItemDown<cr>",
+              { buffer = true, desc = printf("Move Item Down (Rust)") })
+            vim.keymap.set("n", "<leader>lr", "<cmd>RustHoverRange<cr>",
+              { buffer = true, desc = printf("Hover Range (Rust)") })
             -- stylua: ignore
-            vim.keymap.set("n", "<leader>lp", "<cmd>RustParentModule<cr>", { buffer = true, desc = "Go to Parent Module (Rust)" })
-            vim.keymap.set("n", "<leader>lj", "<cmd>RustJoinLines<cr>", { buffer = true, desc = "Join Line(Rust)" })
+            vim.keymap.set("n", "<leader>lp", "<cmd>RustParentModule<cr>",
+              { buffer = true, desc = printf "Go to Parent Module (Rust)" })
+            vim.keymap.set("n", "<leader>lj", "<cmd>RustJoinLines<cr>",
+              { buffer = true, desc = printf("Join Line(Rust)") })
             --   -- TODO: RustSSR [query]
             --   -- RustViewCrateGraph [backend [output]]
 
@@ -60,9 +70,9 @@ return {
             local opts = { prefix = "<leader>", buffer = 0 }
             local mappings = {
               l = {
-                name = "+lsp (rust_tools)",
+                name = printf("lsp (rust_tools)"),
                 m = {
-                  name = "+item",
+                  name = printf("item"),
                 },
               },
             }
@@ -168,7 +178,7 @@ return {
                   vim.lsp.buf.hover()
                 end
               end,
-              desc = "Show Crate Documentation",
+              desc = printf("Show Crate Documentation"),
             },
           },
         },
@@ -282,9 +292,9 @@ return {
 --         -- Ensure mason installs the server
 --         rust_analyzer = {
 --           keys = {
---             { "K", "<cmd>RustHoverActions<cr>", desc = "Hover Actions (Rust)" },
---             { "<leader>cR", "<cmd>RustCodeAction<cr>", desc = "Code Action (Rust)" },
---             { "<leader>dr", "<cmd>RustDebuggables<cr>", desc = "Run Debuggables (Rust)" },
+--             { "K", "<cmd>RustHoverActions<cr>", desc = printf"Hover Actions (Rust)" },
+--             { "<leader>cR", "<cmd>RustCodeAction<cr>", desc = printf"Code Action (Rust)" },
+--             { "<leader>dr", "<cmd>RustDebuggables<cr>", desc = printf"Run Debuggables (Rust)" },
 --           },
 --           settings = {
 --             ["rust-analyzer"] = {
@@ -321,7 +331,7 @@ return {
 --                   vim.lsp.buf.hover()
 --                 end
 --               end,
---               desc = "Show Crate Documentation",
+--               desc = printf"Show Crate Documentation",
 --             },
 --           },
 --         },
@@ -357,9 +367,9 @@ return {
 --         -- Ensure mason installs the server
 --         rust_analyzer = {
 --           keys = {
---             { "K", "<cmd>RustHoverActions<cr>", desc = "Hover Actions (Rust)" },
---             { "<leader>cR", "<cmd>RustCodeAction<cr>", desc = "Code Action (Rust)" },
---             { "<leader>dr", "<cmd>RustDebuggables<cr>", desc = "Run Debuggables (Rust)" },
+--             { "K", "<cmd>RustHoverActions<cr>", desc = printf"Hover Actions (Rust)" },
+--             { "<leader>cR", "<cmd>RustCodeAction<cr>", desc = printf"Code Action (Rust)" },
+--             { "<leader>dr", "<cmd>RustDebuggables<cr>", desc = printf"Run Debuggables (Rust)" },
 --           },
 --           settings = {
 --             ["rust-analyzer"] = {
@@ -404,7 +414,7 @@ return {
 --                   vim.lsp.buf.hover()
 --                 end
 --               end,
---               desc = "Show Crate Documentation",
+--               desc = printf"Show Crate Documentation",
 --             },
 --           },
 --         },
@@ -430,9 +440,9 @@ return {
 --       -- Ensure mason installs the server
 --       rust_analyzer = {
 --         keys = {
---           { "K", "<cmd>RustHoverActions<cr>", desc = "Hover Actions (Rust)" },
---           { "<leader>cR", "<cmd>RustCodeAction<cr>", desc = "Code Action (Rust)" },
---           { "<leader>dr", "<cmd>RustDebuggables<cr>", desc = "Run Debuggables (Rust)" },
+--           { "K", "<cmd>RustHoverActions<cr>", desc = printf"Hover Actions (Rust)" },
+--           { "<leader>cR", "<cmd>RustCodeAction<cr>", desc = printf"Code Action (Rust)" },
+--           { "<leader>dr", "<cmd>RustDebuggables<cr>", desc = printf"Run Debuggables (Rust)" },
 --         },
 --         settings = {
 --           ["rust-analyzer"] = {
@@ -469,7 +479,7 @@ return {
 --                 vim.lsp.buf.hover()
 --               end
 --             end,
---             desc = "Show Crate Documentation",
+--             desc = printf"Show Crate Documentation",
 --           },
 --         },
 --       },

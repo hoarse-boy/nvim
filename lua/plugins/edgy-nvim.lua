@@ -1,3 +1,5 @@
+local printf = require("plugins.util.printf").printf
+
 return {
   "folke/edgy.nvim",
   event = "VeryLazy",
@@ -7,10 +9,10 @@ return {
       function()
         require("edgy").toggle()
       end,
-      desc = "Edgy Toggle",
+      desc = printf("Edgy Toggle"),
     },
-      -- stylua: ignore
-      { "<leader>uE", function() require("edgy").select() end, desc = "Edgy Select Window" },
+    -- stylua: ignore
+    { "<leader>uE", function() require("edgy").select() end, desc = printf "Edgy Select Window" },
   },
   opts = function()
     local opts = {

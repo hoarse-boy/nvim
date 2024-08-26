@@ -1,3 +1,4 @@
+local printf = require("plugins.util.printf").printf
 local wk = require("which-key")
 local opts = { prefix = "<leader>" }
 local mappings = {
@@ -78,19 +79,15 @@ return {
     end,
     event = "VeryLazy",
     keys = {
-      { "<leader>Cb", ":CopilotChatBuffer ", desc = "CopilotChat - Chat with current buffer" },
-      { "<leader>Cc", ":CopilotChat ", desc = "CopilotChat - Chat" },
-      { "<leader>Ce", "<cmd>CopilotChatExplain<cr>", desc = "CopilotChat - Explain code" },
-      { "<leader>CT", "<cmd>CopilotChatTests<cr>", desc = "CopilotChat - Generate tests" },
-      -- stylua: ignore
-      { "<leader>Ct", "<cmd>CopilotChatVsplitToggle<cr>", desc = "CopilotChat - Toggle Vsplit" },
-      -- stylua: ignore
-      { "<leader>Cv", ":CopilotChatVisual ", mode = "x", desc = "CopilotChat - Open in vertical split", },
-      -- stylua: ignore
-      { "<leader>Cx", ":CopilotChatInPlace<cr>", mode = "x", desc = "CopilotChat - Run in-place code", },
-      -- stylua: ignore
-      { "<leader>Cf", "<cmd>CopilotChatFixDiagnostic<cr>",  }, -- Get a fix for the diagnostic message under the cursor. desc = "CopilotChat - Fix diagnostic",
-      { "<leader>Cr", "<cmd>CopilotChatReset<cr>" }, -- Reset chat history and clear buffer. desc = "CopilotChat - Reset chat history and clear buffer",
+      { "<leader>Cb", ":CopilotChatBuffer ", desc = printf("CopilotChat - Chat with current buffer") },
+      { "<leader>Cc", ":CopilotChat ", desc = printf("CopilotChat - Chat") },
+      { "<leader>Ce", "<cmd>CopilotChatExplain<cr>", desc = printf("CopilotChat - Explain code") },
+      { "<leader>CT", "<cmd>CopilotChatTests<cr>", desc = printf("CopilotChat - Generate tests") },
+      { "<leader>Ct", "<cmd>CopilotChatVsplitToggle<cr>", desc = printf("CopilotChat - Toggle Vsplit") },
+      { "<leader>Cv", ":CopilotChatVisual ", mode = "x", desc = printf("CopilotChat - Open in vertical split") },
+      { "<leader>Cx", ":CopilotChatInPlace<cr>", mode = "x", desc = printf("CopilotChat - Run in-place code") },
+      { "<leader>Cf", "<cmd>CopilotChatFixDiagnostic<cr>" }, -- Get a fix for the diagnostic message under the cursor. desc = printf"CopilotChat - Fix diagnostic",
+      { "<leader>Cr", "<cmd>CopilotChatReset<cr>" }, -- Reset chat history and clear buffer. desc = printf"CopilotChat - Reset chat history and clear buffer",
     },
   },
 }

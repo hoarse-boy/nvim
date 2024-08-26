@@ -2,6 +2,7 @@ local vscode_path = "~/.config/nvim/lua/vscode-snippets"
 local snipmate_path = "~/.config/nvim/lua/snippets"
 -- community driven of all programing language snippets
 local honza_snippets_path = "~/.local/share/nvim/lazy/vim-snippets/snippets"
+local printf = require("plugins.util.printf").printf
 
 local friendly_snippets = {
   "rafamadriz/friendly-snippets",
@@ -61,7 +62,7 @@ return {
           luasnip.jump(1)
         end
       end,
-      desc = "Jump to next placeholder (LuaSnip)",
+      desc = printf("Jump to next placeholder (LuaSnip)"),
       noremap = true,
       silent = true,
       mode = {
@@ -77,7 +78,7 @@ return {
           luasnip.jump(-1)
         end
       end,
-      desc = "Jump to previous placeholder (LuaSnip)",
+      desc = printf("Jump to previous placeholder (LuaSnip)"),
       noremap = true,
       silent = true,
       mode = {

@@ -17,6 +17,7 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.lang.yaml" },
     { import = "lazyvim.plugins.extras.lang.typescript" },
     { import = "lazyvim.plugins.extras.lang.terraform" },
+    -- { import = "lazyvim.plugins.extras.lang.sql" }, -- FIX: testing.
     { import = "lazyvim.plugins.extras.util.project" },
     { import = "lazyvim.plugins.extras.test.core" },
     { import = "lazyvim.plugins.extras.lsp.none-ls" },
@@ -24,7 +25,7 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.editor.telescope" },
     -- { import = "lazyvim.plugins.extras.lsp.neoconf" }   ,
     -- { import = "lazyvim.plugins.extras.editor.inc-rename" }, -- disable this as the rename cannot use vim normal mode.
-    -- { import = "lazyvim.plugins.extras.lang.python" }, -- TODO: disable for now as it is failing in ubuntu wsl. fix this
+    { import = "lazyvim.plugins.extras.lang.python" },
     -- { import = "lazyvim.plugins.extras.lang.markdown" }, -- disable as the none-ls warning is too many. TODO: change the warning parameters
 
     -- NOTE: import all of my languages config.

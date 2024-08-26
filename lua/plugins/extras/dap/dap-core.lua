@@ -1,4 +1,5 @@
 local lua = {}
+local printf = require("plugins.util.printf").printf
 
 function lua.setup()
   local dap = require("dap")
@@ -38,11 +39,11 @@ return {
       {
         "rcarriga/nvim-dap-ui",
 
-      -- stylua: ignore
-      keys = {
-        { "<leader>du", function() require("dapui").toggle({ }) end, desc = "Dap UI" },
-        -- { "<leader>de", function() require("dapui").eval() end, desc = "Eval", mode = {"n", "v"} },
-      },
+        -- stylua: ignore
+        keys = {
+          { "<leader>du", function() require("dapui").toggle({}) end, desc = printf "Dap UI" },
+          -- { "<leader>de", function() require("dapui").eval() end, desc = printf"Eval", mode = {"n", "v"} },
+        },
 
         opts = {},
         config = function(_, opts)
@@ -124,31 +125,45 @@ return {
     },
     -- end of dependencies
 
-  -- start of keys
-  -- stylua: ignore
-  keys = {
-    { "<leader>dB", function() require("dap").set_breakpoint(vim.fn.input('Breakpoint condition: ')) end, desc = "Breakpoint Condition" },
-    { "<leader>db", function() require("dap").toggle_breakpoint() end, desc = "Toggle Breakpoint" },
-    { "<leader>dc", function() require("dap").continue() end, desc = "Continue" },
-    { "<leader>dC", function() require("dap").run_to_cursor() end, desc = "Run to Cursor" },
-    { "<leader>dg", function() require("dap").goto_() end, desc = "Go to line (no execute)" },
-    { "<leader>di", function() require("dap").step_into() end, desc = "Step Into" },
-    { "<leader>dj", function() require("dap").down() end, desc = "Down" },
-    { "<leader>dk", function() require("dap").up() end, desc = "Up" },
-    { "<leader>dl", function() require("dap").run_last() end, desc = "Run Last" },
-    { "<leader>do", function() require("dap").step_out() end, desc = "Step Out" },
-    { "<leader>dO", function() require("dap").step_over() end, desc = "Step Over" },
-    { "<leader>dp", function() require("dap").pause() end, desc = "Pause" },
-    { "<leader>dr", function() require("dap").repl.toggle() end, desc = "Toggle REPL" },
-    { "<leader>ds", function() require("dap").session() end, desc = "Session" },
-    { "<leader>dt", function() require("dap").terminate() end, desc = "Terminate" },
-    -- { "<leader>dw", function() require("dap.ui.widgets").hover() end, desc = "Widgets" }, -- NOTE: what is this thing?
+    -- start of keys
+    -- stylua: ignore
+    keys = {
+      { "<leader>dB", function() require("dap").set_breakpoint(vim.fn.input('Breakpoint condition: ')) end, desc = printf "Breakpoint Condition" },
+      { "<leader>db", function() require("dap").toggle_breakpoint() end,                                    desc = printf "Toggle Breakpoint" },
+      { "<leader>dc", function() require("dap").continue() end,                                             desc = printf "Continue" },
+      { "<leader>dC", function() require("dap").run_to_cursor() end,                                        desc = printf "Run to Cursor" },
+      { "<leader>dg", function() require("dap").goto_() end,                                                desc = printf "Go to line (no execute)" },
+      { "<leader>di", function() require("dap").step_into() end,                                            desc = printf "Step Into" },
+      { "<leader>dj", function() require("dap").down() end,                                                 desc = printf "Down" },
+      { "<leader>dk", function() require("dap").up() end,                                                   desc = printf "Up" },
+      { "<leader>dl", function() require("dap").run_last() end,                                             desc = printf "Run Last" },
+      { "<leader>do", function() require("dap").step_out() end,                                             desc = printf "Step Out" },
+      { "<leader>dO", function() require("dap").step_over() end,                                            desc = printf "Step Over" },
+      { "<leader>dp", function() require("dap").pause() end,                                                desc = printf "Pause" },
+      { "<leader>dr", function() require("dap").repl.toggle() end,                                          desc = printf "Toggle REPL" },
+      { "<leader>ds", function() require("dap").session() end,                                              desc = printf "Session" },
+      { "<leader>dt", function() require("dap").terminate() end,                                            desc = printf "Terminate" },
+      -- { "<leader>dw", function() require("dap.ui.widgets").hover() end, desc = printf"Widgets" }, -- NOTE: what is this thing?
 
       -- open float_element of scopes
-    { "<leader>dS", function() require("dapui").float_element("scopes", { width = 90, height = 100, enter = true, position = "center" }) end, desc = "Toggle Floating Scopes" },
-     -- open other float_element
-    { "<leader>dO", function() require("dapui").float_element(nil, { width = 90, height = 100, enter = true, position = "center" }) end, desc = "Toggle Other Floating Element" },
-  },
+      {
+        "<leader>dS",
+        function()
+          require("dapui").float_element("scopes",
+            { width = 90, height = 100, enter = true, position = "center" })
+        end,
+        desc = printf "Toggle Floating Scopes"
+      },
+      -- open other float_element
+      {
+        "<leader>dO",
+        function()
+          require("dapui").float_element(nil,
+            { width = 90, height = 100, enter = true, position = "center" })
+        end,
+        desc = printf "Toggle Other Floating Element"
+      },
+    },
     -- end of keys
 
     config = function()
@@ -162,10 +177,7 @@ return {
       local Config = require("lazyvim.config") -- get the cool icons from default lazyvim repo
       for name, sign in pairs(Config.icons.dap) do
         sign = type(sign) == "table" and sign or { sign }
-        vim.fn.sign_define(
-          "Dap" .. name,
-          { text = sign[1], texthl = sign[2] or "DiagnosticInfo", linehl = sign[3], numhl = sign[3] }
-        )
+        vim.fn.sign_define("Dap" .. name, { text = sign[1], texthl = sign[2] or "DiagnosticInfo", linehl = sign[3], numhl = sign[3] })
       end
     end,
 

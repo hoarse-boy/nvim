@@ -1,3 +1,5 @@
+local printf = require("plugins.util.printf").printf
+
 return {
   "folke/which-key.nvim",
   event = "VeryLazy",
@@ -26,15 +28,15 @@ return {
       ["<leader>sn"] = { name = "+noice" },
 
       -- NOTE: my own defaults
-      ["<leader>?"] = { name = "+notes" },
-      ["<leader>o"] = { name = "+obsidian" },
-      ["<leader>h"] = { name = "+harpoon" },
-      ["<leader>m"] = { name = "+mark" },
+      ["<leader>?"] = { name = printf("notes") },
+      ["<leader>o"] = { name = printf("obsidian") },
+      ["<leader>h"] = { name = printf("harpoon") },
+      ["<leader>m"] = { name = printf("mark") },
     },
     window = {
-      border = "rounded", -- none, single, double, shadow, rounded
-      position = "bottom", -- bottom, top
-      margin = { 1, 0, 1, 0 }, -- extra window margin [top, right, bottom, left]
+      border = "rounded",       -- none, single, double, shadow, rounded
+      position = "bottom",      -- bottom, top
+      margin = { 1, 0, 1, 0 },  -- extra window margin [top, right, bottom, left]
       padding = { 1, 1, 1, 1 }, -- extra window padding [top, right, bottom, left]
       winblend = 0,
     },

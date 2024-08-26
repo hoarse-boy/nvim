@@ -43,9 +43,11 @@ if os_name == "OSX" then
   obsidian_path = "~/My Drive/obsidian-vault"
 end
 
+local printf = require("plugins.util.printf").printf
+
 local my_img_folder = "_resources/"
 local notes_subdir = "inbox"
-local obsidian_extract_note_desc = "Extract Note in " .. notes_subdir
+local obsidian_extract_note_desc = printf("Extract Note in ") .. notes_subdir
 
 return {
   {
@@ -109,18 +111,18 @@ return {
       })
     end,
     keys = {
-      { "<leader>og", "<cmd>ObsidianFollowLink<cr>",                    desc = "Go to Linked File",                  mode = "n" },
-      { "<leader>ob", "<cmd>ObsidianBacklinks<cr>",                     desc = "Open List of Backlinks",             mode = "n" },
-      { "<leader>oe", "<cmd>ObsidianExtractNote<cr>",                   desc = obsidian_extract_note_desc,           mode = "v" },
-      { "<leader>ol", "<cmd>ObsidianLink<cr>",                          desc = "Find Matching Note and Create Link", mode = "v" },
-      { "<leader>ol", "<cmd>ObsidianLinks<cr>",                         desc = "List Links in Current Note",         mode = "n" },
-      { "<leader>os", "<cmd>ObsidianSearch<cr>",                        desc = "Search or Create New Note",          mode = "n" },
-      { "<leader>oo", "<cmd>ObsidianOpen<cr>",                          desc = "Open File in GUI",                   mode = "n" },
+      { "<leader>og", "<cmd>ObsidianFollowLink<cr>",                    desc = printf("Go to Linked File"),                  mode = "n" },
+      { "<leader>ob", "<cmd>ObsidianBacklinks<cr>",                     desc = printf("Open List of Backlinks"),             mode = "n" },
+      { "<leader>oe", "<cmd>ObsidianExtractNote<cr>",                   desc = obsidian_extract_note_desc,                   mode = "v" },
+      { "<leader>ol", "<cmd>ObsidianLink<cr>",                          desc = printf("Find Matching Note and Create Link"), mode = "v" },
+      { "<leader>ol", "<cmd>ObsidianLinks<cr>",                         desc = printf("List Links in Current Note"),         mode = "n" },
+      { "<leader>os", "<cmd>ObsidianSearch<cr>",                        desc = printf("Search or Create New Note"),          mode = "n" },
+      { "<leader>oo", "<cmd>ObsidianOpen<cr>",                          desc = printf("Open File in GUI"),                   mode = "n" },
       -- stylua: ignore
-      { "<leader>oc", function() return toggle_checkbox_and_date() end, desc = "Toggle Checkbox",                    mode = "n" },
+      { "<leader>oc", function() return toggle_checkbox_and_date() end, desc = printf "Toggle Checkbox",                     mode = "n" },
       -- stylua: ignore
-      { "gt",         function() return toggle_checkbox_and_date() end, desc = "Toggle Checkbox",                    mode = "n" },
-      -- { "<leader>op", "<cmd>ObsidianPasteImg<cr>", desc = "Obsidian Paste Image", mode = "n" }, -- NOTE: this suck. use the plugin below instead.
+      { "gt",         function() return toggle_checkbox_and_date() end, desc = printf "Toggle Checkbox",                     mode = "n" },
+      -- { "<leader>op", "<cmd>ObsidianPasteImg<cr>", desc = printf"Obsidian Paste Image", mode = "n" }, -- NOTE: this suck. use the plugin below instead.
     },
   },
 
@@ -130,7 +132,7 @@ return {
     event = "VeryLazy",
     -- enabled = false, -- disabled plugin
     keys = {
-      { "<leader>op", "<cmd>PasteImg<cr>", mode = "n", desc = "Paste Image", noremap = true, silent = true },
+      { "<leader>op", "<cmd>PasteImg<cr>", mode = "n", desc = printf("Paste Image"), noremap = true, silent = true },
     },
     config = function()
       require("clipboard-image").setup({

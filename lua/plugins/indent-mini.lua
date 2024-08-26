@@ -2,6 +2,7 @@ local char_symbol = "▏"
 
 return {
   "nvimdev/indentmini.nvim",
+  -- enabled = false, -- disabled plugin
   event = "LazyFile",
   config = function()
     -- Colors are applied automatically based on user-defined highlight groups.

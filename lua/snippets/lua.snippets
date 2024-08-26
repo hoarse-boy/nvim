@@ -49,6 +49,7 @@ snippet notify "generate notify with treesitter highlight"
 	})
 
 snippet add_lazy_plugin "generate lazy.nvim plugin table with return"
+  local printf = require("plugins.util.printf").printf
 	return {
 		"${1:git link}",
 		event = "VeryLazy",
@@ -57,10 +58,10 @@ snippet add_lazy_plugin "generate lazy.nvim plugin table with return"
 		-- init = function() end, -- functions are always executed during startup
 		-- opts = function(_, opts) end, -- use this to not overwrite this plugin config (usefull in lazyvim)
 		keys = {
-			-- { "<leader>l", "", desc = "+go.nvim" }, -- example
-			-- { "<leader>ls", "<cmd>GoFillStruct<cr>", desc = "Fill Struct" }, -- example
-			-- { "<s-tab>", function() require("luasnip").jump(-1) end,  mode = { "i", "s" }, desc = "luasnip tab", noremap = true, silent = true },
-			{ "${2:define keymaps}", "${3:what the keys do}", desc = "${4:description}", mode = "${5:vim mode}" }
+			-- { "<leader>l", "", desc = printf"+go.nvim" }, -- example
+			-- { "<leader>ls", "<cmd>GoFillStruct<cr>", desc = printf"Fill Struct" }, -- example
+			-- { "<s-tab>", function() require("luasnip").jump(-1) end,  mode = { "i", "s" }, desc = printf"luasnip tab", noremap = true, silent = true },
+			{ "${2:define keymaps}", "${3:what the keys do}", desc = printf"${4:description}", mode = "${5:vim mode}" }
 		},
 		config = function(_, opts)
 			require("${6:plugin name}").setup(${7:the plugin's lua table})

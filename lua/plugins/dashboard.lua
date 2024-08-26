@@ -1,3 +1,5 @@
+local printf = require("plugins.util.printf").printf
+
 local logo = [[
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣶⣶⣦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
@@ -47,7 +49,7 @@ return {
   "nvimdev/dashboard-nvim",
   -- enabled = false,
   keys = {
-    { "<leader>D", "<cmd>Dashboard<cr>", desc = "Dashboard" },
+    { "<leader>D", "<cmd>Dashboard<cr>", desc = printf("Dashboard") },
   },
   opts = function(_, opts)
     -- NOTE: create the braille at https://asciiart.club/
@@ -61,8 +63,8 @@ return {
     -- add new dashboard item obsidian_todos.
     local obsidian_todos = {
       action = [[lua require("plugins.util.teles-find").ChangeDirAndFindFiles("~/google-drive/obsidian-vault/todos/")]],
-      desc = " Obsidian Todos",
-      icon = " ",
+      desc = printf"Obsidian Todos",
+      icon = "  ",
       key = "t",
     }
 
@@ -74,8 +76,8 @@ return {
     -- add new dashboard item obsidian_inbox.
     local obsidian_inbox = {
       action = [[lua require("plugins.util.teles-find").ChangeDirAndFindFiles("~/google-drive/obsidian-vault/inbox/")]],
-      desc = " Obsidian Inbox",
-      icon = "󱉳 ",
+      desc = printf"Obsidian Inbox",
+      icon = "󱉳  ",
       key = "i",
     }
 
@@ -86,8 +88,8 @@ return {
 
     local lazyvim_config = {
       action = [[lua require("plugins.util.teles-find").ChangeDirAndFindFiles("~/.local/share/nvim/lazy/LazyVim/")]],
-      desc = " Lazyvim Config",
-      icon = " ",
+      desc = printf("Lazyvim Config"),
+      icon = "  ",
       key = "L",
     }
 
@@ -96,8 +98,7 @@ return {
 
     table.insert(opts.config.center, 11, lazyvim_config)
 
-    update_dashboard_shortcut(opts, "c",
-      [[lua require("plugins.util.teles-find").ChangeDirAndFindFiles("~/.config/nvim/")]], " Config")
+    update_dashboard_shortcut(opts, "c", [[lua require("plugins.util.teles-find").ChangeDirAndFindFiles("~/.config/nvim/")]], " Config")
 
     -- remove some defaults dashboard items.
     remove_dashboard_item(opts, "n")

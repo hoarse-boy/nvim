@@ -7,6 +7,8 @@ return {
   -- -- FIX:
   -- event = { "VeryLazy" }, -- overwrite default from lazyvim to start in root dir when launch nvim
   init = function()
+    local printf = require("plugins.util.printf").printf
+
     local keys = require("lazyvim.plugins.lsp.keymaps").get()
     -- -- change a keymap
     -- keys[#keys + 1] = { "K", "<cmd>echo 'hello'<cr>" }
@@ -22,27 +24,28 @@ return {
     -- keys[#keys + 1] = { "<leader>cr", false }
 
     -- -- add a keymap
-    -- keys[#keys + 1] = { "<leader>li", "<cmd>LspInfo<cr>", desc = "Lsp Info" }
-    -- keys[#keys + 1] = { "<leader>lI", "<cmd>Mason<cr>", desc = "Mason Info" }
-    keys[#keys + 1] = { "<leader>cR", "<cmd>LspRestart<CR>", desc = "Restart Lsp" }
+    -- keys[#keys + 1] = { "<leader>li", "<cmd>LspInfo<cr>", desc = printf"Lsp Info" }
+    -- keys[#keys + 1] = { "<leader>lI", "<cmd>Mason<cr>", desc = printf"Mason Info" }
+    keys[#keys + 1] = { "<leader>cR", "<cmd>LspRestart<CR>", desc = printf("Restart Lsp") }
+    keys[#keys + 1] = { "<leader>cs", "<cmd>LspStart<CR>", desc = printf("Start Lsp") }
 
     -- NOTE: not working
     -- local format = require("lazyvim.plugins.lsp.format").format
-    -- keys[#keys + 1] = { "<leader>lf", format, desc = "Format Document", has = "documentFormatting" }
-    -- keys[#keys + 1] = { "<leader>lf", format, desc = "Format Range", mode = "v", has = "documentRangeFormatting" }
+    -- keys[#keys + 1] = { "<leader>lf", format, desc = printf"Format Document", has = "documentFormatting" }
+    -- keys[#keys + 1] = { "<leader>lf", format, desc = printf"Format Range", mode = "v", has = "documentRangeFormatting" }
 
     -- swap the <leader>cd to gl line diagnostic
-    keys[#keys + 1] = { "gl", vim.diagnostic.open_float, desc = "Line Diagnostics" }
+    keys[#keys + 1] = { "gl", vim.diagnostic.open_float, desc = printf("Line Diagnostics") }
 
     -- diagnostic
     local bufer_diagnostic = "<cmd>Telescope diagnostics bufnr=0 theme=get_ivy<cr>"
-    keys[#keys + 1] = { "<leader>cd", bufer_diagnostic, desc = "Buffer Diagnostics" }
+    keys[#keys + 1] = { "<leader>cd", bufer_diagnostic, desc = printf("Buffer Diagnostics") }
 
     local workspace_diagnostic = "<cmd>Telescope diagnostics<cr>"
-    keys[#keys + 1] = { "<leader>cD", workspace_diagnostic, desc = "Workspace Diagnostics" }
+    keys[#keys + 1] = { "<leader>cD", workspace_diagnostic, desc = printf("Workspace Diagnostics") }
 
     --   keys[#keys + 1] =
-    --     { "<leader>ca", vim.lsp.buf.code_action, desc = "Code Action", mode = { "n", "v" }, has = "codeAction" }
+    --     { "<leader>ca", vim.lsp.buf.code_action, desc = printf"Code Action", mode = { "n", "v" }, has = "codeAction" }
 
     --   if require("lazyvim.util").has("inc-rename.nvim") then
     --     keys[#keys + 1] = {
@@ -52,14 +55,14 @@ return {
     --         return ":IncRename " .. vim.fn.expand("<cword>")
     --       end,
     --       expr = true,
-    --       desc = "Rename",
+    --       desc = printf"Rename",
     --       has = "rename",
     --     }
     --   else
-    --     keys[#keys + 1] = { "<leader>lr", vim.lsp.buf.rename, desc = "Rename", has = "rename" }
+    --     keys[#keys + 1] = { "<leader>lr", vim.lsp.buf.rename, desc = printf"Rename", has = "rename" }
     --   end
   end,
-  opts = function(_, _)
+  opts = function(_, opts)
     -- globally enable inlay hint
     -- vim.api.nvim_create_autocmd("LspAttach", {
     --   group = vim.api.nvim_create_augroup("UserLspConfig", {}),
@@ -73,8 +76,15 @@ return {
     --   end,
     -- })
 
+    -- opts.inlay_hints = { enabled = false }
+
     vim.diagnostic.config({
       float = { border = "rounded" },
     })
+
+    -- require("lspconfig").sqlls.setup({})
+    --
+
+    -- require("lspconfig").sqls.setup({}) -- FIX: if works move to different file and add mason install sqls
   end,
 }

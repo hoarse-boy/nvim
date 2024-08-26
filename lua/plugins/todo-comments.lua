@@ -1,6 +1,9 @@
+local printf = require("plugins.util.printf").printf
+
 return {
   "folke/todo-comments.nvim",
   opts = function(_, opts)
+
     opts.merge_keywords = true -- when true, custom keywords will be merged with the defaults
 
     -- add my custom todo.
@@ -21,7 +24,7 @@ return {
         require("plugins.util.custom_todo_comments").insert_custom_todo_comments()
       end,
       mode = "n",
-      desc = "Insert MARKED todo",
+      desc = printf("Insert MARKED todo"),
       noremap = true,
       silent = true,
     },
@@ -31,7 +34,7 @@ return {
         require("plugins.util.custom_todo_comments").append_todo_comments_to_current_line()
       end,
       mode = "n",
-      desc = "Insert FIXED todo",
+      desc = printf("Insert FIXED todo"),
       noremap = true,
       silent = true,
     },
@@ -39,7 +42,7 @@ return {
       "<leader>mt",
       "<cmd>TodoTelescope keywords=MARKED<cr>",
       mode = "n",
-      desc = "Telescope Open 'MARKED' Todo",
+      desc = printf("Telescope Open 'MARKED' Todo"),
       noremap = true,
       silent = true,
     },
@@ -47,7 +50,7 @@ return {
       "<leader>mT",
       "<cmd>Trouble todo filter = {tag = {MARKED}}<cr>",
       mode = "n",
-      desc = "Trouble Open 'MARKED' Todo",
+      desc = printf("Trouble Open 'MARKED' Todo"),
       noremap = true,
       silent = true,
     },
@@ -55,7 +58,7 @@ return {
       "<leader>mF",
       "<cmd>Trouble todo filter = {tag = {FIX}}<cr>",
       mode = "n",
-      desc = "Trouble Open 'FIX' Todo",
+      desc = printf("Trouble Open 'FIX' Todo"),
       noremap = true,
       silent = true,
     },

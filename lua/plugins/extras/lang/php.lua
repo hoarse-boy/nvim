@@ -1,5 +1,6 @@
 local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
+local printf = require("plugins.util.printf").printf
 
 local php_keymaps = augroup("php_keymaps", {})
 
@@ -56,9 +57,9 @@ return {
         pattern = { "php" },
         callback = function()
           vim.schedule(function()
-            vim.keymap.set("n", "<leader>la", ":Laravel artisan<cr>", { buffer = true, desc = "Laravel artisan" })
-            vim.keymap.set("n", "<leader>lr", ":Laravel routes<cr>", { buffer = true, desc = "Laravel routes" })
-            vim.keymap.set("n", "<leader>lm", ":Laravel related<cr>", { buffer = true, desc = "Laravel related" })
+            vim.keymap.set("n", "<leader>la", ":Laravel artisan<cr>", { buffer = true, desc = printf("Laravel artisan") })
+            vim.keymap.set("n", "<leader>lr", ":Laravel routes<cr>", { buffer = true, desc = printf("Laravel routes") })
+            vim.keymap.set("n", "<leader>lm", ":Laravel related<cr>", { buffer = true, desc = printf("Laravel related") })
 
             local wk = require("which-key")
             local opts = { prefix = "<leader>", buffer = 0 }

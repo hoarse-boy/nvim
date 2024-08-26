@@ -1,15 +1,15 @@
+local printf = require("plugins.util.printf").printf
+
 return {
   {
     "theprimeagen/harpoon",
     event = "VeryLazy",
     keys = {
-      -- stylua: ignore
-      { "<leader>ha", "<cmd>lua require('harpoon.mark').add_file()<cr>", desc = "Mark a File" },
-      { "<leader>hT", ":Telescope harpoon marks<cr>", desc = "Open Telescope Harpoon" },
-      -- stylua: ignore
-      { "<leader>ht", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", desc = "Open Quick Menu" }, -- NOTE: also for some golang repo which has many go.mod in a single git file it will not be able to show the marked files
-      -- { "<leader>hn", "<cmd>lua require('harpoon.ui').nav_next()<cr>", desc = "Go to next" },
-      -- { "<leader>hp", "<cmd>lua require('harpoon.ui').nav_prev()<cr>", desc = "Go to previous" },
+      { "<leader>ha", "<cmd>lua require('harpoon.mark').add_file()<cr>", desc = printf("Mark a File") },
+      { "<leader>hT", ":Telescope harpoon marks<cr>", desc = printf("Open Telescope Harpoon") },
+      { "<leader>ht", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", desc = printf("Open Quick Menu") }, -- NOTE: also for some golang repo which has many go.mod in a single git file it will not be able to show the marked files
+      -- { "<leader>hn", "<cmd>lua require('harpoon.ui').nav_next()<cr>", desc = printf"Go to next" },
+      -- { "<leader>hp", "<cmd>lua require('harpoon.ui').nav_prev()<cr>", desc = printf"Go to previous" },
     },
     config = function(_, opts)
       require("harpoon").setup({
@@ -83,24 +83,24 @@ return {
 --     vim.keymap.set("n", "<leader>ha", function()
 --       harpoon:list():append()
 --       notify("append a file to harpoon list", "info", { title = "Harpoon" })
---     end, { desc = "Append File to Harpoon List" })
+--     end, { desc = printf"Append File to Harpoon List" })
 
 --     -- stylua: ignore
---     vim.keymap.set("n", "<leader>ht", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, { desc = "Toggle Harpoon List" })
+--     vim.keymap.set("n", "<leader>ht", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, { desc = printf"Toggle Harpoon List" })
 --     -- stylua: ignore
---     vim.keymap.set("n", "<leader>hh", function() harpoon:list():select(1) end, { desc = "Go to Harpoon File no. 1" })
+--     vim.keymap.set("n", "<leader>hh", function() harpoon:list():select(1) end, { desc = printf"Go to Harpoon File no. 1" })
 --     -- stylua: ignore
---     vim.keymap.set("n", "<leader>hj", function() harpoon:list():select(2) end, { desc = "Go to Harpoon File no. 2" })
+--     vim.keymap.set("n", "<leader>hj", function() harpoon:list():select(2) end, { desc = printf"Go to Harpoon File no. 2" })
 --     -- stylua: ignore
---     vim.keymap.set("n", "<leader>hk", function() harpoon:list():select(3) end, { desc = "Go to Harpoon File no. 3" })
+--     vim.keymap.set("n", "<leader>hk", function() harpoon:list():select(3) end, { desc = printf"Go to Harpoon File no. 3" })
 --     -- stylua: ignore
---     vim.keymap.set("n", "<leader>hl", function() harpoon:list():select(4) end, { desc = "Go to Harpoon File no. 4" })
+--     vim.keymap.set("n", "<leader>hl", function() harpoon:list():select(4) end, { desc = printf"Go to Harpoon File no. 4" })
 
 --     -- Toggle previous & next buffers stored within Harpoon list
 --     -- stylua: ignore
---     vim.keymap.set("n", "<A-S-P>", function() harpoon:list():prev() end, { desc = "Go to Previous Harpoon File" })
+--     vim.keymap.set("n", "<A-S-P>", function() harpoon:list():prev() end, { desc = printf"Go to Previous Harpoon File" })
 --     -- stylua: ignore
---     vim.keymap.set("n", "<A-S-N>", function() harpoon:list():next() end, { desc = "Go to Next Harpoon File" })
+--     vim.keymap.set("n", "<A-S-N>", function() harpoon:list():next() end, { desc = printf"Go to Next Harpoon File" })
 
 --     -- basic telescope configuration
 --     local conf = require("telescope.config").values
@@ -123,6 +123,6 @@ return {
 --     end
 
 --     -- stylua: ignore
---     vim.keymap.set("n", "<leader>hT", function() toggle_telescope(harpoon:list()) end, { desc = "Toggle Harpoon List (Telescope)" })
+--     vim.keymap.set("n", "<leader>hT", function() toggle_telescope(harpoon:list()) end, { desc = printf"Toggle Harpoon List (Telescope)" })
 --   end,
 -- }

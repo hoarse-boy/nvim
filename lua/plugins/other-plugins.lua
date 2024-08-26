@@ -7,14 +7,14 @@ return {
   --   event = "VeryLazy",
   -- },
 
-  {
-    "nvim-pack/nvim-spectre",
-    keys = {
-      {
-        "<leader>sf",
-        '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>',
-        desc = "Search on current file",
-      },
-    },
-  },
+  -- { -- FIX: remove this later
+  --   "nvim-pack/nvim-spectre",
+  --   keys = {
+  --     {
+  --       "<leader>sf",
+  --       '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>',
+  --       desc = printf"Search on current file",
+  --     },
+  --   },
+  -- },
 }

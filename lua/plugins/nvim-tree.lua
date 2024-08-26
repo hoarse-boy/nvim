@@ -1,3 +1,5 @@
+local printf = require("plugins.util.printf").printf
+
 return {
   {
     "nvim-tree/nvim-tree.lua",
@@ -8,7 +10,7 @@ return {
     -- enabled = false, -- disabled plugin
     dependencies = { "nvim-tree/nvim-web-devicons" },
     keys = {
-      { "<leader>e", "<cmd>NvimTreeToggle<cr>", mode = "n", desc = "Nvim-tree (Explorer)", silent = true, noremap = true },
+      { "<leader>e", "<cmd>NvimTreeToggle<cr>", mode = "n", desc = printf("Nvim-tree (Explorer)"), silent = true, noremap = true },
     },
     config = function()
       local api = require("nvim-tree.api")
@@ -63,7 +65,6 @@ return {
         vim.keymap.set("n", "?", api.tree.toggle_help, opts("Help"))
       end
 
-
       -- TODO: find a way to run require("dapui").open({ reset = true }) when toggling nvim tree.
       -- local Event = api.events.Event
       -- api.events.subscribe(Event.TreeClose, function()
@@ -71,7 +72,6 @@ return {
       --     require("dapui").open({ reset = true })
       --   end
       -- end)
-
 
       require("nvim-tree").setup({
         on_attach = on_attach,

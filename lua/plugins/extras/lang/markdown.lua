@@ -1,3 +1,4 @@
+local printf = require("plugins.util.printf").printf
 local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
 
@@ -21,7 +22,8 @@ return {
         pattern = { "md", "markdown" }, -- FIX: README.md will have buggy keymaps. find the fix or rename it other than README.md
         callback = function()
           vim.schedule(function()
-            vim.keymap.set("n", "<leader>lc", "<cmd>TOC<cr>", { buffer = true, desc = "Generate Table of Contents" })
+            vim.keymap.set("n", "<leader>lc", "<cmd>TOC<cr>",
+              { buffer = true, desc = printf("Generate Table of Contents") })
 
             local wk = require("which-key")
             local opts = { prefix = "<leader>", buffer = 0 }

@@ -30,9 +30,10 @@ return {
       -- NOTE: open dap ui again in case the nvim dap existed / terminated to check if there is error log.
       -- however, developer must log if an error occured to make it easy to fix the issue to start debugging.
 
-      vim.api.nvim_set_keymap("n", "<leader>dr", ":lua require('dapui').open({reset = true})<CR>", { noremap = true, silent = true, desc= "Reset DAP UI Windows" })
-      vim.api.nvim_set_keymap("n", "<leader>dR", ":lua require('dap').repl.toggle()<CR>", { noremap = true, silent = true, desc= "Toggle REPL" })
-      vim.api.nvim_set_keymap("n", "<leader>du", ":lua require('dapui').toggle({})<CR>", { noremap = true, silent = true, desc= "Toggle DAP UI" })
+      local printf = require("plugins.util.printf").printf
+      vim.api.nvim_set_keymap("n", "<leader>dr", ":lua require('dapui').open({reset = true})<CR>", { noremap = true, silent = true, desc= printf("Reset DAP UI Windows") })
+      vim.api.nvim_set_keymap("n", "<leader>dR", ":lua require('dap').repl.toggle()<CR>", { noremap = true, silent = true, desc= printf("Toggle REPL") })
+      vim.api.nvim_set_keymap("n", "<leader>du", ":lua require('dapui').toggle({})<CR>", { noremap = true, silent = true, desc= printf("Toggle DAP UI") })
     end,
   },
 }
