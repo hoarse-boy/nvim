@@ -72,12 +72,15 @@ snippet add_which_key "generate which-key plugin"
 	{
 		"folke/which-key.nvim",
 		opts = function(_, _)
+			local printf = require("plugins.util.printf").printf
 			local wk = require("which-key")
-			local keymaps = {
-				mode = { "n" },
-				["<leader>${1:key}"] = { name = "+${2:description}" },
+			local mapping = {
+				-- examples
+				-- { "<leader>h", icon = "󰓥", group = printf("harpoon"), mode = "n" }, -- group key with prefix like '+'
+				-- { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = printf"Find File", mode = "n", icon = "󰜉" },
+				-- { "<leader>fb", function() print("hello") end, desc = "Foobar" },
 			}
-			wk.register(keymaps, opts)
+			wk.add(mapping)
 		end,
 	},
 

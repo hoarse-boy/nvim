@@ -111,19 +111,30 @@ return {
       })
     end,
     keys = {
-      { "<leader>og", "<cmd>ObsidianFollowLink<cr>",                    desc = printf("Go to Linked File"),                  mode = "n" },
-      { "<leader>ob", "<cmd>ObsidianBacklinks<cr>",                     desc = printf("Open List of Backlinks"),             mode = "n" },
-      { "<leader>oe", "<cmd>ObsidianExtractNote<cr>",                   desc = obsidian_extract_note_desc,                   mode = "v" },
-      { "<leader>ol", "<cmd>ObsidianLink<cr>",                          desc = printf("Find Matching Note and Create Link"), mode = "v" },
-      { "<leader>ol", "<cmd>ObsidianLinks<cr>",                         desc = printf("List Links in Current Note"),         mode = "n" },
-      { "<leader>os", "<cmd>ObsidianSearch<cr>",                        desc = printf("Search or Create New Note"),          mode = "n" },
-      { "<leader>oo", "<cmd>ObsidianOpen<cr>",                          desc = printf("Open File in GUI"),                   mode = "n" },
+      { "<leader>og", "<cmd>ObsidianFollowLink<cr>", desc = printf("Go to Linked File"), mode = "n" },
+      { "<leader>ob", "<cmd>ObsidianBacklinks<cr>", desc = printf("Open List of Backlinks"), mode = "n" },
+      { "<leader>oe", "<cmd>ObsidianExtractNote<cr>", desc = obsidian_extract_note_desc, mode = "v" },
+      { "<leader>ol", "<cmd>ObsidianLink<cr>", desc = printf("Find Matching Note and Create Link"), mode = "v" },
+      { "<leader>ol", "<cmd>ObsidianLinks<cr>", desc = printf("List Links in Current Note"), mode = "n" },
+      { "<leader>os", "<cmd>ObsidianSearch<cr>", desc = printf("Search or Create New Note"), mode = "n" },
+      { "<leader>oo", "<cmd>ObsidianOpen<cr>", desc = printf("Open File in GUI"), mode = "n" },
       -- stylua: ignore
       { "<leader>oc", function() return toggle_checkbox_and_date() end, desc = printf "Toggle Checkbox",                     mode = "n" },
       -- stylua: ignore
       { "gt",         function() return toggle_checkbox_and_date() end, desc = printf "Toggle Checkbox",                     mode = "n" },
       -- { "<leader>op", "<cmd>ObsidianPasteImg<cr>", desc = printf"Obsidian Paste Image", mode = "n" }, -- NOTE: this suck. use the plugin below instead.
     },
+  },
+
+  {
+    "folke/which-key.nvim",
+    opts = function(_, _)
+      local wk = require("which-key")
+      local mapping = {
+        { "<leader>o", icon = "󱞁", group = printf("obsidian"), mode = "n" },
+      }
+      wk.add(mapping)
+    end,
   },
 
   -- this plugin can imitate the obsidian paste image function.
@@ -140,7 +151,7 @@ return {
         default = {
           img_name = function()
             return os.date("%Y-%m-%d-%H-%M-%S")
-          end,                  -- Example result: "2021-04-13-10-04-18"
+          end, -- Example result: "2021-04-13-10-04-18"
           affix = "<\n  %s\n>", -- Multi lines affix
         },
         -- You can create configuration for ceartain filetype by creating another field (markdown, in this case)
@@ -148,7 +159,7 @@ return {
         -- Missing options from `markdown` field will be replaced by options from `default` field
         markdown = {
           img_dir = { "~", "google-drive", "obsidian-vault", "_resources" }, -- Use table for nested dir (New feature form PR #20)
-          img_dir_txt = "",                                                  -- no directory name as it uses obsidian wiki format.
+          img_dir_txt = "", -- no directory name as it uses obsidian wiki format.
           -- NOTE: this one if failed. create strange text in nvim.
           -- img_handler = function(img) -- New feature from PR #22
           -- local script = string.format('./image_compressor.sh "%s"', img.path)
@@ -158,7 +169,7 @@ return {
           img_name = function()
             local random_number = math.random(1000000, 9999999)
             return string.format("%s%s", os.date("%Y-%m-%d-%H-%M-%S"), random_number)
-          end,               -- Example result: "2021-04-13-10-04-18-1234567"
+          end, -- Example result: "2021-04-13-10-04-18-1234567"
           affix = "![[%s]]", -- NOTE: for obsidian wiki format.
         },
       })

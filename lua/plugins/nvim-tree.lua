@@ -389,6 +389,17 @@ return {
     end,
   },
 
+  {
+    "folke/which-key.nvim",
+    opts = function(_, _)
+      local wk = require("which-key")
+      local mapping = {
+        { "<leader>e", icon = "󱁕", group = printf("Nvim-Tree"), mode = "n" },
+      }
+      wk.add(mapping)
+    end,
+  },
+
   -- FIX: still not working. both bufferline code above works. but not for lualine.
   -- {
   --   "nvim-lualine/lualine.nvim",

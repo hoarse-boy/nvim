@@ -11,7 +11,6 @@ vim.cmd.highlight("CursorLine guibg=#131319") -- CursorLine    xxx guibg=#2a2b3c
 -- cmd.highlight("CursorLine guibg=#25252c") -- CursorLine    xxx guibg=#2a2b3c
 -- cmd.highlight("CursorLine guibg=#535574") -- CursorLine    xxx guibg=#2a2b3c
 
-
 require("config.neovide").setup()
 
 -- opt.cursorline = true

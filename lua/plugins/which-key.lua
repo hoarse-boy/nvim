@@ -1,50 +1,41 @@
-local printf = require("plugins.util.printf").printf
-
 return {
   "folke/which-key.nvim",
   event = "VeryLazy",
-  tag = "v1.4.3", -- NOTE: reverted to this tag to make +prefix bug in whichkey to show correct defaults name.
-  opts = {
-    plugins = { spelling = true },
-    defaults = {
-      mode = { "n", "v" },
-      ["g"] = { name = "+goto" },
-      ["gs"] = { name = "+surround" },
-      ["]"] = { name = "+next" },
-      ["["] = { name = "+prev" },
-      ["<leader><tab>"] = { name = "+tabs" },
-      ["<leader>b"] = { name = "+buffer" },
-      ["<leader>c"] = { name = "+code" },
-      ["<leader>f"] = { name = "+file/find" },
-      ["<leader>g"] = { name = "+git" },
-      ["<leader>gh"] = { name = "+hunks" }, -- NOTE: not working? tag 1.5 above which has the auto remove defaults when the child keymap is empty causes a bug where the name will be +prefix.
-      ["<leader>q"] = { name = "+quit/session" },
-      ["<leader>s"] = { name = "+search" },
-      ["<leader>u"] = { name = "+ui" },
-      ["<leader>w"] = { name = "+windows" },
-      ["<leader>x"] = { name = "+diagnostics/quickfix" },
-      ["<leader>d"] = { name = "+dap" },
-      ["<leader>t"] = { name = "+test" },
-      ["<leader>sn"] = { name = "+noice" },
+  opts = function(_, opts)
+    -- opts = {
+    -- TODO: 
+    -- add icon for 'command history' in which-key with symbol ':'
+    -- disable notify.
 
-      -- NOTE: my own defaults
-      ["<leader>?"] = { name = printf("notes") },
-      ["<leader>o"] = { name = printf("obsidian") },
-      ["<leader>h"] = { name = printf("harpoon") },
-      ["<leader>m"] = { name = printf("mark") },
-    },
-    window = {
-      border = "rounded",       -- none, single, double, shadow, rounded
-      position = "bottom",      -- bottom, top
-      margin = { 1, 0, 1, 0 },  -- extra window margin [top, right, bottom, left]
-      padding = { 1, 1, 1, 1 }, -- extra window padding [top, right, bottom, left]
-      winblend = 0,
-    },
-  },
+    ---@type false | "classic" | "modern" | "helix"
+    opts.preset = "modern"
 
-  config = function(_, opts)
+    opts.win = {
+      -- don't allow the popup to overlap with the cursor
+      no_overlap = true,
+      -- width = 1,
+      -- height = { min = 4, max = 25 },
+      -- col = 0,
+      -- row = math.huge,
+      -- border = "none",
+      padding = { 1, 2 }, -- extra window padding [top/bottom, right/left]
+      title = true,
+      title_pos = "center",
+      zindex = 1000,
+      -- Additional vim.wo and vim.bo options
+      bo = {},
+      wo = {
+        -- winblend = 10, -- value between 0-100 0 for fully opaque and 100 for fully transparent
+      },
+    }
+
+    -- update which-key mapping
     local wk = require("which-key")
-    wk.setup(opts)
-    wk.register(opts.defaults)
+    local mapping = {
+      { "<leader>:", icon = "󰋚", group = "Command History", mode = "n" }, -- NOTE: just add a symbol, not a new custom keymap.
+      { "<leader>K", icon = "", group = "Keywordprg", mode = "n", hidden = true },
+    }
+
+    wk.add(mapping)
   end,
 }

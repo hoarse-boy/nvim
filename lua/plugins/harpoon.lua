@@ -40,17 +40,16 @@ return {
     end,
   },
 
-  -- {
-  --   "folke/which-key.nvim",
-  --   opts = function(_, _)
-  --     local wk = require("which-key")
-  --     local keymaps = {
-  --       mode = { "n" },
-  --       ["<leader>h"] = { name = "+harpoon" },
-  --     }
-  --     wk.register(keymaps, opts)
-  --   end,
-  -- },
+  {
+    "folke/which-key.nvim",
+    opts = function(_, _)
+      local wk = require("which-key")
+      local mapping = {
+        { "<leader>h", icon = "󰓥", group = printf("harpoon"), desc = printf("harpoon"), mode = "n" },
+      }
+      wk.add(mapping)
+    end,
+  },
 }
 
 -- FIX: harpoon2 still buggy.

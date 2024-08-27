@@ -4,7 +4,7 @@ M = {}
 --
 -- for whichkey.register mapping will be using the symbol "*" so dont add another "*" to the desc.
 function M.printf(desc)
-  local personal_sym = "^"
+  local personal_sym = "󰐝"
   return string.format("%s %s", personal_sym, desc)
 end
 
