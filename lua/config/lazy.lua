@@ -16,25 +16,26 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.lang.docker" },
     { import = "lazyvim.plugins.extras.lang.yaml" },
     { import = "lazyvim.plugins.extras.lang.typescript" },
+    -- { import = "lazyvim.plugins.extras.lang.rust" }, -- TODO: check this plugin, and if it better, add which key instead of making my own.
     { import = "lazyvim.plugins.extras.lang.terraform" },
-    -- { import = "lazyvim.plugins.extras.lang.sql" }, -- FIX: testing.
     { import = "lazyvim.plugins.extras.util.project" },
     { import = "lazyvim.plugins.extras.test.core" },
     { import = "lazyvim.plugins.extras.lsp.none-ls" },
     { import = "lazyvim.plugins.extras.lang.helm" },
+    { import = "lazyvim.plugins.extras.lang.php" },
     { import = "lazyvim.plugins.extras.editor.telescope" },
     -- { import = "lazyvim.plugins.extras.lsp.neoconf" }   ,
     -- { import = "lazyvim.plugins.extras.editor.inc-rename" }, -- disable this as the rename cannot use vim normal mode.
     { import = "lazyvim.plugins.extras.lang.python" },
     -- { import = "lazyvim.plugins.extras.lang.markdown" }, -- disable as the none-ls warning is too many. TODO: change the warning parameters
 
-    -- NOTE: import all of my languages config.
+    -- -- NOTE: import all of my languages config.
     { import = "plugins.extras.lang.go" },
     { import = "plugins.extras.lang.markdown" }, -- NOTE: enable toc plugin for markdown
     { import = "plugins.extras.lang.rust" },
-    { import = "plugins.extras.lang.php" },
-    { import = "plugins.extras.lang.json" },
-    -- { import = "plugins.extras.lang.helm" },
+    -- { import = "plugins.extras.lang.php" }, -- NOTE: causing lspconfig to load at startup, causing performance issue (50ms delay).
+    -- { import = "plugins.extras.lang.json" },
+    { import = "plugins.extras.lang.helm" },
 
     -- NOTE: import all of my coding plugins.
     { import = "plugins.extras.coding.supermaven" }, --supermaven is a better codeium alternative.
@@ -45,10 +46,13 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.coding.luasnip" },
     { import = "lazyvim.plugins.extras.dap.core" },
     { import = "lazyvim.plugins.extras.dap.nlua" },
-    { import = "plugins.extras.dap.dap" }, -- NOTE: extend my dap config. make sure to import it below lazyvim dap.core
     { import = "lazyvim.plugins.extras.lang.json" },
     { import = "lazyvim.plugins.extras.util.mini-hipatterns" }, -- highlight patterns including tailwind.
     -- { import = "lazyvim.plugins.extras.editor.aerial" }, -- rarely used.
+
+    -- NOTE: extending base config. make sure to import plugins below lazyvim base plugins.
+    -- ex. import lazyvim.plugins.extras.dap.core first and then import plugins.extras.dap.dap
+    { import = "plugins.extras.dap.dap" },
 
     -- import/override with your plugins
     { import = "plugins" },
@@ -62,7 +66,19 @@ require("lazy").setup({
     version = false, -- always use the latest git commit
     -- version = "*", -- try installing the latest stable version for plugins that support semver
   },
-  -- install = { colorscheme = { "tokyonight", "habamax" } },
+  install = {
+    -- install missing plugins on startup. This doesn't increase startup time.
+    missing = false,
+    -- colorscheme = { "tokyonight", "habamax" }
+  },
+  -- ui config
+  ui = {
+    border = "single",
+    size = {
+      width = 0.8,
+      height = 0.8,
+    },
+  },
   checker = { enabled = true, notify = false }, -- automatically check for plugin updates
   performance = {
     rtp = {

@@ -5,8 +5,6 @@ return {
     -- LSP keymaps
     "neovim/nvim-lspconfig",
     -- event = { "BufReadPre", "BufNewFile" }, -- default
-    -- -- FIX:
-    -- event = { "VeryLazy" }, -- overwrite default from lazyvim to start in root dir when launch nvim
     init = function()
       local printf = require("plugins.util.printf").printf
 

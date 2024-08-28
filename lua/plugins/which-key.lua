@@ -3,12 +3,13 @@ return {
   event = "VeryLazy",
   opts = function(_, opts)
     -- opts = {
-    -- TODO: 
+    -- TODO:
     -- add icon for 'command history' in which-key with symbol ':'
     -- disable notify.
 
     ---@type false | "classic" | "modern" | "helix"
     opts.preset = "modern"
+    opts.notify = false
 
     opts.win = {
       -- don't allow the popup to overlap with the cursor
@@ -29,11 +30,14 @@ return {
       },
     }
 
+    local printf = require("plugins.util.printf").printf
+
     -- update which-key mapping
     local wk = require("which-key")
     local mapping = {
       { "<leader>:", icon = "󰋚", group = "Command History", mode = "n" }, -- NOTE: just add a symbol, not a new custom keymap.
       { "<leader>K", icon = "", group = "Keywordprg", mode = "n", hidden = true },
+      { "<leader>O", icon = "", group = printf("others"), mode = "n" },
     }
 
     wk.add(mapping)
