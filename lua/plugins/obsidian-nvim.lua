@@ -37,9 +37,10 @@ end
 
 local obsidian_path = "~/google-drive/obsidian-vault"
 
-local os_name = require("plugins.util.check-os").getName()
+local os_util = require("plugins.util.check-os")
+local os_name =  os_util.get_os_name()
 -- my current macos has different directory.
-if os_name == "OSX" then
+if os_name == os_util.OSX then
   obsidian_path = "~/My Drive/obsidian-vault"
 end
 

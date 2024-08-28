@@ -1,7 +1,7 @@
 --  /user.getOS.lua
 local getOS = {}
 
-function getOS.getName()
+function getOS.get_os_name()
   local osname
   -- ask LuaJIT first
   if jit then
@@ -16,5 +16,10 @@ function getOS.getName()
 
   return osname or "Windows"
 end
+
+-- const
+getOS.OSX = "OSX"
+getOS.LINUX = "Linux"
+-- TODO: add more OS const
 
 return getOS
