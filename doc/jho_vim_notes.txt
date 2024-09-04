@@ -1,0 +1,76 @@
+jho_vim_notes.txt
+
+================================================================================
+CONTENTS                                                  *jho_vim_notes-contents*
+
+1. My Help Topic.....................................|jho_vim_notes-my_help_topic|
+    1.1. Section 1.......................................|jho_vim_notes-section_1|
+    1.2. Section 2.......................................|jho_vim_notes-section_2|
+
+% My Help Topic
+% Author Name
+% Date
+
+================================================================================
+MY HELP TOPIC                                        *jho_vim_notes-my_help_topic*
+
+This is a description of my topic.
+
+--------------------------------------------------------------------------------
+SECTION 1                                                *jho_vim_notes-section_1*
+
+Details about section 1.
+
+--------------------------------------------------------------------------------
+SECTION 2                                                *jho_vim_notes-section_2*
+
+More details about section 2.
+>
+    -- This is a lua code block
+    local a = 1
+<
+
+-- TODO: remove this and put it in a readme.md that can be called using kiwi.nvim?
+-- NOTE: reminder / notes / other cool stuff of nvim or other plugin
+-- +notes which-key
+-- stylua: ignore
+set("n", "?S",
+  function()
+    local notify = require("notify")
+    notify("use ctrl j / i\nto jump to LuaSnip placeholder", "info", { title = "helper" })
+  end, { desc = printf "Jump to previous placeholder (LuaSnip)", noremap = true, silent = true })
+
+set("n", "?n", function()
+  local notify = require("notify")
+  notify("ctrl a / x to increase or decrement a number.\ncan also have prefix like 5 ctrl a.\ncan be dot repeated", "info", { title = "helper" })
+end, { desc = printf("Increase / decrement number"), noremap = true, silent = true })
+
+set("n", "?l", function()
+  local notify = require("notify")
+  notify(":pwd to show location", "info", { title = "helper" })
+end, { desc = printf("pwd"), noremap = true, silent = true })
+
+set("n", "?s", function()
+  local notify = require("notify")
+  notify("visual block the words, open cmdline, and type sort", "info", { title = "helper" })
+end, { desc = printf("sort list (alphabetical or numerical)"), noremap = true, silent = true })
+
+set("n", "?r", function()
+  local notify = require("notify")
+  notify("vim cmd search and replace.\n%s/search/replace/\n':%s/' start of the search pattern\n'/' end of the search pattern, beginning of replacement pattern\noptional = '/e' suppress error messages if no match found", "info", { title = "helper" })
+end, { desc = printf("Vim Search Replace Cmd"), noremap = true, silent = true })
+
+set("n", "?y", function()
+  local notify = require("notify")
+  notify("use 'yig' to yank the word under the cursor.", "info", { title = "helper" })
+end, { desc = printf("mini.ai to yank entire buffer content"), noremap = true, silent = true })
+
+for dap.
+      -- TODO: change this to use vim txt?
+      vim.keymap.set("n", "?d", function()
+        local notify = require("notify")
+        notify(" to continue,  to toggle breakpoint,  to step over,  to step into,  to step out,  to reset windows", "info", { title = "DAP helper" })
+      end, { desc = printf("DAP helper"), noremap = true, silent = true })
+>
+<
+
