@@ -52,8 +52,8 @@ set("n", "U", "<C-r>") -- dont have to use ctrl r to undo again.
 
 -- buffer navigation. this will be used by wezterm wsl and macos. NOTE: Tab in most terminal emulators have the issue of treating that keymap the same as ctrl+i. Tab should not be mapped at all to avoid remapping ctrl+i and changing its behavior. https://superuser.com/questions/770068/in-vim-how-can-i-remap-tab-without-also-remapping-ctrli
 -- NOTE: macos + wezterm cannot use cmd-[ or ] so it has differnet keymap than arch linux.
-set("n", "<A-]>", "<cmd>BufferLineCycleNext<cr>", { desc = printf("Next buffer") })
-set("n", "<A-[>", "<cmd>BufferLineCyclePrev<cr>", { desc = printf("Prev buffer") })
+set("n", "<A-]>", "<cmd>BufferLineCycleNext<cr>", { desc = printf("Next Buffer") })
+set("n", "<A-[>", "<cmd>BufferLineCyclePrev<cr>", { desc = printf("Prev Buffer") })
 
 -- this will be used by neovide.
 -- set("n", "<C-Tab>", "<cmd>BufferLineCycleNext<cr>", { desc = printf"Next buffer" })
@@ -66,8 +66,8 @@ set("n", "<leader>sx", require("telescope.builtin").resume, { noremap = true, si
 set("n", "<leader>L", "<cmd>:Lazy<cr>", { desc = printf("Lazy") }) -- use L instead of l
 
 -- comments (why uses <Plug> = to avoid go to normal mode)
-set("v", "<leader>/", "<Plug>(comment_toggle_linewise_visual)", { desc = printf("Comment toggle linewise (visual)") })
-set("n", "<leader>/", "<Plug>(comment_toggle_linewise_current)", { desc = printf("Comment toggle current line") })
+set("v", "<leader>/", "<Plug>(comment_toggle_linewise_visual)", { desc = printf("Comment Toggle Linewise (Visual)") })
+set("n", "<leader>/", "<Plug>(comment_toggle_linewise_current)", { desc = printf("Comment Toggle Current Line") })
 
 -- TODO: remove this and put it in a readme.md that can be called using kiwi.nvim?
 -- NOTE: reminder / notes / other cool stuff of nvim or other plugin
