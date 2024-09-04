@@ -30,7 +30,12 @@ return {
         event = "VeryLazy",
         build = "./install.sh", -- NOTE: make sure it to installed the latest version of rust, create, and cargo. last time it was failed when building it.
         config = function()
-          require("json5") -- TODO: disable json lsp or use jsonc lsp if available.
+          require("json5")
+
+          -- make only launch.json in .vscode dir to be jsonc.
+          vim.cmd([[
+            au BufRead,BufNewFile */.vscode/launch.json set filetype=jsonc
+          ]])
         end,
       },
     },
@@ -67,15 +72,19 @@ return {
 
       for name, sign in pairs(LazyVim.config.icons.dap) do
         sign = type(sign) == "table" and sign or { sign }
-        vim.fn.sign_define("Dap" .. name, { text = sign[1], texthl = sign[2] or "DiagnosticInfo", linehl = sign[3], numhl = sign[3] })
+        vim.fn.sign_define("Dap" .. name,
+          { text = sign[1], texthl = sign[2] or "DiagnosticInfo", linehl = sign[3], numhl = sign[3] })
       end
 
       require("dap.ext.vscode").json_decode = require("json5").parse -- makes the json to have comments.
 
       local printf = require("plugins.util.printf").printf
-      vim.api.nvim_set_keymap("n", "<leader>dr", ":lua require('dapui').open({reset = true})<CR>", { noremap = true, silent = true, desc = printf("Reset DAP UI Windows") })
-      vim.api.nvim_set_keymap("n", "<leader>dR", ":lua require('dap').repl.toggle()<CR>", { noremap = true, silent = true, desc = printf("Toggle REPL") })
-      vim.api.nvim_set_keymap("n", "<leader>du", ":lua require('dapui').toggle({})<CR>", { noremap = true, silent = true, desc = printf("Toggle DAP UI") })
+      vim.api.nvim_set_keymap("n", "<leader>dr", ":lua require('dapui').open({reset = true})<CR>",
+        { noremap = true, silent = true, desc = printf("Reset DAP UI Windows") })
+      vim.api.nvim_set_keymap("n", "<leader>dR", ":lua require('dap').repl.toggle()<CR>",
+        { noremap = true, silent = true, desc = printf("Toggle REPL") })
+      vim.api.nvim_set_keymap("n", "<leader>du", ":lua require('dapui').toggle({})<CR>",
+        { noremap = true, silent = true, desc = printf("Toggle DAP UI") })
 
       -- NOTE: don't remove this comment.
       -- below is the code from lazyvim that makes vscode debugger to have double debugger option.
