@@ -2,7 +2,7 @@ local char_symbol = "▏"
 
 return {
   "nvimdev/indentmini.nvim",
-  -- enabled = false, -- disabled plugin
+  enabled = false, -- disabled plugin -- FIX: got an error in yaml file. change to default lazyvim indent plugins.
   event = "LazyFile",
   config = function()
     -- Colors are applied automatically based on user-defined highlight groups.
