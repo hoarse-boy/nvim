@@ -33,6 +33,7 @@ return {
           require("json5")
 
           -- make only launch.json in .vscode dir to be jsonc.
+          -- TODO: this is sometime not working if the previous open buffer is also a json and then open launch.json, it will show error again.
           vim.cmd([[
             au BufRead,BufNewFile */.vscode/launch.json set filetype=jsonc
           ]])
