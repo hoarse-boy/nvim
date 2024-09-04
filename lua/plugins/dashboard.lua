@@ -49,7 +49,6 @@ return {
   {
     "nvimdev/dashboard-nvim",
     -- enabled = false,
-    event = "VeryLazy", -- FIX: testing. not working.
     opts = function(_, opts)
       -- NOTE: create the braille at https://asciiart.club/
       -- https://superemotes.com/img2ascii#google_vignette -- just copy the text.

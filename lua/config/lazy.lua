@@ -41,8 +41,8 @@ require("lazy").setup({
     { import = "plugins.extras.lang.markdown" }, -- NOTE: enable toc plugin for markdown
     { import = "plugins.extras.lang.rust" },
     { import = "plugins.extras.lang.helm" },
-    -- { import = "plugins.extras.lang.php" }, -- NOTE: causing lspconfig to load at startup, causing performance issue (50ms delay).
     -- { import = "plugins.extras.lang.json" },
+    -- { import = "plugins.extras.lang.php" }, -- NOTE: causing lspconfig to load at startup, causing performance issue (50ms delay).
 
     -- import all of my coding plugins.
     { import = "plugins.extras.coding.supermaven" }, --supermaven is a better codeium alternative.

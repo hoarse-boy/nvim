@@ -1,7 +1,7 @@
 return {
   "gaoDean/autolist.nvim",
   event = "VeryLazy",
-  enabled = false, -- FIX: test perf
+  enabled = false,
   ft = {
     "markdown",
     "text",
