@@ -36,6 +36,7 @@ return {
       local wk = require("which-key")
       local mapping = {
         { "<leader>Oh", "<cmd>HydrateNow<cr>", icon = "󰆫", desc = printf("Reset Hydrate Timer"), mode = "n" },
+        { "<leader>Ow", "<cmd>HydrateWhen<cr>", icon = "󰆫", desc = printf("Show Remaining Hydrate Timer"), mode = "n" },
       }
       wk.add(mapping)
     end,
