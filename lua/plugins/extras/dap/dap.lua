@@ -33,7 +33,7 @@ return {
           require("json5")
 
           -- make only launch.json in .vscode dir to be jsonc.
-          -- TODO: this is sometime not working if the previous open buffer is also a json and then open launch.json, it will show error again.
+          -- TODO: this is sometime not working if the previous open buffer is also a json and then open launch.json, it will show error again. find a way to fix it.
           vim.cmd([[
             au BufRead,BufNewFile */.vscode/launch.json set filetype=jsonc
           ]])
@@ -73,19 +73,26 @@ return {
 
       for name, sign in pairs(LazyVim.config.icons.dap) do
         sign = type(sign) == "table" and sign or { sign }
-        vim.fn.sign_define("Dap" .. name,
-          { text = sign[1], texthl = sign[2] or "DiagnosticInfo", linehl = sign[3], numhl = sign[3] })
+        vim.fn.sign_define("Dap" .. name, {
+          text = sign[1],
+          texthl = sign[2] or "DiagnosticInfo",
+          linehl = sign[3],
+          numhl = sign[3],
+        })
       end
 
       require("dap.ext.vscode").json_decode = require("json5").parse -- makes the json to have comments.
 
       local printf = require("plugins.util.printf").printf
-      vim.api.nvim_set_keymap("n", "<leader>dr", ":lua require('dapui').open({reset = true})<CR>",
-        { noremap = true, silent = true, desc = printf("Reset DAP UI Windows") })
-      vim.api.nvim_set_keymap("n", "<leader>dR", ":lua require('dap').repl.toggle()<CR>",
-        { noremap = true, silent = true, desc = printf("Toggle REPL") })
-      vim.api.nvim_set_keymap("n", "<leader>du", ":lua require('dapui').toggle({})<CR>",
-        { noremap = true, silent = true, desc = printf("Toggle DAP UI") })
+      vim.api.nvim_set_keymap("n", "<leader>dr", ":lua require('dapui').open({reset = true})<CR>", { noremap = true, silent = true, desc = printf("Reset DAP UI Windows") })
+      vim.api.nvim_set_keymap("n", "<leader>dR", ":lua require('dap').repl.toggle()<CR>", { noremap = true, silent = true, desc = printf("Toggle REPL") })
+      vim.api.nvim_set_keymap("n", "<leader>du", ":lua require('dapui').toggle({})<CR>", { noremap = true, silent = true, desc = printf("Toggle DAP UI") })
+      vim.api.nvim_set_keymap("n", "<F5>", ":lua require('dap').continue()<CR>", { noremap = true, silent = true, desc = printf("Continue") })
+      vim.api.nvim_set_keymap("n", "<F7>", ":lua require('dap').toggle_breakpoint()<CR>", { noremap = true, silent = true, desc = printf("Toggle Breakpoint") })
+      vim.api.nvim_set_keymap("n", "<F8>", ":lua require('dap').step_over()<CR>", { noremap = true, silent = true, desc = printf("Step Over") })
+      vim.api.nvim_set_keymap("n", "<F9>", ":lua require('dap').step_into()<CR>", { noremap = true, silent = true, desc = printf("Step Into") })
+      vim.api.nvim_set_keymap("n", "<F10>", ":lua require('dap').step_out()<CR>", { noremap = true, silent = true, desc = printf("Step Out") })
+      vim.api.nvim_set_keymap("n", "<F12>", ":lua require('dapui').open({reset = true})<CR>", { noremap = true, silent = true, desc = printf("Reset DAP UI Windows") }) -- macos uses F11.
 
       -- NOTE: don't remove this comment.
       -- below is the code from lazyvim that makes vscode debugger to have double debugger option.

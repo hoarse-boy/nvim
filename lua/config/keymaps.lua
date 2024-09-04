@@ -12,8 +12,6 @@ local map_opt = { noremap = true, silent = true }
 local printf = require("plugins.util.printf").printf
 
 del("n", "<leader>l") -- disable keymap l for lazyvim as it will be used for other lsp keymaps.
--- del("n", "<leader>xl")
--- del("n", "<leader>xq")
 
 -- -- TODO: visual x doesnt put to last yank?
 
@@ -68,57 +66,6 @@ set("n", "<leader>L", "<cmd>:Lazy<cr>", { desc = printf("Lazy") }) -- use L inst
 -- comments (why uses <Plug> = to avoid go to normal mode)
 set("v", "<leader>/", "<Plug>(comment_toggle_linewise_visual)", { desc = printf("Comment Toggle Linewise (Visual)") })
 set("n", "<leader>/", "<Plug>(comment_toggle_linewise_current)", { desc = printf("Comment Toggle Current Line") })
-
--- TODO: remove this and put it in a readme.md that can be called using kiwi.nvim?
--- NOTE: reminder / notes / other cool stuff of nvim or other plugin
--- +notes which-key
--- stylua: ignore
-set("n", "<leader>?S",
-  function()
-    local notify = require("notify")
-    notify("use ctrl j / i\nto jump to LuaSnip placeholder", "info", { title = "helper" })
-  end, { desc = printf "Jump to previous placeholder (LuaSnip)", noremap = true, silent = true })
-
-set("n", "<leader>?n", function()
-  local notify = require("notify")
-  notify("ctrl a / x to increase or decrement a number.\ncan also have prefix like 5 ctrl a.\ncan be dot repeated", "info", { title = "helper" })
-end, { desc = printf("Increase / decrement number"), noremap = true, silent = true })
-
-set("n", "<leader>?l", function()
-  local notify = require("notify")
-  notify(":pwd to show location", "info", { title = "helper" })
-end, { desc = printf("pwd"), noremap = true, silent = true })
-
-set("n", "<leader>?s", function()
-  local notify = require("notify")
-  notify("visual block the words, open cmdline, and type sort", "info", { title = "helper" })
-end, { desc = printf("sort list (alphabetical or numerical)"), noremap = true, silent = true })
-
-set("n", "<leader>?r", function()
-  local notify = require("notify")
-  notify("vim cmd search and replace.\n%s/search/replace/\n':%s/' start of the search pattern\n'/' end of the search pattern, beginning of replacement pattern\noptional = '/e' suppress error messages if no match found", "info", { title = "helper" })
-end, { desc = printf("Vim Search Replace Cmd"), noremap = true, silent = true })
-
-set("n", "<leader>?y", function()
-  local notify = require("notify")
-  notify("use 'yig' to yank the word under the cursor.", "info", { title = "helper" })
-end, { desc = printf("mini.ai to yank entire buffer content"), noremap = true, silent = true })
-
--- FIX: commented this for now. will be removed in the future. <space>o will be used for obsidian and this notes will be in obsidian vault and will be searchd by telescope.
--- -- +others keymaps
--- set("n", "<leader>op", function()
---   local path = vim.fn.expand("%:p")
---   print(path)
--- end, { desc = printf"Copy full path", noremap = true, silent = true })
-
--- -- get the full path but with no file name / get the parent dir of that file
--- set("n", "<leader>oP", function()
---   local path = vim.fn.expand("%:p:h")
---   print(path)
--- end, { desc = printf"Copy full parent dir", noremap = true, silent = true })
-
--- TODO: remove this if the lazyVim.format is working again. this is a fix for lua formatting. other formatting is working fine.
-set({ "n", "v" }, "<leader>cf", "<cmd>lua vim.lsp.buf.format()<cr>", { desc = printf("Format") })
 
 set("n", "<leader>ul", function()
   vim.cmd("set nu signcolumn=yes")

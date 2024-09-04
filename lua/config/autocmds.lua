@@ -8,6 +8,15 @@ local augroup = vim.api.nvim_create_augroup
 
 augroup("mygroup", { clear = true })
 
+
+augroup(printf"IgnoreHelpFileType", { clear = true })
+autocmd({"BufRead", "BufNewFile"}, {
+    pattern = "~/.config/nvim/doc/*.txt",
+    callback = function()
+        vim.bo.filetype = "plain"
+    end,
+})
+
 -- NOTE: disable this in favor of the yanky plugin
 -- -- make yank animation to be blazingly fast
 -- local yank_group = augroup("HighlightYank", {})
