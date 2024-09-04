@@ -115,16 +115,6 @@ return {
                 }
               end
             end
-            -- NOTE: end workaround
-
-            -- Enable inlay hints if the client supports it.
-            -- with a logic to make it disable when going into insert and visual mode.
-            -- NOTE: go.nvim inlay is currently buggy. when saving the inlay disappears.
-            -- if client.server_capabilities.inlayHintProvider then
-            --   -- FIX: the api has been changed and .enable only has boolean as param.
-            --   vim.lsp.inlay_hint.enable(true) -- -- TODO: find a way to enable in go lsp only.
-            --   -- vim.lsp.inlay_hint.enable(bufnr, true) -- -- TODO: find a way to enable in go lsp only.
-            -- end
           end)
         end,
       },
@@ -343,5 +333,34 @@ return {
         -- output_mode = "formatted", -- [formatted]/raw mode to display output
       })
     end,
+  },
+
+  {
+    "echasnovski/mini.icons",
+    opts = {
+      file = {
+        [".go-version"] = { glyph = "", hl = "MiniIconsBlue" },
+      },
+      filetype = {
+        gotmpl = { glyph = "󰟓", hl = "MiniIconsGrey" },
+      },
+    },
+  },
+
+  {
+    "nvim-neotest/neotest",
+    optional = true,
+    dependencies = {
+      "fredrikaverpil/neotest-golang",
+    },
+    opts = {
+      adapters = {
+        ["neotest-golang"] = {
+          -- Here we can set options for neotest-golang, e.g.
+          -- go_test_args = { "-v", "-race", "-count=1", "-timeout=60s" },
+          dap_go_enabled = true, -- requires leoluz/nvim-dap-go
+        },
+      },
+    },
   },
 }
