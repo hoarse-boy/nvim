@@ -45,7 +45,7 @@ return {
     opts = function(_, _)
       local wk = require("which-key")
       local mapping = {
-        { "<leader>h", icon = "󰓥", group = printf("harpoon"), desc = printf("harpoon"), mode = "n" },
+        { "<leader>h", icon = "󱡀", group = printf("harpoon"), mode = "n" },
       }
       wk.add(mapping)
     end,
