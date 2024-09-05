@@ -12,6 +12,7 @@ local filetype_formats = {
   cpp = "// %s",
   sh = "# %s",
   bash = "# %s",
+  yaml = "# %s",
   perl = "# %s",
   ruby = "# %s",
   python = "# %s",
