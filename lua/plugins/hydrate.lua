@@ -8,7 +8,7 @@ return {
     config = function()
       require("hydrate").setup({
         -- The interval between notifications in minutes
-        minute_interval = 60,
+        minute_interval = 120,
 
         -- The render style for notifications
         -- Accepted values are "default", "minimal", "simple" or "compact"
