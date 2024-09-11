@@ -1,12 +1,7 @@
 return {
   {
-    -- NOTE: use nvim-tree instead for now as Neotree is buggy.
-    -- dont delete this plugin.
     "nvim-neo-tree/neo-tree.nvim",
-    -- NOTE: updating the 'l' to use a function like 'h' doesnt fix the jumping issue. changing the tag does.
-    -- github issue on https://github.com/nvim-neo-tree/neo-tree.nvim/issues/1310.
-    tag = "3.14",
-    enabled = false, -- disabled plugin
+    -- enabled = false, -- disabled plugin
     opts = {
       event_handlers = {
         -- auto close when clicking file
@@ -19,27 +14,10 @@ return {
       },
 
       filesystem = {
-        -- -- harpoon_index
-        -- components = {
-        --   harpoon_index = function(config, node, state)
-        --     local Marked = require("harpoon.mark")
-        --     local path = node:get_id()
-        --     local is_succes, index = pcall(Marked.get_index_of, path)
-        --     if is_succes and index and index > 0 then
-        --       return {
-        --         text = string.format(" ⥤ %d", index), -- <-- Add your favorite harpoon like arrow here
-        --         highlight = config.highlight or "NeoTreeDirectoryIcon",
-        --       }
-        --     else
-        --       return {}
-        --     end
-        --   end,
-        -- },
         renderers = {
           file = {
             { "icon" },
             { "name", use_git_status_colors = true },
-            -- { "harpoon_index" }, -- used harpoon2 for now so disable this
             { "diagnostics" },
             { "git_status", highlight = "NeoTreeDimText" },
           },
@@ -88,6 +66,7 @@ return {
         mappings = {
           ["o"] = "system_open", -- custom command
           ["<space>"] = "none",
+          ["/"] = "none", -- disable neo-tree native filter. to use vim search instead. can be used by flash if it is enabled
           -- ["s"] = "none", -- disabled "s" which is the open vsplit. to let the s of "flash" be usefull in searching files
 
           -- to make the same behaviour as nvim-tree in lunarvim.
@@ -100,19 +79,20 @@ return {
               require("neo-tree.ui.renderer").focus_node(state, node:get_parent_id())
             end
           end,
-          -- move or open child node.
           l = function(state)
             local node = state.tree:get_node()
             if node.type == "directory" or node:has_children() then
+              -- If it's a directory, toggle node expansion or focus on its first child
               if not node:is_expanded() then
                 state.commands.toggle_node(state)
               else
                 require("neo-tree.ui.renderer").focus_node(state, node:get_child_ids()[1])
               end
+            else
+              -- If it's a file, open it
+              require("neo-tree.sources.filesystem.commands").open(state)
             end
           end,
-
-          -- ["/"] = "none", -- disable native filter of neo-tree. to use vim search instead. can be used by flash if it is enabled
         },
       },
     },

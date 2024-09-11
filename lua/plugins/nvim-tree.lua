@@ -1,4 +1,11 @@
+-- NOTE: go back to neo-tree to use the git explorer and the plugin has fixed the bug.
+
 local printf = require("plugins.util.printf").printf
+local disable_plugin = true
+
+if disable_plugin then
+  return {}
+end
 
 return {
   {
